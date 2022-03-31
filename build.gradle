@@ -1,0 +1,98 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        maven { url 'https://files.minecraftforge.net/maven' }
+        maven { url 'https://repo.spongepowered.org/maven' }
+    }
+    dependencies {
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+        classpath 'org.spongepowered:mixingradle:0.6-SNAPSHOT'
+    }
+}
+apply plugin: 'net.minecraftforge.gradle.forge'
+apply plugin: 'org.spongepowered.mixin'
+apply plugin: 'maven-publish'
+
+version = 'v2.4-mc1.12.2'
+group = 'git.jbredwards.njarm'
+archivesBaseName = 'Not-Just-Another-Ruby-Mod-2'
+sourceCompatibility = targetCompatibility = '1.8'
+
+minecraft {
+    version = "1.12.2-14.23.5.2847"
+    runDir = "run"
+    mappings = "snapshot_20171003"
+    makeObfSourceJar = false
+}
+
+dependencies {
+    compile('org.spongepowered:mixin:0.8.3-SNAPSHOT') {
+        exclude module: 'guava'
+        exclude module: 'commons-io'
+        exclude module: 'gson'
+    }
+    //baubles
+    provided "com.github.azanor:Baubles:${baubles_version}"
+    compile  "com.github.azanor:Baubles:${baubles_version}"
+    //fluidlogged api
+    deobfCompile "com.github.jbredwards:fluidlogged-api:${fluidlogged_api_version}"
+    //jei
+    deobfProvided "mezz.jei:jei_${mc_version}:${jei_version}"
+    runtime       "mezz.jei:jei_${mc_version}:${jei_version}"
+    //bookshelf
+    deobfProvided "net.darkhax.bookshelf:Bookshelf-${mc_version}:${bookshelf_version}"
+    runtime       "net.darkhax.bookshelf:Bookshelf-${mc_version}:${bookshelf_version}"
+}
+
+repositories {
+    maven {
+        //location of the maven that hosts JEI files
+        name = 'Progwml6 maven'
+        url = 'http://dvs1.progwml6.com/files/maven'
+    }
+    maven {
+        //location of a maven mirror for JEI files, as a fallback
+        name = 'ModMaven'
+        url = 'modmaven.k-4u.nl'
+    }
+    maven { url 'https://repo.spongepowered.org/maven' }
+    //bookshelf
+    maven { url 'https://maven.blamejared.com' }
+    //fluidlogged api & baubles
+    maven { url 'https://jitpack.io' }
+}
+
+processResources {
+    // this will ensure that this task is redone when the versions change.
+    inputs.property "version", project.version
+    inputs.property "mcversion", project.minecraft.version
+
+    // replace stuff in mcmod.info, nothing else
+    from(sourceSets.main.resources.srcDirs) {
+        include 'mcmod.info'
+                
+        // replace version and mcversion
+        expand 'version':project.version, 'mcversion':project.minecraft.version
+    }
+        
+    // copy everything else except the mcmod.info
+    from(sourceSets.main.resources.srcDirs) {
+        exclude 'mcmod.info'
+    }
+}
+
+//for applying asm outside dev environment
+jar {
+    manifest {
+        attributes(
+                'FMLCorePlugin': 'git.jbredwards.njarm.asm.ASMHandler',
+                'FMLCorePluginContainsFMLMod': 'true',
+                'FMLAT': 'njarm_at.cfg',
+                'ForceLoadAsMod': 'true'
+        )
+    }
+}
+
+//for applying asm with intellij
+runClient { jvmArgs '-Dfml.coreMods.load=git.jbredwards.njarm.asm.ASMHandler' }
+runServer { jvmArgs '-Dfml.coreMods.load=git.jbredwards.njarm.asm.ASMHandler' }
