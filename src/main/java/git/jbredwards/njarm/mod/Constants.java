@@ -1,9 +1,9 @@
-package git.jbredwards.njarm;
+package git.jbredwards.njarm.mod;
 
 import javax.annotation.Nonnull;
 
 /**
- * mod constants (exists so that I don't have to type them over and over)
+ * Mod constants (exists so that I don't have to type them over and over)
  * @author jbred
  *
  */

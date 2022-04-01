@@ -1,0 +1,10 @@
+{
+  "parent": "mixins.njarm.json",
+  "package": "git.jbredwards.njarm.asm.mixins.vanilla",
+  "mixins": [
+    "MixinBlockCauldron"
+  ],
+  "client": [
+    "MixinLoadingScreenRenderer"
+  ]
+}
