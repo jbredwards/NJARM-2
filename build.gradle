@@ -2,15 +2,12 @@ buildscript {
     repositories {
         mavenCentral()
         maven { url 'https://files.minecraftforge.net/maven' }
-        maven { url 'https://repo.spongepowered.org/maven' }
     }
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
-        classpath 'org.spongepowered:mixingradle:0.6-SNAPSHOT'
     }
 }
 apply plugin: 'net.minecraftforge.gradle.forge'
-apply plugin: 'org.spongepowered.mixin'
 apply plugin: 'maven-publish'
 
 version = 'v2.4-mc1.12.2'
@@ -21,19 +18,13 @@ sourceCompatibility = targetCompatibility = '1.8'
 minecraft {
     version = "1.12.2-14.23.5.2847"
     runDir = "run"
-    mappings = "snapshot_20171003"
+    mappings = "stable_39"
     makeObfSourceJar = false
 }
 
 dependencies {
-    compile('org.spongepowered:mixin:0.8.3-SNAPSHOT') {
-        exclude module: 'guava'
-        exclude module: 'commons-io'
-        exclude module: 'gson'
-    }
     //baubles
-    provided "com.github.azanor:Baubles:${baubles_version}"
-    compile  "com.github.azanor:Baubles:${baubles_version}"
+    deobfCompile "com.github.jbredwards:Baubles:${baubles_version}"
     //fluidlogged api
     deobfCompile "com.github.jbredwards:fluidlogged-api:${fluidlogged_api_version}"
     //jei
@@ -55,7 +46,6 @@ repositories {
         name = 'ModMaven'
         url = 'modmaven.k-4u.nl'
     }
-    maven { url 'https://repo.spongepowered.org/maven' }
     //bookshelf
     maven { url 'https://maven.blamejared.com' }
     //fluidlogged api & baubles
@@ -87,8 +77,7 @@ jar {
         attributes(
                 'FMLCorePlugin': 'git.jbredwards.njarm.asm.ASMHandler',
                 'FMLCorePluginContainsFMLMod': 'true',
-                'FMLAT': 'njarm_at.cfg',
-                'ForceLoadAsMod': 'true'
+                'FMLAT': 'njarm_at.cfg'
         )
     }
 }

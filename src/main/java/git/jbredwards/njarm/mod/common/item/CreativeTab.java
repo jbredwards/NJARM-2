@@ -24,7 +24,7 @@ public final class CreativeTab extends CreativeTabs
     @SideOnly(Side.CLIENT)
     @Nonnull
     @Override
-    public ItemStack getTabIconItem() { return new ItemStack(ModItems.RUBY); }
+    public ItemStack createIcon() { return new ItemStack(ModItems.RUBY); }
 
     @SideOnly(Side.CLIENT)
     @Override

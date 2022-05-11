@@ -34,7 +34,7 @@ public final class ModItems
     @Nonnull
     private static <T extends Item> T register(@Nonnull String name, @Nonnull T item) {
         INIT.add(item.setRegistryName(Constants.MODID, name)
-                .setUnlocalizedName(Constants.MODID + "." + name)
+                .setTranslationKey(Constants.MODID + "." + name)
                 .setCreativeTab(CreativeTab.INSTANCE)
         );
 

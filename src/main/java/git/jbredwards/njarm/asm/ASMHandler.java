@@ -1,14 +1,12 @@
 package git.jbredwards.njarm.asm;
 
 import com.google.common.collect.ImmutableMap;
-import git.jbredwards.njarm.mod.Constants;
 import git.jbredwards.njarm.asm.plugins.IASMPlugin;
+import git.jbredwards.njarm.asm.plugins.forge.PluginFluidRegistry;
+import git.jbredwards.njarm.asm.plugins.vanilla.PluginBlockCauldron;
 import git.jbredwards.njarm.asm.plugins.vanilla.PluginParticleDrip;
 import net.minecraft.launchwrapper.IClassTransformer;
 import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin;
-import org.spongepowered.asm.launch.MixinBootstrap;
-import org.spongepowered.asm.mixin.MixinEnvironment;
-import org.spongepowered.asm.mixin.Mixins;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -42,7 +40,10 @@ public final class ASMHandler implements IFMLLoadingPlugin
         @Nonnull
         private static final Map<String, IASMPlugin> PLUGINS = ImmutableMap.<String, IASMPlugin>builder()
                 //vanilla
-                .put("net.minecraft.client.particle.ParticleDrip", new PluginParticleDrip())
+                .put("net.minecraft.client.particle.ParticleDrip", new PluginParticleDrip()) //Water droplet particles keep the color set by this mod
+                .put("net.minecraft.block.BlockCauldron", new PluginBlockCauldron()) //Allows cauldrons to have transparent water
+                //forge
+                .put("net.minecraftforge.fluids.FluidRegistry", new PluginFluidRegistry()) //Changes the water textures to allow for better coloring
                 .build();
 
         @Nonnull
@@ -56,11 +57,6 @@ public final class ASMHandler implements IFMLLoadingPlugin
     @Override
     public void injectData(@Nonnull Map<String, Object> map) {
         obfuscated = (boolean)map.get("runtimeDeobfuscationEnabled");
-        //handle mixins
-        MixinBootstrap.init();
-        Mixins.addConfiguration("mixins." + Constants.MODID + ".forge.json");
-        Mixins.addConfiguration("mixins." + Constants.MODID + ".vanilla.json");
-        MixinEnvironment.getCurrentEnvironment().setObfuscationContext("searge");
     }
 
     @Nonnull

@@ -1,7 +1,0 @@
-{
-  "parent": "mixins.njarm.json",
-  "package": "git.jbredwards.njarm.asm.mixins.forge",
-  "mixins": [
-    "MixinFluidRegistry"
-  ]
-}

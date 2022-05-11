@@ -15,9 +15,7 @@ import javax.annotation.Nonnull;
 public final class PluginParticleDrip implements IASMPlugin
 {
     @Override
-    public int isMethodValid(@Nonnull MethodNode method, boolean obfuscated) {
-        return checkMethod(method, obfuscated ? "func_189213_a" : "onUpdate", "()V") ? 1 : 0;
-    }
+    public boolean isMethodValid(@Nonnull MethodNode method, boolean obfuscated) { return checkMethod(method, obfuscated ? "func_189213_a" : "onUpdate", "()V"); }
 
     @Override
     public boolean transform(@Nonnull InsnList instructions, @Nonnull MethodNode method, @Nonnull AbstractInsnNode insn, boolean obfuscated, int index) {

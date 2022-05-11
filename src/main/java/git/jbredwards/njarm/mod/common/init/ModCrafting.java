@@ -61,7 +61,7 @@ public final class ModCrafting
     @Nonnull
     private static ResourceLocation generateName(@Nullable ResourceLocation location) {
         if(location == null) throw new IllegalArgumentException("Attempted to register recipe with invalid item!");
-        String name = location.getResourcePath();
+        String name = location.getPath();
 
         //resolves duplicate registry names
         if(registry.containsKey(new ResourceLocation(Constants.MODID, name))) {
