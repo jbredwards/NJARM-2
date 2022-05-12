@@ -18,7 +18,7 @@ import java.util.Map;
  *
  */
 @IFMLLoadingPlugin.SortingIndex(1001)
-@IFMLLoadingPlugin.Name("NJARM2 Plugin")
+@IFMLLoadingPlugin.Name("NJARM 2 Plugin")
 @IFMLLoadingPlugin.MCVersion("1.12.2")
 public final class ASMHandler implements IFMLLoadingPlugin
 {

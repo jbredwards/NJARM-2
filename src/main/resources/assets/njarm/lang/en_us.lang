@@ -1,4 +1,5 @@
 #items
+itemGroup.njarm=NJARM 2
 item.njarm.ruby.name=Ruby
 #blocks
-block.njarm.ruby_block.name=Block of Ruby
+tile.njarm.ruby_block.name=Block of Ruby
