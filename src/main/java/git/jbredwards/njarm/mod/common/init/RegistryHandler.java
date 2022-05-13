@@ -6,6 +6,7 @@ import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.util.SoundEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.event.RegistryEvent;
@@ -39,6 +40,11 @@ public final class RegistryHandler
     @SubscribeEvent
     public static void registerRecipes(@Nonnull RegistryEvent.Register<IRecipe> event) {
         ModCrafting.registerAll(event.getRegistry());
+    }
+
+    @SubscribeEvent
+    public static void registerSounds(@Nonnull RegistryEvent.Register<SoundEvent> event) {
+        event.getRegistry().registerAll(ModSounds.INIT.toArray(new SoundEvent[0]));
     }
 
     @SideOnly(Side.CLIENT)

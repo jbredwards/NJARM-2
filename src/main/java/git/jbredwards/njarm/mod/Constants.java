@@ -1,9 +1,11 @@
 package git.jbredwards.njarm.mod;
 
+import net.darkhax.bookshelf.lib.LoggingHelper;
+
 import javax.annotation.Nonnull;
 
 /**
- * Mod constants (exists so that I don't have to type them over and over)
+ * Mod constants
  * @author jbred
  *
  */
@@ -15,4 +17,7 @@ public final class Constants
             NAME = "Not Just Another Ruby Mod 2",
             VERSION = "2.4",
             DEPENDENCIES = "required-after:fluidlogged_api@[1.8.0,);required-after:bookshelf;after:baubles;required-client:assetmover;after-client:jei;";
+
+    @Nonnull
+    public static final LoggingHelper LOGGER = new LoggingHelper(NAME);
 }
