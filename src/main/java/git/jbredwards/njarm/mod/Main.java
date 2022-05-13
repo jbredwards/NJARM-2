@@ -1,7 +1,10 @@
 package git.jbredwards.njarm.mod;
 
+import com.cleanroommc.assetmover.AssetMoverAPI;
+import com.google.common.collect.ImmutableMap;
 import git.jbredwards.njarm.mod.client.entity.renderer.EntityRendererHandler;
 import git.jbredwards.njarm.mod.client.particle.ParticleFactoryColorize;
+import net.darkhax.bookshelf.lib.LoggingHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.*;
 import net.minecraft.init.Blocks;
@@ -25,6 +28,9 @@ import static git.jbredwards.njarm.mod.Constants.*;
 @Mod(modid = MODID, name = NAME, version = VERSION, dependencies = DEPENDENCIES)
 public final class Main
 {
+    @Nonnull
+    public static final LoggingHelper LOGGER = new LoggingHelper(NAME);
+
     /**
      * Common pre-init
      */
@@ -39,6 +45,18 @@ public final class Main
     @SideOnly(Side.CLIENT)
     private static void preInitClient() {
         EntityRendererHandler.registerEntityRenderers();
+        //add vanilla assets dynamically
+        LOGGER.info("Attempting to get vanilla 1.18.2 assets, this may take a while with your first load of the mod...");
+        AssetMoverAPI.fromMinecraft("1.18.2", ImmutableMap.<String,String>builder()
+                //sounds TODO
+                //textures
+                .put("assets/minecraft/textures/block/water_still.png"       , String.format("assets/%s/textures/blocks/water_still.png", Constants.MODID))
+                .put("assets/minecraft/textures/block/water_still.png.mcmeta", String.format("assets/%s/textures/blocks/water_still.png.mcmeta", Constants.MODID))
+                .put("assets/minecraft/textures/block/water_flow.png"        , String.format("assets/%s/textures/blocks/water_flow.png", Constants.MODID))
+                .put("assets/minecraft/textures/block/water_flow.png.mcmeta" , String.format("assets/%s/textures/blocks/water_flow.png.mcmeta", Constants.MODID))
+                .put("assets/minecraft/textures/block/water_overlay.png"     , String.format("assets/%s/textures/blocks/water_overlay.png", Constants.MODID))
+                .build());
+        LOGGER.info("Success!");
     }
 
     /**
