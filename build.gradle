@@ -7,6 +7,7 @@ buildscript {
         classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
     }
 }
+
 apply plugin: 'net.minecraftforge.gradle.forge'
 apply plugin: 'maven-publish'
 
@@ -23,6 +24,8 @@ minecraft {
 }
 
 dependencies {
+    //asset mover
+    deobfCompile "com.cleanroommc:assetmover:${assetmover_version}"
     //baubles
     deobfCompile "com.github.jbredwards:Baubles:${baubles_version}"
     //fluidlogged api
@@ -46,6 +49,8 @@ repositories {
         name = 'ModMaven'
         url = 'modmaven.k-4u.nl'
     }
+    //asset mover
+    maven { url 'https://maven.cleanroommc.com' }
     //bookshelf
     maven { url 'https://maven.blamejared.com' }
     //fluidlogged api & baubles

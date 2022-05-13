@@ -42,7 +42,7 @@ public final class ModCrafting
     @Nonnull private static IRecipe shapeless(int amount, int meta, @Nonnull Block out, @Nonnull Object... in) { return shapeless(new ItemStack(out, amount, meta), in); }
     @Nonnull private static IRecipe shapeless(@Nonnull ItemStack out, @Nonnull Object... in) {
         return new ShapelessOreRecipe(new ResourceLocation(Constants.MODID, Constants.NAME), out, in)
-                .setRegistryName(generateName(out.getItem().getRegistryName()));
+                .setRegistryName(generateName("shapeless", out.getItem().getRegistryName()));
     }
 
     //constructs a new shaped recipe
@@ -54,27 +54,27 @@ public final class ModCrafting
     @Nonnull private static IRecipe shaped(int amount, int meta, @Nonnull Block out, @Nonnull Object... in) { return shaped(new ItemStack(out, amount, meta), in); }
     @Nonnull private static IRecipe shaped(@Nonnull ItemStack out, @Nonnull Object... in) {
         return new ShapedOreRecipe(new ResourceLocation(Constants.MODID, Constants.NAME), out, in)
-                .setRegistryName(generateName(out.getItem().getRegistryName()));
+                .setRegistryName(generateName("shaped", out.getItem().getRegistryName()));
     }
 
     //generates an unused name for a recipe
     @Nonnull
-    private static ResourceLocation generateName(@Nullable ResourceLocation location) {
+    private static ResourceLocation generateName(@Nonnull String postfix, @Nullable ResourceLocation location) {
         if(location == null) throw new IllegalArgumentException("Attempted to register recipe with invalid item!");
-        String name = location.getPath();
+        String name = location.getPath() + '.' + postfix;
 
         //resolves duplicate registry names
-        if(registry.containsKey(new ResourceLocation(Constants.MODID, name))) {
+        if(registry.containsKey(new ResourceLocation(location.getNamespace(), name))) {
             name += '.';
 
             int i = 0;
             do { i++; }
-            while(registry.containsKey(new ResourceLocation(Constants.MODID, name + i)));
+            while(registry.containsKey(new ResourceLocation(location.getNamespace(), name + i)));
 
             name += i;
         }
 
         //returns an unused name
-        return new ResourceLocation(Constants.MODID, name);
+        return new ResourceLocation(location.getNamespace(), name);
     }
 }

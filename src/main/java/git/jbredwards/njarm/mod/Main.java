@@ -1,5 +1,6 @@
 package git.jbredwards.njarm.mod;
 
+import git.jbredwards.njarm.mod.client.entity.renderer.EntityRendererHandler;
 import git.jbredwards.njarm.mod.client.particle.ParticleFactoryColorize;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.*;
@@ -8,6 +9,7 @@ import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.world.biome.BiomeColorHelper;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -24,10 +26,26 @@ import static git.jbredwards.njarm.mod.Constants.*;
 public final class Main
 {
     /**
-     * Common-side init
+     * Common pre-init
      */
     @Mod.EventHandler
-    public static void initCommon(@Nonnull FMLInitializationEvent event) {
+    private static void preInitCommon(@Nonnull FMLPreInitializationEvent event) {
+        if(event.getSide().isClient()) preInitClient();
+    }
+
+    /**
+     * Client pre-init
+     */
+    @SideOnly(Side.CLIENT)
+    private static void preInitClient() {
+        EntityRendererHandler.registerEntityRenderers();
+    }
+
+    /**
+     * Common init
+     */
+    @Mod.EventHandler
+    private static void initCommon(@Nonnull FMLInitializationEvent event) {
         if(event.getSide().isClient()) initClient();
         //update water light opacity levels to match those from 1.13
         Blocks.FLOWING_WATER.setLightOpacity(2);
@@ -35,10 +53,10 @@ public final class Main
     }
 
     /**
-     * Client-side init
+     * Client init
      */
     @SideOnly(Side.CLIENT)
-    public static void initClient() {
+    private static void initClient() {
         //override some vanilla particle factories to allow for custom coloring
         final ParticleManager manager = Minecraft.getMinecraft().effectRenderer;
         manager.registerParticle(EnumParticleTypes.DRIP_WATER.getParticleID(),   new ParticleFactoryColorize(BiomeColorHelper::getWaterColorAtPos, new ParticleDrip.WaterFactory()));

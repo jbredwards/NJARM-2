@@ -32,8 +32,7 @@ public final class ModBlocks
     @Nonnull private static <T extends Block> T register(@Nonnull String name, @Nonnull T block, @Nullable Consumer<T> properties) {
         INIT.add(block.setRegistryName(Constants.MODID, name)
                 .setTranslationKey(Constants.MODID + "." + name)
-                .setCreativeTab(CreativeTab.INSTANCE)
-        );
+                .setCreativeTab(CreativeTab.INSTANCE));
 
         if(properties != null) properties.accept(block);
         return block;

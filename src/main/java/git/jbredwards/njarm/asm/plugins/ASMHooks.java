@@ -1,5 +1,6 @@
 package git.jbredwards.njarm.asm.plugins;
 
+import git.jbredwards.njarm.mod.common.util.IHasRunningEffects;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCauldron;
 import net.minecraft.block.material.Material;
@@ -11,6 +12,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import org.apache.commons.lang3.tuple.Pair;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -37,7 +39,7 @@ public final class ASMHooks
         final int level = state.getValue(BlockCauldron.LEVEL);
         if(!testingHead) yToTest = entity.posY;
 
-        return level > 0 && yToTest < pos.getY() + 0.375 + level * 3.0/16;
+        return level > 0 && yToTest < pos.getY() + 0.375 + level * 0.1875;
     }
 
     //PluginBlockCauldron
@@ -50,6 +52,13 @@ public final class ASMHooks
     @Nonnull
     public static Boolean isAABBInsideCauldronLiquid(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull AxisAlignedBB boundingBox) {
         final int level = world.getBlockState(pos).getValue(BlockCauldron.LEVEL);
-        return level > 0 && boundingBox.minY < pos.getY() + 0.375 + level * 3.0/16;
+        return level > 0 && boundingBox.minY < pos.getY() + 0.375 + level * 0.1875;
+    }
+
+    //PluginEntityLivingBase
+    @Nonnull
+    public static Pair<IBlockState, BlockPos> updateFallState(@Nonnull World world, @Nonnull IBlockState state, @Nonnull BlockPos pos) {
+        final IBlockState upState = world.getBlockState(pos.up());
+        return upState.getBlock() instanceof IHasRunningEffects ? Pair.of(upState, pos.up()) : Pair.of(state, pos);
     }
 }
