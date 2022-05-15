@@ -2,15 +2,21 @@ package git.jbredwards.njarm.mod;
 
 import com.cleanroommc.assetmover.AssetMoverAPI;
 import com.google.common.collect.ImmutableMap;
+import git.jbredwards.fluidlogged_api.api.util.FluidloggedUtils;
 import git.jbredwards.njarm.mod.client.entity.renderer.EntityRendererHandler;
 import git.jbredwards.njarm.mod.client.particle.ParticleFactoryColorize;
+import git.jbredwards.njarm.mod.common.init.ModItems;
 import git.jbredwards.njarm.mod.common.init.ModSounds;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.*;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeColorHelper;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.ProgressManager;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -50,6 +56,7 @@ public final class Main
             //update water light opacity levels to match those from 1.13
             Blocks.FLOWING_WATER.setLightOpacity(2);
             Blocks.WATER.setLightOpacity(2);
+            Items.EGG.setContainerItem(ModItems.EGG_SHELL);
         }
     }
 
@@ -73,6 +80,14 @@ public final class Main
             manager.registerParticle(EnumParticleTypes.WATER_DROP.getParticleID(),   new ParticleFactoryColorize(BiomeColorHelper::getWaterColorAtPos, new ParticleRain.Factory()));
             manager.registerParticle(EnumParticleTypes.WATER_SPLASH.getParticleID(), new ParticleFactoryColorize(BiomeColorHelper::getWaterColorAtPos, new ParticleSplash.Factory()));
             manager.registerParticle(EnumParticleTypes.WATER_WAKE.getParticleID(),   new ParticleFactoryColorize(BiomeColorHelper::getWaterColorAtPos, new ParticleWaterWake.Factory()));
+            //fix bubble particles spawning in illegal blocks (like cauldrons)
+            final IParticleFactory bubbleFactory = manager.particleTypes.get(EnumParticleTypes.WATER_BUBBLE.getParticleID());
+            manager.registerParticle(EnumParticleTypes.WATER_BUBBLE.getParticleID(), (int particleID, @Nonnull World world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, int... args) -> {
+                final BlockPos pos = new BlockPos(x, y, z);
+                return FluidloggedUtils.isCompatibleFluid(FluidRegistry.WATER, FluidloggedUtils.getFluidState(world, pos).getFluid())
+                        ? bubbleFactory.createParticle(particleID, world, x, y, z, xSpeed, ySpeed, zSpeed, args) : null;
+            });
+
             //expands vanilla sounds
             ModSounds.combine(SoundEvents.MUSIC_NETHER, ModSounds.MUSIC_NETHER);
             //handle common-side stuff

@@ -1,5 +1,9 @@
 #items
-itemGroup.njarm=NJARM 2
+item.njarm.egg_shell.name=Egg Shells
+item.njarm.magic_dust.name=Magic Dust
 item.njarm.ruby.name=Ruby
+item.njarm.sapphire.name=Sapphire
+itemGroup.njarm=NJARM 2
 #blocks
 tile.njarm.ruby_block.name=Block of Ruby
+tile.njarm.sapphire_block.name=Block of Sapphire
