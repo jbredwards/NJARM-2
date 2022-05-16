@@ -62,6 +62,7 @@ public final class ModSounds
     @Nonnull public static final SoundType NETHER_BRICKS = register("nether_bricks", 1, 1);
     @Nonnull public static final SoundType ANCIENT_DEBRIS = register("ancient_debris", 1, 1, NETHER_ORE.getStepSound());
     @Nonnull public static final SoundType LODESTONE = new SoundType(1, 1, SoundEvents.BLOCK_STONE_BREAK, SoundEvents.BLOCK_STONE_STEP, LODESTONE_PLACE, SoundEvents.BLOCK_STONE_HIT, SoundEvents.BLOCK_STONE_FALL);
+    @Nonnull public static final SoundType CRATE = new SoundType(1, 1, SoundEvents.BLOCK_WOOD_BREAK, WET_GRASS.getStepSound(), SoundEvents.BLOCK_WOOD_PLACE, SoundEvents.BLOCK_WOOD_HIT, SoundEvents.BLOCK_WOOD_FALL);
 
     //register sound
     @Nonnull

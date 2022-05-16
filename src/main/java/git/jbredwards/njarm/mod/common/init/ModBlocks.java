@@ -1,6 +1,7 @@
 package git.jbredwards.njarm.mod.common.init;
 
 import git.jbredwards.njarm.mod.Constants;
+import git.jbredwards.njarm.mod.common.block.*;
 import git.jbredwards.njarm.mod.common.item.CreativeTab;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.MapColor;
@@ -24,10 +25,9 @@ public final class ModBlocks
     @Nonnull public static final NonNullList<Block> INIT = NonNullList.create();
 
     //blocks
-    @Nonnull public static final Block RUBY_BLOCK = register("ruby_block", new Block(Material.IRON, MapColor.RED),
-            DIAMOND_BLOCK, block -> block.setHarvestLevel("pickaxe", 3));
-    @Nonnull public static final Block SAPPHIRE_BLOCK = register("sapphire_block", new Block(Material.IRON, MapColor.BLUE),
-            DIAMOND_BLOCK, block -> block.setHarvestLevel("pickaxe", 4));
+    @Nonnull public static final Block RUBY_BLOCK = register("ruby_block", new Block(Material.IRON, MapColor.RED), DIAMOND_BLOCK, block -> block.setHarvestLevel("pickaxe", 3));
+    @Nonnull public static final Block SAPPHIRE_BLOCK = register("sapphire_block", new Block(Material.IRON, MapColor.BLUE), DIAMOND_BLOCK, block -> block.setHarvestLevel("pickaxe", 4));
+    @Nonnull public static final BlockFoodCrate FOOD_CRATE = register("food_crate", new BlockFoodCrate(Material.WOOD), LOG, block -> block.setSoundType(ModSounds.CRATE));
 
     //registry
     @Nonnull private static <T extends Block> T register(@Nonnull String name, @Nonnull T block) { return register(name, block, (Consumer<T>)null); }

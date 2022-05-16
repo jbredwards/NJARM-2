@@ -21,12 +21,7 @@ import javax.annotation.Nonnull;
  */
 public class ItemBonemeal extends Item
 {
-    public ItemBonemeal() {
-        super();
-        dispenser();
-    }
-
-    protected void dispenser() {
+    public void addDispenserBehavior() {
         BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(this, (source, stack) -> {
             final EnumFacing facing = source.getBlockState().getValue(BlockDispenser.FACING);
             final World world = source.getWorld();

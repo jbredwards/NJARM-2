@@ -1,5 +1,6 @@
 package git.jbredwards.njarm.mod.client.entity.renderer.item;
 
+import git.jbredwards.njarm.mod.common.config.client.RenderingConfig;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.RenderXPOrb;
@@ -19,13 +20,13 @@ public class RenderTranslucentXPOrb extends RenderXPOrb
 {
     public RenderTranslucentXPOrb(@Nonnull RenderManager renderManagerIn) {
         super(renderManagerIn);
-        shadowOpaque = 0.25f;
+        shadowOpaque = 0.15f;
     }
 
     @Override
     public void doRender(@Nonnull EntityXPOrb entity, double x, double y, double z, float entityYaw, float partialTicks) {
-        GlStateManager.enableBlendProfile(GlStateManager.Profile.TRANSPARENT_MODEL);
+        if(RenderingConfig.doTranslucentXPOrbs()) GlStateManager.enableBlendProfile(GlStateManager.Profile.TRANSPARENT_MODEL);
         super.doRender(entity, x, y, z, entityYaw, partialTicks);
-        GlStateManager.disableBlendProfile(GlStateManager.Profile.TRANSPARENT_MODEL);
+        if(RenderingConfig.doTranslucentXPOrbs()) GlStateManager.disableBlendProfile(GlStateManager.Profile.TRANSPARENT_MODEL);
     }
 }
