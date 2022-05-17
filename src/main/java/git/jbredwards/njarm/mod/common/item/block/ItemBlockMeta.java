@@ -14,28 +14,26 @@ import javax.annotation.Nonnull;
 import java.util.Objects;
 
 /**
- * Enhanced & safer version of bookshelf's class that takes in an IProperty instead
+ * Enhanced version of bookshelf's class that takes in an IProperty instead
  * @author jbred
  *
  */
 public class ItemBlockMeta extends ItemBlockBasic implements ICustomModel
 {
-    @Nonnull public final IProperty<?> property;
+    @Nonnull
+    public final IProperty<?> property;
 
+    @SuppressWarnings("Convert2MethodRef") //lambda must be this format otherwise crash..?
     public ItemBlockMeta(@Nonnull Block block, @Nonnull IProperty<? extends IStringSerializable> property) {
-        super(block, property.getAllowedValues().stream().map(IStringSerializable::getName).toArray(String[]::new));
+        super(block, property.getAllowedValues().stream().map(value -> value.getName()).toArray(String[]::new));
         this.property = property;
     }
-
-    @Override
-    public int getMetadata(int damage) { return damage > names.length ? 0 : damage; }
 
     @SideOnly(Side.CLIENT)
     @Override
     public void registerMeshModels() {
-        for(int meta = 0; meta < names.length; meta++) {
-            String variant = property.getName() + "=" + names[meta];
-            ModelLoader.setCustomModelResourceLocation(this, meta, new ModelResourceLocation(Objects.requireNonNull(getRegistryName()), variant));
-        }
+        for(int meta = 0; meta < names.length; meta++)
+            ModelLoader.setCustomModelResourceLocation(this, meta, new ModelResourceLocation(
+                Objects.requireNonNull(getRegistryName()), property.getName() + '=' + names[meta]));
     }
 }

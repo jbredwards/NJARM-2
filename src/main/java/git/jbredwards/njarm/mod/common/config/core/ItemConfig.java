@@ -2,11 +2,10 @@ package git.jbredwards.njarm.mod.common.config.core;
 
 import git.jbredwards.njarm.mod.common.config.IConfig;
 import git.jbredwards.njarm.mod.common.config.item.*;
+import net.minecraft.util.NonNullList;
 import net.minecraftforge.common.config.Config;
 
 import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
@@ -16,7 +15,7 @@ import java.util.List;
 public final class ItemConfig implements IConfig
 {
     @Nonnull
-    private final List<IConfig> CONFIGS = new ArrayList<>();
+    private final NonNullList<IConfig> CONFIGS = NonNullList.create();
 
     //config categories
     @Config.Name("egg shells")

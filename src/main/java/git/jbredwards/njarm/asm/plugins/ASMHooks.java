@@ -1,9 +1,12 @@
 package git.jbredwards.njarm.asm.plugins;
 
 import git.jbredwards.njarm.mod.common.config.client.RenderingConfig;
+import git.jbredwards.njarm.mod.common.init.ModSounds;
 import git.jbredwards.njarm.mod.common.util.IHasRunningEffects;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCauldron;
+import net.minecraft.block.BlockStoneSlab;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
@@ -58,12 +61,22 @@ public final class ASMHooks
         return level > 0 && boundingBox.minY < pos.getY() + 0.375 + level * 0.1875;
     }
 
+    //PluginBlockStoneSlab
+    @Nonnull
+    public static SoundType fixNetherBrickSlabSound(@Nonnull IBlockState state) {
+        return state.getValue(BlockStoneSlab.VARIANT) == BlockStoneSlab.EnumType.NETHERBRICK
+                ? ModSounds.NETHER_BRICKS : state.getBlock().getSoundType();
+    }
+
     //PluginEntityLivingBase
     @Nonnull
     public static Pair<IBlockState, BlockPos> updateFallState(@Nonnull World world, @Nonnull IBlockState state, @Nonnull BlockPos pos) {
         final IBlockState upState = world.getBlockState(pos.up());
         return upState.getBlock() instanceof IHasRunningEffects ? Pair.of(upState, pos.up()) : Pair.of(state, pos);
     }
+
+    //PluginEntityRenderer
+    public static int betterNightVision() { return RenderingConfig.nightVisionFlashing(); }
 
     //PluginRender
     @SideOnly(Side.CLIENT)

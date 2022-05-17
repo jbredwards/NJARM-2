@@ -7,3 +7,16 @@ itemGroup.njarm=NJARM 2
 #blocks
 tile.njarm.ruby_block.name=Block of Ruby
 tile.njarm.sapphire_block.name=Block of Sapphire
+tile.njarm.food_crate.wheat_seeds.name=Crate of Wheat Seeds
+tile.njarm.food_crate.carrot.name=Crate of Carrots
+tile.njarm.food_crate.potato.name=Crate of Potatoes
+tile.njarm.food_crate.poisonous_potato.name=Crate of Poisonous Potatoes
+tile.njarm.food_crate.beetroot.name=Crate of Beetroots
+tile.njarm.food_crate.beetroot_seeds.name=Crate of Beetroot Seeds
+tile.njarm.food_crate.apple.name=Crate of Apples
+tile.njarm.food_crate.golden_apple.name=Crate of Golden Apples
+tile.njarm.food_crate.golden_carrot.name=Crate of Golden Carrots
+tile.njarm.food_crate.fish.name=Crate of Fish
+tile.njarm.food_crate.salmon.name=Crate of Salmon
+tile.njarm.food_crate.nemo.name=Crate of Nemo's Brothers and Sisters
+tile.njarm.food_crate.pufferfish.name=Crate of Pufferfish

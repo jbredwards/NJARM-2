@@ -57,6 +57,17 @@ public final class Main
             //update water light opacity levels to match those from 1.13
             Blocks.FLOWING_WATER.setLightOpacity(2);
             Blocks.WATER.setLightOpacity(2);
+            //improve block SoundTypes
+            Blocks.BONE_BLOCK.setSoundType(ModSounds.BONE);
+            Blocks.QUARTZ_ORE.setSoundType(ModSounds.NETHER_ORE);
+            Blocks.NETHER_BRICK.setSoundType(ModSounds.NETHER_BRICKS);
+            Blocks.NETHER_BRICK_FENCE.setSoundType(ModSounds.NETHER_BRICKS);
+            Blocks.NETHER_BRICK_STAIRS.setSoundType(ModSounds.NETHER_BRICKS);
+            Blocks.NETHER_WART.setSoundType(ModSounds.NETHERWART);
+            Blocks.NETHER_WART_BLOCK.setSoundType(ModSounds.NETHERWART);
+            Blocks.NETHERRACK.setSoundType(ModSounds.NETHERRACK);
+            Blocks.SOUL_SAND.setSoundType(ModSounds.SOUL_SAND);
+            Blocks.WATERLILY.setSoundType(ModSounds.WET_GRASS);
         }
     }
 

@@ -4,6 +4,7 @@ import git.jbredwards.njarm.mod.Constants;
 import git.jbredwards.njarm.mod.common.config.client.*;
 import git.jbredwards.njarm.mod.common.config.core.*;
 import git.jbredwards.njarm.mod.common.config.item.*;
+import net.minecraft.util.NonNullList;
 import net.minecraftforge.common.config.Config;
 import net.minecraftforge.common.config.ConfigManager;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
@@ -11,8 +12,6 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
@@ -24,12 +23,12 @@ import java.util.List;
 public final class ConfigHandler
 {
     @Nonnull
-    private static final List<IConfig> CONFIGS = new ArrayList<>();
+    private static final NonNullList<IConfig> CONFIGS = NonNullList.create();
 
     @Config.Name("client")
     @Config.Comment("Client-side things, mostly rendering. Changes made to client settings are not seen by other players.")
     @Nonnull public static final ClientConfig clientCfg = register(new ClientConfig(
-            new RenderingConfig(true, true)
+            new RenderingConfig(true, true, 60)
     ));
 
     @Config.Name("items")
