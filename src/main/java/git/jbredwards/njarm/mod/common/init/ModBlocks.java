@@ -6,14 +6,12 @@ import git.jbredwards.njarm.mod.common.item.CreativeTab;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
+import net.minecraft.init.Blocks;
 import net.minecraft.util.NonNullList;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import java.util.function.Consumer;
-
-import static net.minecraft.init.Blocks.*;
 
 /**
  * Holds this mod's blocks
@@ -25,10 +23,10 @@ public final class ModBlocks
     @Nonnull public static final NonNullList<Block> INIT = NonNullList.create();
 
     //blocks
-    @Nonnull public static final Block RUBY_BLOCK = register("ruby_block", new Block(Material.IRON, MapColor.RED), DIAMOND_BLOCK, block -> block.setHarvestLevel("pickaxe", 3));
-    @Nonnull public static final Block SAPPHIRE_BLOCK = register("sapphire_block", new Block(Material.IRON, MapColor.BLUE), DIAMOND_BLOCK, block -> block.setHarvestLevel("pickaxe", 4));
-    @Nonnull public static final BlockFoodCrate FOOD_CRATE = register("food_crate", new BlockFoodCrate(Material.WOOD), LOG);
-    @Nonnull public static final BlockBlueFire BLUE_FIRE = register("blue_fire", new BlockBlueFire(), block -> block.setLightLevel(1));
+    @Nonnull public static final Block RUBY_BLOCK = register("ruby_block", new Block(Material.IRON, MapColor.RED), Blocks.DIAMOND_BLOCK, block -> block.setHarvestLevel("pickaxe", 3));
+    @Nonnull public static final Block SAPPHIRE_BLOCK = register("sapphire_block", new Block(Material.IRON, MapColor.BLUE), Blocks.DIAMOND_BLOCK, block -> block.setHarvestLevel("pickaxe", 4));
+    @Nonnull public static final BlockFoodCrate FOOD_CRATE = register("food_crate", new BlockFoodCrate(Material.WOOD), Blocks.LOG);
+    @Nonnull public static final BlockBlueFire BLUE_FIRE = register("blue_fire", new BlockBlueFire(), Blocks.FIRE);
 
     //registry
     @Nonnull private static <T extends Block> T register(@Nonnull String name, @Nonnull T block) { return register(name, block, b -> {}); }
@@ -47,7 +45,7 @@ public final class ModBlocks
     @Nonnull private static <T extends Block> T register(@Nonnull String name, @Nonnull T block, @Nonnull Block parent, @Nonnull Consumer<T> properties) {
         block.setResistance(parent.getExplosionResistance(null) * 5 / 3)
                 .setHardness(parent.getDefaultState().getBlockHardness(null, null))
-                .setLightLevel(parent.getDefaultState().getLightValue())
+                .setLightLevel(parent.getDefaultState().getLightValue() / 15f)
                 .setLightOpacity(parent.getDefaultState().getLightOpacity())
                 .setSoundType(parent.getSoundType())
                 .setHarvestLevel(parent.getHarvestTool(parent.getDefaultState()), parent.getHarvestLevel(parent.getDefaultState()));

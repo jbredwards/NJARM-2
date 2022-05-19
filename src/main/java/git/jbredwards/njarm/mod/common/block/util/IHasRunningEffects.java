@@ -1,4 +1,4 @@
-package git.jbredwards.njarm.mod.common.util;
+package git.jbredwards.njarm.mod.common.block.util;
 
 /**
  * When running through blocks, lily pads for example, the particles & sounds for the block below are used.
@@ -7,4 +7,4 @@ package git.jbredwards.njarm.mod.common.util;
  * @author jbred
  *
  */
-public interface IHasRunningEffects { }
+public interface IHasRunningEffects {}

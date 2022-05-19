@@ -1,10 +1,11 @@
 package git.jbredwards.njarm.asm.plugins;
 
+import git.jbredwards.njarm.mod.common.block.util.IHasWorldState;
 import git.jbredwards.njarm.mod.common.config.client.RenderingConfig;
 import git.jbredwards.njarm.mod.common.init.ModBlocks;
 import git.jbredwards.njarm.mod.common.init.ModSounds;
 import git.jbredwards.njarm.mod.common.util.BlueFireUtils;
-import git.jbredwards.njarm.mod.common.util.IHasRunningEffects;
+import git.jbredwards.njarm.mod.common.block.util.IHasRunningEffects;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -64,40 +65,28 @@ public final class ASMHooks
     }
 
     //PluginBlockFire
-    @Nonnull
-    public static IBlockState renderBlueOrNormalFire(@Nonnull BlockFire fire, @Nonnull IBlockState state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos) {
-        if(shouldBeBlueFire(fire, world, pos)) return ModBlocks.BLUE_FIRE.getActualState(ModBlocks.BLUE_FIRE.getDefaultState(), world, pos);
-        //run old code
-        return world.getBlockState(pos.down()).isSideSolid(world, pos.down(), EnumFacing.UP) || fire.canCatchFire(world, pos.down(), EnumFacing.UP) ? state :
-            state.withProperty(BlockFire.NORTH, fire.canCatchFire(world, pos.north(), EnumFacing.SOUTH))
-                    .withProperty(BlockFire.EAST,  fire.canCatchFire(world, pos.east(), EnumFacing.WEST))
-                    .withProperty(BlockFire.SOUTH, fire.canCatchFire(world, pos.south(), EnumFacing.NORTH))
-                    .withProperty(BlockFire.WEST,  fire.canCatchFire(world, pos.west(), EnumFacing.EAST))
-                    .withProperty(BlockFire.UPPER, fire.canCatchFire(world, pos.up(), EnumFacing.DOWN));
-    }
-
-    //PluginBlockFire
     public static void tryChangeToBlueFire(@Nonnull BlockFire fire, @Nonnull World world, @Nonnull BlockPos pos) {
-        if(shouldBeBlueFire(fire, world, pos)) world.setBlockState(pos, ModBlocks.BLUE_FIRE.getDefaultState(), 2);
+        if(shouldBeBlueFire(fire, world, pos)) world.setBlockState(pos, ModBlocks.BLUE_FIRE.getDefaultState());
         //run old code
         else if(!fire.canPlaceBlockAt(world, pos)) world.setBlockToAir(pos);
     }
 
     //PluginBlockFire
-    public static void tryConvertToBlueFire(@Nonnull BlockFire fire, @Nonnull World world, @Nonnull BlockPos pos) {
-        if(world.provider.getDimensionType().getId() > 0 || !Blocks.PORTAL.trySpawnPortal(world, pos)) {
-            if(shouldBeBlueFire(fire, world, pos)) world.setBlockState(pos, ModBlocks.BLUE_FIRE.getDefaultState(), 2);
-            //run old code
-            else if(!fire.canPlaceBlockAt(world, pos)) world.setBlockToAir(pos);
-            else if(world.getGameRules().getBoolean("doFireTick"))
-                world.scheduleUpdate(pos, fire, fire.tickRate(world) + world.rand.nextInt(10));
-        }
+    @Nonnull
+    public static IBlockState getBlueOrNormal(@Nonnull BlockFire fire, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
+        return shouldBeBlueFire(fire, world, pos) ? ModBlocks.BLUE_FIRE.getDefaultState().withProperty(BlockFire.AGE, state.getValue(BlockFire.AGE)) : state;
     }
 
     //PluginBlockFire helper
-    public static boolean shouldBeBlueFire(@Nonnull BlockFire fire, @Nonnull IBlockAccess world, @Nonnull BlockPos pos) {
+    public static boolean shouldBeBlueFire(@Nonnull BlockFire fire, @Nonnull World world, @Nonnull BlockPos pos) {
         if(fire != Blocks.FIRE) return false; //only turn vanilla fire into blue fire
         else if(ModBlocks.BLUE_FIRE.canCatchFire(world, pos.down(), EnumFacing.UP)) return true;
+
+        //check if normal fire can be placed here
+        final IBlockState down = world.getBlockState(pos.down());
+        if(down.getBlock().isFireSource(world, pos.down(), EnumFacing.UP) || down.isTopSolid())
+            return false;
+
         //check if normal fire can be at the sides lit here
         for(EnumFacing facing : EnumFacing.values())
             if(facing != EnumFacing.DOWN && fire.canCatchFire(world, pos.offset(facing), facing.getOpposite()))
@@ -150,5 +139,11 @@ public final class ASMHooks
         final double entityY = renderY - entityYDif;
         final double blockY = (shadowY - 0.015625) - (entityYDif + renderY);
         return shadowSize / (float)(1 - renderY - (blockY - entityY));
+    }
+
+    //PluginWorld
+    @Nonnull
+    public static IBlockState getStateForWorld(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
+        return state.getBlock() instanceof IHasWorldState ? ((IHasWorldState)state.getBlock()).getStateForWorld(world, pos, state) : state;
     }
 }

@@ -36,7 +36,7 @@ public final class PluginEntity implements IASMPlugin
             else if(checkField(insn, obfuscated ? "field_150431_aC" : "SNOW_LAYER")) {
                 //change check to instanceof
                 ((JumpInsnNode)insn.getNext()).setOpcode(IFEQ);
-                instructions.insert(insn, new TypeInsnNode(INSTANCEOF, "git/jbredwards/njarm/mod/common/util/IHasRunningEffects"));
+                instructions.insert(insn, new TypeInsnNode(INSTANCEOF, "git/jbredwards/njarm/mod/common/block/util/IHasRunningEffects"));
                 instructions.insert(insn, new MethodInsnNode(INVOKEINTERFACE, "net/minecraft/block/state/IBlockState", obfuscated ? "func_177230_c" : "getBlock", "()Lnet/minecraft/block/Block;", true));
                 instructions.insert(insn, new VarInsnNode(ALOAD, 4));
                 //get SoundType from block above

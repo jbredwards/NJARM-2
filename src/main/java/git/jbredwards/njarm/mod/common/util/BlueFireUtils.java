@@ -92,7 +92,9 @@ public final class BlueFireUtils
                 //extinguish if the entity shouldn't be on fire
                 if(!canBeLit(entity)) {
                     //play extinguish sound if wet
-                    if(entity.isWet()) entity.playSound(SoundEvents.BLOCK_FIRE_EXTINGUISH, 1, 1);
+                    if(entity.isWet()) SoundUtils.playServerSound(entity, SoundEvents.ENTITY_GENERIC_EXTINGUISH_FIRE, 0.7f,
+                            1.6f + (entity.getRNG().nextFloat() - entity.getRNG().nextFloat()) * 0.4f);
+
                     cap.setRemaining(0);
                     Main.wrapper.sendToAllAround(
                             new BlueFireMessage(entity.getEntityId(), false),

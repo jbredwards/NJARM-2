@@ -5,7 +5,6 @@ import net.minecraft.block.SoundType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.SoundEventAccessor;
 import net.minecraft.client.audio.SoundHandler;
-import net.minecraft.init.SoundEvents;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
@@ -40,7 +39,6 @@ public final class ModSounds
     @Nonnull public static final SoundEvent BUBBLE_COLUMN_UP_INSIDE = register("blocks.bubble_column.up.inside");
     @Nonnull public static final SoundEvent BUBBLE_COLUMN_DOWN_INSIDE = register("blocks.bubble_column.down.inside");
     @Nonnull public static final SoundEvent LODESTONE_LOCK = register("blocks.lodestone.lock");
-    @Nonnull public static final SoundEvent LODESTONE_PLACE = register("blocks.lodestone.place");
 
     //music
     @Nonnull public static final SoundEvent MUSIC_NETHER = register("music.raine_nether");
@@ -60,8 +58,8 @@ public final class ModSounds
     @Nonnull public static final SoundType SOUL_SOIL = register("soul_soil", 1, 1);
     @Nonnull public static final SoundType SOUL_WOOD = register("soul_wood", 1, 1);
     @Nonnull public static final SoundType NETHER_BRICKS = register("nether_bricks", 1, 1);
-    @Nonnull public static final SoundType ANCIENT_DEBRIS = register("ancient_debris", 1, 1, NETHER_ORE.getStepSound());
-    @Nonnull public static final SoundType LODESTONE = new SoundType(1, 1, SoundEvents.BLOCK_STONE_BREAK, SoundEvents.BLOCK_STONE_STEP, LODESTONE_PLACE, SoundEvents.BLOCK_STONE_HIT, SoundEvents.BLOCK_STONE_FALL);
+    @Nonnull public static final SoundType ANCIENT_DEBRIS = register("ancient_debris", 1, 1);
+    @Nonnull public static final SoundType LODESTONE = register("lodestone", 1, 1);
 
     //register sound
     @Nonnull
@@ -75,15 +73,13 @@ public final class ModSounds
 
     //register SoundType
     @Nonnull
-    public static SoundType register(@Nonnull String name, float volume, float pitch) {
-        return register(name, volume, pitch, register("blocks." + name + ".step"));
-    }
-
-    //register SoundType
-    @Nonnull
-    public static SoundType register(@Nonnull String name, float volume, float pitch, @Nonnull SoundEvent stepSound) {
-        final SoundEvent breakSound = register("blocks." + name + ".break");
-        return new SoundType(volume, pitch, breakSound, stepSound, breakSound, stepSound, stepSound);
+    private static SoundType register(@Nonnull String name, float volume, float pitch) {
+        return new SoundType(volume, pitch,
+                register("blocks." + name + ".break"),
+                register("blocks." + name + ".step"),
+                register("blocks." + name + ".place"),
+                register("blocks." + name + ".hit"),
+                register("blocks." + name + ".fall"));
     }
 
     //transfers sounds from one SoundEvent to another

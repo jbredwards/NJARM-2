@@ -14,7 +14,7 @@ public final class PluginIHasRunningEffects implements IASMPlugin
 {
     @Override
     public boolean transformClass(@Nonnull ClassNode classNode, boolean obfuscated) {
-        classNode.interfaces.add("git/jbredwards/njarm/mod/common/util/IHasRunningEffects");
+        classNode.interfaces.add("git/jbredwards/njarm/mod/common/block/util/IHasRunningEffects");
         return false;
     }
 }

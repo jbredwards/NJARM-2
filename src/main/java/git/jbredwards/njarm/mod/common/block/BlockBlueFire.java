@@ -82,7 +82,8 @@ public class BlockBlueFire extends BlockFire implements ICustomModel
     @SideOnly(Side.CLIENT)
     @Override
     public void randomDisplayTick(@Nonnull IBlockState stateIn, @Nonnull World worldIn, @Nonnull BlockPos pos, @Nonnull Random rand) {
-        if(rand.nextInt(24) == 0) worldIn.playSound(null, pos, SoundEvents.BLOCK_FIRE_AMBIENT, SoundCategory.BLOCKS, 1 + rand.nextFloat(), rand.nextFloat() * 0.7f + 0.3f);
+        if(rand.nextInt(24) == 0)
+            worldIn.playSound(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, SoundEvents.BLOCK_FIRE_AMBIENT, SoundCategory.BLOCKS, 1 + rand.nextFloat(), rand.nextFloat() * 0.7f + 0.3f, false);
     }
 
     @Override
@@ -122,8 +123,8 @@ public class BlockBlueFire extends BlockFire implements ICustomModel
                 Minecraft.getMinecraft().playerController.isHittingBlock = old;
             }
 
+            else world.setBlockToAir(pos);
             world.playEvent(null, WorldEvents.FIRE_EXTINGUISH_SOUND, pos, 0);
-            world.setBlockToAir(pos);
             event.setCanceled(true);
         }
     }

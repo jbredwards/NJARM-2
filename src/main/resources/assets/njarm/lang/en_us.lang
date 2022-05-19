@@ -20,3 +20,23 @@ tile.njarm.food_crate.fish.name=Crate of Fish
 tile.njarm.food_crate.salmon.name=Crate of Salmon
 tile.njarm.food_crate.nemo.name=Crate of Nemo's Brothers and Sisters
 tile.njarm.food_crate.pufferfish.name=Crate of Pufferfish
+tile.njarm.blue_fire.name=Blue Fire
+#sounds
+subtitles.njarm.misc.party_horn=Party horn
+subtitles.njarm.misc.electric_explosion=Electric explosion
+subtitles.njarm.blocks.nether_reactor_core.ambient=Nether Reactor Core hums
+subtitles.njarm.blocks.nether_reactor_core.activate=Nether Reacor Core activates
+subtitles.njarm.blocks.nether_reactor_core.deactivate=Nether Reactor Core deactivates
+subtitles.njarm.items.netherite_equip=Netherite armor clanks
+subtitles.njarm.blocks.barrel.close=Barrel closes
+subtitles.njarm.blocks.barrel.open=Barrel opens
+subtitles.njarm.blocks.bubble_column.up.ambient=Bubbles flow
+subtitles.njarm.blocks.bubble_column.down.ambient=Bubbles whirl
+subtitles.njarm.blocks.bubble_column.up.inside=Bubbles woosh
+subtitles.njarm.blocks.bubble_column.down.inside=Bubbles zoom
+subtitles.njarm.blocks.lodestone.lock=Lodestone Compass locks onto Lodestone
+#misc
+death.attack.inBlueFire=%1$s went up in flames
+death.attack.inBlueFire.player=%1$s walked into blue fire whilst fighting %2$s
+death.attack.onBlueFire=%1$s burned to death
+death.attack.onBlueFire.player=%1$s was burnt to a crisp whilst fighting %2$s

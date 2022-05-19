@@ -1,4 +1,4 @@
-package git.jbredwards.njarm.mod.common.item;
+package git.jbredwards.njarm.mod.common.item.util;
 
 import git.jbredwards.njarm.mod.Constants;
 import git.jbredwards.njarm.mod.common.util.ItemStackUtils;
