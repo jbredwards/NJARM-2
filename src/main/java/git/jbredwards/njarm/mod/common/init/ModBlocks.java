@@ -28,22 +28,23 @@ public final class ModBlocks
     @Nonnull public static final Block RUBY_BLOCK = register("ruby_block", new Block(Material.IRON, MapColor.RED), DIAMOND_BLOCK, block -> block.setHarvestLevel("pickaxe", 3));
     @Nonnull public static final Block SAPPHIRE_BLOCK = register("sapphire_block", new Block(Material.IRON, MapColor.BLUE), DIAMOND_BLOCK, block -> block.setHarvestLevel("pickaxe", 4));
     @Nonnull public static final BlockFoodCrate FOOD_CRATE = register("food_crate", new BlockFoodCrate(Material.WOOD), LOG);
+    @Nonnull public static final BlockBlueFire BLUE_FIRE = register("blue_fire", new BlockBlueFire(), block -> block.setLightLevel(1));
 
     //registry
-    @Nonnull private static <T extends Block> T register(@Nonnull String name, @Nonnull T block) { return register(name, block, (Consumer<T>)null); }
-    @Nonnull private static <T extends Block> T register(@Nonnull String name, @Nonnull T block, @Nullable Consumer<T> properties) {
+    @Nonnull private static <T extends Block> T register(@Nonnull String name, @Nonnull T block) { return register(name, block, b -> {}); }
+    @Nonnull private static <T extends Block> T register(@Nonnull String name, @Nonnull T block, @Nonnull Consumer<T> properties) {
         INIT.add(block.setRegistryName(Constants.MODID, name)
                 .setTranslationKey(Constants.MODID + "." + name)
                 .setCreativeTab(CreativeTab.INSTANCE));
 
-        if(properties != null) properties.accept(block);
+        properties.accept(block);
         return block;
     }
 
     //copy properties from parent prior to registration
-    @Nonnull private static <T extends Block> T register(@Nonnull String name, @Nonnull T block, @Nonnull Block parent) { return register(name, block, parent, null); }
+    @Nonnull private static <T extends Block> T register(@Nonnull String name, @Nonnull T block, @Nonnull Block parent) { return register(name, block, parent, b -> {}); }
     @SuppressWarnings("ConstantConditions")
-    @Nonnull private static <T extends Block> T register(@Nonnull String name, @Nonnull T block, @Nonnull Block parent, @Nullable Consumer<T> properties) {
+    @Nonnull private static <T extends Block> T register(@Nonnull String name, @Nonnull T block, @Nonnull Block parent, @Nonnull Consumer<T> properties) {
         block.setResistance(parent.getExplosionResistance(null) * 5 / 3)
                 .setHardness(parent.getDefaultState().getBlockHardness(null, null))
                 .setLightLevel(parent.getDefaultState().getLightValue())

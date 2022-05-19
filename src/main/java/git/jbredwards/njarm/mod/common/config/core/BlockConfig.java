@@ -1,7 +1,7 @@
 package git.jbredwards.njarm.mod.common.config.core;
 
 import git.jbredwards.njarm.mod.common.config.IConfig;
-import git.jbredwards.njarm.mod.common.config.item.*;
+import git.jbredwards.njarm.mod.common.config.block.BlueFireConfig;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.common.config.Config;
 
@@ -12,14 +12,14 @@ import javax.annotation.Nonnull;
  * @author jbred
  *
  */
-public final class ItemConfig implements IConfig
+public final class BlockConfig implements IConfig
 {
     @Nonnull
     private final NonNullList<IConfig> CONFIGS = NonNullList.create();
 
-    @Config.Name("egg shells")
-    @Config.Comment("Change whether or not egg shells can act as bonemeal, their drop rate, etc.")
-    @Nonnull public final EggShellsConfig eggShellCfg;
+    @Config.Name("blue fire")
+    @Config.Comment("Change blue fire damage output & the blocks that can sustain it.")
+    @Nonnull public final BlueFireConfig blueFireCfg;
 
     //create a new config category while also adding it to the internal list
     @Nonnull
@@ -28,16 +28,16 @@ public final class ItemConfig implements IConfig
         return cfg;
     }
 
-    //update internal configs
-    @Override
-    public void onUpdate() { CONFIGS.forEach(IConfig::onUpdate); }
-
     //initialize internal configs
     @Override
     public void onFMLInit() { CONFIGS.forEach(IConfig::onFMLInit); }
 
+    //update internal configs
+    @Override
+    public void onUpdate() { CONFIGS.forEach(IConfig::onUpdate); }
+
     //needed for gson
-    public ItemConfig(@Nonnull EggShellsConfig eggShellCfg) {
-        this.eggShellCfg = register(eggShellCfg);
+    public BlockConfig(@Nonnull BlueFireConfig blueFireCfg) {
+        this.blueFireCfg = register(blueFireCfg);
     }
 }

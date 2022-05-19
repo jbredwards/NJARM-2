@@ -6,19 +6,23 @@ import org.objectweb.asm.tree.*;
 import javax.annotation.Nonnull;
 
 /**
- * Fix MC-1691
+ * Fix MC-1691 & fix fire damage sound
  * @author jbred
  *
  */
 public final class PluginEntityLivingBase implements IASMPlugin
 {
     @Override
-    public boolean isMethodValid(@Nonnull MethodNode method, boolean obfuscated) { return method.name.equals(obfuscated ? "func_184231_a" : "updateFallState"); }
+    public int getMethodIndex(@Nonnull MethodNode method, boolean obfuscated) {
+        if(method.name.equals(obfuscated ? "func_184231_a" : "updateFallState")) return 1;
+        else if(method.name.equals(obfuscated ? "func_70097_a" : "attackEntityFrom")) return 2;
+        return 0;
+    }
 
     @Override
     public boolean transform(@Nonnull InsnList instructions, @Nonnull MethodNode method, @Nonnull AbstractInsnNode insn, boolean obfuscated, int index) {
         //fix fall damage block particles
-        if(insn.getOpcode() == ISTORE) {
+        if(index == 1 && insn.getOpcode() == ISTORE) {
             final InsnList list = new InsnList();
             //get fixed state & pos
             list.add(new VarInsnNode(ALOAD, 0));
@@ -37,6 +41,11 @@ public final class PluginEntityLivingBase implements IASMPlugin
             list.add(new TypeInsnNode(CHECKCAST, "net/minecraft/util/math/BlockPos"));
             list.add(new VarInsnNode(ASTORE, 5));
             instructions.insert(insn, list);
+        }
+        //fix fire damage sound
+        else if(index == 2 && checkMethod(insn, obfuscated ? "func_76347_k" : "isFireDamage") && getNext(insn, 2).getOpcode() != ALOAD) {
+            instructions.insert(insn, genMethodNode("fixPlayerBlueFireDamageSound", "(Lnet/minecraft/util/DamageSource;)Z"));
+            instructions.remove(insn);
         }
 
         return false;

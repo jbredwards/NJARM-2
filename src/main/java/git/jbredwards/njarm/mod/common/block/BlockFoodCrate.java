@@ -117,7 +117,7 @@ public class BlockFoodCrate extends Block
     @Override
     public void randomDisplayTick(@Nonnull IBlockState stateIn, @Nonnull World worldIn, @Nonnull BlockPos pos, @Nonnull Random rand) {
         final Type type = stateIn.getValue(TYPE);
-        if((type.isGolden() || type == Type.POISONOUS_POTATO) && rand.nextInt(10) == 0 && ASMHooks.shouldHavePost(worldIn, pos.up())) {
+        if((type.isGolden() || type == Type.POISONOUS_POTATO) && rand.nextInt(5) == 0 && ASMHooks.shouldHavePost(worldIn, pos.up())) {
             final int color;
             switch(type) {
                 case POISONOUS_POTATO: color = MobEffects.POISON.getLiquidColor();
@@ -172,6 +172,5 @@ public class BlockFoodCrate extends Block
 
         @Nonnull
         public Item getItem() { return item.get(); }
-
     }
 }

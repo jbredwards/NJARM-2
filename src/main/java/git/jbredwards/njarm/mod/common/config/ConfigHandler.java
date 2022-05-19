@@ -1,6 +1,7 @@
 package git.jbredwards.njarm.mod.common.config;
 
 import git.jbredwards.njarm.mod.Constants;
+import git.jbredwards.njarm.mod.common.config.block.*;
 import git.jbredwards.njarm.mod.common.config.client.*;
 import git.jbredwards.njarm.mod.common.config.core.*;
 import git.jbredwards.njarm.mod.common.config.item.*;
@@ -24,6 +25,12 @@ public final class ConfigHandler
 {
     @Nonnull
     private static final NonNullList<IConfig> CONFIGS = NonNullList.create();
+
+    @Config.Name("blocks")
+    @Config.Comment("This mod's blocks.")
+    @Nonnull public static final BlockConfig blockCfg = register(new BlockConfig(
+            new BlueFireConfig(new String[] {"minecraft:soul_sand"})
+    ));
 
     @Config.Name("client")
     @Config.Comment("Client-side things, mostly rendering. Changes made to client settings are not seen by other players.")

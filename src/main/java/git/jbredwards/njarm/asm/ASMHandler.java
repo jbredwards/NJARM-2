@@ -42,17 +42,20 @@ public final class ASMHandler implements IFMLLoadingPlugin
                 .put("net.minecraft.client.particle.ParticleDrip", new PluginParticleDrip()) //Water droplet particles keep the color set by this mod
                 .put("net.minecraft.client.renderer.entity.Render", new PluginRender()) //Bedrock edition entity shadow size parody
                 .put("net.minecraft.client.renderer.EntityRenderer", new PluginEntityRenderer()) //Remove the annoying night vision flashing
+                .put("net.minecraft.client.renderer.ItemRenderer", new PluginItemRenderer()) //Render blue fire without "quirkiness"
                 .put("net.minecraft.block.BlockBasePressurePlate", new PluginIHasRunningEffects()) //Fix running effects for pressure plates
                 .put("net.minecraft.block.BlockCauldron", new PluginBlockCauldron()) //Allows cauldrons to have transparent water
                 .put("net.minecraft.block.BlockCarpet", new PluginIHasRunningEffects()) //Fix running effects for carpets
+                .put("net.minecraft.block.BlockFire", new PluginBlockFire()) //Turn fire into blue fire if it's on soul sand
                 .put("net.minecraft.block.BlockLilyPad", new PluginIHasRunningEffects()) //Fix running effects for lily pads
                 .put("net.minecraft.block.BlockRailBase", new PluginIHasRunningEffects()) //Fix running effects for rails
                 .put("net.minecraft.block.BlockRedstoneDiode", new PluginIHasRunningEffects()) //Fix running effects for repeaters & comparators
                 .put("net.minecraft.block.BlockSnow", new PluginIHasRunningEffects()) //Fix running effects for snow layers
                 .put("net.minecraft.block.BlockStoneSlab", new PluginBlockStoneSlab()) //Nether brick slabs have the same nether brick sound as vanilla 1.16+
                 .put("net.minecraft.block.BlockTrapDoor", new PluginIHasRunningEffects()) //Fix running effects for trapdoors
+                .put("net.minecraft.entity.player.EntityPlayer", new PluginEntityPlayer()) //Plays the fire damage sound at the exact moment when the player takes damage from blue fire
                 .put("net.minecraft.entity.Entity", new PluginEntity()) //Fix MC-1691
-                .put("net.minecraft.entity.EntityLivingBase", new PluginEntityLivingBase()) //Fix MC-1691
+                .put("net.minecraft.entity.EntityLivingBase", new PluginEntityLivingBase()) //Fix MC-1691 & fix fire damage sound
                 //forge
                 .put("net.minecraftforge.fluids.FluidRegistry", new PluginFluidRegistry()) //Changes the water textures to allow for better coloring
                 .build();

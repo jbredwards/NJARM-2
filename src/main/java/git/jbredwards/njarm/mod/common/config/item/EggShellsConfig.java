@@ -46,7 +46,7 @@ public final class EggShellsConfig implements IConfig
     @Nonnull public final String[] fromCraftingResult;
 
     @Config.Ignore
-    public static final Object2BooleanMap<Class<?>> entities = new Object2BooleanOpenHashMap<>();
+    public static final Object2BooleanMap<Class<?>> ENTITIES = new Object2BooleanOpenHashMap<>();
 
     @Override
     public void onUpdate() {
@@ -54,10 +54,10 @@ public final class EggShellsConfig implements IConfig
         if(actAsBonemeal) ModItems.EGG_SHELL.addDispenserBehavior();
         else BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.registryObjects.remove(ModItems.EGG_SHELL);
         //generate valid entities
-        entities.clear();
+        ENTITIES.clear();
         for(String entity : fromEntityList) {
-            @Nullable EntityEntry entry = ForgeRegistries.ENTITIES.getValue(new ResourceLocation(entity));
-            if(entry != null) entities.put(entry.getEntityClass(), true);
+            final @Nullable EntityEntry entry = ForgeRegistries.ENTITIES.getValue(new ResourceLocation(entity));
+            if(entry != null) ENTITIES.put(entry.getEntityClass(), true);
         }
     }
 
@@ -66,7 +66,7 @@ public final class EggShellsConfig implements IConfig
         IConfig.super.onFMLInit();
         //generate the crafting results
         for(String name : fromCraftingResult) {
-            @Nullable Item item = Item.getByNameOrId(name);
+            final @Nullable Item item = Item.getByNameOrId(name);
             if(item != null) item.setContainerItem(ModItems.EGG_SHELL);
         }
     }

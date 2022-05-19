@@ -49,7 +49,7 @@ public class ItemEggShell extends ItemBonemeal
         final World world = projectile.getEntityWorld();
         //ensure impact is valid
         if(result != null && (result.entityHit == null || result.entityHit != projectile.getThrower())) {
-            if(EggShellsConfig.entities.containsKey(projectile.getClass())) {
+            if(EggShellsConfig.ENTITIES.containsKey(projectile.getClass())) {
                 final boolean canSpawn = world.rand.nextFloat() * 100 < (projectile.getThrower() == null || projectile.getThrower() instanceof FakePlayer
                         ? EggShellsConfig.fromDispenserChance() : EggShellsConfig.fromThrownChance());
 

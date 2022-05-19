@@ -93,7 +93,7 @@ public final class ModCrafting
             name += '.';
 
             int i = 1;
-            do { i++; }
+            do i++;
             while(registry.containsKey(new ResourceLocation(Constants.MODID, name + i)));
 
             name += i;

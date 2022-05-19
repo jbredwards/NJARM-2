@@ -5,8 +5,10 @@ import com.google.common.collect.ImmutableMap;
 import git.jbredwards.fluidlogged_api.api.util.FluidloggedUtils;
 import git.jbredwards.njarm.mod.client.entity.renderer.EntityRendererHandler;
 import git.jbredwards.njarm.mod.client.particle.ParticleFactoryColorize;
+import git.jbredwards.njarm.mod.common.capability.IBlueFire;
 import git.jbredwards.njarm.mod.common.config.ConfigHandler;
 import git.jbredwards.njarm.mod.common.init.ModSounds;
+import git.jbredwards.njarm.mod.common.message.BlueFireMessage;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.*;
 import net.minecraft.init.Blocks;
@@ -15,12 +17,16 @@ import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeColorHelper;
+import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.ProgressManager;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
+import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
+import net.minecraftforge.fml.relauncher.Side;
 
 import javax.annotation.Nonnull;
 
@@ -38,6 +44,9 @@ public final class Main
     @SidedProxy(clientSide = "git.jbredwards.njarm.mod.Main$ClientProxy", serverSide = "git.jbredwards.njarm.mod.Main$CommonProxy")
     @Nonnull public static CommonProxy proxy;
 
+    @SuppressWarnings("NotNullFieldNotInitialized")
+    @Nonnull public static SimpleNetworkWrapper wrapper;
+
     @Mod.EventHandler
     private static void preInit(@Nonnull FMLPreInitializationEvent event) { proxy.preInit(); }
 
@@ -48,7 +57,11 @@ public final class Main
     public static class CommonProxy
     {
         protected void preInit() {
-
+            //register capabilities
+            CapabilityManager.INSTANCE.register(IBlueFire.class, IBlueFire.Storage.INSTANCE, IBlueFire.Impl::new);
+            //register packets
+            wrapper = NetworkRegistry.INSTANCE.newSimpleChannel(MODID);
+            wrapper.registerMessage(BlueFireMessage.Handler.INSTANCE, BlueFireMessage.class, 1, Side.CLIENT);
         }
 
         protected void init() {

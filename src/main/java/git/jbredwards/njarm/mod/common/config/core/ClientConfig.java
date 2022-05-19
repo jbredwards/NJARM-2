@@ -17,7 +17,6 @@ public final class ClientConfig implements IConfig
     @Nonnull
     private final NonNullList<IConfig> CONFIGS = NonNullList.create();
 
-    //config categories
     @Config.Name("rendering")
     @Config.Comment("Enable/disable changes this mod makes to miscellaneous rendering-related stuffs.")
     @Nonnull public final RenderingConfig renderingCfg;

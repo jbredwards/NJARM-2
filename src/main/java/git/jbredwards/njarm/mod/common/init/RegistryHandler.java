@@ -50,6 +50,9 @@ public final class RegistryHandler
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
     public static void registerItemModels(@Nullable ModelRegistryEvent event) {
+        for(Block block : ModBlocks.INIT)
+            if(block instanceof ICustomModel) ((ICustomModel)block).registerMeshModels();
+
         for(Item item : ModItems.INIT) {
             if(item instanceof ICustomModel) ((ICustomModel)item).registerMeshModels();
             else ModelLoader.setCustomModelResourceLocation(item, 0,
