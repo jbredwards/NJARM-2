@@ -5,6 +5,7 @@ import git.jbredwards.njarm.mod.Main;
 import git.jbredwards.njarm.mod.common.config.block.BlueFireConfig;
 import git.jbredwards.njarm.mod.common.message.BlueFireMessage;
 import git.jbredwards.njarm.mod.common.util.BlueFireUtils;
+import git.jbredwards.njarm.mod.common.util.SoundUtils;
 import net.darkhax.bookshelf.item.ICustomModel;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFire;
@@ -13,6 +14,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.statemap.StateMap;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.pathfinding.PathNodeType;
 import net.minecraft.util.EnumFacing;
@@ -93,18 +95,23 @@ public class BlockBlueFire extends BlockFire implements ICustomModel
 
     @Override
     public void onEntityCollision(@Nonnull World worldIn, @Nonnull BlockPos pos, @Nonnull IBlockState state, @Nonnull Entity entityIn) {
-        if(BlueFireUtils.canBeLit(entityIn) && BlueFireUtils.damageEntityIn(entityIn)) {
-            Main.wrapper.sendToAllAround(
-                    new BlueFireMessage(entityIn.getEntityId(), true),
-                    new NetworkRegistry.TargetPoint(worldIn.provider.getDimension(), entityIn.posX, entityIn.posY, entityIn.posZ, 64));
+        final boolean isSoulItem = entityIn instanceof EntityItem && BlueFireConfig.SOUL_SAND.containsKey(getBlockFromItem(((EntityItem)entityIn).getItem().getItem()));
+        if(!isSoulItem && BlueFireUtils.damageEntityIn(entityIn)) {
+            if(entityIn.isWet()) SoundUtils.playServerSound(entityIn, SoundEvents.ENTITY_GENERIC_EXTINGUISH_FIRE, 0.7f,
+                    1.6f + (worldIn.rand.nextFloat() - worldIn.rand.nextFloat()) * 0.4f);
+            else if(BlueFireUtils.canBeLit(entityIn)) {
+                Main.wrapper.sendToAllAround(
+                        new BlueFireMessage(entityIn.getEntityId(), true),
+                        new NetworkRegistry.TargetPoint(worldIn.provider.getDimension(), entityIn.posX, entityIn.posY, entityIn.posZ, 64));
 
-            BlueFireUtils.setRemaining(entityIn, 5);
+                BlueFireUtils.setRemaining(entityIn, 5);
+            }
         }
     }
 
     @Nullable
     @Override
-    public PathNodeType getAiPathNodeType(@Nonnull IBlockState state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos) { return PathNodeType.DAMAGE_FIRE; }
+    public PathNodeType getAiPathNodeType(@Nonnull IBlockState state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos) { return PathNodeType.LAVA; }
 
     @SideOnly(Side.CLIENT)
     @Override

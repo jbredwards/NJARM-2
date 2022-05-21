@@ -1,6 +1,7 @@
 package git.jbredwards.njarm.asm.plugins;
 
 import git.jbredwards.njarm.mod.common.block.util.IHasWorldState;
+import git.jbredwards.njarm.mod.common.config.block.BlueFireConfig;
 import git.jbredwards.njarm.mod.common.config.client.RenderingConfig;
 import git.jbredwards.njarm.mod.common.init.ModBlocks;
 import git.jbredwards.njarm.mod.common.init.ModSounds;
@@ -139,6 +140,19 @@ public final class ASMHooks
         final double entityY = renderY - entityYDif;
         final double blockY = (shadowY - 0.015625) - (entityYDif + renderY);
         return shadowSize / (float)(1 - renderY - (blockY - entityY));
+    }
+
+    //PluginRender
+    @SideOnly(Side.CLIENT)
+    public static boolean renderBlueFire(@Nonnull Entity entity, double x, double y, double z) {
+        if(BlueFireUtils.getRemaining(entity) > 0 && BlueFireUtils.canBeLit(entity)) {
+            if(BlueFireConfig.quarkBlueFireRender()) BlueFireUtils.renderQuarkBlueFireInThirdPerson(entity, x, y, z);
+            else BlueFireUtils.renderBlueFireInThirdPerson(entity, x, y, z);
+            return false;
+        }
+
+        //return old
+        return entity.canRenderOnFire();
     }
 
     //PluginWorld

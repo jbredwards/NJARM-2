@@ -29,7 +29,7 @@ public final class ConfigHandler
     @Config.Name("blocks")
     @Config.Comment("This mod's blocks.")
     @Nonnull public static final BlockConfig blockCfg = register(new BlockConfig(
-            new BlueFireConfig(new String[] {"minecraft:soul_sand"})
+            new BlueFireConfig(new String[] {"minecraft:soul_sand"}, "Math.max(2, health / 4)", "Math.max(2, health / 32)", "Math.max(2, health / 4)", "Math.max(2, health / 32)", false)
     ));
 
     @Config.Name("client")

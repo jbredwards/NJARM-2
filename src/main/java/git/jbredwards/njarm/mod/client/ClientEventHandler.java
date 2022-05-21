@@ -33,7 +33,8 @@ public final class ClientEventHandler
         event.getMap().registerSprite(new ResourceLocation(Constants.MODID, "blocks/water_still"));
         event.getMap().registerSprite(new ResourceLocation(Constants.MODID, "blocks/water_flow"));
         event.getMap().registerSprite(new ResourceLocation(Constants.MODID, "blocks/water_overlay"));
-        //ensure this sprite is always registered, as it's used for the first person blue fire rendering
+        //ensure this sprite is always registered, as it's used for the first & third person blue fire rendering
+        event.getMap().registerSprite(new ResourceLocation(Constants.MODID, "blocks/blue_fire_layer_0"));
         event.getMap().registerSprite(new ResourceLocation(Constants.MODID, "blocks/blue_fire_layer_1"));
     }
 }
