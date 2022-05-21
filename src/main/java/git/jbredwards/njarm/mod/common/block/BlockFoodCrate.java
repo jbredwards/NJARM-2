@@ -1,6 +1,8 @@
 package git.jbredwards.njarm.mod.common.block;
 
 import git.jbredwards.fluidlogged_api.mod.asm.plugins.ASMHooks;
+import git.jbredwards.njarm.mod.common.config.block.FoodCrateConfig;
+import git.jbredwards.njarm.mod.common.init.ModItems;
 import git.jbredwards.njarm.mod.common.init.ModSounds;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
@@ -16,7 +18,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -30,6 +31,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.function.Supplier;
 
@@ -53,14 +56,16 @@ public class BlockFoodCrate extends Block
     @Nonnull
     @Override
     public Item getItemDropped(@Nonnull IBlockState state, @Nonnull Random rand, int fortune) {
-        return state.getValue(TYPE).getItem();
+        return FoodCrateConfig.dropFullBlock() ? ModItems.FOOD_CRATE : state.getValue(TYPE).getItem();
     }
 
     @Override
-    public int damageDropped(@Nonnull IBlockState state) { return state.getValue(TYPE).itemMeta; }
+    public int damageDropped(@Nonnull IBlockState state) {
+        return FoodCrateConfig.dropFullBlock() ? state.getValue(TYPE).ordinal() : state.getValue(TYPE).itemMeta;
+    }
 
     @Override
-    public int quantityDropped(@Nonnull Random random) { return 9; }
+    public int quantityDropped(@Nonnull Random random) { return FoodCrateConfig.dropFullBlock() ? 1 : 9; }
 
     @Override
     public void getSubBlocks(@Nonnull CreativeTabs itemIn, @Nonnull NonNullList<ItemStack> items) {
@@ -106,10 +111,8 @@ public class BlockFoodCrate extends Block
     @Override
     public void onEntityWalk(@Nonnull World worldIn, @Nonnull BlockPos pos, @Nonnull Entity entityIn) {
         if(!worldIn.isRemote && entityIn instanceof EntityLivingBase) {
-            final Type type = worldIn.getBlockState(pos).getValue(TYPE);
-            if(type == Type.POISONOUS_POTATO) ((EntityLivingBase)entityIn).addPotionEffect(new PotionEffect(MobEffects.POISON, 65));
-            else if(type == Type.GOLDEN_APPLE) ((EntityLivingBase)entityIn).addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 65));
-            else if(type == Type.GOLDEN_CARROT) ((EntityLivingBase)entityIn).addPotionEffect(new PotionEffect(MobEffects.NIGHT_VISION, 65));
+            final List<PotionEffect> effects = worldIn.getBlockState(pos).getValue(TYPE).effects;
+            for(PotionEffect effect : effects) ((EntityLivingBase)entityIn).addPotionEffect(new PotionEffect(effect));
         }
     }
 
@@ -117,19 +120,11 @@ public class BlockFoodCrate extends Block
     @Override
     public void randomDisplayTick(@Nonnull IBlockState stateIn, @Nonnull World worldIn, @Nonnull BlockPos pos, @Nonnull Random rand) {
         final Type type = stateIn.getValue(TYPE);
-        if((type.isGolden() || type == Type.POISONOUS_POTATO) && rand.nextInt(5) == 0 && ASMHooks.shouldHavePost(worldIn, pos.up())) {
-            final int color;
-            switch(type) {
-                case POISONOUS_POTATO: color = MobEffects.POISON.getLiquidColor();
-                    break;
-                case GOLDEN_APPLE: color = MobEffects.REGENERATION.getLiquidColor();
-                    break;
-                default: color = MobEffects.NIGHT_VISION.getLiquidColor();
-            }
-
+        if(type.showParticles && rand.nextInt(5) == 0 && ASMHooks.shouldHavePost(worldIn, pos.up())) {
             //spawn potion particle with no velocity
-            final double r = (color >> 16 & 255) / 255.0, g = (color >> 8 & 255) / 255.0, b = (color & 255) / 255.0;
-            final @Nullable Particle particle = Minecraft.getMinecraft().effectRenderer.spawnEffectParticle(EnumParticleTypes.SPELL_MOB_AMBIENT.getParticleID(),
+            final double r = (type.particleColor >> 16 & 255) / 255.0, g = (type.particleColor >> 8 & 255) / 255.0, b = (type.particleColor & 255) / 255.0;
+            final @Nullable Particle particle = Minecraft.getMinecraft().effectRenderer.spawnEffectParticle(
+                    (type.ambientParticles ? EnumParticleTypes.SPELL_MOB_AMBIENT : EnumParticleTypes.SPELL_MOB).getParticleID(),
                     pos.getX() + rand.nextDouble(), pos.getY() + 1, pos.getZ() + rand.nextDouble(), r, g, b);
             if(particle != null) particle.multiplyVelocity(0);
         }
@@ -158,12 +153,18 @@ public class BlockFoodCrate extends Block
         @Nonnull private final String name;
         @Nonnull private final Supplier<Item> item;
         public final int itemMeta;
+        //set via config
+        @Nonnull public final List<PotionEffect> effects;
+        public boolean ambientParticles = false;
+        public boolean showParticles = false;
+        public int particleColor = 0;
 
         Type(@Nonnull String name, @Nonnull Supplier<Item> item) { this(name, item, 0); }
         Type(@Nonnull String name, @Nonnull Supplier<Item> item, int itemMeta) {
             this.name = name;
             this.item = item;
             this.itemMeta = itemMeta;
+            this.effects = new ArrayList<>();
         }
 
         @Nonnull
