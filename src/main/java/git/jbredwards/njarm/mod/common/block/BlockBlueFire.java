@@ -97,7 +97,7 @@ public class BlockBlueFire extends BlockFire implements ICustomModel
     public void onEntityCollision(@Nonnull World worldIn, @Nonnull BlockPos pos, @Nonnull IBlockState state, @Nonnull Entity entityIn) {
         final boolean isSoulItem = entityIn instanceof EntityItem && BlueFireConfig.SOUL_SAND.containsKey(getBlockFromItem(((EntityItem)entityIn).getItem().getItem()));
         if(!isSoulItem && BlueFireUtils.damageEntityIn(entityIn)) {
-            if(entityIn.isWet()) SoundUtils.playServerSound(entityIn, SoundEvents.ENTITY_GENERIC_EXTINGUISH_FIRE, 0.7f,
+            if(entityIn.isWet()) SoundUtils.playSound(entityIn, SoundEvents.ENTITY_GENERIC_EXTINGUISH_FIRE, 0.7f,
                     1.6f + (worldIn.rand.nextFloat() - worldIn.rand.nextFloat()) * 0.4f);
             else if(BlueFireUtils.canBeLit(entityIn)) {
                 Main.wrapper.sendToAllAround(

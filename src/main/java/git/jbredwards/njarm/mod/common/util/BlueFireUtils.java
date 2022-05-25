@@ -92,13 +92,6 @@ public final class BlueFireUtils
         }
     }
 
-    @SuppressWarnings("ConstantConditions")
-    @SubscribeEvent
-    public static void attach(@Nonnull AttachCapabilitiesEvent<Entity> event) {
-        event.addCapability(new ResourceLocation(Constants.MODID, "blue_fire"),
-                new CapabilityProvider<>(IBlueFire.CAPABILITY));
-    }
-
     @SubscribeEvent
     public static void tick(@Nonnull LivingEvent.LivingUpdateEvent event) {
         final EntityLivingBase entity = event.getEntityLiving();
@@ -108,7 +101,7 @@ public final class BlueFireUtils
                 //extinguish if the entity shouldn't be on fire
                 if(!canBeLit(entity)) {
                     //play extinguish sound if wet
-                    if(entity.isWet()) SoundUtils.playServerSound(entity, SoundEvents.ENTITY_GENERIC_EXTINGUISH_FIRE, 0.7f,
+                    if(entity.isWet()) SoundUtils.playSound(entity, SoundEvents.ENTITY_GENERIC_EXTINGUISH_FIRE, 0.7f,
                             1.6f + (entity.getRNG().nextFloat() - entity.getRNG().nextFloat()) * 0.4f);
 
                     cap.setRemaining(0);
@@ -259,7 +252,7 @@ public final class BlueFireUtils
 
         final TextureAtlasSprite sprite = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite("njarm:blocks/blue_fire_layer_0");
         final BufferBuilder buffer = Tessellator.getInstance().getBuffer();
-        final float size = Math.min(entity.width, entity.height) * 1.8F;
+        final float size = Math.min(entity.width, entity.height) * 1.8f;
         y = entity.posY - entity.getEntityBoundingBox().minY;
 
         GlStateManager.scale(size, size, size);

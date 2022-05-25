@@ -1,11 +1,17 @@
 package git.jbredwards.njarm.mod.common.capability;
 
+import git.jbredwards.njarm.mod.Constants;
+import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagInt;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import net.minecraftforge.event.AttachCapabilitiesEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -16,6 +22,7 @@ import javax.annotation.Nullable;
  *
  */
 @SuppressWarnings("ConstantConditions")
+@Mod.EventBusSubscriber(modid = Constants.MODID)
 public interface IBlueFire
 {
     @CapabilityInject(IBlueFire.class)
@@ -28,6 +35,11 @@ public interface IBlueFire
     @Nullable
     static IBlueFire get(@Nullable ICapabilityProvider provider) {
         return provider.hasCapability(CAPABILITY, null) ? provider.getCapability(CAPABILITY, null) : null;
+    }
+
+    @SubscribeEvent
+    static void attach(@Nonnull AttachCapabilitiesEvent<Entity> event) {
+        event.addCapability(new ResourceLocation(Constants.MODID, "blue_fire"), new CapabilityProvider<>(CAPABILITY));
     }
 
     class Impl implements IBlueFire

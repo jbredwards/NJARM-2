@@ -5,10 +5,11 @@ import com.google.common.collect.ImmutableMap;
 import git.jbredwards.fluidlogged_api.api.util.FluidloggedUtils;
 import git.jbredwards.njarm.mod.client.entity.renderer.EntityRendererHandler;
 import git.jbredwards.njarm.mod.client.particle.ParticleFactoryColorize;
-import git.jbredwards.njarm.mod.common.capability.IBlueFire;
+import git.jbredwards.njarm.mod.common.capability.*;
 import git.jbredwards.njarm.mod.common.config.ConfigHandler;
 import git.jbredwards.njarm.mod.common.init.ModSounds;
 import git.jbredwards.njarm.mod.common.message.BlueFireMessage;
+import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.*;
 import net.minecraft.init.Blocks;
@@ -18,7 +19,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeColorHelper;
 import net.minecraftforge.common.capabilities.CapabilityManager;
-import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.ProgressManager;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -59,6 +59,7 @@ public final class Main
         protected void preInit() {
             //register capabilities
             CapabilityManager.INSTANCE.register(IBlueFire.class, IBlueFire.Storage.INSTANCE, IBlueFire.Impl::new);
+            CapabilityManager.INSTANCE.register(IBubbleColumn.class, IBubbleColumn.Storage.INSTANCE, IBubbleColumn.Impl::new);
             //register packets
             wrapper = NetworkRegistry.INSTANCE.newSimpleChannel(MODID);
             wrapper.registerMessage(BlueFireMessage.Handler.INSTANCE, BlueFireMessage.class, 1, Side.CLIENT);
@@ -107,7 +108,7 @@ public final class Main
             //fix bubble particles spawning in illegal blocks (like cauldrons)
             final IParticleFactory bubbleFactory = manager.particleTypes.get(EnumParticleTypes.WATER_BUBBLE.getParticleID());
             manager.registerParticle(EnumParticleTypes.WATER_BUBBLE.getParticleID(), (int particleID, @Nonnull World world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, int... args) ->
-                    FluidloggedUtils.isCompatibleFluid(FluidRegistry.WATER, FluidloggedUtils.getFluidState(world, new BlockPos(x, y, z)).getFluid())
+                    FluidloggedUtils.getFluidOrReal(world, new BlockPos(x, y, z)).getMaterial() == Material.WATER
                             ? bubbleFactory.createParticle(particleID, world, x, y, z, xSpeed, ySpeed, zSpeed, args) : null);
 
             //expands vanilla sounds
