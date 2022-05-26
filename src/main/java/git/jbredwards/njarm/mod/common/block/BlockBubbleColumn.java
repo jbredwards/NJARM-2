@@ -4,6 +4,7 @@ import git.jbredwards.fluidlogged_api.api.block.IFluidloggable;
 import git.jbredwards.fluidlogged_api.api.util.FluidloggedUtils;
 import git.jbredwards.njarm.mod.Constants;
 import git.jbredwards.njarm.mod.client.particle.ParticleBubbleColumn;
+import git.jbredwards.njarm.mod.common.block.util.ICanFallThrough;
 import git.jbredwards.njarm.mod.common.capability.IBubbleColumn;
 import git.jbredwards.njarm.mod.common.init.ModBlocks;
 import git.jbredwards.njarm.mod.common.init.ModSounds;
@@ -28,6 +29,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.event.entity.living.LivingEvent;
+import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -45,7 +47,7 @@ import java.util.Random;
  *
  */
 @Mod.EventBusSubscriber(modid = Constants.MODID)
-public class BlockBubbleColumn extends Block implements IFluidloggable, ICustomModel
+public class BlockBubbleColumn extends Block implements IFluidloggable, ICustomModel, ICanFallThrough
 {
     @Nonnull
     public static final PropertyEnum<Drag> DRAG = PropertyEnum.create("drag", Drag.class);
@@ -183,7 +185,7 @@ public class BlockBubbleColumn extends Block implements IFluidloggable, ICustomM
         }
         //up particles
         else {
-            worldIn.spawnParticle(EnumParticleTypes.WATER_BUBBLE, pos.getX() + 0.5D, pos.getY(), pos.getZ() + 0.5, 0.0, 0.3, 0.0);
+            worldIn.spawnParticle(EnumParticleTypes.WATER_BUBBLE, pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, 0.0, 0.3, 0.0);
             worldIn.spawnParticle(EnumParticleTypes.WATER_BUBBLE, pos.getX() + rand.nextFloat(), pos.getY() + rand.nextFloat(), pos.getZ() + rand.nextFloat(), 0.0, 0.3, 0.0);
         }
         //ambient sound effect
@@ -201,6 +203,21 @@ public class BlockBubbleColumn extends Block implements IFluidloggable, ICustomM
         final @Nullable IBubbleColumn cap = IBubbleColumn.get(entity);
         if(cap != null && cap.isInBubbleColumn()) cap.setInBubbleColumn(entity.world.isMaterialInBB(
                 entity.getEntityBoundingBox(), ModBlocks.BUBBLE_COLUMN_MATERIAL));
+    }
+
+    @SubscribeEvent
+    public static void updateMagmaAndSoulSand(@Nonnull BlockEvent.NeighborNotifyEvent event) {
+        final Block block = event.getState().getBlock();
+        if((block == Blocks.MAGMA || block == Blocks.SOUL_SAND) && event.getNotifiedSides().contains(EnumFacing.UP))
+            ModBlocks.BUBBLE_COLUMN.spreadToUp(event.getWorld(), event.getPos(), ModBlocks.BUBBLE_COLUMN.getDefaultState()
+                    .withProperty(DRAG, block == Blocks.MAGMA ? Drag.DOWN : Drag.UP));
+
+        else if(event.getNotifiedSides().contains(EnumFacing.DOWN)) {
+            final Block downBlock = event.getWorld().getBlockState(event.getPos().down()).getBlock();
+            if((downBlock == Blocks.MAGMA || downBlock == Blocks.SOUL_SAND))
+                ModBlocks.BUBBLE_COLUMN.spreadToUp(event.getWorld(), event.getPos().down(), ModBlocks.BUBBLE_COLUMN.getDefaultState()
+                        .withProperty(DRAG, downBlock == Blocks.MAGMA ? Drag.DOWN : Drag.UP));
+        }
     }
 
     public enum Drag implements IStringSerializable

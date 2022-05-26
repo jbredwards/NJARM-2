@@ -18,14 +18,17 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeColorHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.commons.lang3.tuple.Pair;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.awt.*;
 
 /**
  * class exists cause SpongeForge
@@ -35,6 +38,14 @@ import javax.annotation.Nullable;
 @SuppressWarnings("unused")
 public final class ASMHooks
 {
+    //PluginBlock
+    @Nonnull
+    public static Vec3d betterWaterFogColor(@Nonnull World world, @Nonnull BlockPos origin, float modifier) {
+        final float[] components = new Color(BiomeColorHelper.getColorAtPos(world, origin, (biome, pos) ->
+                RenderingConfig.FOG_COLORS.containsKey(biome) ? RenderingConfig.FOG_COLORS.get(biome) : 20827)).getColorComponents(new float[3]);
+        return new Vec3d(Math.min(1, components[0] + modifier), Math.min(1, components[1] + modifier), Math.min(1, components[2] + modifier));
+    }
+
     //PluginBlockCauldron
     public static boolean canCauldronRenderInLayer(@Nonnull Block block, @Nonnull BlockRenderLayer layer) {
         //only apply fix to vanilla cauldrons, as not to potentially ruin any modded ones
@@ -159,5 +170,12 @@ public final class ASMHooks
     @Nonnull
     public static IBlockState getStateForWorld(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
         return state.getBlock() instanceof IHasWorldState ? ((IHasWorldState)state.getBlock()).getStateForWorld(world, pos, state) : state;
+    }
+
+    //PluginBiomeColorHelper
+    public static int doAccurateBiomeBlend(int r, int g, int b) {
+        final int biomeBlendRadius = RenderingConfig.biomeColorBlendRadius();
+        final int a = (biomeBlendRadius * 2 + 1) * (biomeBlendRadius * 2 + 1);
+        return (r / a & 255) << 16 | (g / a & 255) << 8 | b / a & 255;
     }
 }

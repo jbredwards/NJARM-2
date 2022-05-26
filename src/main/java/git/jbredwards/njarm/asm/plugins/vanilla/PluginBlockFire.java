@@ -15,6 +15,7 @@ public final class PluginBlockFire implements IASMPlugin
     @Override
     public boolean transformClass(@Nonnull ClassNode classNode, boolean obfuscated) {
         classNode.interfaces.add("git/jbredwards/njarm/mod/common/block/util/IHasWorldState");
+        classNode.interfaces.add("git/jbredwards/njarm/mod/common/block/util/ICanFallThrough");
         //update to blue fire
         overrideMethod(classNode, method -> method.name.equals(obfuscated ? "func_189540_a" : "neighborChanged"),
             "tryChangeToBlueFire", "(Lnet/minecraft/block/BlockFire;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)V", generator -> {
