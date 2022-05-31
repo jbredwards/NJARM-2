@@ -7,7 +7,7 @@ You'll notice that this repository does not have a license! By default, that mea
 
 That is indeed the case. If you'd like to reuse some of my assets for use in a mod, contact me and ask.
 
-©2012-2021 jbredwards
+©2022 jbredwards
 
 #### Notice
 
@@ -51,4 +51,4 @@ and call it your own, you'd basically be a big jerk.
 
 Don't be a jerk.
 
-©2012-2021 jbredwards
+©2022 jbredwards
