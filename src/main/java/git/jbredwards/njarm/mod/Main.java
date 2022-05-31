@@ -23,6 +23,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.ProgressManager;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
@@ -53,6 +54,9 @@ public final class Main
     @Mod.EventHandler
     private static void init(@Nonnull FMLInitializationEvent event) { proxy.init(); }
 
+    @Mod.EventHandler
+    private static void postInit(@Nonnull FMLPostInitializationEvent event) { proxy.postInit(); }
+
     //handles server-side code
     public static class CommonProxy
     {
@@ -67,10 +71,7 @@ public final class Main
 
         protected void init() {
             //run config init
-            new ConfigHandler().onFMLInit();
-            //update water light opacity levels to match those from 1.13
-            Blocks.FLOWING_WATER.setLightOpacity(2);
-            Blocks.WATER.setLightOpacity(2);
+            ConfigHandler.onFMLInit();
             //improve block SoundTypes
             Blocks.BONE_BLOCK.setSoundType(ModSounds.BONE);
             Blocks.QUARTZ_ORE.setSoundType(ModSounds.NETHER_ORE);
@@ -82,6 +83,12 @@ public final class Main
             Blocks.NETHERRACK.setSoundType(ModSounds.NETHERRACK);
             Blocks.SOUL_SAND.setSoundType(ModSounds.SOUL_SAND);
             Blocks.WATERLILY.setSoundType(ModSounds.WET_GRASS);
+        }
+
+        protected void postInit() {
+            //update water light opacity levels to match those from 1.13
+            Blocks.FLOWING_WATER.setLightOpacity(2);
+            Blocks.WATER.setLightOpacity(2);
         }
     }
 
@@ -108,8 +115,7 @@ public final class Main
             //fix bubble particles spawning in illegal blocks (like cauldrons)
             final IParticleFactory bubbleFactory = manager.particleTypes.get(EnumParticleTypes.WATER_BUBBLE.getParticleID());
             manager.registerParticle(EnumParticleTypes.WATER_BUBBLE.getParticleID(), (int particleID, @Nonnull World world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, int... args) ->
-                    FluidloggedUtils.getFluidOrReal(world, new BlockPos(x, y, z)).getMaterial() == Material.WATER
-                            ? bubbleFactory.createParticle(particleID, world, x, y, z, xSpeed, ySpeed, zSpeed, args) : null);
+                    FluidloggedUtils.getFluidOrReal(world, new BlockPos(x, y, z)).getMaterial() == Material.WATER ? bubbleFactory.createParticle(particleID, world, x, y, z, xSpeed, ySpeed, zSpeed, args) : null);
 
             //expands vanilla sounds
             ModSounds.combine(SoundEvents.MUSIC_NETHER, ModSounds.MUSIC_NETHER);

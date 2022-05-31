@@ -2,10 +2,11 @@ package git.jbredwards.njarm.mod.common.init;
 
 import git.jbredwards.njarm.mod.Constants;
 import git.jbredwards.njarm.mod.common.block.BlockFoodCrate;
+import git.jbredwards.njarm.mod.common.config.item.EquipmentConfig;
 import git.jbredwards.njarm.mod.common.item.*;
 import git.jbredwards.njarm.mod.common.item.block.*;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
+import git.jbredwards.njarm.mod.common.item.equipment.ItemAxe;
+import net.minecraft.item.*;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -20,16 +21,25 @@ public final class ModItems
 {
     @Nonnull public static final NonNullList<Item> INIT = NonNullList.create();
 
+    //item blocks
+    @Nonnull public static final ItemBlock RUBY_BLOCK = register("ruby_block", new ItemBlock(ModBlocks.RUBY_BLOCK));
+    @Nonnull public static final ItemBlock SAPPHIRE_BLOCK = register("sapphire_block", new ItemBlock(ModBlocks.SAPPHIRE_BLOCK));
+    @Nonnull public static final ItemBlockMeta FOOD_CRATE = register("food_crate", new ItemBlockMeta(ModBlocks.FOOD_CRATE, BlockFoodCrate.TYPE));
+
     //items
     @Nonnull public static final Item RUBY = register("ruby", new Item());
     @Nonnull public static final Item SAPPHIRE = register("sapphire", new Item());
     @Nonnull public static final ItemEggShell EGG_SHELL = register("egg_shell", new ItemEggShell());
     @Nonnull public static final ItemGlint MAGIC_DUST = register("magic_dust", new ItemGlint());
 
-    //item blocks
-    @Nonnull public static final ItemBlock RUBY_BLOCK = register("ruby_block", new ItemBlock(ModBlocks.RUBY_BLOCK));
-    @Nonnull public static final ItemBlock SAPPHIRE_BLOCK = register("sapphire_block", new ItemBlock(ModBlocks.SAPPHIRE_BLOCK));
-    @Nonnull public static final ItemBlockMeta FOOD_CRATE = register("food_crate", new ItemBlockMeta(ModBlocks.FOOD_CRATE, BlockFoodCrate.TYPE));
+    //armor
+
+    //tools
+    @Nonnull public static final ItemSword RUBY_SWORD = register("ruby_sword", new ItemSword(EquipmentConfig.RUBY_TOOL_MATERIAL));
+    @Nonnull public static final ItemSpade RUBY_SHOVEL = register("ruby_shovel", new ItemSpade(EquipmentConfig.RUBY_TOOL_MATERIAL));
+    @Nonnull public static final ItemPickaxe RUBY_PICKAXE = register("ruby_pickaxe", new ItemPickaxe(EquipmentConfig.RUBY_TOOL_MATERIAL));
+    @Nonnull public static final ItemAxe RUBY_AXE = register("ruby_axe", new ItemAxe(EquipmentConfig.RUBY_TOOL_MATERIAL));
+    @Nonnull public static final ItemHoe RUBY_HOE = register("ruby_hoe", new ItemHoe(EquipmentConfig.RUBY_TOOL_MATERIAL));
 
     //register ores
     public static void registerOres() {

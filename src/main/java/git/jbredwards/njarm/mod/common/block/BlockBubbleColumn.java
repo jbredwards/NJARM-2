@@ -148,18 +148,15 @@ public class BlockBubbleColumn extends Block implements IFluidloggable, ICustomM
 
     @Override
     public void onEntityCollision(@Nonnull World worldIn, @Nonnull BlockPos pos, @Nonnull IBlockState state, @Nonnull Entity entityIn) {
-        final IBlockState upState = worldIn.getBlockState(pos.up());
         final Drag drag = state.getValue(DRAG);
-
-        if(upState.getBlock().isAir(upState, worldIn, pos.up())) {
-            if(drag == Drag.DOWN) entityIn.motionY = Math.max(-0.9, entityIn.motionY - 0.03);
-            else entityIn.motionY = Math.min(1.8, entityIn.motionY + 0.1);
-        }
-
+        if(drag == Drag.DOWN) entityIn.motionY = Math.max(-0.3, entityIn.motionY - 0.03);
         else {
-            if(drag == Drag.DOWN) entityIn.motionY = Math.max(-0.3, entityIn.motionY - 0.03);
+            final IBlockState upState = worldIn.getBlockState(pos.up());
+            if(upState.getBlock().isAir(upState, worldIn, pos.up()))
+                entityIn.motionY = Math.min(1.8, entityIn.motionY + 0.1);
             else entityIn.motionY = Math.min(0.7, entityIn.motionY + 0.06);
         }
+
         if(!worldIn.isRemote && entityIn instanceof EntityLivingBase) {
             if(entityIn.isInsideOfMaterial(Material.WATER)) entityIn.setAir(300);
             //checks if the player was in a bubble column last tick

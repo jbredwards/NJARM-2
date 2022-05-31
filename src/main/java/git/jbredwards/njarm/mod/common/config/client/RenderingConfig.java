@@ -1,10 +1,12 @@
 package git.jbredwards.njarm.mod.common.config.client;
 
+import git.jbredwards.fluidlogged_api.api.util.FluidloggedUtils;
 import git.jbredwards.njarm.mod.Constants;
 import git.jbredwards.njarm.mod.common.config.ConfigHandler;
 import git.jbredwards.njarm.mod.common.config.IConfig;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
+import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
@@ -18,10 +20,12 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeColorHelper;
+import net.minecraftforge.client.event.EntityViewRenderEvent;
 import net.minecraftforge.client.event.RenderBlockOverlayEvent;
 import net.minecraftforge.common.config.Config;
 import net.minecraftforge.common.util.Constants.NBT;
 import net.minecraftforge.event.terraingen.BiomeEvent;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
@@ -97,17 +101,32 @@ public final class RenderingConfig implements IConfig
         }
     }
 
+    @SubscribeEvent(receiveCanceled = true)
+    public static void applyWaterFogColor(@Nonnull EntityViewRenderEvent.FogColors event) {
+        if(event.getState().getMaterial() == Material.WATER) {
+            //checks the player's head is under water
+            if(FluidloggedUtils.isCompatibleFluid(FluidloggedUtils.getFluidFromState(event.getState()), FluidRegistry.WATER)) {
+                final float[] fogComp = new Color(BiomeColorHelper.getColorAtPos(event.getEntity().world, event.getEntity().getPosition(),
+                        (biome, pos) -> FOG_COLORS.containsKey(biome) ? FOG_COLORS.get(biome) : biome.getWaterColor())).getColorComponents(new float[3]);
+
+                event.setRed(fogComp[0] * 0.5f + 0.5f * event.getRed());
+                event.setGreen(fogComp[1] * 0.5f + 0.5f * event.getGreen());
+                event.setBlue(fogComp[2] * 0.5f + 0.5f * event.getBlue());
+            }
+        }
+    }
+
     @SubscribeEvent //mostly copied from ItemRenderer, changed to apply biome colors
     public static void applyUnderwaterOverlayBiomeColors(@Nonnull RenderBlockOverlayEvent event) {
-        if(event.getOverlayType() == RenderBlockOverlayEvent.OverlayType.WATER) {
+        if(event.getOverlayType() == RenderBlockOverlayEvent.OverlayType.WATER && FluidloggedUtils.isCompatibleFluid(FluidloggedUtils.getFluidFromState(event.getBlockForOverlay()), FluidRegistry.WATER)) {
             final EntityPlayer player = event.getPlayer();
-            final float[] biomeComp = new Color(BiomeColorHelper.getWaterColorAtPos(Minecraft.getMinecraft().world,
-                    new BlockPos(player.getPositionEyes(event.getRenderPartialTicks())))).getColorComponents(new float[3]);
-            final float brightness = Minecraft.getMinecraft().player.getBrightness() * 0.5f;
+            final float brightness = Minecraft.getMinecraft().player.getBrightness() * 0.2f;
+            final float[] fogComp = new Color(BiomeColorHelper.getColorAtPos(Minecraft.getMinecraft().world, new BlockPos(player.getPositionEyes(event.getRenderPartialTicks())),
+                    (biome, pos) -> FOG_COLORS.containsKey(biome) ? FOG_COLORS.get(biome) : biome.getWaterColor())).getColorComponents(new float[3]);
 
-            Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation("textures/misc/underwater.png"));
+            Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation(Constants.MODID, "textures/misc/underwater.png"));
             BufferBuilder bufferbuilder = Tessellator.getInstance().getBuffer();
-            GlStateManager.color(biomeComp[0] * 0.5f + brightness, biomeComp[1] * 0.5f + brightness, biomeComp[2] * 0.5f + brightness, 0.5F);
+            GlStateManager.color(fogComp[0] * 0.8f + brightness, fogComp[1] * 0.8f + brightness, fogComp[2] * 0.8f + brightness, 0.5F);
             GlStateManager.enableBlend();
             GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
             GlStateManager.pushMatrix();
@@ -127,38 +146,6 @@ public final class RenderingConfig implements IConfig
             event.setCanceled(true);
         }
     }
-
-    //old fog color implementation
-    /*@SubscribeEvent(receiveCanceled = true)
-    public static void applyWaterFogColor(@Nonnull EntityViewRenderEvent.FogColors event) {
-        if(event.getState().getMaterial() == Material.WATER) {
-            final World world = event.getEntity().world;
-            final BlockPos pos = new BlockPos(event.getEntity());
-            final Vec3d original = new Vec3d(event.getRed(), event.getGreen(), event.getBlue());
-            final Vec3d water = Blocks.WATER.getFogColor(world, pos, event.getState(), event.getEntity(), original, (float)event.getRenderPartialTicks());
-
-            //checks the player's head is under water
-            if(original != water) {
-                final Biome biome = world.getBiomeForCoordsBody(pos);
-                final Color oldColor = new Color(ColorHandlers.BLOCK_WATER.colorMultiplier(event.getState(), world, pos, 0));
-                final Color newColor;
-
-                if(FOG_COLORS.containsKey(biome)) newColor = new Color(FOG_COLORS.get(biome));
-                else newColor = oldColor;
-
-                final float[] oldComp = oldColor.getColorComponents(new float[3]);
-                final float[] newComp = newColor.getColorComponents(new float[3]);
-
-                final float blendR = oldComp[0] * 0.5f + newComp[0] * 0.5f;
-                final float blendG = oldComp[1] * 0.5f + newComp[1] * 0.5f;
-                final float blendB = oldComp[2] * 0.5f + newComp[2] * 0.5f;
-
-                event.setRed(blendR);
-                event.setGreen(blendG);
-                event.setBlue(blendB);
-            }
-        }
-    }*/
 
     //needed for gson
     public RenderingConfig(boolean doTranslucentXPOrbs, boolean doBedrockShadowSize, int nightVisionFlashing, int biomeColorBlendRadius, @Nonnull String[] waterColors) {

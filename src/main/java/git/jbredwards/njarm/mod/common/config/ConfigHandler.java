@@ -105,7 +105,10 @@ public final class ConfigHandler
     @Config.Name("items")
     @Config.Comment("This mod's items.")
     @Nonnull public static final ItemConfig itemCfg = register(new ItemConfig(
-            new EggShellsConfig(true, 0, 100, new String[] {"minecraft:egg"}, new String[] {"minecraft:egg"})
+            new EggShellsConfig(true, 0, 100, new String[] {"minecraft:egg"}, new String[] {"minecraft:egg"}),
+            new EquipmentConfig(
+                    "{HarvestLevel:3,Durability:3122,MiningSpeed:8.0f,AttackDamage:3.0f,Enchantability:10}"
+            )
     ));
 
     //create a new config category while also adding it to the internal list
@@ -115,8 +118,8 @@ public final class ConfigHandler
         return cfg;
     }
 
-    //initialize config categories
-    public void onFMLInit() { CONFIGS.forEach(IConfig::onFMLInit); }
+    //turn config data into game data
+    public static void onFMLInit() { CONFIGS.forEach(IConfig::onFMLInit); }
 
     //write in-game changes to disk & update config categories
     @SubscribeEvent
