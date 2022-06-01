@@ -52,8 +52,8 @@ import java.util.Iterator;
 @Mod.EventBusSubscriber(modid = Constants.MODID)
 public final class BlueFireUtils
 {
-    @Nonnull public static final DamageSource IN_BLUE_FIRE = new DamageSource("inBlueFire").setDamageBypassesArmor().setDamageIsAbsolute();
-    @Nonnull public static final DamageSource ON_BLUE_FIRE = new DamageSource("onBlueFire").setDamageBypassesArmor().setDamageIsAbsolute();
+    @Nonnull public static final DamageSource IN_BLUE_FIRE = new DamageSource("njarm.inBlueFire").setDamageBypassesArmor().setDamageIsAbsolute();
+    @Nonnull public static final DamageSource ON_BLUE_FIRE = new DamageSource("njarm.onBlueFire").setDamageBypassesArmor().setDamageIsAbsolute();
 
     //if clientside returns 1 or 0, if serverside returns the amount of seconds remaining
     public static int getRemaining(@Nullable ICapabilityProvider provider) {

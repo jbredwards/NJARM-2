@@ -7,12 +7,14 @@ import git.jbredwards.njarm.mod.common.init.ModBlocks;
 import git.jbredwards.njarm.mod.common.init.ModSounds;
 import git.jbredwards.njarm.mod.common.util.BlueFireUtils;
 import git.jbredwards.njarm.mod.common.block.util.IHasRunningEffects;
+import git.jbredwards.njarm.mod.common.util.SoundUtils;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumFacing;
@@ -164,6 +166,21 @@ public final class ASMHooks
 
         //return old
         return entity.canRenderOnFire();
+    }
+
+    //PluginTileEntityBeacon
+    public static void playBeaconAmbientSound(@Nonnull TileEntity te, boolean isComplete) {
+        if(te.hasWorld() && !te.getWorld().isRemote && isComplete) SoundUtils.playSound(te, ModSounds.BEACON_AMBIENT, 1, 1);
+    }
+
+    //PluginTileEntityBeacon
+    public static boolean playBeaconUpdateSound(@Nonnull TileEntity te, boolean isComplete, boolean lastTickComplete) {
+        if(te.hasWorld() && !te.getWorld().isRemote && isComplete != lastTickComplete) {
+            SoundUtils.playSound(te, isComplete ? ModSounds.BEACON_ACTIVATE : ModSounds.BEACON_DEACTIVATE, 1, 1);
+            return isComplete;
+        }
+
+        return lastTickComplete;
     }
 
     //PluginWorld

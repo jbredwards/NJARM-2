@@ -12,17 +12,17 @@
    "blocks.nether_reactor_core.ambient":{
       "category":"blocks",
       "sounds":["njarm:blocks/nether_reactor_core/ambient"],
-      "subtitle":"subtitles.njarm.misc.nether_reactor_core.ambient"
+      "subtitle":"subtitles.njarm.block.nether_reactor_core.ambient"
    },
    "blocks.nether_reactor_core.activate":{
       "category":"blocks",
       "sounds":["njarm:blocks/nether_reactor_core/activate"],
-      "subtitle":"subtitles.njarm.misc.nether_reactor_core.activate"
+      "subtitle":"subtitles.njarm.block.nether_reactor_core.activate"
    },
    "blocks.nether_reactor_core.deactivate":{
       "category":"blocks",
       "sounds":["njarm:blocks/nether_reactor_core/deactivate"],
-      "subtitle":"subtitles.njarm.misc.nether_reactor_core.deactivate"
+      "subtitle":"subtitles.njarm.block.nether_reactor_core.deactivate"
    },
    "items.rupee_pickup":{
       "category":"entity",
@@ -37,7 +37,7 @@
          "njarm:items/netherite_equip3",
          "njarm:items/netherite_equip4"
       ],
-      "subtitle":"subtitles.njarm.items.netherite_equip"
+      "subtitle":"subtitles.njarm.item.netherite_equip"
    },
    "blocks.basalt.break":{
       "category":"blocks",
@@ -935,6 +935,21 @@
          "njarm:blocks/lodestone/lock2"
       ],
       "subtitle":"subtitles.njarm.block.lodestone.lock"
+   },
+   "blocks.beacon.ambient":{
+      "category":"blocks",
+      "sounds":["njarm:blocks/nether_reactor_core/ambient"],
+      "subtitle":"subtitles.njarm.block.beacon.ambient"
+   },
+   "blocks.beacon.activate":{
+      "category":"blocks",
+      "sounds":["njarm:blocks/nether_reactor_core/activate"],
+      "subtitle":"subtitles.njarm.block.beacon.activate"
+   },
+   "blocks.beacon.deactivate":{
+      "category":"blocks",
+      "sounds":["njarm:blocks/nether_reactor_core/deactivate"],
+      "subtitle":"subtitles.njarm.block.beacon.deactivate"
    },
    "music.raine_nether":{
       "category":"music",

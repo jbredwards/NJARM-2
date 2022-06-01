@@ -58,6 +58,7 @@ public final class ASMHandler implements IFMLLoadingPlugin
                 .put("net.minecraft.entity.player.EntityPlayer", new PluginEntityPlayer()) //Plays the fire damage sound at the exact moment when the player takes damage from blue fire
                 .put("net.minecraft.entity.Entity", new PluginEntity()) //Fix MC-1691
                 .put("net.minecraft.entity.EntityLivingBase", new PluginEntityLivingBase()) //Fix MC-1691 & fix fire damage sound
+                .put("net.minecraft.tileentity.TileEntityBeacon", new PluginTileEntityBeacon()) //Backport the vanilla 1.13+ beacon sounds
                 .put("net.minecraft.world.biome.BiomeColorHelper", new PluginBiomeColorHelper()) //Add 1.13+ biome color blend slider functionality
                 .put("net.minecraft.world.World", new PluginWorld()) //implement IHasWorldState functionality
                 //forge
