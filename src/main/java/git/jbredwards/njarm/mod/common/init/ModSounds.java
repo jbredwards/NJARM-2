@@ -42,6 +42,7 @@ public final class ModSounds
     @Nonnull public static final SoundEvent BEACON_AMBIENT = register("blocks.beacon.ambient");
     @Nonnull public static final SoundEvent BEACON_ACTIVATE = register("blocks.beacon.activate");
     @Nonnull public static final SoundEvent BEACON_DEACTIVATE = register("blocks.beacon.deactivate");
+    @Nonnull public static final SoundEvent BEACON_POWER_SELECT = register("blocks.beacon.power_select");
 
     //music
     @Nonnull public static final SoundEvent MUSIC_NETHER = register("music.raine_nether");

@@ -183,6 +183,11 @@ public final class ASMHooks
         return lastTickComplete;
     }
 
+    //PluginTileEntityBeacon
+    public static void playBeaconPowerSelectSound(@Nonnull TileEntity te, boolean isComplete) {
+        if(te.hasWorld() && !te.getWorld().isRemote && isComplete) SoundUtils.playSound(te, ModSounds.BEACON_POWER_SELECT, 1, 1);
+    }
+
     //PluginWorld
     @Nonnull
     public static IBlockState getStateForWorld(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState state) {

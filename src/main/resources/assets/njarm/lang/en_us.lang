@@ -42,6 +42,7 @@ subtitles.njarm.block.lodestone.lock=Lodestone Compass locks onto Lodestone
 subtitles.njarm.block.beacon.ambient=Beacon hums
 subtitles.njarm.block.beacon.activate=Beacon activates
 subtitles.njarm.block.beacon.deactivate=Beacon deactivates
+subtitles.njarm.block.beacon.power_select=Beacon power selected
 subtitles.njarm.item.netherite_equip=Netherite armor clanks
 #misc
 death.attack.njarm.inBlueFire=%1$s went up in flames

@@ -951,6 +951,15 @@
       "sounds":["njarm:blocks/nether_reactor_core/deactivate"],
       "subtitle":"subtitles.njarm.block.beacon.deactivate"
    },
+   "blocks.beacon.power_select":{
+      "category":"blocks",
+      "sounds":[
+         "njarm:blocks/beacon/power1",
+         "njarm:blocks/beacon/power2",
+         "njarm:blocks/beacon/power3"
+      ],
+      "subtitle":"subtitles.njarm.block.beacon.power_select"
+   },
    "music.raine_nether":{
       "category":"music",
       "sounds":[

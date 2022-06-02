@@ -296,6 +296,9 @@ public final class Main
                     .put("assets/minecraft/sounds/block/lodestone/place2.ogg", String.format("assets/%s/sounds/blocks/lodestone/place2.ogg", MODID))
                     .put("assets/minecraft/sounds/block/lodestone/place3.ogg", String.format("assets/%s/sounds/blocks/lodestone/place3.ogg", MODID))
                     .put("assets/minecraft/sounds/block/lodestone/place4.ogg", String.format("assets/%s/sounds/blocks/lodestone/place4.ogg", MODID))
+                    .put("assets/minecraft/sounds/block/beacon/power1.ogg", String.format("assets/%s/sounds/blocks/beacon/power1.ogg", MODID))
+                    .put("assets/minecraft/sounds/block/beacon/power2.ogg", String.format("assets/%s/sounds/blocks/beacon/power2.ogg", MODID))
+                    .put("assets/minecraft/sounds/block/beacon/power3.ogg", String.format("assets/%s/sounds/blocks/beacon/power3.ogg", MODID))
                     //textures
                     .put("assets/minecraft/textures/block/water_still.png", String.format("assets/%s/textures/blocks/water_still.png", MODID))
                     .put("assets/minecraft/textures/block/water_still.png.mcmeta", String.format("assets/%s/textures/blocks/water_still.png.mcmeta", MODID))
