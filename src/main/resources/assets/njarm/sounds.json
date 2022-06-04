@@ -960,14 +960,6 @@
       ],
       "subtitle":"subtitles.njarm.block.beacon.power_select"
    },
-   "music.raine_nether":{
-      "category":"music",
-      "sounds":[
-         {"name":"njarm:music/chrysopoeia","stream":true},
-         {"name":"njarm:music/rubedo","stream":true},
-         {"name":"njarm:music/so_below","stream":true}
-      ]
-   },
    "music.water_ambient":{
       "category":"music",
       "sounds":[

@@ -6,6 +6,7 @@ import net.minecraft.nbt.JsonToNBT;
 import net.minecraft.nbt.NBTException;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.config.Config;
+import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.util.EnumHelper;
 
 import javax.annotation.Nonnull;
@@ -27,17 +28,22 @@ public final class EquipmentConfig implements IConfig
     @Nonnull public static Item.ToolMaterial RUBY_TOOL_MATERIAL;
 
     private void initializeMaterials() throws NBTException {
-        RUBY_TOOL_MATERIAL = toolMaterial("RUBY", rubyToolMaterial);
+        RUBY_TOOL_MATERIAL = toolMaterial("ruby", rubyToolMaterial);
     }
 
     @Nonnull
     private Item.ToolMaterial toolMaterial(@Nonnull String name, @Nonnull String toolMaterial) throws NBTException {
         final NBTTagCompound nbt = JsonToNBT.getTagFromJson(toolMaterial);
-        return Objects.requireNonNull(EnumHelper.addToolMaterial(name, nbt.getInteger("HarvestLevel"), nbt.getInteger("Durability"),
+        if(!nbt.hasKey("HarvestLevel", Constants.NBT.TAG_INT)) throw new IllegalStateException(String.format("Missing \"HarvestLevel\" tag for %s tools in config!", name));
+        else if(!nbt.hasKey("Durability", Constants.NBT.TAG_INT)) throw new IllegalStateException(String.format("Missing \"Durability\" tag for %s tools in config!", name));
+        else if(!nbt.hasKey("MiningSpeed", Constants.NBT.TAG_FLOAT)) throw new IllegalStateException(String.format("Missing \"MiningSpeed\" tag for %s tools in config!", name));
+        else if(!nbt.hasKey("AttackDamage", Constants.NBT.TAG_FLOAT)) throw new IllegalStateException(String.format("Missing \"AttackDamage\" tag for %s tools in config!", name));
+        else if(!nbt.hasKey("Enchantability", Constants.NBT.TAG_INT)) throw new IllegalStateException(String.format("Missing \"Enchantability\" tag for %s tools in config!", name));
+        else return Objects.requireNonNull(EnumHelper.addToolMaterial(name.toUpperCase(), nbt.getInteger("HarvestLevel"), nbt.getInteger("Durability"),
                 nbt.getFloat("MiningSpeed"), nbt.getFloat("AttackDamage"), nbt.getInteger("Enchantability")));
     }
 
-    //gson
+    //needed for gson
     public EquipmentConfig(@Nonnull String rubyToolMaterial) {
         this.rubyToolMaterial = rubyToolMaterial;
         //only initialize materials on first load
@@ -45,7 +51,7 @@ public final class EquipmentConfig implements IConfig
             initializeMaterials = false;
             try { initializeMaterials(); }
             catch(NBTException e) { e.printStackTrace();
-                throw new IllegalStateException();
+                throw new IllegalStateException("Invalid equipment in config!");
             }
         }
     }

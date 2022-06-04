@@ -2,18 +2,11 @@ package git.jbredwards.njarm.mod.common.init;
 
 import git.jbredwards.njarm.mod.Constants;
 import net.minecraft.block.SoundType;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.audio.SoundEventAccessor;
-import net.minecraft.client.audio.SoundHandler;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.util.Objects;
 
 /**
  * Holds this mod's sounds
@@ -45,7 +38,6 @@ public final class ModSounds
     @Nonnull public static final SoundEvent BEACON_POWER_SELECT = register("blocks.beacon.power_select");
 
     //music
-    @Nonnull public static final SoundEvent MUSIC_NETHER = register("music.raine_nether");
     @Nonnull public static final SoundEvent MUSIC_WATER = register("music.water_ambient");
 
     //sound types
@@ -84,29 +76,5 @@ public final class ModSounds
                 register("blocks." + name + ".place"),
                 register("blocks." + name + ".hit"),
                 register("blocks." + name + ".fall"));
-    }
-
-    //transfers sounds from one SoundEvent to another
-    @SideOnly(Side.CLIENT)
-    public static void combine(@Nonnull SoundEvent origin, @Nonnull SoundEvent contents) {
-        final SoundHandler handler = Minecraft.getMinecraft().getSoundHandler();
-        final @Nullable SoundEventAccessor originAccessor =  handler.getAccessor(Objects.requireNonNull(origin.getRegistryName()));
-        final @Nullable SoundEventAccessor contentsAccessor = handler.getAccessor(Objects.requireNonNull(contents.getRegistryName()));
-
-        //failed to get sound from origin
-        if(originAccessor == null) {
-            Constants.LOGGER.warn("Failed to get sound from " + origin.getSoundName());
-            return;
-        }
-
-        //failed to get sound from contents
-        if(contentsAccessor == null) {
-            Constants.LOGGER.warn("Failed to get sound from " + contents.getSoundName());
-            return;
-        }
-
-        //adds the sound
-        originAccessor.addSound(contentsAccessor);
-        Constants.LOGGER.info(String.format("Successfully added sounds from %s to %s", contents.getSoundName(), origin.getSoundName()));
     }
 }

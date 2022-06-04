@@ -5,7 +5,6 @@ import net.darkhax.bookshelf.item.ICustomModel;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
-import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
@@ -35,11 +34,6 @@ public final class RegistryHandler
     public static void registerItems(@Nonnull RegistryEvent.Register<Item> event) {
         event.getRegistry().registerAll(ModItems.INIT.toArray(new Item[0]));
         ModItems.registerOres();
-    }
-
-    @SubscribeEvent
-    public static void registerRecipes(@Nonnull RegistryEvent.Register<IRecipe> event) {
-        ModCrafting.registerAll(event.getRegistry());
     }
 
     @SubscribeEvent

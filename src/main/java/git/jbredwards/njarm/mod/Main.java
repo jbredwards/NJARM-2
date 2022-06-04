@@ -13,7 +13,6 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.*;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.SoundEvents;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -117,8 +116,6 @@ public final class Main
             manager.registerParticle(EnumParticleTypes.WATER_BUBBLE.getParticleID(), (int particleID, @Nonnull World world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, int... args) ->
                     FluidloggedUtils.getFluidOrReal(world, new BlockPos(x, y, z)).getMaterial() == Material.WATER ? bubbleFactory.createParticle(particleID, world, x, y, z, xSpeed, ySpeed, zSpeed, args) : null);
 
-            //expands vanilla sounds
-            ModSounds.combine(SoundEvents.MUSIC_NETHER, ModSounds.MUSIC_NETHER);
             //handle common-side stuff
             super.init();
         }
@@ -305,6 +302,7 @@ public final class Main
                     .put("assets/minecraft/textures/block/water_flow.png", String.format("assets/%s/textures/blocks/water_flow.png", MODID))
                     .put("assets/minecraft/textures/block/water_flow.png.mcmeta", String.format("assets/%s/textures/blocks/water_flow.png.mcmeta", MODID))
                     .put("assets/minecraft/textures/block/water_overlay.png", String.format("assets/%s/textures/blocks/water_overlay.png", MODID))
+                    .put("assets/minecraft/textures/block/netherite_block.png", String.format("assets/%s/textures/blocks/netherite_block.png", MODID))
                     .build();
 
             LOGGER.info("Attempting to gather the vanilla 1.18.2 assets required by this mod, this may take a while if it's your first load...");

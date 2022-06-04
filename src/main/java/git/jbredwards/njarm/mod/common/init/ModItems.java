@@ -25,12 +25,19 @@ public final class ModItems
     @Nonnull public static final ItemBlock RUBY_BLOCK = register("ruby_block", new ItemBlock(ModBlocks.RUBY_BLOCK));
     @Nonnull public static final ItemBlock SAPPHIRE_BLOCK = register("sapphire_block", new ItemBlock(ModBlocks.SAPPHIRE_BLOCK));
     @Nonnull public static final ItemBlockMeta FOOD_CRATE = register("food_crate", new ItemBlockMeta(ModBlocks.FOOD_CRATE, BlockFoodCrate.TYPE));
+    @Nonnull public static final ItemBlock PLATINUM_BLOCK = register("platinum_block", new ItemBlock(ModBlocks.PLATINUM_BLOCK));
+    @Nonnull public static final ItemBlock NETHERITE_BLOCK = register("netherite_block", new ItemBlock(ModBlocks.NETHERITE_BLOCK));
+    @Nonnull public static final ItemBlock RUBY_ORE = register("ruby_ore", new ItemBlock(ModBlocks.RUBY_ORE));
 
     //items
     @Nonnull public static final Item RUBY = register("ruby", new Item());
     @Nonnull public static final Item SAPPHIRE = register("sapphire", new Item());
     @Nonnull public static final ItemEggShell EGG_SHELL = register("egg_shell", new ItemEggShell());
     @Nonnull public static final ItemGlint MAGIC_DUST = register("magic_dust", new ItemGlint());
+    @Nonnull public static final Item OBSIDIAN_INGOT = register("obsidian_ingot", new Item());
+    @Nonnull public static final Item CRUMBLING_BEDROCK = register("crumbling_bedrock", new Item());
+    @Nonnull public static final Item SUNSTONE = register("sunstone", new Item());
+    @Nonnull public static final ItemFood BAKED_APPLE = register("baked_apple", new ItemFood(8, 4.8f, false));
 
     //armor
 
@@ -43,11 +50,15 @@ public final class ModItems
 
     //register ores
     public static void registerOres() {
+        OreDictionary.registerOre("blockNetherite", NETHERITE_BLOCK);
+        OreDictionary.registerOre("blockPlatinum", PLATINUM_BLOCK);
+        OreDictionary.registerOre("blockRuby", RUBY_BLOCK);
+        OreDictionary.registerOre("blockSapphire", SAPPHIRE_BLOCK);
         OreDictionary.registerOre("dustMagic", MAGIC_DUST);
         OreDictionary.registerOre("gemRuby", RUBY);
         OreDictionary.registerOre("gemSapphire", SAPPHIRE);
-        OreDictionary.registerOre("blockRuby", RUBY_BLOCK);
-        OreDictionary.registerOre("blockSapphire", SAPPHIRE_BLOCK);
+        OreDictionary.registerOre("gemSunstone", SUNSTONE);
+        OreDictionary.registerOre("oreRuby", RUBY_ORE);
     }
 
     //register item

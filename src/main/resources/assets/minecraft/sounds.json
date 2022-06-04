@@ -1,0 +1,10 @@
+{
+    "music.nether":{
+        "replace":false,
+        "sounds":[
+           {"name":"njarm:music/chrysopoeia","stream":true},
+           {"name":"njarm:music/rubedo","stream":true},
+           {"name":"njarm:music/so_below","stream":true}
+        ]
+    }
+}

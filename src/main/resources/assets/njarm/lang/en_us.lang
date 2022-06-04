@@ -1,17 +1,21 @@
 #items
+item.njarm.baked_apple.name=Cooked Apple
+item.njarm.crumbling_bedrock.name=Crumbling Bedrock
 item.njarm.egg_shell.name=Egg Shells
 item.njarm.magic_dust.name=Magic Dust
+item.njarm.obsidian_ingot.name=Obsidian Ingot
 item.njarm.ruby.name=Ruby
-item.njarm.sapphire.name=Sapphire
 item.njarm.ruby_axe.name=Ruby Axe
 item.njarm.ruby_hoe.name=Ruby Hoe
 item.njarm.ruby_pickaxe.name=Ruby Pickaxe
 item.njarm.ruby_shovel.name=Ruby Shovel
 item.njarm.ruby_sword.name=Ruby Sword
+item.njarm.sapphire.name=Sapphire
+item.njarm.sunstone.name=Sunstone
 itemGroup.njarm=NJARM 2
 #blocks
-tile.njarm.ruby_block.name=Block of Ruby
-tile.njarm.sapphire_block.name=Block of Sapphire
+tile.njarm.blue_fire.name=Blue Fire
+tile.njarm.bubble_column.name=Bubble Column
 tile.njarm.food_crate.wheat_seeds.name=Crate of Wheat Seeds
 tile.njarm.food_crate.carrot.name=Crate of Carrots
 tile.njarm.food_crate.potato.name=Crate of Potatoes
@@ -25,7 +29,11 @@ tile.njarm.food_crate.fish.name=Crate of Fish
 tile.njarm.food_crate.salmon.name=Crate of Salmon
 tile.njarm.food_crate.nemo.name=Crate of Nemo's Brothers and Sisters
 tile.njarm.food_crate.pufferfish.name=Crate of Pufferfish
-tile.njarm.blue_fire.name=Blue Fire
+tile.njarm.netherite_block.name=Block of Netherite
+tile.njarm.platinum_block.name=Block of Platinum
+tile.njarm.ruby_block.name=Block of Ruby
+tile.njarm.ruby_ore.name=Ruby Ore
+tile.njarm.sapphire_block.name=Block of Sapphire
 #sounds
 subtitles.njarm.misc.party_horn=Party horn
 subtitles.njarm.misc.electric_explosion=Electric explosion

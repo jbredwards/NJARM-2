@@ -1,0 +1,13 @@
+{
+    "forge_marker":1,
+    "variants":{
+        "inventory":{
+            "transform":"forge:default-item",
+            "model":"builtin/generated",
+            "textures":{
+                "layer0":"njarm:items/baked_apple",
+                "layer1":"njarm:items/baked_apple_steam"
+            }
+        }
+    }
+}

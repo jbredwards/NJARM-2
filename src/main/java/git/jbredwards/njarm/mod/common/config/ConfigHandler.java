@@ -107,7 +107,7 @@ public final class ConfigHandler
     @Nonnull public static final ItemConfig itemCfg = register(new ItemConfig(
             new EggShellsConfig(true, 0, 100, new String[] {"minecraft:egg"}, new String[] {"minecraft:egg"}),
             new EquipmentConfig(
-                    "{HarvestLevel:3,Durability:3122,MiningSpeed:8.0f,AttackDamage:3.0f,Enchantability:10}"
+                    "{HarvestLevel:4,Durability:3122,MiningSpeed:8.0f,AttackDamage:3.0f,Enchantability:10}"
             )
     ));
 
