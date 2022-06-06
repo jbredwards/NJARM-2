@@ -28,6 +28,8 @@ public final class ModItems
     @Nonnull public static final ItemBlock PLATINUM_BLOCK = register("platinum_block", new ItemBlock(ModBlocks.PLATINUM_BLOCK));
     @Nonnull public static final ItemBlock NETHERITE_BLOCK = register("netherite_block", new ItemBlock(ModBlocks.NETHERITE_BLOCK));
     @Nonnull public static final ItemBlock RUBY_ORE = register("ruby_ore", new ItemBlock(ModBlocks.RUBY_ORE));
+    @Nonnull public static final ItemBlock SAPPHIRE_ORE = register("sapphire_ore", new ItemBlock(ModBlocks.SAPPHIRE_ORE));
+    @Nonnull public static final ItemBlock ANCIENT_DEBRIS = register("ancient_debris", new ItemBlock(ModBlocks.ANCIENT_DEBRIS));
 
     //items
     @Nonnull public static final Item RUBY = register("ruby", new Item());
@@ -58,7 +60,9 @@ public final class ModItems
         OreDictionary.registerOre("gemRuby", RUBY);
         OreDictionary.registerOre("gemSapphire", SAPPHIRE);
         OreDictionary.registerOre("gemSunstone", SUNSTONE);
+        OreDictionary.registerOre("oreAncientDebris", ANCIENT_DEBRIS);
         OreDictionary.registerOre("oreRuby", RUBY_ORE);
+        OreDictionary.registerOre("oreSapphire", SAPPHIRE_ORE);
     }
 
     //register item

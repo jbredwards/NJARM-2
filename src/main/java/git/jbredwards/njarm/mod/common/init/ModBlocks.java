@@ -37,6 +37,7 @@ public final class ModBlocks
     @Nonnull public static final BlockOre RUBY_ORE = register("ruby_ore", new BlockOre(Material.ROCK), Blocks.DIAMOND_ORE, block -> block.setHarvestLevel("pickaxe", 3)).setItemDropped(() -> ModItems.RUBY).setExpDropped(rand -> MathHelper.getInt(rand, 3, 7));
     @Nonnull public static final BlockOre SAPPHIRE_ORE = register("sapphire_ore", new BlockOre(Material.ROCK, MapColor.NETHERRACK), Blocks.DIAMOND_ORE, block -> block.setSoundType(ModSounds.NETHER_ORE)).setItemDropped(() -> ModItems.SAPPHIRE).setExpDropped(rand -> MathHelper.getInt(rand, 3, 7));
     @Nonnull public static final BlockRotatedPillar ANCIENT_DEBRIS = register("ancient_debris", new BlockRotatedPillar(Material.ROCK, MapColor.NETHERRACK), Blocks.OBSIDIAN, block -> block.setSoundType(ModSounds.ANCIENT_DEBRIS));
+    @Nonnull public static final Block MAGIC_BLOCK = register("magic_block", new Block(Material.IRON, MapColor.PINK), Blocks.DIAMOND_BLOCK);
     @Nonnull public static final BlockBlueFire BLUE_FIRE = register("blue_fire", new BlockBlueFire(), Blocks.FIRE);
     @Nonnull public static final BlockBubbleColumn BUBBLE_COLUMN = register("bubble_column", new BlockBubbleColumn(BUBBLE_COLUMN_MATERIAL), Blocks.WATER, block -> block.setLightOpacity(0));
 

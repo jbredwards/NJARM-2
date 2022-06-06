@@ -5,6 +5,7 @@ import git.jbredwards.njarm.mod.common.config.block.*;
 import git.jbredwards.njarm.mod.common.config.client.*;
 import git.jbredwards.njarm.mod.common.config.core.*;
 import git.jbredwards.njarm.mod.common.config.item.*;
+import git.jbredwards.njarm.mod.common.config.world.*;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.common.config.Config;
 import net.minecraftforge.common.config.ConfigManager;
@@ -36,7 +37,7 @@ public final class ConfigHandler
     @Config.Name("client")
     @Config.Comment("Client-side things, mostly rendering. Changes made to client settings are not seen by other players.")
     @Nonnull public static final ClientConfig clientCfg = register(new ClientConfig(
-            new RenderingConfig(true, true, 60, 7, new String[] {
+            new RenderingConfig(true, true, 60, 4, new String[] {
                     "{Biome:\"plains\",Surface:4501493,Fog:4501493}",
                     "{Biome:\"desert\",Surface:3319192,Fog:3319192}",
                     "{Biome:\"extreme_hills\",Surface:31735,Fog:31735}",
@@ -109,6 +110,14 @@ public final class ConfigHandler
             new EquipmentConfig(
                     "{HarvestLevel:4,Durability:3122,MiningSpeed:8.0f,AttackDamage:3.0f,Enchantability:10}"
             )
+    ));
+
+    @Config.Name("world")
+    @Config.Comment("This mod's world generation.")
+    @Nonnull public static final WorldConfig worldCfg = register(new WorldConfig(
+            new OreConfig(new String[] {
+                    "{Ore:{block:\"njarm:ruby_ore\"},Stone:{block:\"stone\",meta:0},MinY:0,MaxY:16,ClumpSize:8,PerChunk:2}"
+            })
     ));
 
     //create a new config category while also adding it to the internal list

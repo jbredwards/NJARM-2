@@ -84,6 +84,7 @@ public final class ModRecipes
     private static void registerSmelting() {
         GameRegistry.addSmelting(Items.APPLE, new ItemStack(ModItems.BAKED_APPLE), 0.35f);
         GameRegistry.addSmelting(ModItems.RUBY_ORE, new ItemStack(ModItems.RUBY), 1);
+        GameRegistry.addSmelting(ModItems.SAPPHIRE_ORE, new ItemStack(ModItems.SAPPHIRE), 1);
     }
 
     @SubscribeEvent

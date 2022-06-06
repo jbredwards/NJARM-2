@@ -58,7 +58,7 @@ public final class RenderingConfig implements IConfig
     public static int nightVisionFlashing() { return ConfigHandler.clientCfg.renderingCfg.nightVisionFlashing; }
 
     @Config.SlidingOption
-    @Config.RangeInt(min = 0, max = 7)
+    @Config.RangeInt(min = 0, max = 16)
     @Config.Comment("Functions the same as the vanilla 1.13+ option, vanilla 1.12 has this set to 1.")
     public final int biomeColorBlendRadius;
     public static int biomeColorBlendRadius() { return ConfigHandler.clientCfg.renderingCfg.biomeColorBlendRadius; }

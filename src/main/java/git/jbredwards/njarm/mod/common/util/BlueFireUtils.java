@@ -2,11 +2,10 @@ package git.jbredwards.njarm.mod.common.util;
 
 import git.jbredwards.njarm.mod.Constants;
 import git.jbredwards.njarm.mod.Main;
-import git.jbredwards.njarm.mod.common.capability.CapabilityProvider;
 import git.jbredwards.njarm.mod.common.capability.IBlueFire;
 import git.jbredwards.njarm.mod.common.config.block.BlueFireConfig;
 import git.jbredwards.njarm.mod.common.entity.ai.EntityAIPanicBlueFire;
-import git.jbredwards.njarm.mod.common.message.BlueFireMessage;
+import git.jbredwards.njarm.mod.common.message.MessageBlueFire;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
@@ -26,9 +25,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
@@ -106,7 +103,7 @@ public final class BlueFireUtils
 
                     cap.setRemaining(0);
                     Main.wrapper.sendToAllAround(
-                            new BlueFireMessage(entity.getEntityId(), false),
+                            new MessageBlueFire(entity.getEntityId(), false),
                             new NetworkRegistry.TargetPoint(entity.world.provider.getDimension(), entity.posX, entity.posY, entity.posZ, 64));
                 }
                 //deals the damage & shrinks the time left
@@ -115,7 +112,7 @@ public final class BlueFireUtils
                     damageEntityOn(entity);
 
                     if(cap.getRemaining() == 0) Main.wrapper.sendToAllAround(
-                            new BlueFireMessage(entity.getEntityId(), false),
+                            new MessageBlueFire(entity.getEntityId(), false),
                             new NetworkRegistry.TargetPoint(entity.world.provider.getDimension(), entity.posX, entity.posY, entity.posZ, 64));
                 }
             }

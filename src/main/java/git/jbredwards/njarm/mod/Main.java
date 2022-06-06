@@ -8,7 +8,8 @@ import git.jbredwards.njarm.mod.client.particle.ParticleFactoryColorize;
 import git.jbredwards.njarm.mod.common.capability.*;
 import git.jbredwards.njarm.mod.common.config.ConfigHandler;
 import git.jbredwards.njarm.mod.common.init.ModSounds;
-import git.jbredwards.njarm.mod.common.message.BlueFireMessage;
+import git.jbredwards.njarm.mod.common.message.*;
+import git.jbredwards.njarm.mod.common.world.generation.OreGenerator;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.*;
@@ -26,6 +27,7 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 
 import javax.annotation.Nonnull;
@@ -65,7 +67,10 @@ public final class Main
             CapabilityManager.INSTANCE.register(IBubbleColumn.class, IBubbleColumn.Storage.INSTANCE, IBubbleColumn.Impl::new);
             //register packets
             wrapper = NetworkRegistry.INSTANCE.newSimpleChannel(MODID);
-            wrapper.registerMessage(BlueFireMessage.Handler.INSTANCE, BlueFireMessage.class, 1, Side.CLIENT);
+            wrapper.registerMessage(MessageBlueFire.Handler.INSTANCE, MessageBlueFire.class, 1, Side.CLIENT);
+            wrapper.registerMessage(MessageParticle.Handler.INSTANCE, MessageParticle.class, 2, Side.CLIENT);
+            //world generators
+            GameRegistry.registerWorldGenerator(new OreGenerator(), 3);
         }
 
         protected void init() {
@@ -303,6 +308,8 @@ public final class Main
                     .put("assets/minecraft/textures/block/water_flow.png.mcmeta", String.format("assets/%s/textures/blocks/water_flow.png.mcmeta", MODID))
                     .put("assets/minecraft/textures/block/water_overlay.png", String.format("assets/%s/textures/blocks/water_overlay.png", MODID))
                     .put("assets/minecraft/textures/block/netherite_block.png", String.format("assets/%s/textures/blocks/netherite_block.png", MODID))
+                    .put("assets/minecraft/textures/block/ancient_debris_side.png", String.format("assets/%s/textures/blocks/ancient_debris_side.png", MODID))
+                    .put("assets/minecraft/textures/block/ancient_debris_top.png", String.format("assets/%s/textures/blocks/ancient_debris_top.png", MODID))
                     .build();
 
             LOGGER.info("Attempting to gather the vanilla 1.18.2 assets required by this mod, this may take a while if it's your first load...");

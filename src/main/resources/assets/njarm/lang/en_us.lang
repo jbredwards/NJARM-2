@@ -1,5 +1,5 @@
 #items
-item.njarm.baked_apple.name=Cooked Apple
+item.njarm.baked_apple.name=Baked Apple
 item.njarm.crumbling_bedrock.name=Crumbling Bedrock
 item.njarm.egg_shell.name=Egg Shells
 item.njarm.magic_dust.name=Magic Dust
@@ -14,6 +14,7 @@ item.njarm.sapphire.name=Sapphire
 item.njarm.sunstone.name=Sunstone
 itemGroup.njarm=NJARM 2
 #blocks
+tile.njarm.ancient_debris.name=Ancient Debris
 tile.njarm.blue_fire.name=Blue Fire
 tile.njarm.bubble_column.name=Bubble Column
 tile.njarm.food_crate.wheat_seeds.name=Crate of Wheat Seeds
@@ -34,6 +35,7 @@ tile.njarm.platinum_block.name=Block of Platinum
 tile.njarm.ruby_block.name=Block of Ruby
 tile.njarm.ruby_ore.name=Ruby Ore
 tile.njarm.sapphire_block.name=Block of Sapphire
+tile.njarm.sapphire_ore.name=Nether Sapphire Ore
 #sounds
 subtitles.njarm.misc.party_horn=Party horn
 subtitles.njarm.misc.electric_explosion=Electric explosion
