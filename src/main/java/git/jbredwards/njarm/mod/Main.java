@@ -21,6 +21,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeColorHelper;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.capabilities.CapabilityManager;
+import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.ProgressManager;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -130,8 +131,10 @@ public final class Main
             super.init();
         }
 
-        //side specific functions called throughout the mod
-        public boolean getLightForGlowingOre() { return MinecraftForgeClient.getRenderLayer() == BlockRenderLayer.CUTOUT; }
+        //use optifine emissive textures if that mod is loaded
+        public boolean getLightForGlowingOre() {
+            return !FMLClientHandler.instance().hasOptifine() && MinecraftForgeClient.getRenderLayer() == BlockRenderLayer.CUTOUT;
+        }
 
         //gather vanilla assets
         private void gatherVanillaAssets() {
