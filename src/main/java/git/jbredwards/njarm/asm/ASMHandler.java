@@ -41,6 +41,7 @@ public final class ASMHandler implements IFMLLoadingPlugin
                 //vanilla
                 .put("net.minecraft.client.particle.ParticleDrip", new PluginParticleDrip()) //Water droplet particles keep the color set by this mod
                 .put("net.minecraft.client.renderer.entity.Render", new PluginRender()) //Bedrock edition entity shadow size parody
+                .put("net.minecraft.client.renderer.entity.RenderManager", new PluginRenderManager()) //Fixes blue fire related entity rendering lighting bugs
                 .put("net.minecraft.client.renderer.EntityRenderer", new PluginEntityRenderer()) //Remove the annoying night vision flashing
                 .put("net.minecraft.client.renderer.ItemRenderer", new PluginItemRenderer()) //Render blue fire without "quirkiness"
                 .put("net.minecraft.block.Block", new PluginBlock()) //Swap hardcoded values for biome fog color

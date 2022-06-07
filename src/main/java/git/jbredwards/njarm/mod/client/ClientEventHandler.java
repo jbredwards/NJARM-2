@@ -1,6 +1,7 @@
 package git.jbredwards.njarm.mod.client;
 
 import git.jbredwards.njarm.mod.Constants;
+import git.jbredwards.njarm.mod.common.config.client.ParticlesConfig;
 import net.darkhax.bookshelf.data.ColorHandlers;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.ResourceLocation;
@@ -37,5 +38,6 @@ public final class ClientEventHandler
         //ensure these sprites are always registered, as their use cases are hardcoded
         event.getMap().registerSprite(new ResourceLocation(Constants.MODID, "blocks/blue_fire_layer_0"));
         event.getMap().registerSprite(new ResourceLocation(Constants.MODID, "blocks/blue_fire_layer_1"));
+        event.getMap().registerSprite(new ResourceLocation(ParticlesConfig.getMagicOreParticle()));
     }
 }

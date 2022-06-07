@@ -30,6 +30,8 @@ public final class ModItems
     @Nonnull public static final ItemBlock RUBY_ORE = register("ruby_ore", new ItemBlock(ModBlocks.RUBY_ORE));
     @Nonnull public static final ItemBlock SAPPHIRE_ORE = register("sapphire_ore", new ItemBlock(ModBlocks.SAPPHIRE_ORE));
     @Nonnull public static final ItemBlock ANCIENT_DEBRIS = register("ancient_debris", new ItemBlock(ModBlocks.ANCIENT_DEBRIS));
+    @Nonnull public static final ItemBlock MAGIC_BLOCK = register("magic_block", new ItemBlock(ModBlocks.MAGIC_BLOCK));
+    @Nonnull public static final ItemBlock MAGIC_ORE = register("magic_ore", new ItemBlock(ModBlocks.MAGIC_ORE));
 
     //items
     @Nonnull public static final Item RUBY = register("ruby", new Item());
@@ -52,6 +54,7 @@ public final class ModItems
 
     //register ores
     public static void registerOres() {
+        OreDictionary.registerOre("blockMagicAlloy", MAGIC_BLOCK);
         OreDictionary.registerOre("blockNetherite", NETHERITE_BLOCK);
         OreDictionary.registerOre("blockPlatinum", PLATINUM_BLOCK);
         OreDictionary.registerOre("blockRuby", RUBY_BLOCK);
@@ -60,7 +63,9 @@ public final class ModItems
         OreDictionary.registerOre("gemRuby", RUBY);
         OreDictionary.registerOre("gemSapphire", SAPPHIRE);
         OreDictionary.registerOre("gemSunstone", SUNSTONE);
+        OreDictionary.registerOre("ingotObsidian", OBSIDIAN_INGOT);
         OreDictionary.registerOre("oreAncientDebris", ANCIENT_DEBRIS);
+        OreDictionary.registerOre("oreMagic", MAGIC_ORE);
         OreDictionary.registerOre("oreRuby", RUBY_ORE);
         OreDictionary.registerOre("oreSapphire", SAPPHIRE_ORE);
     }

@@ -25,6 +25,7 @@ public class BlockOre extends Block
     @Nonnull protected Supplier<Item> droppedItem = () -> Item.getItemFromBlock(this);
     @Nonnull protected ToIntFunction<Random> quantityDropped = r -> 1;
     @Nonnull protected ToIntFunction<Random> expDropped = r -> 0;
+    protected boolean doesFortuneAdd;
     protected int damageDropped = 0;
 
     public BlockOre(@Nonnull Material materialIn) { this(materialIn, materialIn.getMaterialMapColor()); }
@@ -54,6 +55,12 @@ public class BlockOre extends Block
         return (T)this;
     }
 
+    @SuppressWarnings("unchecked")
+    public <T extends BlockOre> T setDoesFortuneAdd() {
+        doesFortuneAdd = true;
+        return (T)this;
+    }
+
     @Override
     public int getExpDrop(@Nonnull IBlockState state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos, int fortune) {
         return expDropped.applyAsInt(world instanceof World ? ((World)world).rand : RANDOM);
@@ -65,7 +72,8 @@ public class BlockOre extends Block
 
     @Override
     public int quantityDroppedWithBonus(int fortune, @Nonnull Random random) {
-        return fortune > 0 ? (random.nextInt(fortune + 1) + 1) * quantityDropped(random) : quantityDropped(random);
+        return fortune > 0 ? (doesFortuneAdd ? random.nextInt(fortune + 1) + quantityDropped(random)
+                : (random.nextInt(fortune + 1) + 1) * quantityDropped(random)) : quantityDropped(random);
     }
 
     @Override
@@ -76,5 +84,5 @@ public class BlockOre extends Block
 
     @Nonnull
     @Override
-    public ItemStack getItem(@Nonnull World worldIn, @Nonnull BlockPos pos, @Nonnull IBlockState state) { return new ItemStack(this); }
+    public ItemStack getItem(@Nonnull World worldIn, @Nonnull BlockPos pos, @Nonnull IBlockState state) { return getSilkTouchDrop(state); }
 }

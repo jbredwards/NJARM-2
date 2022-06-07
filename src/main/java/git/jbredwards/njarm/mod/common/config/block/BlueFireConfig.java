@@ -26,6 +26,7 @@ public final class BlueFireConfig implements IConfig
 
     @Config.Comment("Blue fire will treat these blocks as soul sand.")
     @Nonnull public final String[] soulSandBlocks;
+    @Nonnull public static final Object2BooleanMap<Block> SOUL_SAND = new Object2BooleanOpenHashMap<>();
 
     @Config.Comment("Damage dealt to entities in blue fire")
     @Nonnull public final String inBlueFireEntityDmg;
@@ -49,9 +50,6 @@ public final class BlueFireConfig implements IConfig
     @Config.Comment("Entities on blue fire render the fire like quark's \"improved fire\" render.")
     public final boolean quarkBlueFireRender;
     public static boolean quarkBlueFireRender() { return ConfigHandler.blockCfg.blueFireCfg.quarkBlueFireRender; }
-
-    @Config.Ignore
-    public static final Object2BooleanMap<Block> SOUL_SAND = new Object2BooleanOpenHashMap<>();
 
     @Override
     public void onUpdate() {

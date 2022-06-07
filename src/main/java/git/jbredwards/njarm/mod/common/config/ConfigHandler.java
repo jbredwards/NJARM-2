@@ -31,12 +31,13 @@ public final class ConfigHandler
     @Config.Comment("This mod's blocks.")
     @Nonnull public static final BlockConfig blockCfg = register(new BlockConfig(
             new BlueFireConfig(new String[] {"minecraft:soul_sand"}, "Math.max(2, health / 4)", "Math.max(2, health / 32)", "Math.max(2, health / 4)", "Math.max(2, health / 32)", false),
-            new FoodCrateConfig(new String[] {"{Type:\"poisonous_potato\",Effects:[{Id:19,Duration:65,Ambient:1b}]}", "{Type:\"golden_apple\",Effects:[{Id:10,Duration:65,Ambient:1b}]}", "{Type:\"golden_carrot\",Effects:[{Id:16,Duration:65,Ambient:1b}]}"}, false)
-    ));
+            new FoodCrateConfig(new String[] {"{Type:\"poisonous_potato\",Effects:[{Id:19,Duration:65,Ambient:1b}]}", "{Type:\"golden_apple\",Effects:[{Id:10,Duration:65,Ambient:1b}]}", "{Type:\"golden_carrot\",Effects:[{Id:16,Duration:65,Ambient:1b}]}"}, false),
+            new MagicOreConfig(true, 1, true)));
 
     @Config.Name("client")
     @Config.Comment("Client-side things, mostly rendering. Changes made to client settings are not seen by other players.")
     @Nonnull public static final ClientConfig clientCfg = register(new ClientConfig(
+            new ParticlesConfig("njarm:blocks/magic_ore_overlay"),
             new RenderingConfig(true, true, 60, 4, new String[] {
                     "{Biome:\"plains\",Surface:4501493,Fog:4501493}",
                     "{Biome:\"desert\",Surface:3319192,Fog:3319192}",

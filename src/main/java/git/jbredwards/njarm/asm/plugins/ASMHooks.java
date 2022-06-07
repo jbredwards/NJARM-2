@@ -168,6 +168,11 @@ public final class ASMHooks
         return entity.canRenderOnFire();
     }
 
+    //PluginRenderManager
+    public static boolean correctBlueFireBrightnessForRender(@Nonnull Entity entity) {
+        return entity.isBurning() || BlueFireUtils.getRemaining(entity) > 0 && BlueFireUtils.canBeLit(entity);
+    }
+
     //PluginTileEntityBeacon
     public static void playBeaconAmbientSound(@Nonnull TileEntity te, boolean isComplete) {
         if(te.hasWorld() && !te.getWorld().isRemote && isComplete) SoundUtils.playSound(te, ModSounds.BEACON_AMBIENT, 1, 1);

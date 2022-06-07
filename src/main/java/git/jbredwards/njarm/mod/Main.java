@@ -14,10 +14,12 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.*;
 import net.minecraft.init.Blocks;
+import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeColorHelper;
+import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.ProgressManager;
@@ -94,6 +96,9 @@ public final class Main
             Blocks.FLOWING_WATER.setLightOpacity(2);
             Blocks.WATER.setLightOpacity(2);
         }
+
+        //side specific functions called throughout the mod
+        public boolean getLightForGlowingOre() { return false; }
     }
 
     //handles client-side code
@@ -124,6 +129,9 @@ public final class Main
             //handle common-side stuff
             super.init();
         }
+
+        //side specific functions called throughout the mod
+        public boolean getLightForGlowingOre() { return MinecraftForgeClient.getRenderLayer() == BlockRenderLayer.CUTOUT; }
 
         //gather vanilla assets
         private void gatherVanillaAssets() {

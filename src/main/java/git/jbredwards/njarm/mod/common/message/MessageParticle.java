@@ -1,6 +1,6 @@
 package git.jbredwards.njarm.mod.common.message;
 
-import git.jbredwards.njarm.mod.client.particle.util.ParticleProvider;
+import git.jbredwards.njarm.mod.client.particle.util.ParticleProviders;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.WorldClient;
@@ -16,13 +16,13 @@ import javax.annotation.Nonnull;
  */
 public final class MessageParticle extends AbstractMessage
 {
-    public ParticleProvider provider;
+    public ParticleProviders provider;
     public float x, y, z, xOffset, yOffset, zOffset, speed;
     public int numOfParticles;
     public int[] args;
 
     public MessageParticle() {}
-    public MessageParticle(@Nonnull ParticleProvider provider, float x, float y, float z, float xOffset, float yOffset, float zOffset, float speed, int numOfParticles, int... args) {
+    public MessageParticle(@Nonnull ParticleProviders provider, float x, float y, float z, float xOffset, float yOffset, float zOffset, float speed, int numOfParticles, int... args) {
         this.isValid = true;
         this.provider = provider;
         this.x = x;
@@ -38,7 +38,7 @@ public final class MessageParticle extends AbstractMessage
 
     @Override
     public void read(@Nonnull ByteBuf buf) {
-        provider = ParticleProvider.values()[buf.readInt()];
+        provider = ParticleProviders.values()[buf.readInt()];
         //pos
         x = buf.readFloat();
         y = buf.readFloat();
@@ -50,17 +50,14 @@ public final class MessageParticle extends AbstractMessage
         speed = buf.readFloat();
         numOfParticles = buf.readInt();
         //args
-        args = new int[buf.readInt()];
-        for(int i = 0; i < args.length; i++) {
-            args[i] = buf.readInt();
-        }
+        args = readArray(buf);
     }
 
     @Override
     public void write(@Nonnull ByteBuf buf) {
         buf.writeInt(provider.ordinal());
         //pos
-        buf.writeFloat(z);
+        buf.writeFloat(x);
         buf.writeFloat(y);
         buf.writeFloat(z);
         buf.writeFloat(xOffset);
@@ -70,8 +67,7 @@ public final class MessageParticle extends AbstractMessage
         buf.writeFloat(speed);
         buf.writeInt(numOfParticles);
         //args
-        buf.writeInt(args.length);
-        for(int i : args) buf.writeInt(i);
+        writeArray(buf, args);
     }
 
     public enum Handler implements IClientMessageHandler<MessageParticle>
@@ -91,12 +87,12 @@ public final class MessageParticle extends AbstractMessage
             }
             //generates all particles
             else for(int i = 0; i < message.numOfParticles; i++) {
-                double x = message.x + world.rand.nextGaussian() * message.xOffset;
-                double y = message.y + world.rand.nextGaussian() * message.yOffset;
-                double z = message.z + world.rand.nextGaussian() * message.zOffset;
-                double xSpeed = world.rand.nextGaussian() * message.speed;
-                double ySpeed = world.rand.nextGaussian() * message.speed;
-                double zSpeed = world.rand.nextGaussian() * message.speed;
+                final double x = message.x + world.rand.nextGaussian() * message.xOffset;
+                final double y = message.y + world.rand.nextGaussian() * message.yOffset;
+                final double z = message.z + world.rand.nextGaussian() * message.zOffset;
+                final double xSpeed = world.rand.nextGaussian() * message.speed;
+                final double ySpeed = world.rand.nextGaussian() * message.speed;
+                final double zSpeed = world.rand.nextGaussian() * message.speed;
                 message.provider.spawnClient(world, x, y, z, xSpeed, ySpeed, zSpeed, message.args);
             }
         }

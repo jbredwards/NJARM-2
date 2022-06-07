@@ -1,8 +1,7 @@
 package git.jbredwards.njarm.mod.common.config.core;
 
 import git.jbredwards.njarm.mod.common.config.IConfig;
-import git.jbredwards.njarm.mod.common.config.block.BlueFireConfig;
-import git.jbredwards.njarm.mod.common.config.block.FoodCrateConfig;
+import git.jbredwards.njarm.mod.common.config.block.*;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.common.config.Config;
 
@@ -26,6 +25,10 @@ public final class BlockConfig implements IConfig
     @Config.Comment("Change food crate step effects & drop properties.")
     @Nonnull public final FoodCrateConfig foodCrateCfg;
 
+    @Config.Name("magic dust ores")
+    @Config.Comment("Enable/disable njarm 1 behaviors.")
+    @Nonnull public final MagicOreConfig magicOreCfg;
+
     //create a new config category while also adding it to the internal list
     @Nonnull
     private <T extends IConfig> T register(@Nonnull T cfg) {
@@ -42,8 +45,9 @@ public final class BlockConfig implements IConfig
     public void onUpdate() { CONFIGS.forEach(IConfig::onUpdate); }
 
     //needed for gson
-    public BlockConfig(@Nonnull BlueFireConfig blueFireCfg, @Nonnull FoodCrateConfig foodCrateCfg) {
+    public BlockConfig(@Nonnull BlueFireConfig blueFireCfg, @Nonnull FoodCrateConfig foodCrateCfg, @Nonnull MagicOreConfig magicOreCfg) {
         this.blueFireCfg = register(blueFireCfg);
         this.foodCrateCfg = register(foodCrateCfg);
+        this.magicOreCfg = register(magicOreCfg);
     }
 }

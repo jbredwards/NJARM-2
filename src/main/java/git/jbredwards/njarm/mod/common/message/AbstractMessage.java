@@ -28,4 +28,16 @@ public abstract class AbstractMessage implements IMessage
 
     public abstract void read(@Nonnull ByteBuf buf);
     public abstract void write(@Nonnull ByteBuf buf);
+
+    @Nonnull
+    public int[] readArray(@Nonnull ByteBuf buf) {
+        final int[] arr = new int[buf.readInt()];
+        for(int i = 0; i < arr.length; i++) arr[i] = buf.readInt();
+        return arr;
+    }
+
+    public void writeArray(@Nonnull ByteBuf buf, int[] arr) {
+        buf.writeInt(arr.length);
+        for(int i : arr) buf.writeInt(i);
+    }
 }

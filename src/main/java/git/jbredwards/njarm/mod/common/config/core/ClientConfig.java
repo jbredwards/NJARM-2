@@ -18,6 +18,10 @@ public final class ClientConfig implements IConfig
     private final NonNullList<IConfig> CONFIGS = NonNullList.create();
 
     @Config.Name("rendering")
+    @Config.Comment("Configure this mod's particles.")
+    @Nonnull public final ParticlesConfig particlesCfg;
+
+    @Config.Name("rendering")
     @Config.Comment("Enable/disable changes this mod makes to miscellaneous rendering-related stuffs.")
     @Nonnull public final RenderingConfig renderingCfg;
 
@@ -37,7 +41,8 @@ public final class ClientConfig implements IConfig
     public void onUpdate() { CONFIGS.forEach(IConfig::onUpdate); }
 
     //needed for gson
-    public ClientConfig(@Nonnull RenderingConfig renderingCfg) {
+    public ClientConfig(@Nonnull ParticlesConfig particlesCfg, @Nonnull RenderingConfig renderingCfg) {
+        this.particlesCfg = register(particlesCfg);
         this.renderingCfg = register(renderingCfg);
     }
 }

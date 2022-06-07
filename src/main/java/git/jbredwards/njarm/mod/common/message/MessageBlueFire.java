@@ -26,13 +26,13 @@ public final class MessageBlueFire extends AbstractMessage
     }
 
     @Override
-    public void write(@Nonnull ByteBuf buf) {
+    public void read(@Nonnull ByteBuf buf) {
         entity = buf.readInt();
         isOnBlueFire = buf.readBoolean();
     }
 
     @Override
-    public void read(@Nonnull ByteBuf buf) {
+    public void write(@Nonnull ByteBuf buf) {
         buf.writeInt(entity);
         buf.writeBoolean(isOnBlueFire);
     }
@@ -44,7 +44,8 @@ public final class MessageBlueFire extends AbstractMessage
         @SideOnly(Side.CLIENT)
         @Override
         public void handleMessage(@Nonnull MessageBlueFire message) {
-            BlueFireUtils.setRemaining(Minecraft.getMinecraft().world.getEntityByID(message.entity), message.isOnBlueFire ? 1 : 0);
+            BlueFireUtils.setRemaining(Minecraft.getMinecraft().world
+                    .getEntityByID(message.entity), message.isOnBlueFire ? 1 : 0);
         }
     }
 }
