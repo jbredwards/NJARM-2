@@ -25,6 +25,7 @@ import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.ProgressManager;
 import net.minecraftforge.fml.common.SidedProxy;
+import net.minecraftforge.fml.common.event.FMLConstructionEvent;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -53,6 +54,9 @@ public final class Main
     @Nonnull public static SimpleNetworkWrapper wrapper;
 
     @Mod.EventHandler
+    private static void construct(@Nonnull FMLConstructionEvent event) { proxy.construct(); }
+
+    @Mod.EventHandler
     private static void preInit(@Nonnull FMLPreInitializationEvent event) { proxy.preInit(); }
 
     @Mod.EventHandler
@@ -64,6 +68,8 @@ public final class Main
     //handles server-side code
     public static class CommonProxy
     {
+        protected void construct() {}
+
         protected void preInit() {
             //register capabilities
             CapabilityManager.INSTANCE.register(IBlueFire.class, IBlueFire.Storage.INSTANCE, IBlueFire.Impl::new);
@@ -109,7 +115,6 @@ public final class Main
         @Override
         protected void preInit() {
             EntityRendererHandler.registerEntityRenderers();
-            gatherVanillaAssets();
             //handle common-side stuff
             super.preInit();
         }
@@ -137,7 +142,8 @@ public final class Main
         }
 
         //gather vanilla assets
-        private void gatherVanillaAssets() {
+        @Override
+        protected void construct() {
             final ImmutableMap<String, String> assets = ImmutableMap.<String,String>builder()
                     //sounds
                     .put("assets/minecraft/sounds/block/beacon/ambient.ogg", String.format("assets/%s/sounds/blocks/nether_reactor_core/ambient.ogg", MODID))
