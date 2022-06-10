@@ -69,7 +69,7 @@ public class BlockFoodCrate extends Block
 
     @Override
     public void getSubBlocks(@Nonnull CreativeTabs itemIn, @Nonnull NonNullList<ItemStack> items) {
-        for(int meta = 0; meta < Type.values().length; meta++) { items.add(new ItemStack(this, 1, meta)); }
+        for(int meta = 0; meta < Type.values().length; meta++) items.add(new ItemStack(this, 1, meta));
     }
 
     @Override
@@ -132,19 +132,19 @@ public class BlockFoodCrate extends Block
 
     public enum Type implements IStringSerializable
     {
-        @Nonnull WHEAT_SEEDS("wheat_seeds", () -> Items.WHEAT_SEEDS),
-        @Nonnull CARROT("carrot", () -> Items.CARROT),
-        @Nonnull POTATO("potato", () -> Items.POTATO),
-        @Nonnull POISONOUS_POTATO("poisonous_potato", () -> Items.POISONOUS_POTATO),
-        @Nonnull BEETROOT("beetroot", () -> Items.BEETROOT),
-        @Nonnull BEETROOT_SEEDS("beetroot_seeds", () -> Items.BEETROOT_SEEDS),
-        @Nonnull APPLE("apple", () -> Items.APPLE),
-        @Nonnull GOLDEN_APPLE("golden_apple", () -> Items.GOLDEN_APPLE),
-        @Nonnull GOLDEN_CARROT("golden_carrot", () -> Items.GOLDEN_CARROT),
-        @Nonnull FISH("fish", () -> Items.FISH),
-        @Nonnull SALMON("salmon", () -> Items.FISH, 1),
-        @Nonnull NEMO("nemo", () -> Items.FISH, 2),
-        @Nonnull PUFFERFISH("pufferfish", () -> Items.FISH, 3);
+        WHEAT_SEEDS("wheat_seeds", () -> Items.WHEAT_SEEDS),
+        CARROT("carrot", () -> Items.CARROT),
+        POTATO("potato", () -> Items.POTATO),
+        POISONOUS_POTATO("poisonous_potato", () -> Items.POISONOUS_POTATO),
+        BEETROOT("beetroot", () -> Items.BEETROOT),
+        BEETROOT_SEEDS("beetroot_seeds", () -> Items.BEETROOT_SEEDS),
+        APPLE("apple", () -> Items.APPLE),
+        GOLDEN_APPLE("golden_apple", () -> Items.GOLDEN_APPLE),
+        GOLDEN_CARROT("golden_carrot", () -> Items.GOLDEN_CARROT),
+        FISH("fish", () -> Items.FISH),
+        SALMON("salmon", () -> Items.FISH, 1),
+        NEMO("nemo", () -> Items.FISH, 2),
+        PUFFERFISH("pufferfish", () -> Items.FISH, 3);
 
         @Nonnull public static final Type[] COMMONS = new Type[] {WHEAT_SEEDS, CARROT, POTATO, BEETROOT, BEETROOT_SEEDS, APPLE, FISH, SALMON, PUFFERFISH};
         @Nonnull public static final Type[] RARES = new Type[] {POISONOUS_POTATO, GOLDEN_APPLE, GOLDEN_CARROT, NEMO};
