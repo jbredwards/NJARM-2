@@ -1,13 +1,11 @@
 package git.jbredwards.njarm.mod.client.particle.util;
 
-import net.minecraft.client.Minecraft;
+import git.jbredwards.njarm.mod.client.util.SpriteStorage;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.util.function.Supplier;
 
 /**
  * Handles one layer of layered particles ({@link git.jbredwards.njarm.mod.client.particle.ParticleLayeredBlockDust ParticleLayeredBlockDust} &
@@ -15,53 +13,29 @@ import java.util.function.Supplier;
  * @author jbred
  *
  */
-public class ParticleLayer
+@SideOnly(Side.CLIENT)
+public class ParticleLayer extends SpriteStorage
 {
-    @Nullable
-    @SideOnly(Side.CLIENT)
-    protected TextureAtlasSprite sprite;
+    @Nonnull public final float[] colors = new float[3];
+    @Nonnull protected final SpriteStorage storage;
+    public final int brightness;
 
-    @Nonnull
-    protected String prevTexture;
-
-    @Nonnull
-    protected final Supplier<String> texture;
-    protected final int brightness;
-
-    public ParticleLayer(@Nonnull Supplier<String> texture, int brightness) {
-        this.texture = texture;
+    public ParticleLayer(@Nonnull SpriteStorage storage, int brightness) {
+        super(storage.supplier);
+        this.storage = storage;
         this.brightness = brightness;
-        this.prevTexture = texture.get();
     }
 
-    public int getBrightness() { return brightness; }
+    public ParticleLayer(@Nonnull TextureAtlasSprite sprite, int brightness) {
+        this(new SpriteStorage(sprite::getIconName), brightness);
+        storage.setSprite(sprite);
+    }
 
     @Nonnull
-    @SideOnly(Side.CLIENT)
-    public TextureAtlasSprite getSprite() {
-        //update sprite if supplier value is changed
-        if(!prevTexture.equals(texture.get())) prevTexture = texture.get();
-        else if(sprite != null) return sprite;
+    @Override
+    public TextureAtlasSprite getSprite() { return storage.getSprite(); }
 
-        return sprite = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(prevTexture);
-    }
-
-    //used for actually rendering the layer
-    @SideOnly(Side.CLIENT)
-    public static class Stack
-    {
-        @Nonnull public final float[] colors = new float[3];
-        @Nonnull protected final ParticleLayer layer;
-
-        public Stack(@Nonnull ParticleLayer layer) { this.layer = layer; }
-        public Stack(@Nonnull TextureAtlasSprite sprite) {
-            this(new ParticleLayer(sprite::getIconName, -1));
-            layer.sprite = sprite;
-        }
-
-        public int getBrightness() { return layer.getBrightness(); }
-
-        @Nonnull
-        public TextureAtlasSprite getSprite() { return layer.getSprite(); }
-    }
+    @Nonnull
+    @Override
+    public TextureAtlasSprite setSprite(@Nonnull TextureAtlasSprite spriteIn) { return storage.setSprite(spriteIn); }
 }

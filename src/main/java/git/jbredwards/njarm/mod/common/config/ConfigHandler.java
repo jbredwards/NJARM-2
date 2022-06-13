@@ -37,7 +37,7 @@ public final class ConfigHandler
     @Config.Name("client")
     @Config.Comment("Client-side things, mostly rendering. Changes made to client settings are not seen by other players.")
     @Nonnull public static final ClientConfig clientCfg = register(new ClientConfig(
-            new ParticlesConfig("njarm:blocks/magic_ore_overlay"),
+            new ParticlesConfig("njarm:blocks/magic_ore_overlay", "njarm:blocks/xp_ore_overlay", "njarm:blocks/xp_ore_overlay", "njarm:blocks/xp_ore_overlay"),
             new RenderingConfig(true, true, 60, 4, new String[] {
                     "{Biome:\"plains\",Surface:4501493,Fog:4501493}",
                     "{Biome:\"desert\",Surface:3319192,Fog:3319192}",

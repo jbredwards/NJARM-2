@@ -1,0 +1,41 @@
+{
+	"forge_marker": 1,
+	"defaults":{
+		"model":"forge:multi-layer",
+		"transform":"forge:default-block"
+	},
+	"variants":{
+		"inventory":[{}],
+		"normal":[{}],
+		"type=overworld":[{
+			"custom":{
+                "base":"njarm:xp_ore#overworld",
+			    "Solid":"njarm:xp_ore#overworld",
+			    "Cutout":"njarm:xp_ore#overlay"
+            }
+		}],
+		"type=nether":[{
+			"custom":{
+                "base":"njarm:xp_ore#nether",
+			    "Solid":"njarm:xp_ore#nether",
+			    "Cutout":"njarm:xp_ore#overlay"
+            }
+		}],
+		"type=end":[{
+			"custom":{
+                "base":"njarm:xp_ore#end",
+			    "Solid":"njarm:xp_ore#end",
+			    "Cutout":"njarm:xp_ore#overlay"
+            }
+		}],
+		"overworld":[{"model":"stone"}],
+		"nether":[{"model":"netherrack"}],
+		"end":[{"model":"end_stone"}],
+		"overlay":[{
+			"model":"cube_all",
+			"textures":{
+				"all":"njarm:blocks/xp_ore_overlay"
+			}
+		}]
+	}
+}

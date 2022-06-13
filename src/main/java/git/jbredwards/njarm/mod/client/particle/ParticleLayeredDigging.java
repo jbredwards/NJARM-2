@@ -1,7 +1,8 @@
 package git.jbredwards.njarm.mod.client.particle;
 
 import git.jbredwards.njarm.mod.client.particle.util.ParticleLayer;
-import net.minecraft.block.state.IBlockState;
+import git.jbredwards.njarm.mod.client.util.SpriteStorage;
+import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.ParticleDigging;
 import net.minecraft.client.renderer.BufferBuilder;
@@ -23,16 +24,16 @@ import javax.annotation.Nullable;
 public final class ParticleLayeredDigging extends ParticleDigging
 {
     @Nonnull
-    protected final ParticleLayer.Stack[] layers;
+    protected final ParticleLayer[] layers;
     protected int brightnessForRender;
 
-    public ParticleLayeredDigging(@Nonnull World worldIn, double x, double y, double z, double xSpeedIn, double ySpeedIn, double zSpeedIn, @Nonnull IBlockState state, @Nonnull ParticleLayer[] layers) {
-        super(worldIn, x, y, z, xSpeedIn, ySpeedIn, zSpeedIn, state);
-        this.layers = new ParticleLayer.Stack[layers.length + 1];
-        this.layers[0] = new ParticleLayer.Stack(particleTexture);
+    public ParticleLayeredDigging(@Nonnull World worldIn, double x, double y, double z, double xSpeedIn, double ySpeedIn, double zSpeedIn, @Nonnull SpriteStorage[] layers, @Nonnull int[] args) {
+        super(worldIn, x, y, z, xSpeedIn, ySpeedIn, zSpeedIn, Block.getStateById(args[0]));
+        this.layers = new ParticleLayer[layers.length + 1];
+        this.layers[0] = new ParticleLayer(particleTexture, args[1]);
 
         for(int i = 1; i <= layers.length; i++)
-            this.layers[i] = new ParticleLayer.Stack(layers[i - 1]);
+            this.layers[i] = new ParticleLayer(layers[i - 1], args[i + 1]);
     }
 
     @Override
@@ -49,12 +50,12 @@ public final class ParticleLayeredDigging extends ParticleDigging
 
     @Override
     public void renderParticle(@Nonnull BufferBuilder buffer, @Nonnull Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
-        for(ParticleLayer.Stack layer : layers) {
+        for(ParticleLayer layer : layers) {
             particleTexture = layer.getSprite();
             particleRed = 0.6f * layer.colors[0];
             particleGreen = 0.6f * layer.colors[1];
             particleBlue = 0.6f * layer.colors[2];
-            brightnessForRender = layer.getBrightness() < 0 ? super.getBrightnessForRender(partialTicks) : layer.getBrightness();
+            brightnessForRender = layer.brightness < 0 ? super.getBrightnessForRender(partialTicks) : layer.brightness;
             super.renderParticle(buffer, entityIn, partialTicks, rotationX, rotationZ, rotationYZ, rotationXY, rotationXZ);
         }
     }

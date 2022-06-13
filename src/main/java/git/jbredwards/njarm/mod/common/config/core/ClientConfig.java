@@ -17,7 +17,7 @@ public final class ClientConfig implements IConfig
     @Nonnull
     private final NonNullList<IConfig> CONFIGS = NonNullList.create();
 
-    @Config.Name("rendering")
+    @Config.Name("particles")
     @Config.Comment("Configure this mod's particles.")
     @Nonnull public final ParticlesConfig particlesCfg;
 

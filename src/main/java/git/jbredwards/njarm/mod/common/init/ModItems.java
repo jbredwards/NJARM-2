@@ -32,6 +32,7 @@ public final class ModItems
     @Nonnull public static final ItemBlock ANCIENT_DEBRIS = register("ancient_debris", new ItemBlock(ModBlocks.ANCIENT_DEBRIS));
     @Nonnull public static final ItemBlock MAGIC_BLOCK = register("magic_block", new ItemBlock(ModBlocks.MAGIC_BLOCK));
     @Nonnull public static final ItemBlock MAGIC_ORE = register("magic_ore", new ItemBlock(ModBlocks.MAGIC_ORE));
+    @Nonnull public static final ItemBlockExperienceOre XP_ORE = register("xp_ore", new ItemBlockExperienceOre(ModBlocks.XP_ORE));
 
     //items
     @Nonnull public static final Item RUBY = register("ruby", new Item());

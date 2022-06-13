@@ -4,9 +4,9 @@ import git.jbredwards.njarm.mod.Main;
 import git.jbredwards.njarm.mod.client.particle.ParticleLayeredBlockDust;
 import git.jbredwards.njarm.mod.client.particle.ParticleLayeredDigging;
 import git.jbredwards.njarm.mod.client.particle.ParticleLitRedstone;
+import git.jbredwards.njarm.mod.client.util.SpriteStorage;
 import git.jbredwards.njarm.mod.common.config.client.ParticlesConfig;
 import git.jbredwards.njarm.mod.common.message.MessageParticle;
-import net.minecraft.block.Block;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
@@ -22,14 +22,14 @@ import javax.annotation.Nonnull;
  */
 public enum ParticleProviders implements IParticleProvider
 {
-    MAGIC_ORE_BLOCK_DUST(getBlockDustFromTextures(new ParticleLayer(ParticlesConfig::getMagicOreParticle, 240))),
-    MAGIC_ORE_DIGGING(getDiggingFromTextures(new ParticleLayer(ParticlesConfig::getMagicOreParticle, 240))),
-    /*XP_ORE_BLOCK_DUST(getBlockDustFromTextures()),
-    XP_ORE_DIGGING(getDiggingFromTextures()),
-    NETHER_XP_ORE_BLOCK_DUST(getBlockDustFromTextures()),
-    NETHER_XP_ORE_DIGGING(getDiggingFromTextures()),
-    END_XP_ORE_BLOCK_DUST(getBlockDustFromTextures()),
-    END_XP_ORE_DIGGING(getDiggingFromTextures()),*/
+    MAGIC_ORE_BLOCK_DUST(getBlockDustFromTextures(new SpriteStorage(ParticlesConfig::getMagicOreParticle))),
+    MAGIC_ORE_DIGGING(getDiggingFromTextures(new SpriteStorage(ParticlesConfig::getMagicOreParticle))),
+    XP_ORE_BLOCK_DUST(getBlockDustFromTextures(new SpriteStorage(ParticlesConfig::xpMagicOreParticle))),
+    XP_ORE_DIGGING(getDiggingFromTextures(new SpriteStorage(ParticlesConfig::xpMagicOreParticle))),
+    NETHER_XP_ORE_BLOCK_DUST(getBlockDustFromTextures(new SpriteStorage(ParticlesConfig::netherXpMagicOreParticle))),
+    NETHER_XP_ORE_DIGGING(getDiggingFromTextures(new SpriteStorage(ParticlesConfig::netherXpMagicOreParticle))),
+    END_XP_ORE_BLOCK_DUST(getBlockDustFromTextures(new SpriteStorage(ParticlesConfig::endXpMagicOreParticle))),
+    END_XP_ORE_DIGGING(getDiggingFromTextures(new SpriteStorage(ParticlesConfig::endXpMagicOreParticle))),
     LIT_REDSTONE(new IParticleProvider() {
         @Nonnull
         @SideOnly(Side.CLIENT)
@@ -43,25 +43,25 @@ public enum ParticleProviders implements IParticleProvider
     ParticleProviders(@Nonnull IParticleProvider internalProvider) { this.internalProvider = internalProvider; }
 
     @Nonnull
-    static IParticleProvider getBlockDustFromTextures(@Nonnull ParticleLayer... layers) {
+    static IParticleProvider getBlockDustFromTextures(@Nonnull SpriteStorage... layers) {
         return new IParticleProvider() {
             @Nonnull
             @SideOnly(Side.CLIENT)
             @Override
             public Particle getParticle(@Nonnull World world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, int... args) {
-                return new ParticleLayeredBlockDust(world, x, y, z, xSpeed, ySpeed, zSpeed, Block.getStateById(args[0]), layers).init();
+                return new ParticleLayeredBlockDust(world, x, y, z, xSpeed, ySpeed, zSpeed, layers, args).init();
             }
         };
     }
 
     @Nonnull
-    static IParticleProvider getDiggingFromTextures(@Nonnull ParticleLayer... layers) {
+    static IParticleProvider getDiggingFromTextures(@Nonnull SpriteStorage... layers) {
         return new IParticleProvider() {
             @Nonnull
             @SideOnly(Side.CLIENT)
             @Override
             public Particle getParticle(@Nonnull World world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, int... args) {
-                return new ParticleLayeredDigging(world, x, y, z, xSpeed, ySpeed, zSpeed, Block.getStateById(args[0]), layers).init();
+                return new ParticleLayeredDigging(world, x, y, z, xSpeed, ySpeed, zSpeed, layers, args).init();
             }
         };
     }

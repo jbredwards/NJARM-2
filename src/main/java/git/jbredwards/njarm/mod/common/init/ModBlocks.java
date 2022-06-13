@@ -9,6 +9,7 @@ import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialLiquid;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.MathHelper;
 
@@ -40,6 +41,7 @@ public final class ModBlocks
     @Nonnull public static final Block MAGIC_BLOCK = register("magic_block", new Block(Material.IRON, MapColor.PINK), Blocks.DIAMOND_BLOCK);
     @Nonnull public static final BlockMagicOre MAGIC_ORE = register("magic_ore", new BlockMagicOre(Material.ROCK, MapColor.SAND, false).setItemDropped(() -> ModItems.MAGIC_DUST).setQuantityDropped(rand -> MathHelper.getInt(rand, 1, 3)).setDoesFortuneAdd().setExpDropped(rand -> MathHelper.getInt(rand, 1, 5)), Blocks.END_STONE);
     @Nonnull public static final BlockMagicOre LIT_MAGIC_ORE = register("lit_magic_ore", new BlockMagicOre(Material.ROCK, MapColor.SAND, true).setItemDropped(() -> ModItems.MAGIC_DUST).setQuantityDropped(rand -> MathHelper.getInt(rand, 1, 3)).setDoesFortuneAdd().setExpDropped(rand -> MathHelper.getInt(rand, 1, 5)), Blocks.END_STONE);
+    @Nonnull public static final BlockExperienceOre XP_ORE = register("xp_ore", new BlockExperienceOre(Material.ROCK).setItemDropped(() -> Items.AIR).setQuantityDropped(rand -> 0).setExpDropped(rand -> MathHelper.getInt(rand, 5, 14)), Blocks.COAL_ORE);
     @Nonnull public static final BlockBlueFire BLUE_FIRE = register("blue_fire", new BlockBlueFire(), Blocks.FIRE);
     @Nonnull public static final BlockBubbleColumn BUBBLE_COLUMN = register("bubble_column", new BlockBubbleColumn(BUBBLE_COLUMN_MATERIAL), Blocks.WATER, block -> block.setLightOpacity(0));
 
