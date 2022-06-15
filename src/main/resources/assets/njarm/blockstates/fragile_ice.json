@@ -1,0 +1,10 @@
+{
+    "forge_marker":1,
+    "variants":{
+        "type=full":[{"model":"frosted_ice_0"}],
+        "type=cracked1":[{"model":"frosted_ice_1"}],
+        "type=cracked2":[{"model":"frosted_ice_2"}],
+        "type=cracked3":[{"model":"frosted_ice_3"}],
+        "inventory":[{"model":"frosted_ice_3"}]
+    }
+}

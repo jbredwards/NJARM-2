@@ -50,6 +50,7 @@ public final class ModRecipes
         registry.register(shapeless(9, 1, Items.FISH, new ItemStack(ModItems.FOOD_CRATE, 1, 10)));
         registry.register(shapeless(9, 2, Items.FISH, new ItemStack(ModItems.FOOD_CRATE, 1, 11)));
         registry.register(shapeless(9, 3, Items.FISH, new ItemStack(ModItems.FOOD_CRATE, 1, 12)));
+        registry.register(shapeless(16, ModItems.FRAGILE_ICE, Blocks.ICE));
         registry.register(shapeless(9, Items.POISONOUS_POTATO, new ItemStack(ModItems.FOOD_CRATE, 1, 3)));
         registry.register(shapeless(9, Items.POTATO, new ItemStack(ModItems.FOOD_CRATE, 1, 2)));
         registry.register(shapeless(9, ModItems.RUBY, ModItems.RUBY_BLOCK));

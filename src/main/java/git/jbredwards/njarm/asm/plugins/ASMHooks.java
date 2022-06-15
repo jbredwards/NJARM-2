@@ -5,6 +5,7 @@ import git.jbredwards.njarm.mod.common.config.block.BlueFireConfig;
 import git.jbredwards.njarm.mod.common.config.client.RenderingConfig;
 import git.jbredwards.njarm.mod.common.init.ModBlocks;
 import git.jbredwards.njarm.mod.common.init.ModSounds;
+import git.jbredwards.njarm.mod.common.item.ItemUndyingTotem;
 import git.jbredwards.njarm.mod.common.util.BlueFireUtils;
 import git.jbredwards.njarm.mod.common.block.util.IHasRunningEffects;
 import git.jbredwards.njarm.mod.common.util.SoundUtils;
@@ -14,6 +15,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.DamageSource;
@@ -31,6 +33,7 @@ import org.apache.commons.lang3.tuple.Pair;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.awt.*;
+import java.util.Map;
 
 /**
  * class exists cause SpongeForge
@@ -136,6 +139,14 @@ public final class ASMHooks
 
     //PluginEntityRenderer
     public static int betterNightVision() { return RenderingConfig.nightVisionFlashing(); }
+
+    //PluginItem
+    @Nonnull
+    public static Item genTotemOfUndying(@Nonnull Map<Item, Block> map) {
+        final ItemUndyingTotem totem = new ItemUndyingTotem();
+        map.put(totem, ModBlocks.TOTEM_OF_UNDYING);
+        return totem;
+    }
 
     //PluginItemRenderer
     @SideOnly(Side.CLIENT)

@@ -4,6 +4,7 @@ import git.jbredwards.njarm.mod.Main;
 import git.jbredwards.njarm.mod.client.particle.util.ParticleProviders;
 import git.jbredwards.njarm.mod.client.particle.util.ParticleUtils;
 import git.jbredwards.njarm.mod.common.init.ModSounds;
+import git.jbredwards.njarm.mod.common.util.ArrayUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.MapColor;
@@ -57,7 +58,7 @@ public class BlockExperienceOre extends BlockOre
     @Nonnull
     @Override
     public IBlockState getStateFromMeta(int meta) {
-        return getDefaultState().withProperty(TYPE, Type.values()[meta < Type.values().length ? meta : 0]);
+        return getDefaultState().withProperty(TYPE, ArrayUtils.getSafe(Type.values(), meta));
     }
 
     @Nonnull

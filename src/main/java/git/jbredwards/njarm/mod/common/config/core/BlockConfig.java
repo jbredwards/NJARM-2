@@ -25,9 +25,17 @@ public final class BlockConfig implements IConfig
     @Config.Comment("Change food crate step effects & drop properties.")
     @Nonnull public final FoodCrateConfig foodCrateCfg;
 
+    @Config.Name("fragile ice")
+    @Config.Comment("Change fragile ice melting time.")
+    @Nonnull public final FragileIceConfig fragileIceCfg;
+
     @Config.Name("magic dust ores")
-    @Config.Comment("Enable/disable njarm 1 behaviors.")
+    @Config.Comment("Enable/disable legacy njarm 1 behaviors.")
     @Nonnull public final MagicOreConfig magicOreCfg;
+
+    @Config.Name("totem of undying")
+    @Config.Comment("Enable/disable legacy njarm 1 behaviors.")
+    @Nonnull public final TotemOfUndyingConfig totemOfUndyingCfg;
 
     //create a new config category while also adding it to the internal list
     @Nonnull
@@ -45,9 +53,11 @@ public final class BlockConfig implements IConfig
     public void onUpdate() { CONFIGS.forEach(IConfig::onUpdate); }
 
     //needed for gson
-    public BlockConfig(@Nonnull BlueFireConfig blueFireCfg, @Nonnull FoodCrateConfig foodCrateCfg, @Nonnull MagicOreConfig magicOreCfg) {
+    public BlockConfig(@Nonnull BlueFireConfig blueFireCfg, @Nonnull FoodCrateConfig foodCrateCfg, @Nonnull FragileIceConfig fragileIceCfg, @Nonnull MagicOreConfig magicOreCfg, @Nonnull TotemOfUndyingConfig totemOfUndyingCfg) {
         this.blueFireCfg = register(blueFireCfg);
         this.foodCrateCfg = register(foodCrateCfg);
+        this.fragileIceCfg = register(fragileIceCfg);
         this.magicOreCfg = register(magicOreCfg);
+        this.totemOfUndyingCfg = register(totemOfUndyingCfg);
     }
 }

@@ -5,6 +5,7 @@ import git.jbredwards.njarm.asm.plugins.IASMPlugin;
 import git.jbredwards.njarm.asm.plugins.forge.*;
 import git.jbredwards.njarm.asm.plugins.vanilla.*;
 import net.minecraft.launchwrapper.IClassTransformer;
+import net.minecraftforge.fml.relauncher.FMLLaunchHandler;
 import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin;
 
 import javax.annotation.Nonnull;
@@ -21,11 +22,6 @@ import java.util.Map;
 @IFMLLoadingPlugin.MCVersion("1.12.2")
 public final class ASMHandler implements IFMLLoadingPlugin
 {
-    /**
-     * True if this is being run from an obfuscated environment
-     */
-    public static boolean obfuscated;
-
     /**
      * This class exists because the launcher don't allow {@link IClassTransformer IClassTransformers}
      * to be the same class as {@link IFMLLoadingPlugin IFMLLoadingPlugins}
@@ -59,6 +55,7 @@ public final class ASMHandler implements IFMLLoadingPlugin
                 .put("net.minecraft.entity.player.EntityPlayer", new PluginEntityPlayer()) //Plays the fire damage sound at the exact moment when the player takes damage from blue fire
                 .put("net.minecraft.entity.Entity", new PluginEntity()) //Fix MC-1691
                 .put("net.minecraft.entity.EntityLivingBase", new PluginEntityLivingBase()) //Fix MC-1691 & fix fire damage sound
+                .put("net.minecraft.item.Item", new PluginItem()) //Overrides the totem of undying item
                 .put("net.minecraft.tileentity.TileEntityBeacon", new PluginTileEntityBeacon()) //Backport the vanilla 1.13+ beacon sounds
                 .put("net.minecraft.world.biome.BiomeColorHelper", new PluginBiomeColorHelper()) //Add 1.13+ biome color blend slider functionality
                 .put("net.minecraft.world.World", new PluginWorld()) //implement IHasWorldState functionality
@@ -70,13 +67,8 @@ public final class ASMHandler implements IFMLLoadingPlugin
         @Override
         public byte[] transform(@Nonnull String name, @Nonnull String transformedName, @Nonnull byte[] basicClass) {
             final @Nullable IASMPlugin plugin = PLUGINS.get(transformedName);
-            return plugin != null ? plugin.transform(basicClass, obfuscated) : basicClass;
+            return plugin != null ? plugin.transform(basicClass, !FMLLaunchHandler.isDeobfuscatedEnvironment()) : basicClass;
         }
-    }
-
-    @Override
-    public void injectData(@Nonnull Map<String, Object> map) {
-        obfuscated = (boolean)map.get("runtimeDeobfuscationEnabled");
     }
 
     @Nonnull
@@ -92,6 +84,9 @@ public final class ASMHandler implements IFMLLoadingPlugin
     @Nullable
     @Override
     public String getSetupClass() { return null; }
+
+    @Override
+    public void injectData(@Nonnull Map<String, Object> map) { }
 
     @Nullable
     @Override

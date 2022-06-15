@@ -4,6 +4,7 @@ import git.jbredwards.fluidlogged_api.mod.asm.plugins.ASMHooks;
 import git.jbredwards.njarm.mod.common.config.block.FoodCrateConfig;
 import git.jbredwards.njarm.mod.common.init.ModItems;
 import git.jbredwards.njarm.mod.common.init.ModSounds;
+import git.jbredwards.njarm.mod.common.util.ArrayUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.MapColor;
@@ -87,7 +88,7 @@ public class BlockFoodCrate extends Block
     @Nonnull
     @Override
     public IBlockState getStateFromMeta(int meta) {
-        return getDefaultState().withProperty(TYPE, Type.values()[meta < Type.values().length ? meta : 0]);
+        return getDefaultState().withProperty(TYPE, ArrayUtils.getSafe(Type.values(), meta));
     }
 
     @Override
