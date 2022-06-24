@@ -52,8 +52,8 @@ public final class PluginEntityLivingBase implements IASMPlugin
     }
 
     @Override
-    public int addLocalVariables(@Nonnull MethodNode method, @Nonnull LabelNode start, @Nonnull LabelNode end, int index) {
+    public boolean addLocalVariables(@Nonnull MethodNode method, @Nonnull LabelNode start, @Nonnull LabelNode end, int index) {
         method.localVariables.add(new LocalVariableNode("pair", "Lorg/apache/commons/lang3/tuple/Pair;", "Lorg/apache/commons/lang3/tuple/Pair<Lnet/minecraft/block/state/IBlockState;Lnet/minecraft/util/math/BlockPos;>;", start, end, 10));
-        return 1;
+        return true;
     }
 }

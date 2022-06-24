@@ -51,8 +51,8 @@ public final class PluginBiomeColorHelper implements IASMPlugin
     }
 
     @Override
-    public int addLocalVariables(@Nonnull MethodNode method, @Nonnull LabelNode start, @Nonnull LabelNode end, int index) {
+    public boolean addLocalVariables(@Nonnull MethodNode method, @Nonnull LabelNode start, @Nonnull LabelNode end, int index) {
         method.localVariables.add(new LocalVariableNode("biomeBlendRadius", "I", null, start, end, 9));
-        return 1;
+        return true;
     }
 }

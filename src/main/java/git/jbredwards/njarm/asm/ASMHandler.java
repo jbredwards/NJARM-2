@@ -67,7 +67,8 @@ public final class ASMHandler implements IFMLLoadingPlugin
         @Override
         public byte[] transform(@Nonnull String name, @Nonnull String transformedName, @Nonnull byte[] basicClass) {
             final @Nullable IASMPlugin plugin = PLUGINS.get(transformedName);
-            return plugin != null ? plugin.transform(basicClass, !FMLLaunchHandler.isDeobfuscatedEnvironment()) : basicClass;
+            return plugin == null ? basicClass : plugin.transform(basicClass, !FMLLaunchHandler.isDeobfuscatedEnvironment(),
+                    !transformedName.equals(name));
         }
     }
 

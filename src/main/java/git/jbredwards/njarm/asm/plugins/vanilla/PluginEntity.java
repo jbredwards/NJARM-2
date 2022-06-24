@@ -83,12 +83,12 @@ public final class PluginEntity implements IASMPlugin
     }
 
     @Override
-    public int addLocalVariables(@Nonnull MethodNode method, @Nonnull LabelNode start, @Nonnull LabelNode end, int index) {
+    public boolean addLocalVariables(@Nonnull MethodNode method, @Nonnull LabelNode start, @Nonnull LabelNode end, int index) {
         if(index == 1)
             method.localVariables.add(new LocalVariableNode("upState", "Lnet/minecraft/block/state/IBlockState;", null, start, end, 4));
         else if(index == 2)
             method.localVariables.add(new LocalVariableNode("pair", "Lorg/apache/commons/lang3/tuple/Pair;", "Lorg/apache/commons/lang3/tuple/Pair<Lnet/minecraft/block/state/IBlockState;Lnet/minecraft/util/math/BlockPos;>;", start, end, 6));
 
-        return 1;
+        return true;
     }
 }

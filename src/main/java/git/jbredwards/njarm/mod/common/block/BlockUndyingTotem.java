@@ -156,7 +156,7 @@ public class BlockUndyingTotem extends BlockHorizontal implements IFluidloggable
 
     //resurrect entities that dye within the aoe of a totem of undying
     @SubscribeEvent
-    public static void onEntityDeath(LivingHurtEvent event) {
+    public static void onEntityDeath(@Nonnull LivingHurtEvent event) {
         final EntityLivingBase entity = event.getEntityLiving();
         final boolean isPet = ConfigHandler.blockCfg.totemOfUndyingCfg.resurrectPets && entity instanceof IEntityOwnable && ((IEntityOwnable)entity).getOwner() instanceof EntityPlayer;
         if((isPet || entity instanceof EntityPlayer || entity instanceof IMerchant) && entity.getHealth() - event.getAmount() <= 0) {
@@ -170,7 +170,7 @@ public class BlockUndyingTotem extends BlockHorizontal implements IFluidloggable
     }
 
     //does the totem of undying effects
-    public static void performRes(World world, BlockPos pos, EntityLivingBase entity, Item item, boolean particle) {
+    public static void performRes(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull EntityLivingBase entity, @Nonnull Item item, boolean particle) {
         world.playSound(null, pos, SoundEvents.ITEM_TOTEM_USE, SoundCategory.BLOCKS, 1, 1);
 
         if(!world.isRemote && world instanceof WorldServer) {
@@ -192,7 +192,7 @@ public class BlockUndyingTotem extends BlockHorizontal implements IFluidloggable
 
     //returns the nearest valid undying totem, null if none are found
     @Nullable
-    public static BlockPos findTotem(IBlockAccess world, BlockPos origin) {
+    public static BlockPos findTotem(@Nonnull IBlockAccess world, @Nonnull BlockPos origin) {
         final int radius = ConfigHandler.blockCfg.totemOfUndyingCfg.radius;
         for(int x = -radius; x <= radius; x++) {
             for(int y = -radius; y <= radius; y++) {
@@ -214,7 +214,7 @@ public class BlockUndyingTotem extends BlockHorizontal implements IFluidloggable
     @SuppressWarnings("ConstantConditions")
     @SideOnly(Side.CLIENT)
     @SubscribeEvent(priority = EventPriority.LOW)
-    public static void onSelectBox(DrawBlockHighlightEvent event) {
+    public static void onSelectBox(@Nonnull DrawBlockHighlightEvent event) {
         if(ConfigHandler.blockCfg.totemOfUndyingCfg.showAOEAABB) {
             final @Nullable RayTraceResult result = event.getTarget();
             final @Nullable EntityPlayer player = event.getPlayer();
