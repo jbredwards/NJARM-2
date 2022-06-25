@@ -42,27 +42,26 @@ import java.awt.*;
 @Mod.EventBusSubscriber(modid = Constants.MODID, value = Side.CLIENT)
 public final class RenderingConfig implements IConfig
 {
-    @Config.Comment("Experience orbs are translucent, like when they were first added.")
+    @Config.LangKey("config.njarm.client.rendering.doTranslucentXPOrbs")
     public final boolean doTranslucentXPOrbs;
     public static boolean doTranslucentXPOrbs() { return ConfigHandler.clientCfg.renderingCfg.doTranslucentXPOrbs; }
 
-    @Config.Comment("Entity shadows shrink the further the entity is from the ground, like in the Bedrock Edition of the game.")
+    @Config.LangKey("config.njarm.client.rendering.doBedrockShadowSize")
     public final boolean doBedrockShadowSize;
     public static boolean doBedrockShadowSize() { return ConfigHandler.clientCfg.renderingCfg.doBedrockShadowSize; }
 
     @Config.RangeInt(min = 0, max = 200)
-    @Config.Comment("How many ticks of night vision remaining when the screen starts to flash? " +
-            "Setting this to 0 will disable it entirely, vanilla by default starts at 200 ticks (10 seconds).")
+    @Config.LangKey("config.njarm.client.rendering.nightVisionFlashing")
     public final int nightVisionFlashing;
     public static int nightVisionFlashing() { return ConfigHandler.clientCfg.renderingCfg.nightVisionFlashing; }
 
     @Config.SlidingOption
     @Config.RangeInt(min = 0, max = 16)
-    @Config.Comment("Functions the same as the vanilla 1.13+ option, vanilla 1.12 has this set to 1.")
+    @Config.LangKey("config.njarm.client.rendering.biomeColorBlendRadius")
     public final int biomeColorBlendRadius;
     public static int biomeColorBlendRadius() { return ConfigHandler.clientCfg.renderingCfg.biomeColorBlendRadius; }
 
-    @Config.Comment("Water surface color & fog color based on biome ids, first the biome, then the surface color, lastly the fog color.")
+    @Config.LangKey("config.njarm.client.rendering.waterColors")
     @Nonnull public final String[] waterColors;
     @Nonnull public static final Object2IntMap<Biome> FOG_COLORS = new Object2IntOpenHashMap<>();
     @Nonnull public static final Object2IntMap<Biome> SURFACE_COLORS = new Object2IntOpenHashMap<>();

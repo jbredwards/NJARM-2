@@ -33,9 +33,9 @@ public class ItemBlockExperienceOre extends ItemBlockMeta
 
     public ItemBlockExperienceOre(@Nonnull Block block) {
         super(block, BlockExperienceOre.TYPE);
-        overlays[0] = new SpriteStorage(ParticlesConfig::xpMagicOreParticle);
-        overlays[1] = new SpriteStorage(ParticlesConfig::netherXpMagicOreParticle);
-        overlays[2] = new SpriteStorage(ParticlesConfig::endXpMagicOreParticle);
+        overlays[0] = new SpriteStorage(ParticlesConfig::getXpOreParticle);
+        overlays[1] = new SpriteStorage(ParticlesConfig::getNetherXpOreParticle);
+        overlays[2] = new SpriteStorage(ParticlesConfig::getEndXpOreParticle);
     }
 
     //renders the experience ore part of the item like it's glowing

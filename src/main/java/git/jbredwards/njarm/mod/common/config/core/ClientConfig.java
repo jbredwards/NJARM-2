@@ -17,12 +17,10 @@ public final class ClientConfig implements IConfig
     @Nonnull
     private final NonNullList<IConfig> CONFIGS = NonNullList.create();
 
-    @Config.Name("particles")
-    @Config.Comment("Configure this mod's particles.")
+    @Config.LangKey("config.njarm.core.client.particles")
     @Nonnull public final ParticlesConfig particlesCfg;
 
-    @Config.Name("rendering")
-    @Config.Comment("Enable/disable changes this mod makes to miscellaneous rendering-related stuffs.")
+    @Config.LangKey("config.njarm.core.client.rendering")
     @Nonnull public final RenderingConfig renderingCfg;
 
     //create a new config category while also adding it to the internal list

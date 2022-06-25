@@ -22,7 +22,6 @@ public final class PluginBlockFire implements IASMPlugin
                 generator.visitVarInsn(ALOAD, 0);
                 generator.visitVarInsn(ALOAD, 2);
                 generator.visitVarInsn(ALOAD, 3);
-                generator.visitMaxs(3, 0);
             }
         );
         //update to blue fire
@@ -32,7 +31,6 @@ public final class PluginBlockFire implements IASMPlugin
                 generator.visitVarInsn(ALOAD, 1);
                 generator.visitVarInsn(ALOAD, 2);
                 generator.visitVarInsn(ALOAD, 3);
-                generator.visitMaxs(4, 0);
             }
         );
 

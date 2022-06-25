@@ -17,12 +17,10 @@ public final class ItemConfig implements IConfig
     @Nonnull
     private final NonNullList<IConfig> CONFIGS = NonNullList.create();
 
-    @Config.Name("egg shells")
-    @Config.Comment("Change whether or not egg shells can act as bonemeal, their drop rate, etc.")
+    @Config.LangKey("config.njarm.core.item.eggShells")
     @Nonnull public final EggShellsConfig eggShellCfg;
 
-    @Config.Name("equipment")
-    @Config.Comment("Change this mod's tool & armor properties.")
+    @Config.LangKey("config.njarm.core.item.equipment")
     @Nonnull public final EquipmentConfig equipmentCfg;
 
     //create a new config category while also adding it to the internal list

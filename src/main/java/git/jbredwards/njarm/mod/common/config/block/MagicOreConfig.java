@@ -10,13 +10,13 @@ import net.minecraftforge.common.config.Config;
  */
 public final class MagicOreConfig implements IConfig
 {
-    @Config.Comment("Mobs that stand on magic dust ores get levitation.")
+    @Config.LangKey("config.njarm.block.magicOre.levitation")
     public final boolean levitation;
 
-    @Config.Comment("Magic dust ores boost nearby enchanting tables by this much (set to 0 to disable).")
+    @Config.LangKey("config.njarm.block.magicOre.enchantPowerBonus")
     public final float enchantPowerBonus;
 
-    @Config.Comment("Magic dust ores stick to each other when moved with pistons.")
+    @Config.LangKey("config.njarm.block.magicOre.isSticky")
     public final boolean isSticky;
 
     //needed for gson

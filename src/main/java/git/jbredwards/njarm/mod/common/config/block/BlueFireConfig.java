@@ -24,20 +24,20 @@ public final class BlueFireConfig implements IConfig
 {
     @Nonnull private static final ScriptEngine engine = new ScriptEngineManager(null).getEngineByName("JavaScript");
 
-    @Config.Comment("Blue fire will treat these blocks as soul sand.")
+    @Config.LangKey("config.njarm.block.blueFire.soulSandBlocks")
     @Nonnull public final String[] soulSandBlocks;
     @Nonnull public static final Object2BooleanMap<Block> SOUL_SAND = new Object2BooleanOpenHashMap<>();
 
-    @Config.Comment("Damage dealt to entities in blue fire")
+    @Config.LangKey("config.njarm.block.blueFire.inBlueFireEntityDmg")
     @Nonnull public final String inBlueFireEntityDmg;
 
-    @Config.Comment("Damage dealt to bosses in blue fire")
+    @Config.LangKey("config.njarm.block.blueFire.inBlueFireBossDmg")
     @Nonnull public final String inBlueFireBossDmg;
 
-    @Config.Comment("Damage dealt to entities on blue fire")
+    @Config.LangKey("config.njarm.block.blueFire.onBlueFireEntityDmg")
     @Nonnull public final String onBlueFireEntityDmg;
 
-    @Config.Comment("Damage dealt to bosses on blue fire")
+    @Config.LangKey("config.njarm.block.blueFire.onBlueFireBossDmg")
     @Nonnull public final String onBlueFireBossDmg;
 
     public static float getDamageDealt(@Nonnull Entity entity, boolean onBlueFire) throws ScriptException {
@@ -47,7 +47,7 @@ public final class BlueFireConfig implements IConfig
         else return (float)(double)engine.eval(entity.isNonBoss() ? ConfigHandler.blockCfg.blueFireCfg.inBlueFireEntityDmg : ConfigHandler.blockCfg.blueFireCfg.inBlueFireBossDmg);
     }
 
-    @Config.Comment("Entities on blue fire render the fire like quark's \"improved fire\" render.")
+    @Config.LangKey("config.njarm.block.blueFire.quarkBlueFireRender")
     public final boolean quarkBlueFireRender;
     public static boolean quarkBlueFireRender() { return ConfigHandler.blockCfg.blueFireCfg.quarkBlueFireRender; }
 

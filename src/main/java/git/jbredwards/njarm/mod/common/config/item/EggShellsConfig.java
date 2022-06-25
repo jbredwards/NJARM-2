@@ -22,27 +22,27 @@ import javax.annotation.Nullable;
  */
 public final class EggShellsConfig implements IConfig
 {
-    @Config.Comment("Egg shells can be used as bonemeal.")
+    @Config.LangKey("config.njarm.item.eggShells.actAsBonemeal")
     public final boolean actAsBonemeal;
     public static boolean actAsBonemeal() { return ConfigHandler.itemCfg.eggShellCfg.actAsBonemeal; }
 
     @Config.SlidingOption
     @Config.RangeInt(min = 0, max = 100)
-    @Config.Comment("The chance of an egg creating an egg shell when it's dispensed from a dispenser.")
+    @Config.LangKey("config.njarm.item.eggShells.fromDispenserChance")
     public final int fromDispenserChance;
     public static int fromDispenserChance() { return ConfigHandler.itemCfg.eggShellCfg.fromDispenserChance; }
 
     @Config.SlidingOption
     @Config.RangeInt(min = 0, max = 100)
-    @Config.Comment("The chance of an egg creating an egg shell when it's thrown from an entity (ie. when thrown by a player).")
+    @Config.LangKey("config.njarm.item.eggShells.fromThrownChance")
     public final int fromThrownChance;
     public static int fromThrownChance() { return ConfigHandler.itemCfg.eggShellCfg.fromThrownChance; }
 
-    @Config.Comment("When any of these projectile entities hit the ground, it spawns an egg shell.")
+    @Config.LangKey("config.njarm.item.eggShells.fromEntityList")
     @Nonnull public final String[] fromEntityList;
 
     @Config.RequiresMcRestart
-    @Config.Comment("When any of these items are used in a crafting recipe, egg shells are left behind (like how buckets are left behind from milk when crafting a cake).")
+    @Config.LangKey("config.njarm.item.eggShells.fromCraftingResult")
     @Nonnull public final String[] fromCraftingResult;
 
     @Config.Ignore

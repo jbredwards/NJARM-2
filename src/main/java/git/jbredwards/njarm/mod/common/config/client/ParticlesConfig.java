@@ -13,27 +13,27 @@ import javax.annotation.Nonnull;
  */
 public final class ParticlesConfig implements IConfig
 {
-    @Config.Comment("Magic Ore particle overlay texture.")
+    @Config.LangKey("config.njarm.client.particles.magicOreParticleOverlay")
     @Nonnull public final String magicOreParticleOverlay;
     @Nonnull public static String getMagicOreParticle() {
         return ConfigHandler.clientCfg.particlesCfg.magicOreParticleOverlay;
     }
 
-    @Config.Comment("Experience Ore particle overlay texture.")
+    @Config.LangKey("config.njarm.client.particles.xpOreParticleOverlay")
     @Nonnull public final String xpOreParticleOverlay;
-    @Nonnull public static String xpMagicOreParticle() {
+    @Nonnull public static String getXpOreParticle() {
         return ConfigHandler.clientCfg.particlesCfg.xpOreParticleOverlay;
     }
 
-    @Config.Comment("Nether Experience Ore particle overlay texture.")
+    @Config.LangKey("config.njarm.client.particles.netherXpOreParticleOverlay")
     @Nonnull public final String netherXpOreParticleOverlay;
-    @Nonnull public static String netherXpMagicOreParticle() {
+    @Nonnull public static String getNetherXpOreParticle() {
         return ConfigHandler.clientCfg.particlesCfg.netherXpOreParticleOverlay;
     }
 
-    @Config.Comment("Ender Experience Ore particle overlay texture.")
+    @Config.LangKey("config.njarm.client.particles.endXpOreParticleOverlay")
     @Nonnull public final String endXpOreParticleOverlay;
-    @Nonnull public static String endXpMagicOreParticle() {
+    @Nonnull public static String getEndXpOreParticle() {
         return ConfigHandler.clientCfg.particlesCfg.endXpOreParticleOverlay;
     }
 

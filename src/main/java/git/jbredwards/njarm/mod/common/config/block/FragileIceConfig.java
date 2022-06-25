@@ -12,7 +12,7 @@ import net.minecraftforge.common.config.Config;
 public final class FragileIceConfig implements IConfig
 {
     @Config.RangeInt(min = 0)
-    @Config.Comment("The amount of ticks it takes for Fragile Ice to crack, set this to 0 to prevent it from cracking at all.")
+    @Config.LangKey("config.njarm.block.fragileIce.meltingTicks")
     public final int meltingTicks;
     public static int getMeltingTicks() { return ConfigHandler.blockCfg.fragileIceCfg.meltingTicks; }
 

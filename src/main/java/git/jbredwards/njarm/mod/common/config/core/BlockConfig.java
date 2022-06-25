@@ -17,24 +17,19 @@ public final class BlockConfig implements IConfig
     @Nonnull
     private final NonNullList<IConfig> CONFIGS = NonNullList.create();
 
-    @Config.Name("blue fire")
-    @Config.Comment("Change blue fire damage output & the blocks that can sustain it.")
+    @Config.LangKey("config.njarm.core.block.blueFire")
     @Nonnull public final BlueFireConfig blueFireCfg;
 
-    @Config.Name("food crates")
-    @Config.Comment("Change food crate step effects & drop properties.")
+    @Config.LangKey("config.njarm.core.block.foodCrates")
     @Nonnull public final FoodCrateConfig foodCrateCfg;
 
-    @Config.Name("fragile ice")
-    @Config.Comment("Change fragile ice melting time.")
+    @Config.LangKey("config.njarm.core.block.fragileIce")
     @Nonnull public final FragileIceConfig fragileIceCfg;
 
-    @Config.Name("magic dust ores")
-    @Config.Comment("Enable/disable legacy njarm 1 behaviors.")
+    @Config.LangKey("config.njarm.core.block.magicOre")
     @Nonnull public final MagicOreConfig magicOreCfg;
 
-    @Config.Name("totem of undying")
-    @Config.Comment("Enable/disable legacy njarm 1 behaviors.")
+    @Config.LangKey("config.njarm.core.block.totemOfUndying")
     @Nonnull public final TotemOfUndyingConfig totemOfUndyingCfg;
 
     //create a new config category while also adding it to the internal list

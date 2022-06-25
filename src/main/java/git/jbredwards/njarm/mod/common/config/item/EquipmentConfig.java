@@ -23,7 +23,7 @@ public final class EquipmentConfig implements IConfig
     private static boolean initializeMaterials = true;
 
     @Config.RequiresMcRestart
-    @Config.Comment("Change the stats of ruby tools.")
+    @Config.LangKey("config.njarm.item.equipment.rubyToolMaterial")
     @Nonnull public final String rubyToolMaterial;
     @Nonnull public static Item.ToolMaterial RUBY_TOOL_MATERIAL;
 

@@ -27,8 +27,7 @@ public final class ConfigHandler
     @Nonnull
     private static final NonNullList<IConfig> CONFIGS = NonNullList.create();
 
-    @Config.Name("blocks")
-    @Config.Comment("This mod's blocks.")
+    @Config.LangKey("config.njarm.cfg.block")
     @Nonnull public static final BlockConfig blockCfg = register(new BlockConfig(
             new BlueFireConfig(new String[] {"minecraft:soul_sand"}, "Math.max(2, health / 4)", "Math.max(2, health / 32)", "Math.max(2, health / 4)", "Math.max(2, health / 32)", false),
             new FoodCrateConfig(new String[] {"{Type:\"poisonous_potato\",Effects:[{Id:19,Duration:65,Ambient:1b}]}", "{Type:\"golden_apple\",Effects:[{Id:10,Duration:65,Ambient:1b}]}", "{Type:\"golden_carrot\",Effects:[{Id:16,Duration:65,Ambient:1b}]}"}, false),
@@ -36,8 +35,7 @@ public final class ConfigHandler
             new MagicOreConfig(true, 1, true),
             new TotemOfUndyingConfig(true, 16, true, true, 16, 0.000625)));
 
-    @Config.Name("client")
-    @Config.Comment("Client-side things, mostly rendering. Changes made to client settings are not seen by other players.")
+    @Config.LangKey("config.njarm.cfg.client")
     @Nonnull public static final ClientConfig clientCfg = register(new ClientConfig(
             new ParticlesConfig("njarm:blocks/magic_ore_overlay", "njarm:blocks/xp_ore_overlay", "njarm:blocks/xp_ore_overlay", "njarm:blocks/xp_ore_overlay"),
             new RenderingConfig(true, true, 60, 4, new String[] {
@@ -106,8 +104,7 @@ public final class ConfigHandler
             })
     ));
 
-    @Config.Name("items")
-    @Config.Comment("This mod's items.")
+    @Config.LangKey("config.njarm.cfg.item")
     @Nonnull public static final ItemConfig itemCfg = register(new ItemConfig(
             new EggShellsConfig(true, 0, 100, new String[] {"minecraft:egg"}, new String[] {"minecraft:egg"}),
             new EquipmentConfig(
@@ -115,8 +112,7 @@ public final class ConfigHandler
             )
     ));
 
-    @Config.Name("world")
-    @Config.Comment("This mod's world generation.")
+    @Config.LangKey("config.njarm.cfg.world")
     @Nonnull public static final WorldConfig worldCfg = register(new WorldConfig(
             new OreConfig(new String[] {
                     "{Ore:{block:\"njarm:ruby_ore\"},Stone:{block:\"stone\",meta:0},MinY:0,MaxY:16,ClumpSize:8,PerChunk:2}"

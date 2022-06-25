@@ -21,7 +21,7 @@ import javax.annotation.Nullable;
  */
 public final class OreConfig implements IConfig
 {
-    @Config.Comment("Add, remove, or change ore generation.")
+    @Config.LangKey("config.njarm.world.oreGen.ores")
     @Nonnull public final String[] ores;
     @Nonnull public static final NonNullList<OreGenerator.Data> ORES = NonNullList.create();
 
@@ -55,7 +55,5 @@ public final class OreConfig implements IConfig
     }
 
     //needed for gson
-    public OreConfig(@Nonnull String[] ores) {
-        this.ores = ores;
-    }
+    public OreConfig(@Nonnull String[] ores) { this.ores = ores; }
 }

@@ -10,25 +10,25 @@ import net.minecraftforge.common.config.Config;
  */
 public class TotemOfUndyingConfig implements IConfig
 {
-    @Config.Comment("Players can place totems of undying as blocks.")
+    @Config.LangKey("config.njarm.block.totemOfUndying.placeable")
     public final boolean placeable;
 
     @Config.RangeInt(min = 0)
-    @Config.Comment("While a totem of undying is placed, it will resurrect players that die within this radius around it.")
+    @Config.LangKey("config.njarm.block.totemOfUndying.radius")
     public final int radius;
 
-    @Config.Comment("Placed totems of undying can also resurrect pets that belong to players.")
+    @Config.LangKey("config.njarm.block.totemOfUndying.resurrectPets")
     public final boolean resurrectPets;
 
-    @Config.Comment("When the player looks at a totem of undying block, the area of effect bounding box will be revealed.")
+    @Config.LangKey("config.njarm.block.totemOfUndying.showAOEAABB")
     public final boolean showAOEAABB;
 
     @Config.RangeInt(min = 0)
-    @Config.Comment("The radius around a totem of undying block that particles will spawn within.")
+    @Config.LangKey("config.njarm.block.totemOfUndying.particleRadius")
     public final int particleRadius;
 
     @Config.RangeDouble(min = 0, max = 1)
-    @Config.Comment("For each block within the particle radius, a particle attempts to spawn, this is the chance the particle will successfully spawn.")
+    @Config.LangKey("config.njarm.block.totemOfUndying.particleFrequency")
     public final double particleFrequency;
 
     public TotemOfUndyingConfig(boolean placeable, int radius, boolean resurrectPets, boolean showAOEAABB, int particleRadius, double particleFrequency) {

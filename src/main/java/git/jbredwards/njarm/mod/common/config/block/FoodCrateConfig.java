@@ -22,10 +22,10 @@ import javax.annotation.Nullable;
  */
 public final class FoodCrateConfig implements IConfig
 {
-    @Config.Comment("The potion effects applied by specific food crates when stepped on.")
+    @Config.LangKey("config.njarm.block.foodCrates.foodCrateStepEffects")
     @Nonnull public final String[] foodCrateStepEffects;
 
-    @Config.Comment("Food crates drop their block, rather than their contents")
+    @Config.LangKey("config.njarm.block.foodCrates.dropFullBlock")
     public final boolean dropFullBlock;
     public static boolean dropFullBlock() { return ConfigHandler.blockCfg.foodCrateCfg.dropFullBlock; }
 

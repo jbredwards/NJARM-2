@@ -17,8 +17,7 @@ public final class WorldConfig implements IConfig
     @Nonnull
     private final NonNullList<IConfig> CONFIGS = NonNullList.create();
 
-    @Config.Name("ore generation")
-    @Config.Comment("Add, remove, or change ore generation.")
+    @Config.LangKey("config.njarm.core.world.oreGen")
     @Nonnull public final OreConfig oreCfg;
 
     //create a new config category while also adding it to the internal list

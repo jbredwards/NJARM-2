@@ -24,12 +24,12 @@ public enum ParticleProviders implements IParticleProvider
 {
     MAGIC_ORE_BLOCK_DUST(getBlockDustFromTextures(new SpriteStorage(ParticlesConfig::getMagicOreParticle))),
     MAGIC_ORE_DIGGING(getDiggingFromTextures(new SpriteStorage(ParticlesConfig::getMagicOreParticle))),
-    XP_ORE_BLOCK_DUST(getBlockDustFromTextures(new SpriteStorage(ParticlesConfig::xpMagicOreParticle))),
-    XP_ORE_DIGGING(getDiggingFromTextures(new SpriteStorage(ParticlesConfig::xpMagicOreParticle))),
-    NETHER_XP_ORE_BLOCK_DUST(getBlockDustFromTextures(new SpriteStorage(ParticlesConfig::netherXpMagicOreParticle))),
-    NETHER_XP_ORE_DIGGING(getDiggingFromTextures(new SpriteStorage(ParticlesConfig::netherXpMagicOreParticle))),
-    END_XP_ORE_BLOCK_DUST(getBlockDustFromTextures(new SpriteStorage(ParticlesConfig::endXpMagicOreParticle))),
-    END_XP_ORE_DIGGING(getDiggingFromTextures(new SpriteStorage(ParticlesConfig::endXpMagicOreParticle))),
+    XP_ORE_BLOCK_DUST(getBlockDustFromTextures(new SpriteStorage(ParticlesConfig::getXpOreParticle))),
+    XP_ORE_DIGGING(getDiggingFromTextures(new SpriteStorage(ParticlesConfig::getXpOreParticle))),
+    NETHER_XP_ORE_BLOCK_DUST(getBlockDustFromTextures(new SpriteStorage(ParticlesConfig::getNetherXpOreParticle))),
+    NETHER_XP_ORE_DIGGING(getDiggingFromTextures(new SpriteStorage(ParticlesConfig::getNetherXpOreParticle))),
+    END_XP_ORE_BLOCK_DUST(getBlockDustFromTextures(new SpriteStorage(ParticlesConfig::getEndXpOreParticle))),
+    END_XP_ORE_DIGGING(getDiggingFromTextures(new SpriteStorage(ParticlesConfig::getEndXpOreParticle))),
     LIT_REDSTONE(new IParticleProvider() {
         @Nonnull
         @SideOnly(Side.CLIENT)

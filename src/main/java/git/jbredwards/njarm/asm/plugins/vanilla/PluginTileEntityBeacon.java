@@ -42,7 +42,6 @@ public final class PluginTileEntityBeacon implements IASMPlugin
                 list.add(new FieldInsnNode(GETFIELD, "net/minecraft/tileentity/TileEntityBeacon", obfuscated ? "field_146015_k" : "isComplete", "Z"));
                 list.add(genMethodNode("playBeaconAmbientSound", "(Lnet/minecraft/tileentity/TileEntity;Z)V"));
                 instructions.insert(insn, list);
-                if(method.maxStack < 4) method.maxStack = 4;
                 return true;
             }
         }
