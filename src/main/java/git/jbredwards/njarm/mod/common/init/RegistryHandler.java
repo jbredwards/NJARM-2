@@ -1,10 +1,12 @@
 package git.jbredwards.njarm.mod.common.init;
 
 import git.jbredwards.njarm.mod.Constants;
+import git.jbredwards.njarm.mod.common.tileentity.TileEntityNetherCore;
 import net.darkhax.bookshelf.item.ICustomModel;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
@@ -27,6 +29,7 @@ public final class RegistryHandler
 {
     @SubscribeEvent
     public static void registerBlocks(@Nonnull RegistryEvent.Register<Block> event) {
+        TileEntity.register(Constants.MODID + ":nether_core", TileEntityNetherCore.class);
         event.getRegistry().registerAll(ModBlocks.INIT.toArray(new Block[0]));
     }
 

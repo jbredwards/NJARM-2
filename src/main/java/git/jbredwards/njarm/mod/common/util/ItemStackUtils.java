@@ -1,7 +1,10 @@
 package git.jbredwards.njarm.mod.common.util;
 
+import net.darkhax.bookshelf.util.StackUtils;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.items.ItemHandlerHelper;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
 
@@ -17,6 +20,14 @@ public final class ItemStackUtils
      */
     @Nonnull
     public static ItemStack copyStackWithScale(@Nonnull ItemStack stack, int scale) {
-        return ItemHandlerHelper.copyStackWithSize(stack, stack.getCount() * scale);
+        return StackUtils.copyStackWithSize(stack, stack.getCount() * scale);
+    }
+
+    /**
+     * @return true if the given IBlockState has the ore dict entry
+     */
+    public static boolean hasOreName(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState state, @Nonnull String name) {
+        final ItemStack stack = state.getBlock().getItem(world, pos, state);
+        return !stack.isEmpty() && StackUtils.hasOreName(stack, name);
     }
 }

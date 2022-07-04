@@ -44,6 +44,7 @@ public final class ModBlocks
     @Nonnull public static final BlockExperienceOre XP_ORE = register("xp_ore", new BlockExperienceOre(Material.ROCK).setItemDropped(() -> Items.AIR).setQuantityDropped(rand -> 0).setExpDropped(rand -> MathHelper.getInt(rand, 5, 14)), Blocks.COAL_ORE);
     @Nonnull public static final BlockFragileIce FRAGILE_ICE = register("fragile_ice", new BlockFragileIce(), Blocks.ICE, block -> block.setHardness(0).setResistance(0));
     @Nonnull public static final BlockUndyingTotem TOTEM_OF_UNDYING = register("totem_of_undying", new BlockUndyingTotem(Material.GLASS, MapColor.GOLD), Blocks.GOLD_BLOCK, block -> block.setHardness(0).setResistance(0).setLightOpacity(0));
+    @Nonnull public static final BlockNetherCore NETHER_REACTOR_CORE = register("nether_reactor_core", new BlockNetherCore(Material.IRON, MapColor.DIAMOND), Blocks.DIAMOND_BLOCK);
     @Nonnull public static final BlockBlueFire BLUE_FIRE = register("blue_fire", new BlockBlueFire(), Blocks.FIRE);
     @Nonnull public static final BlockBubbleColumn BUBBLE_COLUMN = register("bubble_column", new BlockBubbleColumn(BUBBLE_COLUMN_MATERIAL), Blocks.WATER, block -> block.setLightOpacity(0));
 

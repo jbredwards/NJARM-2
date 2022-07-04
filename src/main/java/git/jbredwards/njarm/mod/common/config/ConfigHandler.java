@@ -33,6 +33,7 @@ public final class ConfigHandler
             new FoodCrateConfig(new String[] {"{Type:\"poisonous_potato\",Effects:[{Id:19,Duration:65,Ambient:1b}]}", "{Type:\"golden_apple\",Effects:[{Id:10,Duration:65,Ambient:1b}]}", "{Type:\"golden_carrot\",Effects:[{Id:16,Duration:65,Ambient:1b}]}"}, false),
             new FragileIceConfig(400),
             new MagicOreConfig(true, 1, true),
+            new NetherCoreConfig(true, 17, 900, 40, 60, 10, false),
             new TotemOfUndyingConfig(true, 16, true, true, 16, 0.000625)));
 
     @Config.LangKey("config.njarm.cfg.client")
