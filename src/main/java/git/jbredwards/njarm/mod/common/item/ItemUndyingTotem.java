@@ -1,7 +1,7 @@
 package git.jbredwards.njarm.mod.common.item;
 
 import git.jbredwards.njarm.mod.common.config.ConfigHandler;
-import git.jbredwards.njarm.mod.common.init.ModBlocks;
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.util.EnumActionResult;
@@ -19,7 +19,7 @@ import javax.annotation.Nonnull;
  */
 public class ItemUndyingTotem extends ItemBlock
 {
-    public ItemUndyingTotem() { super(ModBlocks.TOTEM_OF_UNDYING); }
+    public ItemUndyingTotem(@Nonnull Block block) { super(block); }
 
     @Nonnull
     @Override

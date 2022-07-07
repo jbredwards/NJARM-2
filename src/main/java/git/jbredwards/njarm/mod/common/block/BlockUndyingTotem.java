@@ -4,6 +4,7 @@ import git.jbredwards.fluidlogged_api.api.block.IFluidloggable;
 import git.jbredwards.njarm.mod.Constants;
 import git.jbredwards.njarm.mod.common.config.ConfigHandler;
 import git.jbredwards.njarm.mod.common.init.ModBlocks;
+import git.jbredwards.njarm.mod.common.util.SoundUtils;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.material.MapColor;
@@ -14,9 +15,11 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderGlobal;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityOwnable;
 import net.minecraft.entity.IMerchant;
+import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Items;
@@ -59,7 +62,10 @@ public class BlockUndyingTotem extends BlockHorizontal implements IFluidloggable
     @Nonnull public static final AxisAlignedBB Z = new AxisAlignedBB(0.375, 0, 0.4375, 0.625, 0.875, 0.5625);
 
     public BlockUndyingTotem(@Nonnull Material materialIn) { this(materialIn, materialIn.getMaterialMapColor()); }
-    public BlockUndyingTotem(@Nonnull Material materialIn, @Nonnull MapColor mapColorIn) { super(materialIn, mapColorIn); }
+    public BlockUndyingTotem(@Nonnull Material materialIn, @Nonnull MapColor mapColorIn) {
+        super(materialIn, mapColorIn);
+        EntityEnderman.setCarriable(this, true);
+    }
 
     @Nonnull
     @Override
@@ -101,6 +107,10 @@ public class BlockUndyingTotem extends BlockHorizontal implements IFluidloggable
     @Nonnull
     @Override
     public String getTranslationKey() { return "item.totem"; }
+
+    @Nonnull
+    @Override
+    public CreativeTabs getCreativeTab() { return CreativeTabs.COMBAT; }
 
     @Nonnull
     @Override
@@ -162,24 +172,33 @@ public class BlockUndyingTotem extends BlockHorizontal implements IFluidloggable
         if((isPet || entity instanceof EntityPlayer || entity instanceof IMerchant) && entity.getHealth() - event.getAmount() <= 0) {
             final BlockPos pos = findTotem(entity.world, new BlockPos(entity));
             if(pos != null) {
-                performRes(entity.world, pos, entity, Items.TOTEM_OF_UNDYING, true);
+                SoundUtils.playSound(entity.world, pos, SoundEvents.ITEM_TOTEM_USE, SoundCategory.BLOCKS, 1, 1);
+                performRes(entity.world, new Vec3d(pos), entity, Items.TOTEM_OF_UNDYING, true);
                 entity.world.destroyBlock(pos, false);
+                event.setCanceled(true);
+            }
+        }
+        //check for endermen holding the block
+        else if(entity instanceof EntityEnderman && entity.getHealth() - event.getAmount() <= 0) {
+            final @Nullable IBlockState heldState = ((EntityEnderman)entity).getHeldBlockState();
+            if(heldState != null && heldState.getBlock() == ModBlocks.TOTEM_OF_UNDYING) {
+                SoundUtils.playSound(entity, SoundEvents.ITEM_TOTEM_USE, 1, 1);
+                performRes(entity.world, new Vec3d(entity.posX, entity.posY, entity.posZ), entity, Items.TOTEM_OF_UNDYING, true);
+                ((EntityEnderman)entity).setHeldBlockState(null);
                 event.setCanceled(true);
             }
         }
     }
 
     //does the totem of undying effects
-    public static void performRes(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull EntityLivingBase entity, @Nonnull Item item, boolean particle) {
-        world.playSound(null, pos, SoundEvents.ITEM_TOTEM_USE, SoundCategory.BLOCKS, 1, 1);
-
+    public static void performRes(@Nonnull World world, @Nonnull Vec3d pos, @Nonnull EntityLivingBase entity, @Nonnull Item item, boolean particle) {
         if(!world.isRemote && world instanceof WorldServer) {
             entity.setHealth(1);
             entity.clearActivePotions();
             entity.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 900, 1));
             entity.addPotionEffect(new PotionEffect(MobEffects.ABSORPTION, 100, 1));
 
-            if(particle) ((WorldServer)world).spawnParticle(EnumParticleTypes.TOTEM, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 100, 0, 0, 0, 0.5);
+            if(particle) ((WorldServer)world).spawnParticle(EnumParticleTypes.TOTEM, pos.x, pos.y, pos.z, 100, 0, 0, 0, 0.5);
             if(entity instanceof EntityPlayerMP) {
                 EntityPlayerMP player = (EntityPlayerMP)entity;
                 player.addStat(Objects.requireNonNull(StatList.getObjectUseStats(item)));

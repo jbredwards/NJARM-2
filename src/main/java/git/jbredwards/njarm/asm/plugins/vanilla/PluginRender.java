@@ -32,7 +32,7 @@ public final class PluginRender implements IASMPlugin
             instructions.insert(insn, list);
             return true;
         }
-        //render third person blue fire, not using RenderLivingEvent so all entities can be rendered properly
+        //render third person blue fire, not using RenderLivingEvent so non-living entities can also be rendered
         else if(index == 2 && checkMethod(insn, obfuscated ? "func_90999_ad" : "canRenderOnFire")) {
             final InsnList list = new InsnList();
             list.add(new VarInsnNode(DLOAD, 2));
@@ -46,4 +46,7 @@ public final class PluginRender implements IASMPlugin
 
         return false;
     }
+
+    @Override
+    public boolean recalcFrames(boolean obfuscated) { return true; }
 }

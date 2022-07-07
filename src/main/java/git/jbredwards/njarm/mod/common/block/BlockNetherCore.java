@@ -51,6 +51,9 @@ public class BlockNetherCore extends BlockTileEntity
     }
 
     @Override
+    public int getLightValue(@Nonnull IBlockState state) { return state.getValue(TYPE) == Type.INITIALIZED ? 15 : 0; }
+
+    @Override
     public boolean onBlockActivated(@Nonnull World worldIn, @Nonnull BlockPos pos, @Nonnull IBlockState state, @Nonnull EntityPlayer playerIn, @Nonnull EnumHand hand, @Nonnull EnumFacing facing, float hitX, float hitY, float hitZ) {
         if(hand == EnumHand.MAIN_HAND && NetherCoreConfig.getAltReactorBehavior() && state.getValue(TYPE) == Type.NORMAL) {
             @Nullable final TileEntity te = worldIn.getTileEntity(pos);

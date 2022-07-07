@@ -3,6 +3,7 @@ package git.jbredwards.njarm.mod.common.tileentity;
 import git.jbredwards.njarm.mod.client.particle.util.ParticleUtils;
 import git.jbredwards.njarm.mod.common.block.BlockNetherCore;
 import git.jbredwards.njarm.mod.common.config.block.NetherCoreConfig;
+import git.jbredwards.njarm.mod.common.init.ModBlocks;
 import git.jbredwards.njarm.mod.common.init.ModSounds;
 import git.jbredwards.njarm.mod.common.util.ChatUtils;
 import git.jbredwards.njarm.mod.common.util.ItemStackUtils;
@@ -10,8 +11,11 @@ import git.jbredwards.njarm.mod.common.util.SoundUtils;
 import net.darkhax.bookshelf.block.tileentity.TileEntityBasic;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityOwnable;
+import net.minecraft.entity.monster.EntityPigZombie;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.MobEffects;
@@ -24,6 +28,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.common.util.Constants;
+import net.minecraftforge.common.util.FakePlayer;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -48,7 +53,52 @@ public class TileEntityNetherCore extends TileEntityBasic implements ITickable
             //pocket edition behavior
             if(NetherCoreConfig.getAltReactorBehavior()) {
                 if(activated && !world.isRemote) {
+                    //converts reactor to glowing obsidian at proper intervals
+                    switch(time) {
+                        case 20:
+                            fill(pos.add(-1, -1, 0), pos.add(1, -1, 0), false, false, ModBlocks.GLOWING_OBSIDIAN);
+                            fill(pos.add(0, -1, -1), pos.add(0, -1, 1), false, true, ModBlocks.GLOWING_OBSIDIAN);
+                            break;
+                        case 40:
+                            setBlock(pos.add(1, 0, 1), ModBlocks.GLOWING_OBSIDIAN, false);
+                            setBlock(pos.add(1, 0, -1), ModBlocks.GLOWING_OBSIDIAN, false);
+                            setBlock(pos.add(-1, 0, 1), ModBlocks.GLOWING_OBSIDIAN, false);
+                            setBlock(pos.add(-1, 0, -1), ModBlocks.GLOWING_OBSIDIAN, false);
+                            break;
+                        case 60:
+                            fill(pos.add(-1, 1, 0), pos.add(1, 1, 0), false, false, ModBlocks.GLOWING_OBSIDIAN);
+                            fill(pos.add(0, 1, -1), pos.add(0, 1, 1), false, true, ModBlocks.GLOWING_OBSIDIAN);
+                            break;
+                        case 80:
+                            setBlock(pos.add(1, -1, 1), ModBlocks.GLOWING_OBSIDIAN, false);
+                            setBlock(pos.add(1, -1, -1), ModBlocks.GLOWING_OBSIDIAN, false);
+                            setBlock(pos.add(-1, -1, 1), ModBlocks.GLOWING_OBSIDIAN, false);
+                            setBlock(pos.add(-1, -1, -1), ModBlocks.GLOWING_OBSIDIAN, false);
+                            break;
+                    }
+                    //reactor is set
+                    if(time > 80 && time < NetherCoreConfig.getDuration()) {
+                        //try summon entity
+                        if(canMakeWave(NetherCoreConfig.getPigmanCooldown())) {
+                            final Entity entity = NetherCoreConfig.getRandomEntry(world.rand).newInstance(world);
 
+                            final int x = world.rand.nextInt(15) - 7, z;
+                            if(x > 1 || x < -1) z = world.rand.nextInt(15) - 7;
+                            else z = world.rand.nextBoolean() ? world.rand.nextInt(6) + 2 : world.rand.nextInt(6) - 7;
+                            entity.setPosition(pos.getX() + x + 0.5, pos.getY() - 1, pos.getZ() + z + 0.5);
+
+                            if(activator != null) {
+                                final @Nullable EntityPlayer player = world.getPlayerEntityByUUID(activator);
+                                if(player != null) {
+                                    if(entity instanceof EntityPigZombie) ((EntityPigZombie)entity).becomeAngryAt(player);
+                                    else if(entity instanceof EntityLiving) ((EntityLiving)entity).setAttackTarget(player);
+                                }
+                            }
+
+                            if(entity instanceof EntityLiving) ((EntityLiving)entity).onInitialSpawn(world.getDifficultyForLocation(pos), null);
+                            world.spawnEntity(entity);
+                        }
+                    }
 
                     time++;
                 }
@@ -134,6 +184,13 @@ public class TileEntityNetherCore extends TileEntityBasic implements ITickable
         }
     }
 
+    protected boolean canMakeWave(int cooldown) {
+        return NetherCoreConfig.isDynamicDifficulty() && time % (cooldown /
+                Math.max(world.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(pos, pos.add(1, 1, 1)).grow(8),
+                        player -> !player.isSpectator() && player.isEntityAlive() && !(player instanceof FakePlayer)).size(), 1)) == 0
+                || !NetherCoreConfig.isDynamicDifficulty() && time % cooldown == 0;
+    }
+
     public boolean areBlocksSet() {
         for(int x = -1; x < 2; x++) {
             for(int y = -1; y < 2; y++) {
@@ -207,7 +264,11 @@ public class TileEntityNetherCore extends TileEntityBasic implements ITickable
         setBlock(pos.add(-5, 23, 5), Blocks.AIR, false);
 
         if(!isDecay) {
-            //TODO fill middle with air
+            fill(pos.add(2, -1, 7), pos.add(7, 1, -7), false, false, Blocks.AIR);
+            fill(pos.add(-2, -1, 7), pos.add(-7, 1, -7), false, false, Blocks.AIR);
+            fill(pos.add(1, -1, 2), pos.add(-1, 1, 7), false, false, Blocks.AIR);
+            fill(pos.add(1, -1, -2), pos.add(-1, 1, -7), false, false, Blocks.AIR);
+            fill(pos.add(7, 2, 7), pos.add(-7, 2, -7), false, false, Blocks.AIR);
         }
     }
 
@@ -265,9 +326,13 @@ public class TileEntityNetherCore extends TileEntityBasic implements ITickable
     protected void setBlock(@Nonnull BlockPos pos, @Nonnull Block block, boolean doBreakEffect) {
         final IBlockState state = world.getBlockState(pos);
         if(state.getBlockHardness(world, pos) != -1) {
-            if(doBreakEffect && block == Blocks.AIR && !state.getBlock().isAir(state, world, pos))
-                world.playEvent(Constants.WorldEvents.BREAK_BLOCK_EFFECTS, pos, Block.getStateId(state));
-            world.setBlockState(pos, block.getDefaultState(), Constants.BlockFlags.SEND_TO_CLIENTS);
+            if(doBreakEffect) {
+                if(state.getBlock() == Blocks.NETHERRACK) {
+                    world.playEvent(Constants.WorldEvents.BREAK_BLOCK_EFFECTS, pos, Block.getStateId(state));
+                    world.setBlockState(pos, block.getDefaultState(), Constants.BlockFlags.SEND_TO_CLIENTS);
+                }
+            }
+            else world.setBlockState(pos, block.getDefaultState(), Constants.BlockFlags.SEND_TO_CLIENTS);
         }
     }
 }

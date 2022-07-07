@@ -19,7 +19,7 @@ public final class PluginItem implements IASMPlugin
     public boolean transform(@Nonnull InsnList instructions, @Nonnull MethodNode method, @Nonnull AbstractInsnNode insn, boolean obfuscated, int index) {
         if(insn.getOpcode() == LDC && ((LdcInsnNode)insn).cst.equals("totem")) {
             final InsnList list = new InsnList();
-            list.add(new FieldInsnNode(GETSTATIC, "net/minecraft/item/Item", "BLOCK_TO_ITEM", "Ljava/util/Map;"));
+            list.add(new FieldInsnNode(GETSTATIC, "net/minecraft/item/Item", obfuscated ? "field_179220_a" : "BLOCK_TO_ITEM", "Ljava/util/Map;"));
             list.add(genMethodNode("genTotemOfUndying", "(Ljava/util/Map;)Lnet/minecraft/item/Item;"));
 
             removeFrom(instructions, insn.getPrevious(), -2);

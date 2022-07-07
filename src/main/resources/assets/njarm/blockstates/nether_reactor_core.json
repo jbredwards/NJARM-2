@@ -1,0 +1,23 @@
+{
+    "forge_marker":1,
+    "defaults":{
+        "model":"cube_all",
+        "textures":{
+            "all":"njarm:blocks/nether_reactor_core_normal"
+        }
+    },
+    "variants":{
+        "inventory":[{}],
+        "type=normal":[{}],
+        "type=initialized":[{
+            "textures":{
+                "all":"njarm:blocks/nether_reactor_core_initialized"
+            }
+        }],
+        "type=finished":[{
+            "textures":{
+                "all":"njarm:blocks/nether_reactor_core_finished"
+            }
+        }]
+    }
+ }
