@@ -120,24 +120,6 @@ public class BlockUndyingTotem extends BlockHorizontal implements IFluidloggable
 
     @Nonnull
     @Override
-    public Item getItemDropped(@Nonnull IBlockState state, @Nonnull Random rand, int fortune) {
-        return Items.TOTEM_OF_UNDYING;
-    }
-
-    @Nonnull
-    @Override
-    public ItemStack getItem(@Nonnull World worldIn, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
-        return getSilkTouchDrop(state);
-    }
-
-    @Nonnull
-    @Override
-    protected ItemStack getSilkTouchDrop(@Nonnull IBlockState state) {
-        return new ItemStack(Items.TOTEM_OF_UNDYING);
-    }
-
-    @Nonnull
-    @Override
     public AxisAlignedBB getBoundingBox(@Nonnull IBlockState state, @Nonnull IBlockAccess source, @Nonnull BlockPos pos) {
         return state.getValue(FACING).getAxis() == EnumFacing.Axis.X ? X : Z;
     }

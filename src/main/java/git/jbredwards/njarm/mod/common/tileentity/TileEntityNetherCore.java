@@ -15,6 +15,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityOwnable;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityPigZombie;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -44,7 +45,7 @@ public class TileEntityNetherCore extends TileEntityBasic implements ITickable
     @Nullable
     protected UUID activator = null;
     protected boolean activated, prevActivated;
-    protected int time = 0;
+    protected int time, duration = NetherCoreConfig.getDuration();
 
     @Override
     public void update() {
@@ -60,43 +61,75 @@ public class TileEntityNetherCore extends TileEntityBasic implements ITickable
                             fill(pos.add(0, -1, -1), pos.add(0, -1, 1), false, true, ModBlocks.GLOWING_OBSIDIAN);
                             break;
                         case 40:
-                            setBlock(pos.add(1, 0, 1), ModBlocks.GLOWING_OBSIDIAN, false);
-                            setBlock(pos.add(1, 0, -1), ModBlocks.GLOWING_OBSIDIAN, false);
-                            setBlock(pos.add(-1, 0, 1), ModBlocks.GLOWING_OBSIDIAN, false);
-                            setBlock(pos.add(-1, 0, -1), ModBlocks.GLOWING_OBSIDIAN, false);
+                            setBlock(pos.add(1, 0, 1), ModBlocks.GLOWING_OBSIDIAN);
+                            setBlock(pos.add(1, 0, -1), ModBlocks.GLOWING_OBSIDIAN);
+                            setBlock(pos.add(-1, 0, 1), ModBlocks.GLOWING_OBSIDIAN);
+                            setBlock(pos.add(-1, 0, -1), ModBlocks.GLOWING_OBSIDIAN);
                             break;
                         case 60:
                             fill(pos.add(-1, 1, 0), pos.add(1, 1, 0), false, false, ModBlocks.GLOWING_OBSIDIAN);
                             fill(pos.add(0, 1, -1), pos.add(0, 1, 1), false, true, ModBlocks.GLOWING_OBSIDIAN);
                             break;
                         case 80:
-                            setBlock(pos.add(1, -1, 1), ModBlocks.GLOWING_OBSIDIAN, false);
-                            setBlock(pos.add(1, -1, -1), ModBlocks.GLOWING_OBSIDIAN, false);
-                            setBlock(pos.add(-1, -1, 1), ModBlocks.GLOWING_OBSIDIAN, false);
-                            setBlock(pos.add(-1, -1, -1), ModBlocks.GLOWING_OBSIDIAN, false);
+                            setBlock(pos.add(1, -1, 1), ModBlocks.GLOWING_OBSIDIAN);
+                            setBlock(pos.add(1, -1, -1), ModBlocks.GLOWING_OBSIDIAN);
+                            setBlock(pos.add(-1, -1, 1), ModBlocks.GLOWING_OBSIDIAN);
+                            setBlock(pos.add(-1, -1, -1), ModBlocks.GLOWING_OBSIDIAN);
                             break;
                     }
                     //reactor is set
-                    if(time > 80 && time < NetherCoreConfig.getDuration()) {
-                        //try summon entity
-                        if(canMakeWave(NetherCoreConfig.getPigmanCooldown())) {
-                            final Entity entity = NetherCoreConfig.getRandomEntry(world.rand).newInstance(world);
+                    if(time > 80) {
+                        //reactor is still running
+                        if(time < duration) {
+                            //try summon entity
+                            if(canMakeWave(NetherCoreConfig.getPigmanCooldown())) {
+                                final Entity entity = NetherCoreConfig.getRandomEntity(world);
 
-                            final int x = world.rand.nextInt(15) - 7, z;
-                            if(x > 1 || x < -1) z = world.rand.nextInt(15) - 7;
-                            else z = world.rand.nextBoolean() ? world.rand.nextInt(6) + 2 : world.rand.nextInt(6) - 7;
-                            entity.setPosition(pos.getX() + x + 0.5, pos.getY() - 1, pos.getZ() + z + 0.5);
+                                final int x = world.rand.nextInt(15) - 7, z;
+                                if(x > 1 || x < -1) z = world.rand.nextInt(15) - 7;
+                                else z = world.rand.nextBoolean() ? world.rand.nextInt(6) + 2 : world.rand.nextInt(6) - 7;
+                                entity.setPosition(pos.getX() + x + 0.5, pos.getY() - 1, pos.getZ() + z + 0.5);
 
-                            if(activator != null) {
-                                final @Nullable EntityPlayer player = world.getPlayerEntityByUUID(activator);
-                                if(player != null) {
-                                    if(entity instanceof EntityPigZombie) ((EntityPigZombie)entity).becomeAngryAt(player);
-                                    else if(entity instanceof EntityLiving) ((EntityLiving)entity).setAttackTarget(player);
+                                if(activator != null) {
+                                    final @Nullable EntityPlayer player = world.getPlayerEntityByUUID(activator);
+                                    if(player != null) {
+                                        if(entity instanceof EntityPigZombie) ((EntityPigZombie)entity).becomeAngryAt(player);
+                                        else if(entity instanceof EntityLiving) ((EntityLiving)entity).setAttackTarget(player);
+                                    }
                                 }
-                            }
 
-                            if(entity instanceof EntityLiving) ((EntityLiving)entity).onInitialSpawn(world.getDifficultyForLocation(pos), null);
-                            world.spawnEntity(entity);
+                                if(entity instanceof EntityLiving) ((EntityLiving)entity).onInitialSpawn(world.getDifficultyForLocation(pos), null);
+                                world.spawnEntity(entity);
+                            }
+                            //try summon items
+                            if(canMakeWave(NetherCoreConfig.getItemCooldown())) {
+                                NetherCoreConfig.getRandomItems(world).forEach(stack -> {
+                                    final int x = world.rand.nextInt(15) - 7, z;
+                                    if(x > 1 || x < -1) z = world.rand.nextInt(15) - 7;
+                                    else z = world.rand.nextBoolean() ? world.rand.nextInt(6) + 2 : world.rand.nextInt(6) - 7;
+
+                                    final EntityItem item = new EntityItem(world, pos.getX() + x + 0.5, pos.getY() - 1, pos.getZ() + z + 0.5, stack);
+                                    item.setDefaultPickupDelay();
+                                    world.spawnEntity(item);
+                                });
+                            }
+                        }
+                        //reactor is finished
+                        else switch(time - duration) {
+                            case 0:
+                                fill(pos.add(-1, 1, -1), pos.add(1, 1, 1), false, false, Blocks.OBSIDIAN);
+                                break;
+                            case 20:
+                                fill(pos.add(-1, 0, -1), pos.add(1, 1, 1), false, true, Blocks.OBSIDIAN);
+                                world.setBlockState(pos, getBlockType().getStateFromMeta(2), 2);
+                                break;
+                            case 40:
+                                fill(pos.add(-1, -1, -1), pos.add(1, -1, 1), false, false, Blocks.OBSIDIAN);
+                                break;
+                            case 60:
+                                createNetherSpire(true);
+                                activated = false;
+                                return;
                         }
                     }
 
@@ -126,19 +159,23 @@ public class TileEntityNetherCore extends TileEntityBasic implements ITickable
     public void writeNBT(@Nonnull NBTTagCompound dataTag) {
         if(activator != null) dataTag.setString("Player", activator.toString());
         dataTag.setInteger("Time", time);
+        dataTag.setInteger("Duration", duration);
     }
 
     @Override
     public void readNBT(@Nonnull NBTTagCompound dataTag) {
+        if(dataTag.hasKey("Player", Constants.NBT.TAG_STRING)) {
+            final String id = dataTag.getString("Player");
+            if(id.split("-").length == 5) activator = UUID.fromString(id);
+        }
+
         if(dataTag.hasKey("Time", Constants.NBT.TAG_INT)) {
             time = dataTag.getInteger("Time");
             activated = time > 0;
         }
 
-        if(dataTag.hasKey("Player", Constants.NBT.TAG_STRING)) {
-            final String id = dataTag.getString("Player");
-            if(id.split("-").length == 5) activator = UUID.fromString(id);
-        }
+        if(dataTag.hasKey("Duration", Constants.NBT.TAG_INT))
+            duration = Math.max(dataTag.getInteger("Duration"), 100);
     }
 
     public boolean tryInitialize(@Nonnull EntityPlayer player) {
@@ -185,10 +222,10 @@ public class TileEntityNetherCore extends TileEntityBasic implements ITickable
     }
 
     protected boolean canMakeWave(int cooldown) {
-        return NetherCoreConfig.isDynamicDifficulty() && time % (cooldown /
+        return cooldown > 0 && (NetherCoreConfig.isDynamicDifficulty() && time % (cooldown /
                 Math.max(world.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(pos, pos.add(1, 1, 1)).grow(8),
                         player -> !player.isSpectator() && player.isEntityAlive() && !(player instanceof FakePlayer)).size(), 1)) == 0
-                || !NetherCoreConfig.isDynamicDifficulty() && time % cooldown == 0;
+                || !NetherCoreConfig.isDynamicDifficulty() && time % cooldown == 0);
     }
 
     public boolean areBlocksSet() {
@@ -261,7 +298,7 @@ public class TileEntityNetherCore extends TileEntityBasic implements ITickable
         createRoof(-5, 13, 4, 5, isDecay, false);
         createRoof(-3, 25, 3, 3, isDecay, true);
 
-        setBlock(pos.add(-5, 23, 5), Blocks.AIR, false);
+        setBlock(pos.add(-5, 23, 5), Blocks.AIR);
 
         if(!isDecay) {
             fill(pos.add(2, -1, 7), pos.add(7, 1, -7), false, false, Blocks.AIR);
@@ -293,15 +330,15 @@ public class TileEntityNetherCore extends TileEntityBasic implements ITickable
             if(x + i >= -size && x + i <= size && z + i >= -size && z + i <= size) {
                 if(x + i + 1 < -size || x + i + 1 > size || z + i + 1 < -size || z + i + 1 > size)
                     fill(pos1, pos1.down(layer), isDecay, false, Blocks.NETHERRACK);
-                if(!isDecay) setBlock(pos1, Blocks.NETHERRACK, false);
-                else if(world.rand.nextDouble() < 0.3) setBlock(pos1, Blocks.AIR, true);
+                if(!isDecay) setBlock(pos1, Blocks.NETHERRACK);
+                else if(world.rand.nextDouble() < 0.3) setBlock(pos1, Blocks.AIR);
             }
 
             if(x - i >= -size && x - i <= size && z - i >= -size && z - i <= size) {
                 if(x - i - 1 < -size || x - i - 1 > size || z - i - 1 < -size || z - i - 1 > size)
                     fill(pos2, pos2.down(layer), isDecay, false, Blocks.NETHERRACK);
-                if(!isDecay) setBlock(pos2, Blocks.NETHERRACK, false);
-                else if(world.rand.nextDouble() < 0.3) setBlock(pos2, Blocks.AIR, true);
+                if(!isDecay) setBlock(pos2, Blocks.NETHERRACK);
+                else if(world.rand.nextDouble() < 0.3) setBlock(pos2, Blocks.AIR);
             }
         }
     }
@@ -314,8 +351,8 @@ public class TileEntityNetherCore extends TileEntityBasic implements ITickable
             for(int x = start.getX(); x <= finish.getX(); ++x) {
                 for(int z = start.getZ(); z <= finish.getZ(); ++z) {
                     if(x == start.getX() || x == finish.getX() || z == start.getZ() || z == finish.getZ() || !hollow) {
-                        if(!isDecay) setBlock(new BlockPos(x, y, z), block, false);
-                        else if(world.rand.nextDouble() < 0.3) setBlock(new BlockPos(x, y, z), Blocks.AIR, true);
+                        if(!isDecay) setBlock(new BlockPos(x, y, z), block);
+                        else if(world.rand.nextDouble() < 0.3) setBlock(new BlockPos(x, y, z), Blocks.AIR);
                     }
                 }
             }
@@ -323,16 +360,9 @@ public class TileEntityNetherCore extends TileEntityBasic implements ITickable
     }
 
     //checks if the pos is breakable, then if it is, places the given block
-    protected void setBlock(@Nonnull BlockPos pos, @Nonnull Block block, boolean doBreakEffect) {
+    protected void setBlock(@Nonnull BlockPos pos, @Nonnull Block block) {
         final IBlockState state = world.getBlockState(pos);
-        if(state.getBlockHardness(world, pos) != -1) {
-            if(doBreakEffect) {
-                if(state.getBlock() == Blocks.NETHERRACK) {
-                    world.playEvent(Constants.WorldEvents.BREAK_BLOCK_EFFECTS, pos, Block.getStateId(state));
-                    world.setBlockState(pos, block.getDefaultState(), Constants.BlockFlags.SEND_TO_CLIENTS);
-                }
-            }
-            else world.setBlockState(pos, block.getDefaultState(), Constants.BlockFlags.SEND_TO_CLIENTS);
-        }
+        if(state.getBlockHardness(world, pos) != -1)
+            world.setBlockState(pos, block.getDefaultState(), Constants.BlockFlags.SEND_TO_CLIENTS);
     }
 }
