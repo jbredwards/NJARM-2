@@ -29,8 +29,8 @@ public final class RegistryHandler
 {
     @SubscribeEvent
     public static void registerBlocks(@Nonnull RegistryEvent.Register<Block> event) {
-        TileEntity.register(Constants.MODID + ":nether_core", TileEntityNetherCore.class);
         event.getRegistry().registerAll(ModBlocks.INIT.toArray(new Block[0]));
+        TileEntity.register(Constants.MODID + ":nether_core", TileEntityNetherCore.class);
     }
 
     @SubscribeEvent

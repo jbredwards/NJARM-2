@@ -8,6 +8,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.crafting.IShapedRecipe;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.furnace.FurnaceFuelBurnTimeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -28,59 +29,61 @@ import javax.annotation.Nullable;
 @Mod.EventBusSubscriber(modid = Constants.MODID)
 public final class ModRecipes
 {
-    @SuppressWarnings("NotNullFieldNotInitialized")
-    @Nonnull private static IForgeRegistry<IRecipe> registry;
-
     @SubscribeEvent
     public static void registerAll(@Nonnull RegistryEvent.Register<IRecipe> event) {
-        registry = event.getRegistry();
-        registerCrafting();
+        registerCrafting(event.getRegistry());
         registerSmelting();
     }
 
-    private static void registerCrafting() {
+    private static void registerCrafting(@Nonnull IForgeRegistry<IRecipe> registry) {
         //shapeless
-        registry.register(shapeless(9, Items.APPLE, new ItemStack(ModItems.FOOD_CRATE, 1, 6)));
-        registry.register(shapeless(9, Items.BEETROOT, new ItemStack(ModItems.FOOD_CRATE, 1, 4)));
-        registry.register(shapeless(9, Items.BEETROOT_SEEDS, new ItemStack(ModItems.FOOD_CRATE, 1, 5)));
-        registry.register(shapeless(9, Items.CARROT, new ItemStack(ModItems.FOOD_CRATE, 1, 1)));
-        registry.register(shapeless(9, Items.GOLDEN_APPLE, new ItemStack(ModItems.FOOD_CRATE, 1, 7)));
-        registry.register(shapeless(9, Items.GOLDEN_CARROT, new ItemStack(ModItems.FOOD_CRATE, 1, 8)));
-        registry.register(shapeless(9, 0, Items.FISH, new ItemStack(ModItems.FOOD_CRATE, 1, 9)));
-        registry.register(shapeless(9, 1, Items.FISH, new ItemStack(ModItems.FOOD_CRATE, 1, 10)));
-        registry.register(shapeless(9, 2, Items.FISH, new ItemStack(ModItems.FOOD_CRATE, 1, 11)));
-        registry.register(shapeless(9, 3, Items.FISH, new ItemStack(ModItems.FOOD_CRATE, 1, 12)));
-        registry.register(shapeless(16, ModItems.FRAGILE_ICE, Blocks.ICE));
-        registry.register(shapeless(9, Items.POISONOUS_POTATO, new ItemStack(ModItems.FOOD_CRATE, 1, 3)));
-        registry.register(shapeless(9, Items.POTATO, new ItemStack(ModItems.FOOD_CRATE, 1, 2)));
-        registry.register(shapeless(9, ModItems.RUBY, ModItems.RUBY_BLOCK));
-        registry.register(shapeless(9, ModItems.SAPPHIRE, ModItems.SAPPHIRE_BLOCK));
-        registry.register(shapeless(4, Items.SNOWBALL, Blocks.SNOW));
-        registry.register(shapeless(2, Items.SNOWBALL, Blocks.SNOW_LAYER));
-        registry.register(shapeless(9, Items.WHEAT_SEEDS, new ItemStack(ModItems.FOOD_CRATE, 1, 0)));
+        registerCrafting(registry, shapeless(9, Items.APPLE, new ItemStack(ModItems.FOOD_CRATE, 1, 6)));
+        registerCrafting(registry, shapeless(9, Items.BEETROOT, new ItemStack(ModItems.FOOD_CRATE, 1, 4)));
+        registerCrafting(registry, shapeless(9, Items.BEETROOT_SEEDS, new ItemStack(ModItems.FOOD_CRATE, 1, 5)));
+        registerCrafting(registry, shapeless(9, Items.CARROT, new ItemStack(ModItems.FOOD_CRATE, 1, 1)));
+        registerCrafting(registry, shapeless(9, Items.GOLDEN_APPLE, new ItemStack(ModItems.FOOD_CRATE, 1, 7)));
+        registerCrafting(registry, shapeless(9, Items.GOLDEN_CARROT, new ItemStack(ModItems.FOOD_CRATE, 1, 8)));
+        registerCrafting(registry, shapeless(9, 0, Items.FISH, new ItemStack(ModItems.FOOD_CRATE, 1, 9)));
+        registerCrafting(registry, shapeless(9, 1, Items.FISH, new ItemStack(ModItems.FOOD_CRATE, 1, 10)));
+        registerCrafting(registry, shapeless(9, 2, Items.FISH, new ItemStack(ModItems.FOOD_CRATE, 1, 11)));
+        registerCrafting(registry, shapeless(9, 3, Items.FISH, new ItemStack(ModItems.FOOD_CRATE, 1, 12)));
+        registerCrafting(registry, shapeless(16, ModItems.FRAGILE_ICE, Blocks.ICE));
+        registerCrafting(registry, shapeless(9, Items.POISONOUS_POTATO, new ItemStack(ModItems.FOOD_CRATE, 1, 3)));
+        registerCrafting(registry, shapeless(9, Items.POTATO, new ItemStack(ModItems.FOOD_CRATE, 1, 2)));
+        registerCrafting(registry, shapeless(9, ModItems.RUBY, ModItems.RUBY_BLOCK));
+        registerCrafting(registry, shapeless(9, ModItems.SAPPHIRE, ModItems.SAPPHIRE_BLOCK));
+        registerCrafting(registry, shapeless(4, Items.SNOWBALL, Blocks.SNOW));
+        registerCrafting(registry, shapeless(2, Items.SNOWBALL, Blocks.SNOW_LAYER));
+        registerCrafting(registry, shapeless(9, Items.WHEAT_SEEDS, new ItemStack(ModItems.FOOD_CRATE, 1, 0)));
         //shaped
-        registry.register(shaped(1, 0, ModItems.FOOD_CRATE, "###", "###", "###", '#', Items.WHEAT_SEEDS));
-        registry.register(shaped(1, 1, ModItems.FOOD_CRATE, "###", "###", "###", '#', Items.CARROT));
-        registry.register(shaped(1, 2, ModItems.FOOD_CRATE, "###", "###", "###", '#', Items.POTATO));
-        registry.register(shaped(1, 3, ModItems.FOOD_CRATE, "###", "###", "###", '#', Items.POISONOUS_POTATO));
-        registry.register(shaped(1, 4, ModItems.FOOD_CRATE, "###", "###", "###", '#', Items.BEETROOT));
-        registry.register(shaped(1, 5, ModItems.FOOD_CRATE, "###", "###", "###", '#', Items.BEETROOT_SEEDS));
-        registry.register(shaped(1, 6, ModItems.FOOD_CRATE, "###", "###", "###", '#', Items.APPLE));
-        registry.register(shaped(1, 8, ModItems.FOOD_CRATE, "###", "###", "###", '#', Items.GOLDEN_CARROT));
-        registry.register(shaped(1, 7, ModItems.FOOD_CRATE, "###", "###", "###", '#', new ItemStack(Items.GOLDEN_APPLE, 1, 0)));
-        registry.register(shaped(1, 9, ModItems.FOOD_CRATE, "###", "###", "###", '#', new ItemStack(Items.FISH, 1, 0)));
-        registry.register(shaped(1, 10, ModItems.FOOD_CRATE, "###", "###", "###", '#', new ItemStack(Items.FISH, 1, 1)));
-        registry.register(shaped(1, 11, ModItems.FOOD_CRATE, "###", "###", "###", '#', new ItemStack(Items.FISH, 1, 2)));
-        registry.register(shaped(1, 12, ModItems.FOOD_CRATE, "###", "###", "###", '#', new ItemStack(Items.FISH, 1, 3)));
-        registry.register(shaped(1, ModItems.NETHER_REACTOR_CORE, "IDI", "IDI", "IDI", 'I', "ingotIron", 'D', "gemDiamond"));
-        registry.register(shaped(1, ModItems.RUBY_AXE, "##", "#S", " S", '#', "gemRuby", 'S', "stickWood"));
-        registry.register(shaped(1, ModItems.RUBY_BLOCK, "###", "###", "###", '#', "gemRuby"));
-        registry.register(shaped(1, ModItems.RUBY_HOE, "##", " S", " S", '#', "gemRuby", 'S', "stickWood"));
-        registry.register(shaped(1, ModItems.RUBY_PICKAXE, "###", " S ", " S ", '#', "gemRuby", 'S', "stickWood"));
-        registry.register(shaped(1, ModItems.RUBY_SHOVEL, "#", "S", "S", '#', "gemRuby", 'S', "stickWood"));
-        registry.register(shaped(1, ModItems.RUBY_SWORD, "#", "#", "S", '#', "gemRuby", 'S', "stickWood"));
-        registry.register(shaped(1, ModItems.SAPPHIRE_BLOCK, "###", "###", "###", '#', "gemSapphire"));
-        registry.register(shaped(1, Blocks.SNOW_LAYER, "##", '#', Items.SNOWBALL));
+        registerCrafting(registry, shaped(3, ModItems.CHAIN, "N", "I", "N", 'N', "nuggetIron", 'I', "ingotIron"));
+        registerCrafting(registry, shaped(1, 0, ModItems.FOOD_CRATE, "###", "###", "###", '#', Items.WHEAT_SEEDS));
+        registerCrafting(registry, shaped(1, 1, ModItems.FOOD_CRATE, "###", "###", "###", '#', Items.CARROT));
+        registerCrafting(registry, shaped(1, 2, ModItems.FOOD_CRATE, "###", "###", "###", '#', Items.POTATO));
+        registerCrafting(registry, shaped(1, 3, ModItems.FOOD_CRATE, "###", "###", "###", '#', Items.POISONOUS_POTATO));
+        registerCrafting(registry, shaped(1, 4, ModItems.FOOD_CRATE, "###", "###", "###", '#', Items.BEETROOT));
+        registerCrafting(registry, shaped(1, 5, ModItems.FOOD_CRATE, "###", "###", "###", '#', Items.BEETROOT_SEEDS));
+        registerCrafting(registry, shaped(1, 6, ModItems.FOOD_CRATE, "###", "###", "###", '#', Items.APPLE));
+        registerCrafting(registry, shaped(1, 8, ModItems.FOOD_CRATE, "###", "###", "###", '#', Items.GOLDEN_CARROT));
+        registerCrafting(registry, shaped(1, 7, ModItems.FOOD_CRATE, "###", "###", "###", '#', new ItemStack(Items.GOLDEN_APPLE, 1, 0)));
+        registerCrafting(registry, shaped(1, 9, ModItems.FOOD_CRATE, "###", "###", "###", '#', new ItemStack(Items.FISH, 1, 0)));
+        registerCrafting(registry, shaped(1, 10, ModItems.FOOD_CRATE, "###", "###", "###", '#', new ItemStack(Items.FISH, 1, 1)));
+        registerCrafting(registry, shaped(1, 11, ModItems.FOOD_CRATE, "###", "###", "###", '#', new ItemStack(Items.FISH, 1, 2)));
+        registerCrafting(registry, shaped(1, 12, ModItems.FOOD_CRATE, "###", "###", "###", '#', new ItemStack(Items.FISH, 1, 3)));
+        registerCrafting(registry, shaped(1, ModItems.NETHER_REACTOR_CORE, "IDI", "IDI", "IDI", 'I', "ingotIron", 'D', "gemDiamond"));
+        registerCrafting(registry, shaped(1, ModItems.RUBY_AXE, "##", "#S", " S", '#', "gemRuby", 'S', "stickWood"));
+        registerCrafting(registry, shaped(1, ModItems.RUBY_BLOCK, "###", "###", "###", '#', "gemRuby"));
+        registerCrafting(registry, shaped(1, ModItems.RUBY_HOE, "##", " S", " S", '#', "gemRuby", 'S', "stickWood"));
+        registerCrafting(registry, shaped(1, ModItems.RUBY_PICKAXE, "###", " S ", " S ", '#', "gemRuby", 'S', "stickWood"));
+        registerCrafting(registry, shaped(1, ModItems.RUBY_SHOVEL, "#", "S", "S", '#', "gemRuby", 'S', "stickWood"));
+        registerCrafting(registry, shaped(1, ModItems.RUBY_SWORD, "#", "#", "S", '#', "gemRuby", 'S', "stickWood"));
+        registerCrafting(registry, shaped(1, ModItems.SAPPHIRE_BLOCK, "###", "###", "###", '#', "gemSapphire"));
+        registerCrafting(registry, shaped(1, Blocks.SNOW_LAYER, "##", '#', Items.SNOWBALL));
+    }
+
+    private static void registerCrafting(@Nonnull IForgeRegistry<IRecipe> registry, @Nonnull IRecipe recipe) {
+        registry.register(recipe.setRegistryName(generateName(registry, recipe instanceof IShapedRecipe
+                ? "shaped" : "shapeless", recipe.getRecipeOutput())));
     }
 
     private static void registerSmelting() {
@@ -102,8 +105,7 @@ public final class ModRecipes
     @Nonnull private static IRecipe shapeless(int amount, @Nonnull Block output, @Nonnull Object... recipe) { return shapeless(new ItemStack(output, amount), recipe); }
     @Nonnull private static IRecipe shapeless(int amount, int meta, @Nonnull Block output, @Nonnull Object... recipe) { return shapeless(new ItemStack(output, amount, meta), recipe); }
     @Nonnull private static IRecipe shapeless(@Nonnull ItemStack output, @Nonnull Object... recipe) {
-        return new ShapelessOreRecipe(new ResourceLocation(Constants.MODID, Constants.NAME), output, recipe)
-                .setRegistryName(generateName("shapeless", output));
+        return new ShapelessOreRecipe(new ResourceLocation(Constants.MODID, Constants.NAME), output, recipe);
     }
 
     //constructs a new shaped recipe
@@ -112,13 +114,12 @@ public final class ModRecipes
     @Nonnull private static IRecipe shaped(int amount, @Nonnull Block output, @Nonnull Object... recipe) { return shaped(new ItemStack(output, amount), recipe); }
     @Nonnull private static IRecipe shaped(int amount, int meta, @Nonnull Block output, @Nonnull Object... recipe) { return shaped(new ItemStack(output, amount, meta), recipe); }
     @Nonnull private static IRecipe shaped(@Nonnull ItemStack output, @Nonnull Object... recipe) {
-        return new ShapedOreRecipe(new ResourceLocation(Constants.MODID, Constants.NAME), output, recipe)
-                .setRegistryName(generateName("shaped", output));
+        return new ShapedOreRecipe(new ResourceLocation(Constants.MODID, Constants.NAME), output, recipe);
     }
 
     //generates an unused name for a crafting recipe
     @Nonnull
-    private static ResourceLocation generateName(@Nonnull String postfix, @Nonnull ItemStack output) {
+    private static ResourceLocation generateName(@Nonnull IForgeRegistry<IRecipe> registry, @Nonnull String postfix, @Nonnull ItemStack output) {
         String name = output.getTranslationKey() + '.' + postfix;
 
         //resolves duplicate registry names

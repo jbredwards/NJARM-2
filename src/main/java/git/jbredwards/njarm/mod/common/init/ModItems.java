@@ -36,6 +36,7 @@ public final class ModItems
     @Nonnull public static final ItemBlock FRAGILE_ICE = register("fragile_ice", new ItemBlock(ModBlocks.FRAGILE_ICE));
     @Nonnull public static final ItemBlock NETHER_REACTOR_CORE = register("nether_reactor_core", new ItemBlock(ModBlocks.NETHER_REACTOR_CORE));
     @Nonnull public static final ItemBlock GLOWING_OBSIDIAN = register("glowing_obsidian", new ItemBlock(ModBlocks.GLOWING_OBSIDIAN));
+    @Nonnull public static final ItemBlock CHAIN = register("chain", new ItemBlock(ModBlocks.CHAIN));
 
     //items
     @Nonnull public static final Item RUBY = register("ruby", new Item());

@@ -22,6 +22,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.MobEffects;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.EntitySelectors;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -33,6 +34,7 @@ import net.minecraftforge.common.util.FakePlayer;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -91,7 +93,15 @@ public class TileEntityNetherCore extends TileEntityBasic implements ITickable
                                 entity.setPosition(pos.getX() + x + 0.5, pos.getY() - 1, pos.getZ() + z + 0.5);
 
                                 if(activator != null) {
-                                    final @Nullable EntityPlayer player = world.getPlayerEntityByUUID(activator);
+                                    @Nullable EntityPlayer player = world.getPlayerEntityByUUID(activator);
+                                    if(player == null) {
+                                        final List<EntityPlayer> players = world.getEntitiesWithinAABB(EntityPlayer.class,
+                                                new AxisAlignedBB(pos, pos.add(1, 1, 1)).grow(NetherCoreConfig.getRange()),
+                                                EntitySelectors.CAN_AI_TARGET.and(Entity::isEntityAlive)::test);
+
+                                        if(players.size() > 0) player = players.get(world.rand.nextInt(players.size()));
+                                    }
+
                                     if(player != null) {
                                         if(entity instanceof EntityPigZombie) ((EntityPigZombie)entity).becomeAngryAt(player);
                                         else if(entity instanceof EntityLiving) ((EntityLiving)entity).setAttackTarget(player);

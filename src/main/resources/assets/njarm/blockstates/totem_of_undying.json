@@ -4,7 +4,6 @@
       "model":"njarm:totem_of_undying"
    },
    "variants":{ 
-      "inventory":[{}],
       "facing=south":[{}],
       "facing=north":[{"y":180}],
       "facing=west":[{"y":90}],
