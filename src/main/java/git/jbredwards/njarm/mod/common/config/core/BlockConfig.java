@@ -20,6 +20,9 @@ public final class BlockConfig implements IConfig
     @Config.LangKey("config.njarm.core.block.blueFire")
     @Nonnull public final BlueFireConfig blueFireCfg;
 
+    @Config.LangKey("config.njarm.core.block.bubbleColumn")
+    @Nonnull public final BubbleColumnConfig bubbleColumnCfg;
+
     @Config.LangKey("config.njarm.core.block.chain")
     @Nonnull public final ChainConfig chainCfg;
 
@@ -54,8 +57,9 @@ public final class BlockConfig implements IConfig
     public void onUpdate() { CONFIGS.forEach(IConfig::onUpdate); }
 
     //needed for gson
-    public BlockConfig(@Nonnull BlueFireConfig blueFireCfg, @Nonnull ChainConfig chainCfg, @Nonnull FoodCrateConfig foodCrateCfg, @Nonnull FragileIceConfig fragileIceCfg, @Nonnull MagicOreConfig magicOreCfg, @Nonnull NetherCoreConfig netherCoreCfg, @Nonnull TotemOfUndyingConfig totemOfUndyingCfg) {
+    public BlockConfig(@Nonnull BlueFireConfig blueFireCfg, @Nonnull BubbleColumnConfig bubbleColumnCfg, @Nonnull ChainConfig chainCfg, @Nonnull FoodCrateConfig foodCrateCfg, @Nonnull FragileIceConfig fragileIceCfg, @Nonnull MagicOreConfig magicOreCfg, @Nonnull NetherCoreConfig netherCoreCfg, @Nonnull TotemOfUndyingConfig totemOfUndyingCfg) {
         this.blueFireCfg = register(blueFireCfg);
+        this.bubbleColumnCfg = register(bubbleColumnCfg);
         this.chainCfg = register(chainCfg);
         this.foodCrateCfg = register(foodCrateCfg);
         this.fragileIceCfg = register(fragileIceCfg);

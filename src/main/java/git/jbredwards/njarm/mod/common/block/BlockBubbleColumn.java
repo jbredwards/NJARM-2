@@ -9,6 +9,8 @@ import git.jbredwards.njarm.mod.common.capability.IBubbleColumn;
 import git.jbredwards.njarm.mod.common.init.ModBlocks;
 import git.jbredwards.njarm.mod.common.init.ModSounds;
 import git.jbredwards.njarm.mod.common.util.SoundUtils;
+import it.unimi.dsi.fastutil.ints.IntArrayList;
+import it.unimi.dsi.fastutil.ints.IntList;
 import net.darkhax.bookshelf.item.ICustomModel;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.EnumPushReaction;
@@ -39,6 +41,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 /**
@@ -49,8 +52,7 @@ import java.util.Random;
 @Mod.EventBusSubscriber(modid = Constants.MODID)
 public class BlockBubbleColumn extends Block implements IFluidloggable, ICustomModel, ICanFallThrough
 {
-    @Nonnull
-    public static final PropertyEnum<Drag> DRAG = PropertyEnum.create("drag", Drag.class);
+    @Nonnull public static final PropertyEnum<Drag> DRAG = PropertyEnum.create("drag", Drag.class);
 
     public BlockBubbleColumn(@Nonnull Material materialIn) { this(materialIn, materialIn.getMaterialMapColor()); }
     public BlockBubbleColumn(@Nonnull Material materialIn, @Nonnull MapColor mapColorIn) {
@@ -133,9 +135,9 @@ public class BlockBubbleColumn extends Block implements IFluidloggable, ICustomM
             final IBlockState downState = worldIn.getBlockState(pos.down());
             final Drag drag = state.getValue(DRAG);
 
-            if(downState.getBlock() == drag.getOther().block || downState.getBlock() == this && drag == downState.getValue(DRAG).getOther())
-                worldIn.setBlockState(pos, state.withProperty(DRAG, drag.getOther()));
-            else if(downState.getBlock() != drag.block) worldIn.setBlockToAir(pos);
+            if(drag.getOpposite().hasBlock(downState) || downState.getBlock() == this && drag == downState.getValue(DRAG).getOpposite())
+                worldIn.setBlockState(pos, state.withProperty(DRAG, drag.getOpposite()));
+            else if(!drag.hasBlock(downState)) worldIn.setBlockToAir(pos);
         }
     }
 
@@ -204,32 +206,55 @@ public class BlockBubbleColumn extends Block implements IFluidloggable, ICustomM
 
     @SubscribeEvent
     public static void updateMagmaAndSoulSand(@Nonnull BlockEvent.NeighborNotifyEvent event) {
-        final Block block = event.getState().getBlock();
-        if((block == Blocks.MAGMA || block == Blocks.SOUL_SAND) && event.getNotifiedSides().contains(EnumFacing.UP))
-            ModBlocks.BUBBLE_COLUMN.spreadToUp(event.getWorld(), event.getPos(), ModBlocks.BUBBLE_COLUMN.getDefaultState()
-                    .withProperty(DRAG, block == Blocks.MAGMA ? Drag.DOWN : Drag.UP));
+        if(event.getNotifiedSides().contains(EnumFacing.UP)) {
+            final boolean isMagma = Drag.DOWN.hasBlock(event.getState());
+            if(isMagma || Drag.UP.hasBlock(event.getState())) {
+                ModBlocks.BUBBLE_COLUMN.spreadToUp(event.getWorld(), event.getPos(), ModBlocks.BUBBLE_COLUMN.getDefaultState()
+                        .withProperty(DRAG, isMagma ? Drag.DOWN : Drag.UP));
+                return;
+            }
+        }
 
-        else if(event.getNotifiedSides().contains(EnumFacing.DOWN)) {
-            final Block downBlock = event.getWorld().getBlockState(event.getPos().down()).getBlock();
-            if((downBlock == Blocks.MAGMA || downBlock == Blocks.SOUL_SAND))
+        if(event.getNotifiedSides().contains(EnumFacing.DOWN)) {
+            final IBlockState down = event.getWorld().getBlockState(event.getPos().down());
+            final boolean isMagma = Drag.DOWN.hasBlock(down);
+
+            if(isMagma || Drag.UP.hasBlock(down))
                 ModBlocks.BUBBLE_COLUMN.spreadToUp(event.getWorld(), event.getPos().down(), ModBlocks.BUBBLE_COLUMN.getDefaultState()
-                        .withProperty(DRAG, downBlock == Blocks.MAGMA ? Drag.DOWN : Drag.UP));
+                        .withProperty(DRAG, isMagma ? Drag.DOWN : Drag.UP));
         }
     }
 
     public enum Drag implements IStringSerializable
     {
-        @Nonnull DOWN("down", Blocks.MAGMA, 1),
-        @Nonnull UP("up", Blocks.SOUL_SAND, 0);
+        @Nonnull DOWN("down", 1),
+        @Nonnull UP("up", 0);
 
+        @Nonnull public final Map<Block, IntList> blocks = new HashMap<>();
         @Nonnull public final String name;
-        @Nonnull public final Block block;
-        public final int other;
+        public final int opposite;
 
-        Drag(@Nonnull String name, @Nonnull Block block, int other) {
+        Drag(@Nonnull String name, int opposite) {
             this.name = name;
-            this.block = block;
-            this.other = other;
+            this.opposite = opposite;
+        }
+
+        public boolean hasBlock(@Nonnull IBlockState state) {
+            final @Nullable IntList meta = blocks.get(state.getBlock());
+            return meta != null && (meta.isEmpty() || meta.contains(state.getBlock().getMetaFromState(state)));
+        }
+
+        public void addBlock(@Nonnull Block block, @Nonnull int[] meta) {
+            blocks.put(block, IntArrayList.wrap(meta));
+            //remove duplicate opposing entries
+            final @Nullable IntList oppositeMeta = getOpposite().blocks.get(block);
+            if(oppositeMeta != null) {
+                if(oppositeMeta.isEmpty()) getOpposite().blocks.remove(block);
+                else for(int i : meta) if(oppositeMeta.rem(i) && oppositeMeta.isEmpty()) {
+                    getOpposite().blocks.remove(block);
+                    break;
+                }
+            }
         }
 
         @Nonnull
@@ -237,6 +262,6 @@ public class BlockBubbleColumn extends Block implements IFluidloggable, ICustomM
         public String getName() { return name; }
 
         @Nonnull
-        public Drag getOther() { return values()[other]; }
+        public Drag getOpposite() { return values()[opposite]; }
     }
 }

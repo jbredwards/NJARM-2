@@ -327,6 +327,7 @@ public final class Main
                     .put("assets/minecraft/textures/block/netherite_block.png", String.format("assets/%s/textures/blocks/netherite_block.png", MODID))
                     .put("assets/minecraft/textures/block/ancient_debris_side.png", String.format("assets/%s/textures/blocks/ancient_debris_side.png", MODID))
                     .put("assets/minecraft/textures/block/ancient_debris_top.png", String.format("assets/%s/textures/blocks/ancient_debris_top.png", MODID))
+                    .put("assets/minecraft/textures/block/soul_soil.png", String.format("assets/%s/textures/blocks/soul_soil.png", MODID))
                     .build();
 
             LOGGER.info("Attempting to gather the vanilla 1.18.2 assets required by this mod, this may take a while if it's your first load...");

@@ -48,6 +48,7 @@ public final class ModBlocks
     @Nonnull public static final BlockNetherCore NETHER_REACTOR_CORE = register("nether_reactor_core", new BlockNetherCore(Material.IRON, MapColor.DIAMOND), Blocks.DIAMOND_BLOCK);
     @Nonnull public static final BlockGlowingObsidian GLOWING_OBSIDIAN = register("glowing_obsidian", new BlockGlowingObsidian(), Blocks.OBSIDIAN, block -> block.setLightLevel(0.8f));
     @Nonnull public static final BlockChain CHAIN = register("chain", new BlockChain(Material.IRON), Blocks.IRON_BLOCK, block -> block.setSoundType(ModSounds.CHAIN));
+    @Nonnull public static final Block SOUL_SOIL = register("soul_soil", new Block(Material.SAND, MapColor.BROWN), Blocks.SOUL_SAND, block -> block.setSoundType(ModSounds.SOUL_SOIL));
     @Nonnull public static final BlockBlueFire BLUE_FIRE = register("blue_fire", new BlockBlueFire(), Blocks.FIRE);
     @Nonnull public static final BlockBubbleColumn BUBBLE_COLUMN = register("bubble_column", new BlockBubbleColumn(BUBBLE_COLUMN_MATERIAL), Blocks.WATER);
 

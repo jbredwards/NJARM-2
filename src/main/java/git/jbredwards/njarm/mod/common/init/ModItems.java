@@ -37,6 +37,7 @@ public final class ModItems
     @Nonnull public static final ItemBlock NETHER_REACTOR_CORE = register("nether_reactor_core", new ItemBlock(ModBlocks.NETHER_REACTOR_CORE));
     @Nonnull public static final ItemBlock GLOWING_OBSIDIAN = register("glowing_obsidian", new ItemBlock(ModBlocks.GLOWING_OBSIDIAN));
     @Nonnull public static final ItemBlock CHAIN = register("chain", new ItemBlock(ModBlocks.CHAIN));
+    @Nonnull public static final ItemBlock SOUL_SOIL = register("soul_soil", new ItemBlock(ModBlocks.SOUL_SOIL));
 
     //items
     @Nonnull public static final Item RUBY = register("ruby", new Item());
