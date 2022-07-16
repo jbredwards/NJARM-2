@@ -15,6 +15,7 @@ item.njarm.sunstone.name=Sunstone
 itemGroup.njarm=NJARM 2
 #blocks
 tile.njarm.ancient_debris.name=Ancient Debris
+tile.njarm.basalt.name=Basalt
 tile.njarm.blue_fire.name=Blue Fire
 tile.njarm.bubble_column.name=Bubble Column
 tile.njarm.chain.name=Chain

@@ -9,6 +9,7 @@ import git.jbredwards.njarm.mod.common.capability.*;
 import git.jbredwards.njarm.mod.common.config.ConfigHandler;
 import git.jbredwards.njarm.mod.common.init.ModSounds;
 import git.jbredwards.njarm.mod.common.message.*;
+import git.jbredwards.njarm.mod.common.world.generation.BasaltPillarGenerator;
 import git.jbredwards.njarm.mod.common.world.generation.OreGenerator;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
@@ -80,6 +81,7 @@ public final class Main
             wrapper.registerMessage(MessageParticle.Handler.INSTANCE, MessageParticle.class, 2, Side.CLIENT);
             //world generators
             GameRegistry.registerWorldGenerator(new OreGenerator(), 3);
+            GameRegistry.registerWorldGenerator(new BasaltPillarGenerator(), 3);
         }
 
         protected void init() {
@@ -328,6 +330,8 @@ public final class Main
                     .put("assets/minecraft/textures/block/ancient_debris_side.png", String.format("assets/%s/textures/blocks/ancient_debris_side.png", MODID))
                     .put("assets/minecraft/textures/block/ancient_debris_top.png", String.format("assets/%s/textures/blocks/ancient_debris_top.png", MODID))
                     .put("assets/minecraft/textures/block/soul_soil.png", String.format("assets/%s/textures/blocks/soul_soil.png", MODID))
+                    .put("assets/minecraft/textures/block/basalt_side.png", String.format("assets/%s/textures/blocks/basalt_side.png", MODID))
+                    .put("assets/minecraft/textures/block/basalt_top.png", String.format("assets/%s/textures/blocks/basalt_top.png", MODID))
                     .build();
 
             LOGGER.info("Attempting to gather the vanilla 1.18.2 assets required by this mod, this may take a while if it's your first load...");
