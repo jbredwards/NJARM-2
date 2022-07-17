@@ -1,0 +1,13 @@
+#items
+item.cake.name=Sugar Cake
+item.chickenCooked.name=Cooked Bird
+item.chickenRaw.name=Raw Bird
+item.milk.name=Milk Bucket
+itemGroup.brewing=Potions
+#blocks
+tile.bookshelf.name=Oak Bookshelf
+tile.netherBrick.name=Nether Bricks
+tile.stoneMoss=Mossy Cobblestone
+tile.stoneSlab.name=Compressed Stone Slab
+tile.stoneSlab.stone.name=Compressed Stone Slab
+tile.workbench.name=Oak Crafting Table

@@ -64,16 +64,20 @@ public class BasaltPillarGenerator implements IWorldGenerator
                             positions.get(positions.size() - 1).add(x, 0, z));
 
                     if(world.isAirBlock(pos)) {
-                        if(!world.isAirBlock(pos.down())) world.setBlockState(pos.toImmutable(), basalt, 2);
-                        if(!world.isAirBlock(pos.add(1, -2, 0)) || !world.isAirBlock(pos.add(0, -2, 1)) || !world.isAirBlock(pos.add(-1, -2, 0)) || !world.isAirBlock(pos.add(0, -2, -1))) {
+                        if(!isReplaceable(world, pos.down()) && world.getBlockState(pos.down()).getBlock() != ModBlocks.BASALT) world.setBlockState(pos.toImmutable(), basalt, 2);
+                        if(!isReplaceable(world, pos.add(1, -2, 0)) || !isReplaceable(world, pos.add(0, -2, 1)) || !isReplaceable(world, pos.add(-1, -2, 0)) || !isReplaceable(world, pos.add(0, -2, -1))) {
                             for(int i = 5; rand.nextInt(10) < weight - i && world.getBlockState(pos.setPos(pos.down())).getBlock().isReplaceable(world, pos); i++)
                                 world.setBlockState(pos.toImmutable(), basalt, 2);
                         }
                     }
 
-                    else if(world.isAirBlock(pos.setPos(pos.up()))) world.setBlockState(pos.toImmutable(), basalt, 2);
+                    else if(isReplaceable(world, pos.setPos(pos.up()))) world.setBlockState(pos.toImmutable(), basalt, 2);
                 }
             }
         }
+    }
+
+    protected boolean isReplaceable(@Nonnull World world, @Nonnull BlockPos pos) {
+        return world.getBlockState(pos).getBlock().isReplaceable(world, pos);
     }
 }

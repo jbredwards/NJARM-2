@@ -332,6 +332,14 @@ public final class Main
                     .put("assets/minecraft/textures/block/soul_soil.png", String.format("assets/%s/textures/blocks/soul_soil.png", MODID))
                     .put("assets/minecraft/textures/block/basalt_side.png", String.format("assets/%s/textures/blocks/basalt_side.png", MODID))
                     .put("assets/minecraft/textures/block/basalt_top.png", String.format("assets/%s/textures/blocks/basalt_top.png", MODID))
+                    .put("assets/minecraft/textures/block/polished_basalt_side.png", String.format("assets/%s/textures/blocks/polished_basalt_side.png", MODID))
+                    .put("assets/minecraft/textures/block/polished_basalt_top.png", String.format("assets/%s/textures/blocks/polished_basalt_top.png", MODID))
+                    .put("assets/minecraft/textures/block/blackstone.png", String.format("assets/%s/textures/blocks/blackstone_side.png", MODID))
+                    .put("assets/minecraft/textures/block/blackstone_top.png", String.format("assets/%s/textures/blocks/blackstone_top.png", MODID))
+                    .put("assets/minecraft/textures/block/polished_blackstone.png", String.format("assets/%s/textures/blocks/polished_blackstone.png", MODID))
+                    .put("assets/minecraft/textures/block/polished_blackstone_bricks.png", String.format("assets/%s/textures/blocks/blackstone_bricks.png", MODID))
+                    .put("assets/minecraft/textures/block/chiseled_polished_blackstone.png", String.format("assets/%s/textures/blocks/blackstone_chiseled.png", MODID))
+                    .put("assets/minecraft/textures/block/cracked_polished_blackstone_bricks.png", String.format("assets/%s/textures/blocks/blackstone_bricks_cracked.png", MODID))
                     .build();
 
             LOGGER.info("Attempting to gather the vanilla 1.18.2 assets required by this mod, this may take a while if it's your first load...");

@@ -6,6 +6,7 @@ import git.jbredwards.njarm.mod.common.block.*;
 import git.jbredwards.njarm.mod.common.item.CreativeTab;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRotatedPillar;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialLiquid;
@@ -50,6 +51,13 @@ public final class ModBlocks
     @Nonnull public static final BlockChain CHAIN = register("chain", new BlockChain(Material.IRON), Blocks.IRON_BLOCK, block -> block.setSoundType(ModSounds.CHAIN));
     @Nonnull public static final Block SOUL_SOIL = register("soul_soil", new Block(Material.SAND, MapColor.BROWN), Blocks.SOUL_SAND, block -> block.setSoundType(ModSounds.SOUL_SOIL));
     @Nonnull public static final BlockRotatedPillar BASALT = register("basalt", new BlockRotatedPillar(Material.ROCK, MapColor.GRAY), Blocks.STONE, block -> block.setSoundType(ModSounds.BASALT));
+    @Nonnull public static final BlockRotatedPillar POLISHED_BASALT = register("polished_basalt", new BlockRotatedPillar(Material.ROCK, MapColor.GRAY), Blocks.STONE, block -> block.setSoundType(ModSounds.BASALT));
+    @Nonnull public static final BlockRotatedPillar BLACKSTONE = register("blackstone", new BlockRotatedPillar(Material.ROCK, MapColor.BLACK), Blocks.STONE);
+    @Nonnull public static final Block POLISHED_BLACKSTONE = register("polished_blackstone", new Block(Material.ROCK, MapColor.BLACK), Blocks.STONE);
+    @Nonnull public static final Block BLACKSTONE_BRICKS = register("blackstone_bricks", new Block(Material.ROCK, MapColor.BLACK), Blocks.STONEBRICK);
+    @Nonnull public static final Block BLACKSTONE_CHISELED = register("blackstone_chiseled", new Block(Material.ROCK, MapColor.BLACK), Blocks.STONEBRICK);
+    @Nonnull public static final Block BLACKSTONE_CRACKED = register("blackstone_cracked", new Block(Material.ROCK, MapColor.BLACK), Blocks.STONEBRICK);
+    @Nonnull public static final BlockIceMushroom ICE_MUSHROOM = register("ice_mushroom", new BlockIceMushroom(), block -> block.setSoundType(SoundType.GLASS));
     @Nonnull public static final BlockBlueFire BLUE_FIRE = register("blue_fire", new BlockBlueFire(), Blocks.FIRE);
     @Nonnull public static final BlockBubbleColumn BUBBLE_COLUMN = register("bubble_column", new BlockBubbleColumn(BUBBLE_COLUMN_MATERIAL), Blocks.WATER);
 

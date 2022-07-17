@@ -3,6 +3,7 @@ package git.jbredwards.njarm.asm;
 import com.google.common.collect.ImmutableMap;
 import git.jbredwards.njarm.asm.plugins.IASMPlugin;
 import git.jbredwards.njarm.asm.plugins.forge.*;
+import git.jbredwards.njarm.asm.plugins.modded.PluginBiomesOPlenty;
 import git.jbredwards.njarm.asm.plugins.vanilla.*;
 import net.minecraft.launchwrapper.IClassTransformer;
 import net.minecraftforge.fml.relauncher.FMLLaunchHandler;
@@ -34,6 +35,10 @@ public final class ASMHandler implements IFMLLoadingPlugin
          */
         @Nonnull
         private static final Map<String, IASMPlugin> PLUGINS = ImmutableMap.<String, IASMPlugin>builder()
+                //forge
+                .put("net.minecraftforge.fluids.FluidRegistry", new PluginFluidRegistry()) //Changes the water textures to allow for better coloring
+                //modded
+                .put("biomesoplenty.common.block.BlockBOPGrass", new PluginBiomesOPlenty()) //Apply the 1.16 sounds to hardcoded BOP blocks
                 //vanilla
                 .put("net.minecraft.client.particle.ParticleDrip", new PluginParticleDrip()) //Water droplet particles keep the color set by this mod
                 .put("net.minecraft.client.renderer.entity.Render", new PluginRender()) //Bedrock edition entity shadow size parody
@@ -59,8 +64,6 @@ public final class ASMHandler implements IFMLLoadingPlugin
                 .put("net.minecraft.tileentity.TileEntityBeacon", new PluginTileEntityBeacon()) //Backport the vanilla 1.13+ beacon sounds
                 .put("net.minecraft.world.biome.BiomeColorHelper", new PluginBiomeColorHelper()) //Add 1.13+ biome color blend slider functionality
                 .put("net.minecraft.world.World", new PluginWorld()) //implement IHasWorldState functionality
-                //forge
-                .put("net.minecraftforge.fluids.FluidRegistry", new PluginFluidRegistry()) //Changes the water textures to allow for better coloring
                 .build();
 
         @Nonnull

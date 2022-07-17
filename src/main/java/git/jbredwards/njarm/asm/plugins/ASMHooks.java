@@ -125,7 +125,7 @@ public final class ASMHooks
     @Nonnull
     public static SoundType fixNetherBrickSlabSound(@Nonnull IBlockState state) {
         return state.getValue(BlockStoneSlab.VARIANT) == BlockStoneSlab.EnumType.NETHERBRICK
-                ? ModSounds.NETHER_BRICKS : state.getBlock().getSoundType();
+                ? Blocks.NETHER_BRICK.getSoundType() : state.getBlock().getSoundType();
     }
 
     //PluginEntityLivingBase
@@ -224,5 +224,22 @@ public final class ASMHooks
         final int biomeBlendRadius = RenderingConfig.biomeColorBlendRadius();
         final int a = (biomeBlendRadius * 2 + 1) * (biomeBlendRadius * 2 + 1);
         return (r / a & 255) << 16 | (g / a & 255) << 8 | b / a & 255;
+    }
+
+    //MODDED
+
+    //PluginBiomesOPlenty
+    @Nonnull
+    public static SoundType fixBOPBlockSounds(int grassType) {
+        switch(grassType) {
+            case 6:
+            case 8:
+                return Blocks.NETHERRACK.getSoundType();
+            case 0:
+            case 1:
+                return Blocks.STONE.getSoundType();
+            default:
+                return Blocks.GRASS.getSoundType();
+        }
     }
 }

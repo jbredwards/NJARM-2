@@ -1,0 +1,17 @@
+{
+    "forge_marker":1,
+    "defaults":{
+        "model":"cross",
+        "textures":{
+            "cross":"njarm:blocks/ice_mushroom",
+            "layer0":"#cross"
+        }
+    },
+    "variants":{
+        "normal":[{}],
+        "inventory":[{
+            "transform":"forge:default-item",
+            "model":"builtin/generated"
+        }]
+    }
+}
