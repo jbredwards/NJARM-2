@@ -1,4 +1,4 @@
-package git.jbredwards.njarm.mod.common.block.util;
+package git.jbredwards.njarm.mod.common.block.util.gravity;
 
 import net.minecraft.block.state.IBlockState;
 

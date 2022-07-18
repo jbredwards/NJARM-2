@@ -4,7 +4,6 @@ import git.jbredwards.fluidlogged_api.api.block.IFluidloggable;
 import git.jbredwards.fluidlogged_api.api.util.FluidloggedUtils;
 import git.jbredwards.njarm.mod.Constants;
 import git.jbredwards.njarm.mod.client.particle.ParticleBubbleColumn;
-import git.jbredwards.njarm.mod.common.block.util.ICanFallThrough;
 import git.jbredwards.njarm.mod.common.capability.IBubbleColumn;
 import git.jbredwards.njarm.mod.common.init.ModBlocks;
 import git.jbredwards.njarm.mod.common.init.ModSounds;
@@ -50,7 +49,7 @@ import java.util.Random;
  *
  */
 @Mod.EventBusSubscriber(modid = Constants.MODID)
-public class BlockBubbleColumn extends Block implements IFluidloggable, ICustomModel, ICanFallThrough
+public class BlockBubbleColumn extends Block implements IFluidloggable, ICustomModel
 {
     @Nonnull public static final PropertyEnum<Drag> DRAG = PropertyEnum.create("drag", Drag.class);
 

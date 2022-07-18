@@ -1,8 +1,8 @@
 package git.jbredwards.njarm.asm.plugins;
 
 import git.jbredwards.njarm.mod.common.block.BlockUndyingTotem;
-import git.jbredwards.njarm.mod.common.block.util.ICanFallThrough;
-import git.jbredwards.njarm.mod.common.block.util.IFancyFallingBlock;
+import git.jbredwards.njarm.mod.common.block.util.gravity.ICanFallThrough;
+import git.jbredwards.njarm.mod.common.block.util.gravity.IFancyFallingBlock;
 import git.jbredwards.njarm.mod.common.block.util.IHasWorldState;
 import git.jbredwards.njarm.mod.common.config.block.BlueFireConfig;
 import git.jbredwards.njarm.mod.common.config.client.RenderingConfig;

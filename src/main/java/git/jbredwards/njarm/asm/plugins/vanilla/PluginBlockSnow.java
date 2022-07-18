@@ -20,7 +20,7 @@ public final class PluginBlockSnow implements IASMPlugin
     public boolean transformClass(@Nonnull ClassNode classNode, boolean obfuscated) {
         classNode.interfaces.add("git/jbredwards/njarm/mod/common/block/util/IHasRunningEffects");
         //Add IFancyFallingBlock functionality
-        classNode.interfaces.add("git/jbredwards/njarm/mod/common/block/util/IFancyFallingBlock");
+        classNode.interfaces.add("git/jbredwards/njarm/mod/common/block/util/gravity/IFancyFallingBlock");
         addMethod(classNode, "getHeightForFallingBlock", "(Lnet/minecraft/block/state/IBlockState;)F", null, null, generator -> {
             generator.visitVarInsn(ALOAD, 1);
             generator.visitFieldInsn(GETSTATIC, "net/minecraft/block/BlockSnow", obfuscated ? "field_176315_a" : "LAYERS", "Lnet/minecraft/block/properties/PropertyInteger;");
@@ -34,7 +34,7 @@ public final class PluginBlockSnow implements IASMPlugin
             generator.visitInsn(FDIV);
         });
         //Add ILayeredFallingBlock functionality
-        classNode.interfaces.add("git/jbredwards/njarm/mod/common/block/util/ILayeredFallingBlock");
+        classNode.interfaces.add("git/jbredwards/njarm/mod/common/block/util/gravity/ILayeredFallingBlock");
         addMethod(classNode, "fallOnto", "(Lnet/minecraft/entity/item/EntityFallingBlock;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/state/IBlockState;Lnet/minecraft/block/state/IBlockState;Lnet/minecraft/block/state/IBlockState;)Z",
             "fallOnto", "(Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/state/IBlockState;Lnet/minecraft/block/state/IBlockState;)Z", generator -> {
                 generator.visitVarInsn(ALOAD, 2);
