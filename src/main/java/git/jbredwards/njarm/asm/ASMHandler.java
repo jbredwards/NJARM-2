@@ -42,6 +42,7 @@ public final class ASMHandler implements IFMLLoadingPlugin
                 //vanilla
                 .put("net.minecraft.client.particle.ParticleDrip", new PluginParticleDrip()) //Water droplet particles keep the color set by this mod
                 .put("net.minecraft.client.renderer.entity.Render", new PluginRender()) //Bedrock edition entity shadow size parody
+                .put("net.minecraft.client.renderer.entity.RenderFallingBlock", new PluginRenderFallingBlock()) //Fix rendering with ILayeredFallingBlock
                 .put("net.minecraft.client.renderer.entity.RenderManager", new PluginRenderManager()) //Fixes blue fire related entity rendering lighting bugs
                 .put("net.minecraft.client.renderer.EntityRenderer", new PluginEntityRenderer()) //Remove the annoying night vision flashing
                 .put("net.minecraft.client.renderer.ItemRenderer", new PluginItemRenderer()) //Render blue fire without "quirkiness"
@@ -54,10 +55,11 @@ public final class ASMHandler implements IFMLLoadingPlugin
                 .put("net.minecraft.block.BlockLilyPad", new PluginIHasRunningEffects()) //Fix running effects for lily pads
                 .put("net.minecraft.block.BlockRailBase", new PluginIHasRunningEffects()) //Fix running effects for rails
                 .put("net.minecraft.block.BlockRedstoneDiode", new PluginIHasRunningEffects()) //Fix running effects for repeaters & comparators
-                .put("net.minecraft.block.BlockSnow", new PluginIHasRunningEffects()) //Fix running effects for snow layers
+                .put("net.minecraft.block.BlockSnow", new PluginBlockSnow()) //Snow layers have gravity
                 .put("net.minecraft.block.BlockStoneSlab", new PluginBlockStoneSlab()) //Nether brick slabs have the same nether brick sound as vanilla 1.16+
                 .put("net.minecraft.block.BlockTrapDoor", new PluginIHasRunningEffects()) //Fix running effects for trapdoors
                 .put("net.minecraft.entity.player.EntityPlayer", new PluginEntityPlayer()) //Plays the fire damage sound at the exact moment when the player takes damage from blue fire
+                .put("net.minecraft.entity.item.EntityFallingBlock", new PluginEntityFallingBlock()) //Implement IFancyFallingBlock functionality
                 .put("net.minecraft.entity.Entity", new PluginEntity()) //Fix MC-1691
                 .put("net.minecraft.entity.EntityLivingBase", new PluginEntityLivingBase()) //Fix MC-1691 & fix fire damage sound
                 .put("net.minecraft.item.Item", new PluginItem()) //Overrides the totem of undying item

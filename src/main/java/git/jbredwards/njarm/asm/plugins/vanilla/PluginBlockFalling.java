@@ -13,17 +13,10 @@ import javax.annotation.Nonnull;
 public final class PluginBlockFalling implements IASMPlugin
 {
     @Override
-    public boolean isMethodValid(@Nonnull MethodNode method, boolean obfuscated) { return method.name.equals(obfuscated ? "func_185759_i" : "canFallThrough"); }
-
-    @Override
-    public boolean transform(@Nonnull InsnList instructions, @Nonnull MethodNode method, @Nonnull AbstractInsnNode insn, boolean obfuscated, int index) {
-        if(insn.getOpcode() == IF_ACMPEQ) {
-            ((JumpInsnNode)insn).setOpcode(IF_ICMPEQ);
-            instructions.remove(insn.getPrevious());
-            instructions.insertBefore(insn, new TypeInsnNode(INSTANCEOF, "git/jbredwards/njarm/mod/common/block/util/ICanFallThrough"));
-            instructions.insertBefore(insn, new InsnNode(ICONST_1));
-            return true;
-        }
+    public boolean transformClass(@Nonnull ClassNode classNode, boolean obfuscated) {
+        overrideMethod(classNode, method -> method.name.equals(obfuscated ? "func_185759_i" : "canFallThrough"),
+            "canFallThrough", "(Lnet/minecraft/block/state/IBlockState;)Z",
+                generator -> generator.visitVarInsn(ALOAD, 0));
 
         return false;
     }

@@ -1,15 +1,15 @@
 package git.jbredwards.njarm.mod.common.block;
 
-import git.jbredwards.njarm.mod.client.particle.util.ParticleUtils;
+import net.minecraft.block.BlockBreakable;
 import net.minecraft.block.material.EnumPushReaction;
+import net.minecraft.block.material.MapColor;
+import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.boss.EntityDragon;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -21,8 +21,25 @@ import java.util.Random;
  * @author jbred
  *
  */
-public class BlockGlowingObsidian extends net.minecraft.block.BlockObsidian
+public class BlockObsidianGlass extends BlockBreakable
 {
+    public BlockObsidianGlass(@Nonnull Material materialIn, boolean ignoreSimilarityIn) { super(materialIn, ignoreSimilarityIn); }
+    public BlockObsidianGlass(@Nonnull Material materialIn, @Nonnull MapColor mapColorIn, boolean ignoreSimilarityIn) {
+        super(materialIn, ignoreSimilarityIn, mapColorIn);
+    }
+
+    public int quantityDropped(@Nonnull Random random) { return 0; }
+
+    @Nonnull
+    @SideOnly(Side.CLIENT)
+    public BlockRenderLayer getRenderLayer() { return BlockRenderLayer.CUTOUT; }
+
+    @Override
+    public boolean isFullCube(@Nonnull IBlockState state) { return false; }
+
+    @Override
+    protected boolean canSilkHarvest() { return true; }
+
     @Nonnull
     @Override
     public EnumPushReaction getPushReaction(@Nonnull IBlockState state) { return EnumPushReaction.BLOCK; }
@@ -33,12 +50,5 @@ public class BlockGlowingObsidian extends net.minecraft.block.BlockObsidian
     @Override
     public boolean canEntityDestroy(@Nonnull IBlockState state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos, @Nonnull Entity entity) {
         return !(entity instanceof EntityDragon);
-    }
-
-    @SideOnly(Side.CLIENT)
-    @Override
-    public void randomDisplayTick(@Nonnull IBlockState stateIn, @Nonnull World worldIn, @Nonnull BlockPos pos, @Nonnull Random rand) {
-        if(Minecraft.isFancyGraphicsEnabled() && rand.nextFloat() < 0.1) ParticleUtils.spawnRedstoneParticles(worldIn, pos,
-                (x, y, z) -> worldIn.spawnParticle(EnumParticleTypes.REDSTONE, x, y, z, 0, 0, 0));
     }
 }

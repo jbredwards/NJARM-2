@@ -1,6 +1,8 @@
 package git.jbredwards.njarm.asm.plugins;
 
 import git.jbredwards.njarm.mod.common.block.BlockUndyingTotem;
+import git.jbredwards.njarm.mod.common.block.util.ICanFallThrough;
+import git.jbredwards.njarm.mod.common.block.util.IFancyFallingBlock;
 import git.jbredwards.njarm.mod.common.block.util.IHasWorldState;
 import git.jbredwards.njarm.mod.common.config.block.BlueFireConfig;
 import git.jbredwards.njarm.mod.common.config.client.RenderingConfig;
@@ -84,6 +86,12 @@ public final class ASMHooks
         return level > 0 && boundingBox.minY < pos.getY() + 0.375 + level * 0.1875;
     }
 
+    //PluginBlockFalling
+    public static boolean canFallThrough(@Nonnull IBlockState state) {
+        if(state.getBlock() instanceof ICanFallThrough) return ((ICanFallThrough)state.getBlock()).canFallThrough(state);
+        else return state.getMaterial().isReplaceable() && !state.isTopSolid();
+    }
+
     //PluginBlockFire
     public static void tryChangeToBlueFire(@Nonnull BlockFire fire, @Nonnull World world, @Nonnull BlockPos pos) {
         if(shouldBeBlueFire(fire, world, pos)) world.setBlockState(pos, ModBlocks.BLUE_FIRE.getDefaultState());
@@ -121,11 +129,41 @@ public final class ASMHooks
         return false;
     }
 
+    //PluginBlockSnow
+    public static boolean fallOnto(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState fallingState, @Nonnull IBlockState replacedState) {
+        if(!(replacedState.getBlock() instanceof BlockSnow) || (replacedState.getBlock() instanceof ICanFallThrough
+                && !((ICanFallThrough)replacedState.getBlock()).canFallThrough(replacedState))) return false;
+
+        final int combinedLevel = replacedState.getValue(BlockSnow.LAYERS) + fallingState.getValue(BlockSnow.LAYERS);
+        if(combinedLevel <= 8) world.setBlockState(pos, replacedState.withProperty(BlockSnow.LAYERS, combinedLevel));
+        else {
+            world.setBlockState(pos, replacedState.withProperty(BlockSnow.LAYERS, 8));
+            if(world.mayPlace(replacedState.getBlock(), pos.up(), true, EnumFacing.UP, null))
+                world.setBlockState(pos.up(), replacedState.withProperty(BlockSnow.LAYERS, combinedLevel - 8));
+        }
+
+        return true;
+    }
+
     //PluginBlockStoneSlab
     @Nonnull
     public static SoundType fixNetherBrickSlabSound(@Nonnull IBlockState state) {
         return state.getValue(BlockStoneSlab.VARIANT) == BlockStoneSlab.EnumType.NETHERBRICK
                 ? Blocks.NETHER_BRICK.getSoundType() : state.getBlock().getSoundType();
+    }
+
+    //PluginEntityFallingBlock
+    public static float getHeightForFallingBlock(@Nonnull IBlockState state) {
+        return state.getBlock() instanceof IFancyFallingBlock
+                ? ((IFancyFallingBlock)state.getBlock()).getHeightForFallingBlock(state)
+                : 0.98f;
+    }
+
+    //PluginEntityFallingBlock
+    public static float getWidthForFallingBlock(@Nonnull IBlockState state) {
+        return state.getBlock() instanceof IFancyFallingBlock
+                ? ((IFancyFallingBlock)state.getBlock()).getWidthForFallingBlock(state)
+                : 0.98f;
     }
 
     //PluginEntityLivingBase

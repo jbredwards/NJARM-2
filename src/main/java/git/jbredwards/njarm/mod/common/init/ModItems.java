@@ -46,6 +46,10 @@ public final class ModItems
     @Nonnull public static final ItemBlock BLACKSTONE_CHISELED = register("blackstone_chiseled", new ItemBlock(ModBlocks.BLACKSTONE_CHISELED));
     @Nonnull public static final ItemBlock BLACKSTONE_CRACKED = register("blackstone_cracked", new ItemBlock(ModBlocks.BLACKSTONE_CRACKED));
     @Nonnull public static final ItemBlock ICE_MUSHROOM = register("ice_mushroom", new ItemBlock(ModBlocks.ICE_MUSHROOM));
+    @Nonnull public static final ItemBlock MOSS = register("moss", new ItemBlock(ModBlocks.MOSS));
+    @Nonnull public static final ItemBlock OBSIDIAN_BLOCK = register("obsidian_block", new ItemBlock(ModBlocks.OBSIDIAN_BLOCK));
+    @Nonnull public static final ItemBlock OBSIDIAN_GLASS = register("obsidian_glass", new ItemBlock(ModBlocks.OBSIDIAN_GLASS));
+
 
     //items
     @Nonnull public static final Item RUBY = register("ruby", new Item());
@@ -70,15 +74,17 @@ public final class ModItems
     public static void registerOres() {
         OreDictionary.registerOre("blockMagicAlloy", MAGIC_BLOCK);
         OreDictionary.registerOre("blockNetherite", NETHERITE_BLOCK);
+        OreDictionary.registerOre("blockObsidianNJARM", OBSIDIAN_BLOCK);
         OreDictionary.registerOre("blockPlatinum", PLATINUM_BLOCK);
         OreDictionary.registerOre("blockRuby", RUBY_BLOCK);
         OreDictionary.registerOre("blockSapphire", SAPPHIRE_BLOCK);
         OreDictionary.registerOre("cobblestone", BLACKSTONE);
-        OreDictionary.registerOre("dustMagic", MAGIC_DUST);
+        OreDictionary.registerOre("dustMagicNJARM", MAGIC_DUST);
         OreDictionary.registerOre("gemRuby", RUBY);
         OreDictionary.registerOre("gemSapphire", SAPPHIRE);
         OreDictionary.registerOre("gemSunstone", SUNSTONE);
-        OreDictionary.registerOre("ingotObsidian", OBSIDIAN_INGOT);
+        OreDictionary.registerOre("glass", OBSIDIAN_GLASS);
+        OreDictionary.registerOre("ingotObsidianNJARM", OBSIDIAN_INGOT);
         OreDictionary.registerOre("oreAncientDebris", ANCIENT_DEBRIS);
         OreDictionary.registerOre("oreMagic", MAGIC_ORE);
         OreDictionary.registerOre("oreRuby", RUBY_ORE);

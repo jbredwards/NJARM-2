@@ -3,7 +3,6 @@ package git.jbredwards.njarm.mod.common.util;
 import git.jbredwards.njarm.mod.Constants;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.text.TextComponentTranslation;
-import org.apache.logging.log4j.LogManager;
 
 import javax.annotation.Nonnull;
 
@@ -16,7 +15,7 @@ public final class ChatUtils
 {
     public static boolean getOrError(boolean condition, @Nonnull String message) {
         if(condition) return true;
-        LogManager.getLogger(Constants.NAME).warn(message);
+        Constants.LOGGER.warn(message);
 
         return false;
     }

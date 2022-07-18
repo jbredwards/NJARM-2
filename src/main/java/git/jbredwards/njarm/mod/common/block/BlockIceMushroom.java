@@ -3,8 +3,6 @@ package git.jbredwards.njarm.mod.common.block;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockMushroom;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
@@ -50,9 +48,8 @@ public class BlockIceMushroom extends BlockMushroom implements IShearable
         return down.getBlock().canSustainPlant(down, worldIn, pos.down(), EnumFacing.UP, this);
     }
 
-    @Nonnull
     @Override
-    public Item getItemDropped(@Nonnull IBlockState state, @Nonnull Random rand, int fortune) { return Items.AIR; }
+    public int quantityDropped(@Nonnull Random random) { return super.quantityDropped(random); }
 
     @Override
     public boolean canGrow(@Nonnull World worldIn, @Nonnull BlockPos pos, @Nonnull IBlockState state, boolean isClient) {
@@ -67,7 +64,7 @@ public class BlockIceMushroom extends BlockMushroom implements IShearable
     @Nonnull
     @Override
     public List<ItemStack> onSheared(@Nonnull ItemStack item, @Nonnull IBlockAccess world, @Nonnull BlockPos pos, int fortune) {
-        return NonNullList.from(item);
+        return NonNullList.from(new ItemStack(this));
     }
 
     @Nonnull

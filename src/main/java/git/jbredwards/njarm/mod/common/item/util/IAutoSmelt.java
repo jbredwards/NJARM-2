@@ -7,7 +7,6 @@ import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.stats.StatList;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -45,8 +44,6 @@ public interface IAutoSmelt
             final IBlockState state = world.getBlockState(pos);
 
             if(stack.getItem() instanceof IAutoSmelt && ((IAutoSmelt)stack.getItem()).doesAutoSmelt(world, pos, state, stack)) {
-                final NonNullList<ItemStack> smeltedDrops = NonNullList.create();
-
                 for(Iterator<ItemStack> it = event.getDrops().iterator(); it.hasNext();) {
                     final ItemStack drop = it.next();
                     final ItemStack smelted = ItemStackUtils.copyStackWithScale(FurnaceRecipes.instance().getSmeltingResult(drop), drop.getCount());
@@ -71,7 +68,7 @@ public interface IAutoSmelt
                         FMLCommonHandler.instance().firePlayerSmeltedEvent(event.getHarvester(), smelted);
 
                         //prevent individual drops from having too large a stack size
-                        do smeltedDrops.add(smelted.splitStack(smelted.getMaxStackSize()));
+                        do event.getDrops().add(smelted.splitStack(smelted.getMaxStackSize()));
                         while(!smelted.isEmpty());
 
                         it.remove();
@@ -79,7 +76,6 @@ public interface IAutoSmelt
                 }
 
                 ((IAutoSmelt)stack.getItem()).handleEffects(world, pos, state, stack, world.rand);
-                event.getDrops().addAll(smeltedDrops);
             }
         }
     }
