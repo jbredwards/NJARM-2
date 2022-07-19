@@ -26,6 +26,8 @@ minecraft {
 dependencies {
     //asset mover
     deobfCompile "com.cleanroommc:assetmover:${assetmover_version}"
+    //apple core
+    deobfCompile "applecore:AppleCore:${applecore_version}:api"
     //baubles
     deobfCompile "com.github.jbredwards:Baubles:${baubles_version}"
     //fluidlogged api
@@ -51,6 +53,8 @@ repositories {
     }
     //asset mover
     maven { url 'https://maven.cleanroommc.com' }
+    //apple core
+    maven { url "http://www.ryanliptak.com/maven" }
     //bookshelf
     maven { url 'https://maven.blamejared.com' }
     //fluidlogged api & baubles

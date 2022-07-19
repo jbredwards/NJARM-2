@@ -1,0 +1,14 @@
+{
+    "forge_marker":1,
+    "variants":{
+        "inventory":{
+            "transform":"forge:default-item",
+            "model":"builtin/generated",
+            "textures":{
+                "layer0":"njarm:items/bedrock_magic_mirror",
+                "layer1":"njarm:items/magic_mirror_dimensional_overlay",
+                "layer2":"njarm:items/magic_mirror_overlay"
+            }
+        }
+    }
+}

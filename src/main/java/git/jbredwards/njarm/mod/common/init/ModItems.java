@@ -6,11 +6,15 @@ import git.jbredwards.njarm.mod.common.config.item.EquipmentConfig;
 import git.jbredwards.njarm.mod.common.item.*;
 import git.jbredwards.njarm.mod.common.item.block.*;
 import git.jbredwards.njarm.mod.common.item.equipment.ItemAxe;
+import net.minecraft.init.Items;
+import net.minecraft.init.MobEffects;
 import net.minecraft.item.*;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.oredict.OreDictionary;
 
 import javax.annotation.Nonnull;
+import java.util.function.Consumer;
 
 /**
  * Holds this mod's items
@@ -49,7 +53,7 @@ public final class ModItems
     @Nonnull public static final ItemBlock MOSS = register("moss", new ItemBlock(ModBlocks.MOSS));
     @Nonnull public static final ItemBlock OBSIDIAN_BLOCK = register("obsidian_block", new ItemBlock(ModBlocks.OBSIDIAN_BLOCK));
     @Nonnull public static final ItemBlock OBSIDIAN_GLASS = register("obsidian_glass", new ItemBlock(ModBlocks.OBSIDIAN_GLASS));
-
+    @Nonnull public static final ItemBlock MICA_ORE = register("mica_ore", new ItemBlock(ModBlocks.MICA_ORE));
 
     //items
     @Nonnull public static final Item RUBY = register("ruby", new Item());
@@ -60,6 +64,17 @@ public final class ModItems
     @Nonnull public static final Item CRUMBLING_BEDROCK = register("crumbling_bedrock", new Item());
     @Nonnull public static final Item SUNSTONE = register("sunstone", new Item());
     @Nonnull public static final ItemFood BAKED_APPLE = register("baked_apple", new ItemFood(8, 4.8f, false));
+    @Nonnull public static final ItemFood CARAMEL_APPLE = register("caramel_apple", new ItemFood(4, 4.4f, false).setPotionEffect(new PotionEffect(MobEffects.SPEED, 400, 1), 1));
+    @Nonnull public static final ItemFood BAGUETTE = register("baguette", new ItemFood(10, 12, false));
+    @Nonnull public static final ItemFood SUGAR_BAGUETTE = register("sugar_baguette", new ItemFood(10, 14, false).setPotionEffect(new PotionEffect(MobEffects.SPEED, 400, 1), 1));
+    @Nonnull public static final ItemChocolateMilk CHOCOLATE_MILK_BUCKET = register("chocolate_milk_bucket", new ItemChocolateMilk(), item -> item.setContainerItem(Items.BUCKET));
+    @Nonnull public static final ItemMilkStackable MILK_BOTTLE = register("milk_bottle", new ItemMilkStackable(), item -> item.setContainerItem(Items.GLASS_BOTTLE).setMaxStackSize(64));
+    @Nonnull public static final ItemChocolateMilk CHOCOLATE_MILK_BOTTLE = register("chocolate_milk_bottle", new ItemChocolateMilk(), item -> item.setContainerItem(Items.GLASS_BOTTLE).setMaxStackSize(64));
+    @Nonnull public static final ItemPotionFood CANNED_SPINACH = register("canned_spinach", new ItemPotionFood(20, false), item -> item.setEffects(ItemPotionFood.SPINACH));
+    @Nonnull public static final ItemMagicMirror MAGIC_MIRROR = register("magic_mirror", new ItemMagicMirror(ItemMagicMirror.NORMAL));
+    @Nonnull public static final ItemMagicMirror BEDROCK_MAGIC_MIRROR = register("bedrock_magic_mirror", new ItemMagicMirror(ItemMagicMirror.BEDROCK), item -> item.setMaxStackSize(1));
+    @Nonnull public static final ItemMagicMirror DIMENSIONAL_MAGIC_MIRROR = register("dimensional_magic_mirror", new ItemMagicMirror(ItemMagicMirror.DIMENSIONAL));
+    @Nonnull public static final ItemMagicMirror BEDROCK_DIMENSIONAL_MAGIC_MIRROR = register("bedrock_dimensional_magic_mirror", new ItemMagicMirror((byte)3), item -> item.setMaxStackSize(1));
 
     //armor
 
@@ -74,7 +89,7 @@ public final class ModItems
     public static void registerOres() {
         OreDictionary.registerOre("blockMagicAlloy", MAGIC_BLOCK);
         OreDictionary.registerOre("blockNetherite", NETHERITE_BLOCK);
-        OreDictionary.registerOre("blockObsidianNJARM", OBSIDIAN_BLOCK);
+        OreDictionary.registerOre("blockObsidianAlloy", OBSIDIAN_BLOCK);
         OreDictionary.registerOre("blockPlatinum", PLATINUM_BLOCK);
         OreDictionary.registerOre("blockRuby", RUBY_BLOCK);
         OreDictionary.registerOre("blockSapphire", SAPPHIRE_BLOCK);
@@ -84,21 +99,29 @@ public final class ModItems
         OreDictionary.registerOre("gemSapphire", SAPPHIRE);
         OreDictionary.registerOre("gemSunstone", SUNSTONE);
         OreDictionary.registerOre("glass", OBSIDIAN_GLASS);
-        OreDictionary.registerOre("ingotObsidianNJARM", OBSIDIAN_INGOT);
+        OreDictionary.registerOre("ingotObsidianAlloy", OBSIDIAN_INGOT);
         OreDictionary.registerOre("oreAncientDebris", ANCIENT_DEBRIS);
-        OreDictionary.registerOre("oreMagic", MAGIC_ORE);
+        OreDictionary.registerOre("oreMagicNJARM", MAGIC_ORE);
+        OreDictionary.registerOre("oreMica", MICA_ORE);
         OreDictionary.registerOre("oreRuby", RUBY_ORE);
         OreDictionary.registerOre("oreSapphire", SAPPHIRE_ORE);
     }
 
     //register item
     @Nonnull
-    private static <T extends Item> T register(@Nonnull String name, @Nonnull T item) {
+    static <T extends Item> T register(@Nonnull String name, @Nonnull T item) {
         INIT.add(item.setRegistryName(Constants.MODID, name)
                 .setTranslationKey(Constants.MODID + "." + name)
                 .setCreativeTab(CreativeTab.INSTANCE)
         );
 
         return item;
+    }
+
+    //register item
+    @Nonnull
+    static <T extends Item> T register(@Nonnull String name, @Nonnull T item, @Nonnull Consumer<T> consumer) {
+        consumer.accept(item);
+        return register(name, item);
     }
 }

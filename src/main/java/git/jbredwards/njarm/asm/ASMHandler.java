@@ -58,8 +58,9 @@ public final class ASMHandler implements IFMLLoadingPlugin
                 .put("net.minecraft.block.BlockSnow", new PluginBlockSnow()) //Snow layers have gravity
                 .put("net.minecraft.block.BlockStoneSlab", new PluginBlockStoneSlab()) //Nether brick slabs have the same nether brick sound as vanilla 1.16+
                 .put("net.minecraft.block.BlockTrapDoor", new PluginIHasRunningEffects()) //Fix running effects for trapdoors
-                .put("net.minecraft.entity.player.EntityPlayer", new PluginEntityPlayer()) //Plays the fire damage sound at the exact moment when the player takes damage from blue fire
                 .put("net.minecraft.entity.item.EntityFallingBlock", new PluginEntityFallingBlock()) //Implement IFancyFallingBlock functionality
+                .put("net.minecraft.entity.monster.EntitySnowman", new PluginEntitySnowman()) //Snow golems cannot generate falling snow layers
+                .put("net.minecraft.entity.player.EntityPlayer", new PluginEntityPlayer()) //Plays the fire damage sound at the exact moment when the player takes damage from blue fire
                 .put("net.minecraft.entity.Entity", new PluginEntity()) //Fix MC-1691
                 .put("net.minecraft.entity.EntityLivingBase", new PluginEntityLivingBase()) //Fix MC-1691 & fix fire damage sound
                 .put("net.minecraft.item.Item", new PluginItem()) //Overrides the totem of undying item

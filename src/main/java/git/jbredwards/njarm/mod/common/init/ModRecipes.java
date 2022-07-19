@@ -73,7 +73,7 @@ public final class ModRecipes
         registerCrafting(registry, shaped(1, 11, ModItems.FOOD_CRATE, "###", "###", "###", '#', new ItemStack(Items.FISH, 1, 2)));
         registerCrafting(registry, shaped(1, 12, ModItems.FOOD_CRATE, "###", "###", "###", '#', new ItemStack(Items.FISH, 1, 3)));
         registerCrafting(registry, shaped(1, Blocks.ICE, "###", "###", "###", '#', ModItems.ICE_MUSHROOM));
-        registerCrafting(registry, shaped(1, ModItems.OBSIDIAN_BLOCK, "###", "###", "###", '#', "ingotObsidianNJARM"));
+        registerCrafting(registry, shaped(1, ModItems.OBSIDIAN_BLOCK, "###", "###", "###", '#', "ingotObsidianAlloy"));
         registerCrafting(registry, shaped(1, ModItems.NETHER_REACTOR_CORE, "IDI", "IDI", "IDI", 'I', "ingotIron", 'D', "gemDiamond"));
         registerCrafting(registry, shaped(4, ModItems.POLISHED_BASALT, "##", "##", '#', ModItems.BASALT));
         registerCrafting(registry, shaped(4, ModItems.POLISHED_BLACKSTONE, "##", "##", '#', ModItems.BLACKSTONE));
@@ -128,20 +128,14 @@ public final class ModRecipes
     //generates an unused name for a crafting recipe
     @Nonnull
     public static ResourceLocation generateName(@Nonnull IForgeRegistry<IRecipe> registry, @Nonnull String postfix, @Nonnull ItemStack output) {
-        String name = output.getTranslationKey() + '.' + postfix;
+        String name = output.getTranslationKey() + '.' + postfix + '.';
 
         //resolves duplicate registry names
-        if(registry.containsKey(new ResourceLocation(Constants.MODID, name))) {
-            name += '.';
-
-            int i = 1;
-            do i++;
-            while(registry.containsKey(new ResourceLocation(Constants.MODID, name + i)));
-
-            name += i;
-        }
+        int i = 1;
+        do i++;
+        while(registry.containsKey(new ResourceLocation(Constants.MODID, name + i)));
 
         //returns an unused name
-        return new ResourceLocation(Constants.MODID, name);
+        return new ResourceLocation(Constants.MODID, name + i);
     }
 }

@@ -8,11 +8,16 @@ import net.minecraft.nbt.JsonToNBT;
 import net.minecraft.nbt.NBTException;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.config.Config;
+import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.oredict.OreDictionary;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 /**
  *
@@ -41,11 +46,15 @@ public final class OreConfig implements IConfig
                         final IBlockState stoneState = stoneBlock.getStateFromMeta(stoneMeta);
                         ORES.add(new OreGenerator.Data(oreBlock.getStateFromMeta(oreNBT.getInteger("meta")),
                                 stoneMeta == OreDictionary.WILDCARD_VALUE ? stone -> Block.isEqualTo(stoneBlock, stone.getBlock()) : stoneState::equals,
+                                StreamSupport.stream(nbt.getTagList("Biomes", Constants.NBT.TAG_STRING).spliterator(), false)
+                                        .map(biome -> Biome.REGISTRY.getObject(new ResourceLocation(biome.toString())))
+                                        .collect(Collectors.toList()),
                                 nbt.getInteger("MinY"),
                                 nbt.getInteger("MaxY"),
                                 nbt.getInteger("ClumpSize"),
                                 nbt.getInteger("PerChunk"),
-                                nbt.getIntArray("Dimensions")));
+                                nbt.getIntArray("Dimensions"))
+                        );
                     }
                 }
             }

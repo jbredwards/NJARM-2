@@ -61,6 +61,7 @@ public final class ModBlocks
     @Nonnull public static final BlockMoss MOSS = register("moss", new BlockMoss(Material.LEAVES), Blocks.LEAVES);
     @Nonnull public static final BlockObsidian OBSIDIAN_BLOCK = register("obsidian_block", new BlockObsidian(Material.IRON, MapColor.OBSIDIAN), Blocks.OBSIDIAN, block -> block.setSoundType(SoundType.METAL));
     @Nonnull public static final BlockObsidianGlass OBSIDIAN_GLASS = register("obsidian_glass", new BlockObsidianGlass(Material.GLASS, MapColor.OBSIDIAN, false), Blocks.OBSIDIAN, block -> block.setSoundType(SoundType.GLASS));
+    @Nonnull public static final BlockFallingOre MICA_ORE = register("mica_ore", new BlockFallingOre(Material.SAND), Blocks.SAND);
 
     @Nonnull public static final BlockBlueFire BLUE_FIRE = register("blue_fire", new BlockBlueFire(), Blocks.FIRE);
     @Nonnull public static final BlockBubbleColumn BUBBLE_COLUMN = register("bubble_column", new BlockBubbleColumn(BUBBLE_COLUMN_MATERIAL), Blocks.WATER);
