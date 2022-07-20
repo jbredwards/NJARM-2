@@ -3,6 +3,7 @@ package git.jbredwards.njarm.mod.common.init;
 import git.jbredwards.njarm.mod.Constants;
 import git.jbredwards.njarm.mod.common.block.BlockFoodCrate;
 import git.jbredwards.njarm.mod.common.config.item.EquipmentConfig;
+import git.jbredwards.njarm.mod.common.entity.item.EntityChargedSunstone;
 import git.jbredwards.njarm.mod.common.item.*;
 import git.jbredwards.njarm.mod.common.item.block.*;
 import git.jbredwards.njarm.mod.common.item.equipment.ItemAxe;
@@ -64,9 +65,9 @@ public final class ModItems
     @Nonnull public static final Item CRUMBLING_BEDROCK = register("crumbling_bedrock", new Item());
     @Nonnull public static final Item SUNSTONE = register("sunstone", new Item());
     @Nonnull public static final ItemFood BAKED_APPLE = register("baked_apple", new ItemFood(8, 4.8f, false));
-    @Nonnull public static final ItemFood CARAMEL_APPLE = register("caramel_apple", new ItemFood(4, 4.4f, false).setPotionEffect(new PotionEffect(MobEffects.SPEED, 400, 1), 1));
+    @Nonnull public static final ItemFood CARAMEL_APPLE = register("caramel_apple", new ItemFood(4, 4.4f, false), item -> item.setPotionEffect(new PotionEffect(MobEffects.SPEED, 400, 1), 1));
     @Nonnull public static final ItemFood BAGUETTE = register("baguette", new ItemFood(10, 12, false));
-    @Nonnull public static final ItemFood SUGAR_BAGUETTE = register("sugar_baguette", new ItemFood(10, 14, false).setPotionEffect(new PotionEffect(MobEffects.SPEED, 400, 1), 1));
+    @Nonnull public static final ItemFood SUGAR_BAGUETTE = register("sugar_baguette", new ItemFood(10, 14, false), item -> item.setPotionEffect(new PotionEffect(MobEffects.SPEED, 400, 1), 1));
     @Nonnull public static final ItemChocolateMilk CHOCOLATE_MILK_BUCKET = register("chocolate_milk_bucket", new ItemChocolateMilk(), item -> item.setContainerItem(Items.BUCKET));
     @Nonnull public static final ItemMilkStackable MILK_BOTTLE = register("milk_bottle", new ItemMilkStackable(), item -> item.setContainerItem(Items.GLASS_BOTTLE).setMaxStackSize(64));
     @Nonnull public static final ItemChocolateMilk CHOCOLATE_MILK_BOTTLE = register("chocolate_milk_bottle", new ItemChocolateMilk(), item -> item.setContainerItem(Items.GLASS_BOTTLE).setMaxStackSize(64));
@@ -75,6 +76,17 @@ public final class ModItems
     @Nonnull public static final ItemMagicMirror BEDROCK_MAGIC_MIRROR = register("bedrock_magic_mirror", new ItemMagicMirror(ItemMagicMirror.BEDROCK), item -> item.setMaxStackSize(1));
     @Nonnull public static final ItemMagicMirror DIMENSIONAL_MAGIC_MIRROR = register("dimensional_magic_mirror", new ItemMagicMirror(ItemMagicMirror.DIMENSIONAL));
     @Nonnull public static final ItemMagicMirror BEDROCK_DIMENSIONAL_MAGIC_MIRROR = register("bedrock_dimensional_magic_mirror", new ItemMagicMirror((byte)3), item -> item.setMaxStackSize(1));
+    @Nonnull public static final Item NETHERITE_SCRAP = register("netherite_scrap", new Item());
+    @Nonnull public static final Item NETHERITE_INGOT = register("netherite_ingot", new Item());
+    @Nonnull public static final Item NETHERITE_NUGGET = register("netherite_nugget", new Item());
+    @Nonnull public static final Item PLATINUM_INGOT = register("platinum_ingot", new Item());
+    @Nonnull public static final Item PLATINUM_NUGGET = register("platinum_nugget", new Item());
+    @Nonnull public static final ItemGlint MAGIC_INGOT = register("magic_ingot", new ItemGlint());
+    @Nonnull public static final ItemGlint MAGIC_NUGGET = register("magic_nugget", new ItemGlint());
+    @Nonnull public static final ItemFood RAW_EGG = register("raw_egg", new ItemFood(2, 1.2f, true), item -> item.setPotionEffect(new PotionEffect(MobEffects.NAUSEA, 600, 1), 0.3f));
+    @Nonnull public static final ItemFood FRIED_EGG = register("fried_egg", new ItemFood(6, 7.2f, true));
+    @Nonnull public static final ItemFood COOKED_EGG = register("cooked_egg", new ItemFood(6, 7.2f, true));
+    @Nonnull public static final ItemThrowable CHARGED_SUNSTONE = register("charged_sunstone", new ItemThrowable(EntityChargedSunstone::new, EntityChargedSunstone::new));
 
     //armor
 

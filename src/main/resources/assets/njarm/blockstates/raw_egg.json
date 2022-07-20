@@ -1,0 +1,13 @@
+{
+    "forge_marker":1,
+    "variants":{
+        "inventory":{
+            "transform":"forge:default-item",
+            "model":"builtin/generated",
+            "textures":{
+                "layer0":"njarm:items/raw_egg_yolk",
+                "layer1":"njarm:items/raw_egg_white"
+            }
+        }
+    }
+}

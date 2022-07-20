@@ -26,10 +26,9 @@ import javax.annotation.Nullable;
  */
 public class ItemMagicMirror extends Item
 {
-    public static final byte NORMAL = 0;
-    public static final byte BEDROCK = 1;
-    public static final byte DIMENSIONAL = 2;
+    public static final byte NORMAL = 0, BEDROCK = 1, DIMENSIONAL = 2;
     public final byte mirrorType;
+
     public ItemMagicMirror(byte mirrorType) { this.mirrorType = mirrorType; }
 
     @Nonnull
@@ -37,20 +36,23 @@ public class ItemMagicMirror extends Item
     public ActionResult<ItemStack> onItemRightClick(@Nonnull World worldIn, @Nonnull EntityPlayer playerIn, @Nonnull EnumHand handIn) {
         if(useMirror(worldIn, playerIn, playerIn)) {
             final ItemStack stack = playerIn.getHeldItem(handIn);
-            playerIn.getCooldownTracker().setCooldown(this, 100);
-
-            if(!worldIn.isRemote && !playerIn.isCreative() && (mirrorType & BEDROCK) == 0) {
-                if(stack.getMaxDamage() > 0) stack.damageItem(1, playerIn);
-                else {
-                    playerIn.renderBrokenItemStack(stack);
-                    stack.shrink(1);
-                }
-            }
+            if(!worldIn.isRemote) damageAndCooldown(stack, playerIn);
 
             return new ActionResult<>(EnumActionResult.SUCCESS, stack);
         }
 
         return super.onItemRightClick(worldIn, playerIn, handIn);
+    }
+
+    @Override
+    public boolean itemInteractionForEntity(@Nonnull ItemStack stack, @Nonnull EntityPlayer playerIn, @Nonnull EntityLivingBase target, @Nonnull EnumHand hand) {
+        if(!(target instanceof EntityPlayer) && playerIn.isSneaking() && useMirror(playerIn.world, playerIn, target)) {
+            if(!playerIn.world.isRemote) damageAndCooldown(stack, playerIn);
+
+            return true;
+        }
+
+        return super.itemInteractionForEntity(stack, playerIn, target, hand);
     }
 
     @SuppressWarnings("ConstantConditions")
@@ -65,8 +67,8 @@ public class ItemMagicMirror extends Item
                         final World newWorld = changedDims ? DimensionManager.getWorld(dimToWarp) : world;
 
                         bedPos = EntityPlayer.getBedSpawnLocation(newWorld, bedPos, player.isSpawnForced(dimToWarp));
-                        if(bedPos == null && target instanceof EntityPlayer) { //fallback to world spawn for players
-                            bedPos = newWorld.getTopSolidOrLiquidBlock(newWorld.getSpawnPoint());
+                        if(bedPos == null) { //fallback to world spawn for players
+                            if(target instanceof EntityPlayer) bedPos = newWorld.getTopSolidOrLiquidBlock(newWorld.getSpawnPoint());
                             target.sendMessage(new TextComponentTranslation("tile.bed.notValid"));
                         }
 
@@ -98,6 +100,17 @@ public class ItemMagicMirror extends Item
         }
 
         return false;
+    }
+
+    protected void damageAndCooldown(@Nonnull ItemStack stack, @Nonnull EntityPlayer player) {
+        player.getCooldownTracker().setCooldown(this, 100);
+        if(!player.isCreative() && (mirrorType & BEDROCK) == 0) {
+            if(stack.getMaxDamage() > 0) stack.damageItem(1, player);
+            else {
+                player.renderBrokenItemStack(stack);
+                stack.shrink(1);
+            }
+        }
     }
 
     protected void spawnParticles(@Nonnull WorldServer world, @Nonnull EntityLivingBase target) {
