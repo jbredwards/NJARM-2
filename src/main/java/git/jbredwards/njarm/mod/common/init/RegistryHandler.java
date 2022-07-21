@@ -16,6 +16,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.EntityEntry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.registries.DataSerializerEntry;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -32,6 +33,11 @@ public final class RegistryHandler
     public static void registerBlocks(@Nonnull RegistryEvent.Register<Block> event) {
         event.getRegistry().registerAll(ModBlocks.INIT.toArray(new Block[0]));
         TileEntity.register(Constants.MODID + ":nether_core", TileEntityNetherCore.class);
+    }
+
+    @SubscribeEvent
+    public static void registerDataSerializers(@Nonnull RegistryEvent.Register<DataSerializerEntry> event) {
+        event.getRegistry().registerAll(ModDataSerializers.INIT.toArray(new DataSerializerEntry[0]));
     }
 
     @SubscribeEvent

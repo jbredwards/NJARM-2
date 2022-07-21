@@ -3,7 +3,7 @@ package git.jbredwards.njarm.mod.common.init;
 import git.jbredwards.njarm.asm.plugins.ASMHooks;
 import git.jbredwards.njarm.mod.Constants;
 import git.jbredwards.njarm.mod.common.block.*;
-import git.jbredwards.njarm.mod.common.item.CreativeTab;
+import git.jbredwards.njarm.mod.common.item.util.CreativeTab;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRotatedPillar;
 import net.minecraft.block.SoundType;

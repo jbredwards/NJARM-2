@@ -1,10 +1,14 @@
-package git.jbredwards.njarm.mod.common.item;
+package git.jbredwards.njarm.mod.common.item.util;
 
 import git.jbredwards.njarm.mod.Constants;
+import git.jbredwards.njarm.mod.common.init.ModEntities;
 import git.jbredwards.njarm.mod.common.init.ModItems;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemMonsterPlacer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
+import net.minecraftforge.fml.common.registry.EntityEntry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -30,6 +34,14 @@ public final class CreativeTab extends CreativeTabs
     @Override
     public void displayAllRelevantItems(@Nonnull NonNullList<ItemStack> items) {
         super.displayAllRelevantItems(items);
+        //adds this mod's spawn eggs
+        for(EntityEntry entry : ModEntities.INIT) {
+            if(entry.getEgg() != null) {
+                final ItemStack stack = new ItemStack(Items.SPAWN_EGG);
+                ItemMonsterPlacer.applyEntityIdToItemStack(stack, entry.getEgg().spawnedID);
+                items.add(stack);
+            }
+        }
         //TODO add potions & enchants
     }
 }

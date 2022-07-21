@@ -1,9 +1,8 @@
 package git.jbredwards.njarm.mod.common.config.item;
 
 import git.jbredwards.njarm.mod.common.config.IConfig;
+import git.jbredwards.njarm.mod.common.util.NBTUtils;
 import net.minecraft.item.Item;
-import net.minecraft.nbt.JsonToNBT;
-import net.minecraft.nbt.NBTException;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.config.Config;
 import net.minecraftforge.common.util.Constants;
@@ -20,20 +19,20 @@ import java.util.Objects;
 @SuppressWarnings("NotNullFieldNotInitialized")
 public final class EquipmentConfig implements IConfig
 {
-    private static boolean initializeMaterials = true;
+    static boolean initializeMaterials = true;
 
     @Config.RequiresMcRestart
     @Config.LangKey("config.njarm.item.equipment.rubyToolMaterial")
     @Nonnull public final String rubyToolMaterial;
     @Nonnull public static Item.ToolMaterial RUBY_TOOL_MATERIAL;
 
-    private void initializeMaterials() throws NBTException {
+    void initializeMaterials() {
         RUBY_TOOL_MATERIAL = toolMaterial("ruby", rubyToolMaterial);
     }
 
     @Nonnull
-    private Item.ToolMaterial toolMaterial(@Nonnull String name, @Nonnull String toolMaterial) throws NBTException {
-        final NBTTagCompound nbt = JsonToNBT.getTagFromJson(toolMaterial);
+    Item.ToolMaterial toolMaterial(@Nonnull String name, @Nonnull String toolMaterial) {
+        final NBTTagCompound nbt = NBTUtils.getTagFromString(toolMaterial);
         if(!nbt.hasKey("HarvestLevel", Constants.NBT.TAG_INT)) throw new IllegalStateException(String.format("Missing \"HarvestLevel\" tag for %s tools in config!", name));
         else if(!nbt.hasKey("Durability", Constants.NBT.TAG_INT)) throw new IllegalStateException(String.format("Missing \"Durability\" tag for %s tools in config!", name));
         else if(!nbt.hasKey("MiningSpeed", Constants.NBT.TAG_FLOAT)) throw new IllegalStateException(String.format("Missing \"MiningSpeed\" tag for %s tools in config!", name));
@@ -49,10 +48,7 @@ public final class EquipmentConfig implements IConfig
         //only initialize materials on first load
         if(initializeMaterials) {
             initializeMaterials = false;
-            try { initializeMaterials(); }
-            catch(NBTException e) { e.printStackTrace();
-                throw new IllegalStateException("Invalid equipment in config!");
-            }
+            initializeMaterials();
         }
     }
 }

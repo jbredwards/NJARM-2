@@ -4,6 +4,7 @@ import git.jbredwards.njarm.mod.Constants;
 import git.jbredwards.njarm.mod.common.config.block.*;
 import git.jbredwards.njarm.mod.common.config.client.*;
 import git.jbredwards.njarm.mod.common.config.core.*;
+import git.jbredwards.njarm.mod.common.config.entity.*;
 import git.jbredwards.njarm.mod.common.config.item.*;
 import git.jbredwards.njarm.mod.common.config.world.*;
 import net.minecraft.util.NonNullList;
@@ -108,8 +109,14 @@ public final class ConfigHandler
             })
     ));
 
+    @Config.LangKey("config.njarm.cfg.entity")
+    @Nonnull public static final EntityConfig entityCfg = register(new EntityConfig(
+            new HighlandCooConfig(80, 3, true, 10, 1, 5, new String[] {"{BiomeTags:[\"plains\"]}"})
+    ));
+
     @Config.LangKey("config.njarm.cfg.item")
     @Nonnull public static final ItemConfig itemCfg = register(new ItemConfig(
+            new ChargedSunstoneConfig(true, true, false, true),
             new EggShellsConfig(true, 0, 100, new String[] {"minecraft:egg"}, new String[] {"minecraft:egg", "njarm:cooked_egg"}),
             new EquipmentConfig(
                     "{HarvestLevel:4,Durability:3122,MiningSpeed:8.0f,AttackDamage:3.0f,Enchantability:10}"
@@ -125,7 +132,7 @@ public final class ConfigHandler
 
     //create a new config category while also adding it to the internal list
     @Nonnull
-    private static <T extends IConfig> T register(@Nonnull T cfg) {
+    static <T extends IConfig> T register(@Nonnull T cfg) {
         CONFIGS.add(cfg);
         return cfg;
     }

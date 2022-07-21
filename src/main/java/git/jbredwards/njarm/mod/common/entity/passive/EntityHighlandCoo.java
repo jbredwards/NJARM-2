@@ -1,6 +1,6 @@
 package git.jbredwards.njarm.mod.common.entity.passive;
 
-import git.jbredwards.njarm.mod.common.entity.util.DataSerializerEnum;
+import git.jbredwards.njarm.mod.common.init.ModDataSerializers;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.ai.*;
 import net.minecraft.entity.passive.EntityCow;
@@ -40,29 +40,33 @@ import java.util.stream.Stream;
 public class EntityHighlandCoo extends EntityCow implements IShearable
 {
     @Nonnull static final DataParameter<Boolean> SHEARED = EntityDataManager.createKey(EntityHighlandCoo.class, DataSerializers.BOOLEAN);
-    @Nonnull static final DataParameter<EnumDyeColor> DYE_COLOR = EntityDataManager.createKey(EntityHighlandCoo.class,
-            new DataSerializerEnum<>(EnumDyeColor::values));
+    @Nonnull static final DataParameter<EnumDyeColor> DYE_COLOR = EntityDataManager.createKey(EntityHighlandCoo.class, ModDataSerializers.DYE_COLOR);
 
-    protected int sheepTimer;
-    public EntityHighlandCoo(@Nonnull World worldIn) { super(worldIn); }
+    protected EntityAIEatGrass grassAI;
+    protected int grassTimer;
+
+    public EntityHighlandCoo(@Nonnull World worldIn) {
+        super(worldIn);
+    }
 
     @Override
     protected void initEntityAI() {
+        grassAI = new EntityAIEatGrass(this);
         tasks.addTask(0, new EntityAISwimming(this));
         tasks.addTask(1, new EntityAIPanic(this, 2));
         tasks.addTask(2, new EntityAIMate(this, 1));
         tasks.addTask(3, new EntityAITempt(this, 1.25, Items.WHEAT, false));
         tasks.addTask(4, new EntityAIFollowParent(this, 1.25));
+        tasks.addTask(5, grassAI);
         tasks.addTask(6, new EntityAIWanderAvoidWater(this, 1));
         tasks.addTask(7, new EntityAIWatchClosest(this, EntityPlayer.class, 6));
         tasks.addTask(8, new EntityAILookIdle(this));
-        tasks.addTask(5, new EntityAIEatGrass(this) {
-            @Override
-            public void updateTask() {
-                super.updateTask();
-                sheepTimer = getEatingGrassTimer();
-            }
-        });
+    }
+
+    @Override
+    protected void updateAITasks() {
+        grassTimer = grassAI.getEatingGrassTimer();
+        super.updateAITasks();
     }
 
     @Override
@@ -74,32 +78,32 @@ public class EntityHighlandCoo extends EntityCow implements IShearable
 
     @Override
     public void onLivingUpdate() {
-        if(world.isRemote && sheepTimer > 0) sheepTimer--;
+        if(world.isRemote && grassTimer > 0) grassTimer--;
         super.onLivingUpdate();
     }
 
     @SideOnly(Side.CLIENT)
     @Override
     public void handleStatusUpdate(byte id) {
-        if(id == 10) sheepTimer = 40;
+        if(id == 10) grassTimer = 40;
         else super.handleStatusUpdate(id);
     }
 
     @SideOnly(Side.CLIENT)
     public float getHeadRotationPointY(float partialTicks) {
-        if(sheepTimer >= 4 && sheepTimer <= 36) return 13;
-        else return sheepTimer < 4 ? (sheepTimer - partialTicks) * 2.25f + 4 :
-                (partialTicks - sheepTimer + 40) * 2.25f + 4;
+        if(grassTimer >= 4 && grassTimer <= 36) return 13;
+        else return grassTimer < 4 ? (grassTimer - partialTicks) * 2.25f + 4 :
+                (partialTicks - grassTimer + 40) * 2.25f + 4;
     }
 
     @SideOnly(Side.CLIENT)
     public float getHeadRotationAngleX(float partialTicks) {
-        if(sheepTimer > 4 && sheepTimer <= 36) {
-            float f = (sheepTimer - 4 - partialTicks) / 32;
+        if(grassTimer > 4 && grassTimer <= 36) {
+            float f = (grassTimer - 4 - partialTicks) / 32;
             return ((float)Math.PI / 5) + (float)Math.PI * 7 / 100 * MathHelper.sin(f * 28.7f);
         }
 
-        return sheepTimer > 0 ? (float)Math.PI / 5 : rotationPitch * 0.0175f;
+        return grassTimer > 0 ? (float)Math.PI / 5 : rotationPitch * 0.0175f;
     }
 
     @Override
@@ -161,6 +165,7 @@ public class EntityHighlandCoo extends EntityCow implements IShearable
             if(color != getFleeceColor()) {
                 setFleeceColor(color);
                 held.shrink(1);
+                return true;
             }
         }
 

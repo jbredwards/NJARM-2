@@ -7,6 +7,7 @@ import git.jbredwards.njarm.mod.common.entity.item.EntityChargedSunstone;
 import git.jbredwards.njarm.mod.common.item.*;
 import git.jbredwards.njarm.mod.common.item.block.*;
 import git.jbredwards.njarm.mod.common.item.equipment.ItemAxe;
+import git.jbredwards.njarm.mod.common.item.util.CreativeTab;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.item.*;

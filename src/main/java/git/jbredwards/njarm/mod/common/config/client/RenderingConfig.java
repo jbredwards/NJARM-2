@@ -4,6 +4,7 @@ import git.jbredwards.fluidlogged_api.api.util.FluidloggedUtils;
 import git.jbredwards.njarm.mod.Constants;
 import git.jbredwards.njarm.mod.common.config.ConfigHandler;
 import git.jbredwards.njarm.mod.common.config.IConfig;
+import git.jbredwards.njarm.mod.common.util.NBTUtils;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.block.material.Material;
@@ -13,8 +14,6 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.nbt.JsonToNBT;
-import net.minecraft.nbt.NBTException;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
@@ -71,18 +70,14 @@ public final class RenderingConfig implements IConfig
         FOG_COLORS.clear();
         SURFACE_COLORS.clear();
         for(String colors : waterColors) {
-            try {
-                final NBTTagCompound nbt = JsonToNBT.getTagFromJson(colors);
-                if(nbt.hasKey("Biome", NBT.TAG_STRING)) {
-                    final @Nullable Biome biome = Biome.REGISTRY.getObject(new ResourceLocation(nbt.getString("Biome")));
-                    if(biome != null) {
-                        if(nbt.hasKey("Surface", NBT.TAG_INT)) SURFACE_COLORS.put(biome, nbt.getInteger("Surface"));
-                        if(nbt.hasKey("Fog", NBT.TAG_INT)) FOG_COLORS.put(biome, nbt.getInteger("Fog"));
-                    }
+            final NBTTagCompound nbt = NBTUtils.getTagFromString(colors);
+            if(nbt.hasKey("Biome", NBT.TAG_STRING)) {
+                final @Nullable Biome biome = Biome.REGISTRY.getObject(new ResourceLocation(nbt.getString("Biome")));
+                if(biome != null) {
+                    if(nbt.hasKey("Surface", NBT.TAG_INT)) SURFACE_COLORS.put(biome, nbt.getInteger("Surface"));
+                    if(nbt.hasKey("Fog", NBT.TAG_INT)) FOG_COLORS.put(biome, nbt.getInteger("Fog"));
                 }
             }
-            //oops
-            catch(NBTException e) { e.printStackTrace(); }
         }
     }
 
