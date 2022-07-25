@@ -1,5 +1,6 @@
 package git.jbredwards.njarm.mod.common.entity.passive;
 
+import git.jbredwards.njarm.mod.Constants;
 import git.jbredwards.njarm.mod.common.init.ModDataSerializers;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.ai.*;
@@ -19,6 +20,7 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.IBlockAccess;
@@ -28,6 +30,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -78,7 +81,8 @@ public class EntityHighlandCoo extends EntityCow implements IShearable
 
     @Override
     public void onLivingUpdate() {
-        if(world.isRemote && grassTimer > 0) grassTimer--;
+        if(world.isRemote && grassTimer > 0)
+            grassTimer--;
         super.onLivingUpdate();
     }
 
@@ -91,9 +95,10 @@ public class EntityHighlandCoo extends EntityCow implements IShearable
 
     @SideOnly(Side.CLIENT)
     public float getHeadRotationPointY(float partialTicks) {
-        if(grassTimer >= 4 && grassTimer <= 36) return 13;
-        else return grassTimer < 4 ? (grassTimer - partialTicks) * 2.25f + 4 :
-                (partialTicks - grassTimer + 40) * 2.25f + 4;
+        if(grassTimer == 0) return 4;
+        else if(grassTimer >= 4 && grassTimer <= 36) return 17;
+        else return grassTimer < 4 ? (grassTimer - partialTicks) * 2.25f + 8
+                    : (partialTicks - grassTimer + 40) * 2.25f + 8;
     }
 
     @SideOnly(Side.CLIENT)
@@ -155,6 +160,13 @@ public class EntityHighlandCoo extends EntityCow implements IShearable
 
         return result.getItem() == Items.DYE ? EnumDyeColor.byDyeDamage(result.getMetadata())
                 : rand.nextBoolean() ? getFleeceColor() : other;
+    }
+
+    @Nullable
+    @Override
+    protected ResourceLocation getLootTable() {
+        return getSheared() ? super.getLootTable()
+                : new ResourceLocation(Constants.MODID, "entities/highland_coo/" + getFleeceColor().getName());
     }
 
     @Override

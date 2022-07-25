@@ -1,4 +1,4 @@
-package git.jbredwards.njarm.mod.client.entity.renderer.item;
+package git.jbredwards.njarm.mod.client.entity.renderer;
 
 import git.jbredwards.njarm.mod.common.config.client.RenderingConfig;
 import net.minecraft.client.renderer.GlStateManager;
