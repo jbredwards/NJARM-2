@@ -25,7 +25,7 @@ public class RenderHighlandCoo extends RenderLiving<EntityHighlandCoo>
     @Nonnull protected static final ResourceLocation CHILD_BASE = new ResourceLocation(Constants.MODID, "textures/entity/highland_coo/child_base.png");
 
     public RenderHighlandCoo(@Nonnull RenderManager renderManagerIn) {
-        super(renderManagerIn, new ModelHighlandCoo(), 0.7f);
+        super(renderManagerIn, new ModelHighlandCoo.Base(), 0.7f);
         addLayer(new LayerHighlandCooWool(this));
     }
 

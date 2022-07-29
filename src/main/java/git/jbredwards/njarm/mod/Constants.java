@@ -15,7 +15,7 @@ public final class Constants
     public static final String
             MODID = "njarm",
             NAME = "Not Just Another Ruby Mod 2",
-            VERSION = "2.4",
+            VERSION = "2.3",
             DEPENDENCIES = "required-after:fluidlogged_api@[1.8.1b,);required-after:bookshelf;after:baubles;required-client:assetmover;after-client:jei;";
 
     @Nonnull

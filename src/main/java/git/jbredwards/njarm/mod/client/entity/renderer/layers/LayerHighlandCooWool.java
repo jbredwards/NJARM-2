@@ -1,7 +1,7 @@
 package git.jbredwards.njarm.mod.client.entity.renderer.layers;
 
 import git.jbredwards.njarm.mod.Constants;
-import git.jbredwards.njarm.mod.client.entity.model.ModelHighlandCooWool;
+import git.jbredwards.njarm.mod.client.entity.model.ModelHighlandCoo;
 import git.jbredwards.njarm.mod.client.entity.renderer.RenderHighlandCoo;
 import git.jbredwards.njarm.mod.common.entity.passive.EntityHighlandCoo;
 import net.darkhax.bookshelf.util.RenderUtils;
@@ -26,7 +26,7 @@ public class LayerHighlandCooWool implements LayerRenderer<EntityHighlandCoo>
     @Nonnull protected static final ResourceLocation CHILD_SHEARED = new ResourceLocation(Constants.MODID, "textures/entity/highland_coo/child_sheared.png");
     @Nonnull protected static final ResourceLocation ADULT_UNSHEARED = new ResourceLocation(Constants.MODID, "textures/entity/highland_coo/adult_unsheared.png");
     @Nonnull protected static final ResourceLocation CHILD_UNSHEARED = new ResourceLocation(Constants.MODID, "textures/entity/highland_coo/child_unsheared.png");
-    @Nonnull protected final ModelHighlandCooWool WOOL_MODEL = new ModelHighlandCooWool();
+    @Nonnull protected final ModelHighlandCoo WOOL_MODEL = new ModelHighlandCoo.Wool();
     @Nonnull protected final RenderHighlandCoo renderer;
 
     public LayerHighlandCooWool(@Nonnull RenderHighlandCoo renderer) {

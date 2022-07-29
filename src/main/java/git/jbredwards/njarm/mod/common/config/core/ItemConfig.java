@@ -17,7 +17,7 @@ public final class ItemConfig implements IConfig
     @Nonnull
     private final NonNullList<IConfig> CONFIGS = NonNullList.create();
 
-    @Config.LangKey("config.njarm.core.item.equipment")
+    @Config.LangKey("config.njarm.core.item.chargedSunstone")
     @Nonnull public final ChargedSunstoneConfig chargedSunstoneCfg;
 
     @Config.LangKey("config.njarm.core.item.eggShells")

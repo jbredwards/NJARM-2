@@ -17,10 +17,13 @@ import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.BufferBuilder;
+import net.minecraft.client.renderer.tileentity.TileEntityEndPortalRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityEndPortal;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumFacing;
@@ -249,6 +252,20 @@ public final class ASMHooks
     //PluginTileEntityBeacon
     public static void playBeaconPowerSelectSound(@Nonnull TileEntity te, boolean isComplete) {
         if(te.hasWorld() && !te.getWorld().isRemote && isComplete) SoundUtils.playSound(te, ModSounds.BEACON_POWER_SELECT, 1, 1);
+    }
+
+    //PluginTileEntityEndPortalRenderer
+    @SideOnly(Side.CLIENT)
+    public static boolean fixEndPortalBottomRender(@Nonnull TileEntityEndPortal te, @Nonnull EnumFacing facing, @Nonnull BufferBuilder buffer, float offset, double x, double y, double z, float r, float g, float b) {
+        if(te.shouldRenderFace(facing)) return true;
+        else if(te.getClass() == TileEntityEndPortal.class) {
+            buffer.pos(x, y + offset, z).color(r, g, b, 1).endVertex();
+            buffer.pos(x + 1, y + offset, z).color(r, g, b, 1).endVertex();
+            buffer.pos(x + 1, y + offset, z + 1).color(r, g, b, 1).endVertex();
+            buffer.pos(x, y + offset, z + 1).color(r, g, b, 1).endVertex();
+        }
+
+        return false;
     }
 
     //PluginWorld

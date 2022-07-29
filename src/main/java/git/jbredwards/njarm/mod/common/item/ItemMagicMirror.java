@@ -34,9 +34,10 @@ public class ItemMagicMirror extends Item
     @Nonnull
     @Override
     public ActionResult<ItemStack> onItemRightClick(@Nonnull World worldIn, @Nonnull EntityPlayer playerIn, @Nonnull EnumHand handIn) {
-        if(useMirror(worldIn, playerIn, playerIn)) {
+        if(worldIn.isRemote) return new ActionResult<>(EnumActionResult.SUCCESS, playerIn.getHeldItem(handIn));
+        else if(useMirror(worldIn, playerIn, playerIn)) {
             final ItemStack stack = playerIn.getHeldItem(handIn);
-            if(!worldIn.isRemote) damageAndCooldown(stack, playerIn);
+            damageAndCooldown(stack, playerIn);
 
             return new ActionResult<>(EnumActionResult.SUCCESS, stack);
         }
@@ -46,10 +47,12 @@ public class ItemMagicMirror extends Item
 
     @Override
     public boolean itemInteractionForEntity(@Nonnull ItemStack stack, @Nonnull EntityPlayer playerIn, @Nonnull EntityLivingBase target, @Nonnull EnumHand hand) {
-        if(!(target instanceof EntityPlayer) && playerIn.isSneaking() && useMirror(playerIn.world, playerIn, target)) {
-            if(!playerIn.world.isRemote) damageAndCooldown(stack, playerIn);
-
-            return true;
+        if(!(target instanceof EntityPlayer) && playerIn.isSneaking()) {
+            if(playerIn.world.isRemote) return true;
+            else if(useMirror(playerIn.world, playerIn, target)) {
+                damageAndCooldown(stack, playerIn);
+                return true;
+            }
         }
 
         return super.itemInteractionForEntity(stack, playerIn, target, hand);
@@ -57,48 +60,45 @@ public class ItemMagicMirror extends Item
 
     @SuppressWarnings("ConstantConditions")
     protected boolean useMirror(@Nonnull World world, @Nonnull EntityPlayer player, @Nonnull EntityLivingBase target) {
-        if(!target.isRiding() && !target.isBeingRidden()) {
-            final int dimToWarp = player.getSpawnDimension();
-            if((mirrorType & DIMENSIONAL) != 0 || world.provider.getDimension() == dimToWarp) {
-                @Nullable BlockPos bedPos = player.getBedLocation(dimToWarp);
-                if(bedPos != null) {
-                    if(!world.isRemote) {
-                        final boolean changedDims = world.provider.getDimension() != dimToWarp;
-                        final World newWorld = changedDims ? DimensionManager.getWorld(dimToWarp) : world;
+        final int dimToWarp = player.getSpawnDimension();
+        final boolean changedDims = world.provider.getDimension() != dimToWarp;
 
-                        bedPos = EntityPlayer.getBedSpawnLocation(newWorld, bedPos, player.isSpawnForced(dimToWarp));
-                        if(bedPos == null) { //fallback to world spawn for players
-                            if(target instanceof EntityPlayer) bedPos = newWorld.getTopSolidOrLiquidBlock(newWorld.getSpawnPoint());
-                            target.sendMessage(new TextComponentTranslation("tile.bed.notValid"));
-                        }
+        if((mirrorType & DIMENSIONAL) != 0 || !changedDims) {
+            final World newWorld = changedDims ? DimensionManager.getWorld(dimToWarp) : world;
 
-                        if(bedPos != null) {
-                            target.playSound(SoundEvents.ENTITY_ENDERMEN_TELEPORT, 0.5f, 1);
-                            spawnParticles((WorldServer)world, target);
-                            final BlockPos newPos = bedPos;
+            @Nullable BlockPos bedPos = player.getBedLocation(dimToWarp);
+            if(bedPos != null) //check for bed location and adjust if obstructed
+                bedPos = EntityPlayer.getBedSpawnLocation(newWorld, bedPos, player.isSpawnForced(dimToWarp));
 
-                            if(changedDims) target.changeDimension(dimToWarp, (worldIn, entity, yaw) -> {
-                                entity.rotationYaw = yaw;
-                                entity.fallDistance = 0;
-                                entity.setPositionAndUpdate(newPos.getX() + 0.5, newPos.getY(), newPos.getZ() + 0.5);
-                                entity.playSound(SoundEvents.ENTITY_ENDERMEN_TELEPORT, 0.5f, 1);
-                            });
+            if(bedPos == null) { //fallback to world spawn for players
+                if(target instanceof EntityPlayer) bedPos = newWorld.getTopSolidOrLiquidBlock(newWorld.getSpawnPoint());
+                if(!player.hasSpawnDimension()) player.sendMessage(new TextComponentTranslation("tile.bed.notValid"));
+            }
 
-                            else {
-                                target.fallDistance = 0;
-                                target.setPositionAndUpdate(newPos.getX() + 0.5, newPos.getY(), newPos.getZ() + 0.5);
-                                SoundUtils.playSound(target, SoundEvents.ENTITY_ENDERMEN_TELEPORT, 0.5f, 1);
-                            }
+            if(bedPos != null) {
+                target.playSound(SoundEvents.ENTITY_ENDERMEN_TELEPORT, 0.5f, 1);
+                spawnParticles((WorldServer)world, target);
 
-                            spawnParticles((WorldServer)newWorld, target);
-                        }
-                    }
+                final BlockPos newPos = bedPos;
+                if(changedDims) target.changeDimension(dimToWarp, (worldIn, entity, yaw) -> {
+                    entity.rotationYaw = yaw;
+                    entity.fallDistance = 0;
+                    entity.setPositionAndUpdate(newPos.getX() + 0.5, newPos.getY(), newPos.getZ() + 0.5);
+                    entity.playSound(SoundEvents.ENTITY_ENDERMEN_TELEPORT, 0.5f, 1);
+                });
 
-                    return true;
+                else {
+                    target.fallDistance = 0;
+                    target.setPositionAndUpdate(newPos.getX() + 0.5, newPos.getY(), newPos.getZ() + 0.5);
+                    SoundUtils.playSound(target, SoundEvents.ENTITY_ENDERMEN_TELEPORT, 0.5f, 1);
                 }
+
+                spawnParticles((WorldServer)newWorld, target);
+                return true;
             }
         }
 
+        else player.sendMessage(new TextComponentTranslation("err.njarm.magicMirror.wrongDimension"));
         return false;
     }
 

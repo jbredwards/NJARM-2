@@ -1,8 +1,10 @@
 package git.jbredwards.njarm.mod.common.entity.passive;
 
 import git.jbredwards.njarm.mod.Constants;
+import git.jbredwards.njarm.mod.common.config.entity.HighlandCooConfig;
 import git.jbredwards.njarm.mod.common.init.ModDataSerializers;
 import net.minecraft.entity.EntityAgeable;
+import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.ai.*;
 import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.player.EntityPlayer;
@@ -20,9 +22,11 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IShearable;
@@ -47,6 +51,8 @@ public class EntityHighlandCoo extends EntityCow implements IShearable
 
     protected EntityAIEatGrass grassAI;
     protected int grassTimer;
+    protected boolean shouldShake, isShaking;
+    protected float timeIsShaking, prevTimeIsShaking;
 
     public EntityHighlandCoo(@Nonnull World worldIn) {
         super(worldIn);
@@ -83,22 +89,78 @@ public class EntityHighlandCoo extends EntityCow implements IShearable
     public void onLivingUpdate() {
         if(world.isRemote && grassTimer > 0)
             grassTimer--;
+
+        else if(!world.isRemote && shouldShake && !isShaking && !hasPath() && onGround && !getSheared()) {
+            isShaking = true;
+            timeIsShaking = 0;
+            prevTimeIsShaking = 0;
+            world.setEntityState(this, (byte)8);
+        }
+
         super.onLivingUpdate();
+    }
+
+    @Override
+    public void onUpdate() {
+        super.onUpdate();
+        if(isWet()) {
+            shouldShake = true;
+            isShaking = false;
+            timeIsShaking = 0;
+            prevTimeIsShaking = 0;
+        }
+        else if(isShaking) {
+            if(timeIsShaking == 0) {
+                playSound(SoundEvents.ENTITY_WOLF_SHAKE, getSoundVolume(), (rand.nextFloat() - rand.nextFloat()) * 0.2f + 1);
+            }
+
+            prevTimeIsShaking = timeIsShaking;
+            timeIsShaking += 0.05f;
+
+            if(prevTimeIsShaking >= 2) {
+                shouldShake = false;
+                isShaking = false;
+                prevTimeIsShaking = 0;
+                timeIsShaking = 0;
+            }
+
+            if(world.isRemote && timeIsShaking > 0.4f) {
+                final int angle = (int)MathHelper.sin((timeIsShaking - 0.4f) * (float)Math.PI) * 7;
+
+                for(int i = 0; i < angle; ++i) {
+                    final float x = (rand.nextFloat() * 2 - 1) * width * 0.5f;
+                    final float z = (rand.nextFloat() * 2 - 1) * width * 0.5f;
+                    world.spawnParticle(EnumParticleTypes.WATER_SPLASH, posX + x, getEntityBoundingBox().minY + getEyeHeight(), posZ + z, motionX, motionY, motionZ);
+                }
+            }
+        }
+    }
+
+    @SideOnly(Side.CLIENT)
+    public float getShakeAngle(float partialTicks, float offset) {
+        final float angle = MathHelper.clamp((prevTimeIsShaking + (timeIsShaking - prevTimeIsShaking) * partialTicks + offset) / 1.8f, 0, 1);
+        return MathHelper.sin(angle * (float)Math.PI) * MathHelper.sin(angle * (float)Math.PI * 11) * 0.075f * (float)Math.PI;
     }
 
     @SideOnly(Side.CLIENT)
     @Override
     public void handleStatusUpdate(byte id) {
         if(id == 10) grassTimer = 40;
+        else if(id == 8) {
+            isShaking = true;
+            timeIsShaking = 0;
+            prevTimeIsShaking = 0;
+        }
+
         else super.handleStatusUpdate(id);
     }
 
     @SideOnly(Side.CLIENT)
     public float getHeadRotationPointY(float partialTicks) {
-        if(grassTimer == 0) return 4;
-        else if(grassTimer >= 4 && grassTimer <= 36) return 17;
-        else return grassTimer < 4 ? (grassTimer - partialTicks) * 2.25f + 8
-                    : (partialTicks - grassTimer + 40) * 2.25f + 8;
+        if(grassTimer == 0) return 0;
+        else if(grassTimer >= 4 && grassTimer <= 36) return 1;
+        else return grassTimer < 4 ? grassTimer - partialTicks / 4
+                    : ((40 - grassTimer) - partialTicks) / 4;
     }
 
     @SideOnly(Side.CLIENT)
@@ -165,23 +227,35 @@ public class EntityHighlandCoo extends EntityCow implements IShearable
     @Nullable
     @Override
     protected ResourceLocation getLootTable() {
-        return getSheared() ? super.getLootTable()
-                : new ResourceLocation(Constants.MODID, "entities/highland_coo/" + getFleeceColor().getName());
+        return getSheared() ? super.getLootTable() : new ResourceLocation(Constants.MODID,
+                "entities/highland_coo/" + getFleeceColor().getName());
     }
 
     @Override
     public boolean processInteract(@Nonnull EntityPlayer player, @Nonnull EnumHand hand) {
-        final ItemStack held = player.getHeldItem(hand);
-        if(held.getItem() instanceof ItemDye) {
-            final EnumDyeColor color = EnumDyeColor.byDyeDamage(held.getMetadata());
-            if(color != getFleeceColor()) {
-                setFleeceColor(color);
-                held.shrink(1);
-                return true;
+        if(HighlandCooConfig.isDyeable()) {
+            final ItemStack held = player.getHeldItem(hand);
+            if(held.getItem() instanceof ItemDye) {
+                final EnumDyeColor color = EnumDyeColor.byDyeDamage(held.getMetadata());
+                if(color != getFleeceColor()) {
+                    setFleeceColor(color);
+                    held.shrink(1);
+                    return true;
+                }
             }
         }
 
         return super.processInteract(player, hand);
+    }
+
+    @Nullable
+    @Override
+    public IEntityLivingData onInitialSpawn(@Nonnull DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
+        livingdata = super.onInitialSpawn(difficulty, livingdata);
+        setFleeceColor(HighlandCooConfig.useRandomColorSpawn() ? EnumDyeColor.values()[rand.nextInt(EnumDyeColor.values().length)]
+                : world.getBiome(getPosition()).getTemperature(getPosition()) < 0.15 ? EnumDyeColor.WHITE : EnumDyeColor.BROWN);
+
+        return livingdata;
     }
 
     @Override

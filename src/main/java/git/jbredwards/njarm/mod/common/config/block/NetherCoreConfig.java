@@ -7,7 +7,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldServer;
 import net.minecraft.world.storage.loot.LootContext;
 import net.minecraft.world.storage.loot.LootTable;
 import net.minecraft.world.storage.loot.LootTableManager;
@@ -70,17 +69,17 @@ public final class NetherCoreConfig implements IConfig
     public final String items;
 
     @Nullable
-    private static LootTable itemLoot;
+    static LootTable itemLoot;
 
     @Nonnull
+    @SuppressWarnings("ConstantConditions")
     public static List<ItemStack> getRandomItems(@Nonnull World world) {
-        if(!(world instanceof WorldServer)) return new ArrayList<>();
         if(itemLoot == null) itemLoot = ForgeHooks.loadLootTable(LootTableManager.GSON_INSTANCE,
                 new ResourceLocation(Constants.MODID, "blocks/nether_reactor"),
                 ConfigHandler.blockCfg.netherCoreCfg.items, true, world.getLootTableManager());
 
         if(itemLoot == null) itemLoot = LootTable.EMPTY_LOOT_TABLE;
-        return itemLoot.generateLootForPools(world.rand, new LootContext.Builder((WorldServer)world).build());
+        return itemLoot.generateLootForPools(world.rand, new LootContext.Builder(null).build());
     }
 
     @Override

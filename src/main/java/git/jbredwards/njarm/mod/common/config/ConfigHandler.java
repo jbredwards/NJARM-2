@@ -111,7 +111,7 @@ public final class ConfigHandler
 
     @Config.LangKey("config.njarm.cfg.entity")
     @Nonnull public static final EntityConfig entityCfg = register(new EntityConfig(
-            new HighlandCooConfig(80, 3, true, 10, 1, 5, new String[] {"{BiomeTags:[\"plains\"]}"})
+            new HighlandCooConfig(80, 3, true, 10, 1, 5, new String[] {"{BiomeTags:[\"plains\"]}"}, true, false)
     ));
 
     @Config.LangKey("config.njarm.cfg.item")

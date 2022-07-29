@@ -11,7 +11,7 @@ buildscript {
 apply plugin: 'net.minecraftforge.gradle.forge'
 apply plugin: 'maven-publish'
 
-version = 'v2.4-mc1.12.2'
+version = 'v2.3-mc1.12.2'
 group = 'git.jbredwards.njarm'
 archivesBaseName = 'Not-Just-Another-Ruby-Mod-2'
 sourceCompatibility = targetCompatibility = '1.8'

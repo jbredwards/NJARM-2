@@ -44,6 +44,7 @@ public final class ASMHandler implements IFMLLoadingPlugin
                 .put("net.minecraft.client.renderer.entity.Render", new PluginRender()) //Bedrock edition entity shadow size parody
                 .put("net.minecraft.client.renderer.entity.RenderFallingBlock", new PluginRenderFallingBlock()) //Fix rendering with ILayeredFallingBlock
                 .put("net.minecraft.client.renderer.entity.RenderManager", new PluginRenderManager()) //Fixes blue fire related entity rendering lighting bugs
+                .put("net.minecraft.client.renderer.tileentity.TileEntityEndPortalRenderer", new PluginTileEntityEndPortalRenderer()) //Render the bottom of end portals
                 .put("net.minecraft.client.renderer.EntityRenderer", new PluginEntityRenderer()) //Remove the annoying night vision flashing
                 .put("net.minecraft.client.renderer.ItemRenderer", new PluginItemRenderer()) //Render blue fire without "quirkiness"
                 .put("net.minecraft.block.Block", new PluginBlock()) //Swap hardcoded values for biome fog color

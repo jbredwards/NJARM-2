@@ -35,11 +35,12 @@ public final class ModRecipes
         registerSmelting();
     }
 
-    private static void registerCrafting(@Nonnull IForgeRegistry<IRecipe> registry) {
+    static void registerCrafting(@Nonnull IForgeRegistry<IRecipe> registry) {
         //shapeless
         registerCrafting(registry, shapeless(9, Items.APPLE, new ItemStack(ModItems.FOOD_CRATE, 1, 6)));
         registerCrafting(registry, shapeless(9, Items.BEETROOT, new ItemStack(ModItems.FOOD_CRATE, 1, 4)));
         registerCrafting(registry, shapeless(9, Items.BEETROOT_SEEDS, new ItemStack(ModItems.FOOD_CRATE, 1, 5)));
+        registerCrafting(registry, shapeless(1, ModItems.CARAMEL_APPLE, Items.APPLE, Items.SUGAR, Items.STICK));
         registerCrafting(registry, shapeless(9, Items.CARROT, new ItemStack(ModItems.FOOD_CRATE, 1, 1)));
         registerCrafting(registry, shapeless(9, Items.GOLDEN_APPLE, new ItemStack(ModItems.FOOD_CRATE, 1, 7)));
         registerCrafting(registry, shapeless(9, Items.GOLDEN_CARROT, new ItemStack(ModItems.FOOD_CRATE, 1, 8)));
@@ -48,7 +49,14 @@ public final class ModRecipes
         registerCrafting(registry, shapeless(9, 2, Items.FISH, new ItemStack(ModItems.FOOD_CRATE, 1, 11)));
         registerCrafting(registry, shapeless(9, 3, Items.FISH, new ItemStack(ModItems.FOOD_CRATE, 1, 12)));
         registerCrafting(registry, shapeless(16, ModItems.FRAGILE_ICE, Blocks.ICE));
+        registerCrafting(registry, shapeless(9, ModItems.MAGIC_INGOT, ModItems.MAGIC_BLOCK));
+        registerCrafting(registry, shapeless(9, ModItems.MAGIC_NUGGET, ModItems.MAGIC_INGOT));
+        registerCrafting(registry, shapeless(9, ModItems.NETHERITE_INGOT, ModItems.NETHERITE_BLOCK));
+        registerCrafting(registry, shapeless(1, ModItems.NETHERITE_INGOT, "scrapAncientDebris", "scrapAncientDebris", "scrapAncientDebris", "scrapAncientDebris", "ingotGold", "ingotGold", "ingotGold", "ingotGold"));
+        registerCrafting(registry, shapeless(9, ModItems.NETHERITE_NUGGET, ModItems.NETHERITE_INGOT));
         registerCrafting(registry, shapeless(9, ModItems.OBSIDIAN_INGOT, ModItems.OBSIDIAN_BLOCK));
+        registerCrafting(registry, shapeless(9, ModItems.PLATINUM_INGOT, ModItems.PLATINUM_BLOCK));
+        registerCrafting(registry, shapeless(9, ModItems.PLATINUM_NUGGET, ModItems.PLATINUM_INGOT));
         registerCrafting(registry, shapeless(9, Items.POISONOUS_POTATO, new ItemStack(ModItems.FOOD_CRATE, 1, 3)));
         registerCrafting(registry, shapeless(9, Items.POTATO, new ItemStack(ModItems.FOOD_CRATE, 1, 2)));
         registerCrafting(registry, shapeless(9, ModItems.RUBY, ModItems.RUBY_BLOCK));
@@ -59,6 +67,8 @@ public final class ModRecipes
         //shaped
         registerCrafting(registry, shaped(4, ModItems.BLACKSTONE_BRICKS, "##", "##", '#', ModItems.POLISHED_BLACKSTONE));
         registerCrafting(registry, shaped(3, ModItems.CHAIN, "N", "I", "N", 'N', "nuggetIron", 'I', "ingotIron"));
+        registerCrafting(registry, shaped(1, ModItems.DIMENSIONAL_MAGIC_MIRROR, "DID", "IMI", "DID", 'D', "dustMagicNJARM", 'I', "ingotMagicalAlloy", 'M', ModItems.MAGIC_MIRROR));
+        registerCrafting(registry, shaped(1, ModItems.DIMENSIONAL_MAGIC_MIRROR, "IDI", "DMD", "IDI", 'D', "dustMagicNJARM", 'I', "ingotMagicalAlloy", 'M', ModItems.MAGIC_MIRROR));
         registerCrafting(registry, shaped(1, 0, ModItems.FOOD_CRATE, "###", "###", "###", '#', Items.WHEAT_SEEDS));
         registerCrafting(registry, shaped(1, 1, ModItems.FOOD_CRATE, "###", "###", "###", '#', Items.CARROT));
         registerCrafting(registry, shaped(1, 2, ModItems.FOOD_CRATE, "###", "###", "###", '#', Items.POTATO));
@@ -74,7 +84,15 @@ public final class ModRecipes
         registerCrafting(registry, shaped(1, 12, ModItems.FOOD_CRATE, "###", "###", "###", '#', new ItemStack(Items.FISH, 1, 3)));
         registerCrafting(registry, shaped(1, Blocks.ICE, "###", "###", "###", '#', ModItems.ICE_MUSHROOM));
         registerCrafting(registry, shaped(1, ModItems.OBSIDIAN_BLOCK, "###", "###", "###", '#', "ingotObsidianAlloy"));
+        registerCrafting(registry, shaped(1, ModItems.MAGIC_BLOCK, "###", "###", "###", '#', "ingotMagicalAlloy"));
+        registerCrafting(registry, shaped(1, ModItems.MAGIC_INGOT, "###", "###", "###", '#', "nuggetMagicalAlloy"));
+        registerCrafting(registry, shaped(2, ModItems.MAGIC_MIRROR, "MPM", "PDP", "MPM", 'M', "dustMagicNJARM", 'P', "ingotPlatinum", 'D', "dustMica"));
+        registerCrafting(registry, shaped(2, ModItems.MAGIC_MIRROR, "PMP", "MDM", "PMP", 'M', "dustMagicNJARM", 'P', "ingotPlatinum", 'D', "dustMica"));
         registerCrafting(registry, shaped(1, ModItems.NETHER_REACTOR_CORE, "IDI", "IDI", "IDI", 'I', "ingotIron", 'D', "gemDiamond"));
+        registerCrafting(registry, shaped(1, ModItems.NETHERITE_BLOCK, "###", "###", "###", '#', "ingotNetherite"));
+        registerCrafting(registry, shaped(1, ModItems.NETHERITE_INGOT, "###", "###", "###", '#', "nuggetNetherite"));
+        registerCrafting(registry, shaped(1, ModItems.PLATINUM_BLOCK, "###", "###", "###", '#', "ingotPlatinum"));
+        registerCrafting(registry, shaped(1, ModItems.PLATINUM_INGOT, "###", "###", "###", '#', "nuggetPlatinum"));
         registerCrafting(registry, shaped(4, ModItems.POLISHED_BASALT, "##", "##", '#', ModItems.BASALT));
         registerCrafting(registry, shaped(4, ModItems.POLISHED_BLACKSTONE, "##", "##", '#', ModItems.BLACKSTONE));
         registerCrafting(registry, shaped(1, ModItems.RUBY_AXE, "##", "#S", " S", '#', "gemRuby", 'S', "stickWood"));
@@ -87,15 +105,19 @@ public final class ModRecipes
         registerCrafting(registry, shaped(1, Blocks.SNOW_LAYER, "##", '#', Items.SNOWBALL));
     }
 
-    private static void registerCrafting(@Nonnull IForgeRegistry<IRecipe> registry, @Nonnull IRecipe recipe) {
+    static void registerCrafting(@Nonnull IForgeRegistry<IRecipe> registry, @Nonnull IRecipe recipe) {
         registry.register(recipe.setRegistryName(generateName(registry, recipe instanceof IShapedRecipe
                 ? "shaped" : "shapeless", recipe.getRecipeOutput())));
     }
 
-    private static void registerSmelting() {
+    static void registerSmelting() {
         GameRegistry.addSmelting(Items.APPLE, new ItemStack(ModItems.BAKED_APPLE), 0.35f);
         GameRegistry.addSmelting(ModItems.BLACKSTONE_BRICKS, new ItemStack(ModItems.BLACKSTONE_CRACKED), 0.1f);
+        GameRegistry.addSmelting(Items.EGG, new ItemStack(ModItems.COOKED_EGG), 0.1f);
+        GameRegistry.addSmelting(ModItems.RAW_EGG, new ItemStack(ModItems.FRIED_EGG), 0.1f);
         GameRegistry.addSmelting(ModItems.MAGIC_ORE, new ItemStack(ModItems.MAGIC_DUST), 0.7f);
+        GameRegistry.addSmelting(ModBlocks.MICA_ORE, new ItemStack(ModItems.MICA_DUST), 0.3f);
+        GameRegistry.addSmelting(ModItems.ANCIENT_DEBRIS, new ItemStack(ModItems.NETHERITE_SCRAP), 2);
         GameRegistry.addSmelting(Blocks.OBSIDIAN, new ItemStack(ModItems.OBSIDIAN_GLASS), 0.1f);
         GameRegistry.addSmelting(ModItems.RUBY_ORE, new ItemStack(ModItems.RUBY), 1);
         GameRegistry.addSmelting(ModItems.SAPPHIRE_ORE, new ItemStack(ModItems.SAPPHIRE), 1);
@@ -108,34 +130,33 @@ public final class ModRecipes
     }
 
     //constructs a new shapeless recipe
-    @Nonnull private static IRecipe shapeless(int amount, @Nonnull Item output, @Nonnull Object... recipe) { return shapeless(new ItemStack(output, amount), recipe); }
-    @Nonnull private static IRecipe shapeless(int amount, int meta, @Nonnull Item output, @Nonnull Object... recipe) { return shapeless(new ItemStack(output, amount, meta), recipe); }
-    @Nonnull private static IRecipe shapeless(int amount, @Nonnull Block output, @Nonnull Object... recipe) { return shapeless(new ItemStack(output, amount), recipe); }
-    @Nonnull private static IRecipe shapeless(int amount, int meta, @Nonnull Block output, @Nonnull Object... recipe) { return shapeless(new ItemStack(output, amount, meta), recipe); }
-    @Nonnull private static IRecipe shapeless(@Nonnull ItemStack output, @Nonnull Object... recipe) {
+    @Nonnull static IRecipe shapeless(int amount, @Nonnull Item output, @Nonnull Object... recipe) { return shapeless(new ItemStack(output, amount), recipe); }
+    @Nonnull static IRecipe shapeless(int amount, int meta, @Nonnull Item output, @Nonnull Object... recipe) { return shapeless(new ItemStack(output, amount, meta), recipe); }
+    @Nonnull static IRecipe shapeless(int amount, @Nonnull Block output, @Nonnull Object... recipe) { return shapeless(new ItemStack(output, amount), recipe); }
+    @Nonnull static IRecipe shapeless(int amount, int meta, @Nonnull Block output, @Nonnull Object... recipe) { return shapeless(new ItemStack(output, amount, meta), recipe); }
+    @Nonnull static IRecipe shapeless(@Nonnull ItemStack output, @Nonnull Object... recipe) {
         return new ShapelessOreRecipe(new ResourceLocation(Constants.MODID, Constants.NAME), output, recipe);
     }
 
     //constructs a new shaped recipe
-    @Nonnull private static IRecipe shaped(int amount, @Nonnull Item output, @Nonnull Object... recipe) { return shaped(new ItemStack(output, amount), recipe); }
-    @Nonnull private static IRecipe shaped(int amount, int meta, @Nonnull Item output, @Nonnull Object... recipe) { return shaped(new ItemStack(output, amount, meta), recipe); }
-    @Nonnull private static IRecipe shaped(int amount, @Nonnull Block output, @Nonnull Object... recipe) { return shaped(new ItemStack(output, amount), recipe); }
-    @Nonnull private static IRecipe shaped(int amount, int meta, @Nonnull Block output, @Nonnull Object... recipe) { return shaped(new ItemStack(output, amount, meta), recipe); }
-    @Nonnull private static IRecipe shaped(@Nonnull ItemStack output, @Nonnull Object... recipe) {
+    @Nonnull static IRecipe shaped(int amount, @Nonnull Item output, @Nonnull Object... recipe) { return shaped(new ItemStack(output, amount), recipe); }
+    @Nonnull static IRecipe shaped(int amount, int meta, @Nonnull Item output, @Nonnull Object... recipe) { return shaped(new ItemStack(output, amount, meta), recipe); }
+    @Nonnull static IRecipe shaped(int amount, @Nonnull Block output, @Nonnull Object... recipe) { return shaped(new ItemStack(output, amount), recipe); }
+    @Nonnull static IRecipe shaped(int amount, int meta, @Nonnull Block output, @Nonnull Object... recipe) { return shaped(new ItemStack(output, amount, meta), recipe); }
+    @Nonnull static IRecipe shaped(@Nonnull ItemStack output, @Nonnull Object... recipe) {
         return new ShapedOreRecipe(new ResourceLocation(Constants.MODID, Constants.NAME), output, recipe);
     }
 
     //generates an unused name for a crafting recipe
     @Nonnull
     public static ResourceLocation generateName(@Nonnull IForgeRegistry<IRecipe> registry, @Nonnull String postfix, @Nonnull ItemStack output) {
-        String name = output.getTranslationKey() + '.' + postfix + '.';
+        final String baseRecipeID = output.getTranslationKey() + '.' + postfix + '.';
 
         //resolves duplicate registry names
         int i = 1;
-        do i++;
-        while(registry.containsKey(new ResourceLocation(Constants.MODID, name + i)));
+        while(registry.containsKey(new ResourceLocation(Constants.MODID, baseRecipeID + i))) i++;
 
         //returns an unused name
-        return new ResourceLocation(Constants.MODID, name + i);
+        return new ResourceLocation(Constants.MODID, baseRecipeID + i);
     }
 }

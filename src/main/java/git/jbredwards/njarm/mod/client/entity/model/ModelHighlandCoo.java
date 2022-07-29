@@ -16,25 +16,48 @@ import javax.annotation.Nonnull;
  *
  */
 @SideOnly(Side.CLIENT)
-public class ModelHighlandCoo extends ModelQuadruped
+public abstract class ModelHighlandCoo extends ModelQuadruped
 {
-    public ModelHighlandCoo() {
-        super(12, 0);
-        
-        head = new ModelRenderer(this, 0, 0);
-        head.addBox(-4, -4, -6, 8, 8, 6, 0);
-        head.setRotationPoint(0, 4, -8);
-        head.setTextureOffset(22, 0).addBox(-9, -4, -4, 5, 1, 1, 0);
-        head.setTextureOffset(34, 0).addBox(4, -4, -4, 5, 1, 1, 0);
-        head.setTextureOffset(46, 0).addBox(-9, -7, -4, 1, 3, 1, 0);
-        head.setTextureOffset(46, 0).addBox(8, -7, -4, 1, 3, 1, 0);
-        head.setTextureOffset(0, 0).addBox(-5.5f, -4, -4, 1, 1, 1, 0);
-        head.setTextureOffset(0, 0).addBox(4.5f, -4, -4, 1, 1, 1, 0);
+    public static class Base extends ModelHighlandCoo
+    {
+        public Base() {
+            head = new ModelRenderer(this, 0, 0);
+            head.addBox(-4, -4, -6, 8, 8, 6, 0);
+            head.setRotationPoint(0, 4, -8);
+            head.setTextureOffset(22, 0).addBox(-9, -4, -4, 5, 1, 1, 0);
+            head.setTextureOffset(34, 0).addBox(4, -4, -4, 5, 1, 1, 0);
+            head.setTextureOffset(46, 0).addBox(-9, -7, -4, 1, 3, 1, 0);
+            head.setTextureOffset(46, 0).addBox(8, -7, -4, 1, 3, 1, 0);
+            head.setTextureOffset(0, 0).addBox(-5.5f, -4, -4, 1, 1, 1, 0);
+            head.setTextureOffset(0, 0).addBox(4.5f, -4, -4, 1, 1, 1, 0);
 
-        body = new ModelRenderer(this, 18, 4);
-        body.addBox(-6, -10, -7, 12, 18, 10, 0);
-        body.setRotationPoint(0, 5, 2);
-        body.setTextureOffset(52, 0).addBox(-2, 2, -8, 4, 6, 1);
+            body = new ModelRenderer(this, 18, 4);
+            body.addBox(-6, -10, -7, 12, 18, 10, 0);
+            body.setRotationPoint(0, 5, 2);
+            body.setTextureOffset(52, 0).addBox(-2, 2, -8, 4, 6, 1);
+        }
+    }
+
+    public static class Wool extends ModelHighlandCoo
+    {
+        public Wool() {
+            head = new ModelRenderer(this, 0, 0);
+            head.addBox(-4.5f, -4.5f, -6.5f, 9, 9, 7, 0);
+            head.setRotationPoint(0, 4, -8);
+
+            body = new ModelRenderer(this, 18, 8);
+            body.addBox(-6.5f, -10.5f, -11.5f, 13, 19, 15, 0);
+            body.setRotationPoint(0, 5, 2);
+
+            leg1.isHidden = true;
+            leg2.isHidden = true;
+            leg3.isHidden = true;
+            leg4.isHidden = true;
+        }
+    }
+
+    protected ModelHighlandCoo() {
+        super(12, 0);
 
         --leg1.rotationPointX;
         ++leg2.rotationPointX;
@@ -49,8 +72,12 @@ public class ModelHighlandCoo extends ModelQuadruped
     @Override
     public void setLivingAnimations(@Nonnull EntityLivingBase entity, float limbSwing, float limbSwingAmount, float partialTickTime) {
         super.setLivingAnimations(entity, limbSwing, limbSwingAmount, partialTickTime);
-        head.rotationPointY = ((EntityHighlandCoo)entity).getHeadRotationPointY(partialTickTime);
         head.rotateAngleX = ((EntityHighlandCoo)entity).getHeadRotationAngleX(partialTickTime);
+        head.rotationPointY = ((EntityHighlandCoo)entity).getHeadRotationPointY(partialTickTime)
+                * (entity.isChild() ? 8 : 10) + 4;
+
+        if(head.rotationPointY == 4) head.rotateAngleZ = ((EntityHighlandCoo)entity).getShakeAngle(partialTickTime, 0);
+        body.rotateAngleZ = ((EntityHighlandCoo)entity).getShakeAngle(partialTickTime, -0.08f) / 5;
     }
 
     @Override

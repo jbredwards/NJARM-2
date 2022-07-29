@@ -88,6 +88,7 @@ public final class ModItems
     @Nonnull public static final ItemFood FRIED_EGG = register("fried_egg", new ItemFood(6, 7.2f, true));
     @Nonnull public static final ItemFood COOKED_EGG = register("cooked_egg", new ItemFood(6, 7.2f, true));
     @Nonnull public static final ItemThrowable CHARGED_SUNSTONE = register("charged_sunstone", new ItemThrowable(EntityChargedSunstone::new, EntityChargedSunstone::new));
+    @Nonnull public static final Item MICA_DUST = register("mica_dust", new Item());
 
     //armor
 
@@ -100,7 +101,7 @@ public final class ModItems
 
     //register ores
     public static void registerOres() {
-        OreDictionary.registerOre("blockMagicAlloy", MAGIC_BLOCK);
+        OreDictionary.registerOre("blockMagicalAlloy", MAGIC_BLOCK);
         OreDictionary.registerOre("blockNetherite", NETHERITE_BLOCK);
         OreDictionary.registerOre("blockObsidianAlloy", OBSIDIAN_BLOCK);
         OreDictionary.registerOre("blockPlatinum", PLATINUM_BLOCK);
@@ -108,16 +109,24 @@ public final class ModItems
         OreDictionary.registerOre("blockSapphire", SAPPHIRE_BLOCK);
         OreDictionary.registerOre("cobblestone", BLACKSTONE);
         OreDictionary.registerOre("dustMagicNJARM", MAGIC_DUST);
+        OreDictionary.registerOre("dustMica", MICA_DUST);
         OreDictionary.registerOre("gemRuby", RUBY);
         OreDictionary.registerOre("gemSapphire", SAPPHIRE);
         OreDictionary.registerOre("gemSunstone", SUNSTONE);
-        OreDictionary.registerOre("glass", OBSIDIAN_GLASS);
+        OreDictionary.registerOre("blockGlass", OBSIDIAN_GLASS);
+        OreDictionary.registerOre("blockGlassColorless", OBSIDIAN_GLASS);
+        OreDictionary.registerOre("ingotMagicalAlloy", MAGIC_INGOT);
         OreDictionary.registerOre("ingotObsidianAlloy", OBSIDIAN_INGOT);
+        OreDictionary.registerOre("ingotPlatinum", PLATINUM_INGOT);
+        OreDictionary.registerOre("nuggetMagicalAlloy", MAGIC_NUGGET);
+        OreDictionary.registerOre("nuggetNetherite", NETHERITE_NUGGET);
+        OreDictionary.registerOre("nuggetPlatinum", PLATINUM_NUGGET);
         OreDictionary.registerOre("oreAncientDebris", ANCIENT_DEBRIS);
         OreDictionary.registerOre("oreMagicNJARM", MAGIC_ORE);
         OreDictionary.registerOre("oreMica", MICA_ORE);
         OreDictionary.registerOre("oreRuby", RUBY_ORE);
         OreDictionary.registerOre("oreSapphire", SAPPHIRE_ORE);
+        OreDictionary.registerOre("scrapAncientDebris", NETHERITE_SCRAP);
     }
 
     //register item
