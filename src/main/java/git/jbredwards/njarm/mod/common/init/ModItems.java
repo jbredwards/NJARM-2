@@ -2,6 +2,7 @@ package git.jbredwards.njarm.mod.common.init;
 
 import git.jbredwards.njarm.mod.Constants;
 import git.jbredwards.njarm.mod.common.block.BlockFoodCrate;
+import git.jbredwards.njarm.mod.common.config.item.ChargedSunstoneConfig;
 import git.jbredwards.njarm.mod.common.config.item.EquipmentConfig;
 import git.jbredwards.njarm.mod.common.entity.item.EntityChargedSunstone;
 import git.jbredwards.njarm.mod.common.item.*;
@@ -87,8 +88,9 @@ public final class ModItems
     @Nonnull public static final ItemFood RAW_EGG = register("raw_egg", new ItemFood(2, 1.2f, true), item -> item.setPotionEffect(new PotionEffect(MobEffects.NAUSEA, 600, 1), 0.3f));
     @Nonnull public static final ItemFood FRIED_EGG = register("fried_egg", new ItemFood(6, 7.2f, true));
     @Nonnull public static final ItemFood COOKED_EGG = register("cooked_egg", new ItemFood(6, 7.2f, true));
-    @Nonnull public static final ItemThrowable CHARGED_SUNSTONE = register("charged_sunstone", new ItemThrowable(EntityChargedSunstone::new, EntityChargedSunstone::new));
+    @Nonnull public static final ItemThrowable CHARGED_SUNSTONE = register("charged_sunstone", new ItemThrowable(EntityChargedSunstone::new, ChargedSunstoneConfig::canThrow, EntityChargedSunstone::new, ChargedSunstoneConfig::canDispense));
     @Nonnull public static final Item MICA_DUST = register("mica_dust", new Item());
+    @Nonnull public static final ItemBonusHeart BONUS_HEART = register("bonus_heart", new ItemBonusHeart());
 
     //armor
 

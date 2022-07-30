@@ -3,6 +3,7 @@ package git.jbredwards.njarm.mod.common.capability;
 import git.jbredwards.njarm.mod.Constants;
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NBTBase;
+import net.minecraft.nbt.NBTPrimitive;
 import net.minecraft.nbt.NBTTagByte;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
@@ -65,7 +66,7 @@ public interface IBubbleColumn
 
         @Override
         public void readNBT(@Nonnull Capability<IBubbleColumn> capability, @Nonnull IBubbleColumn instance, @Nullable EnumFacing side, @Nonnull NBTBase nbt) {
-            instance.setInBubbleColumn(((NBTTagByte)nbt).getByte() == 1);
+            instance.setInBubbleColumn(((NBTPrimitive)nbt).getByte() == 1);
         }
     }
 }

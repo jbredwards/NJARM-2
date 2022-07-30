@@ -59,6 +59,7 @@ public final class ModRecipes
         registerCrafting(registry, shapeless(9, ModItems.PLATINUM_NUGGET, ModItems.PLATINUM_INGOT));
         registerCrafting(registry, shapeless(9, Items.POISONOUS_POTATO, new ItemStack(ModItems.FOOD_CRATE, 1, 3)));
         registerCrafting(registry, shapeless(9, Items.POTATO, new ItemStack(ModItems.FOOD_CRATE, 1, 2)));
+        registerCrafting(registry, shapeless(1, ModItems.RAW_EGG, Items.EGG));
         registerCrafting(registry, shapeless(9, ModItems.RUBY, ModItems.RUBY_BLOCK));
         registerCrafting(registry, shapeless(9, ModItems.SAPPHIRE, ModItems.SAPPHIRE_BLOCK));
         registerCrafting(registry, shapeless(4, Items.SNOWBALL, Blocks.SNOW));

@@ -1,5 +1,6 @@
 package git.jbredwards.njarm.mod.common.item;
 
+import git.jbredwards.njarm.mod.common.util.ChatUtils;
 import git.jbredwards.njarm.mod.common.util.SoundUtils;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -63,7 +64,7 @@ public class ItemMagicMirror extends Item
         final int dimToWarp = player.getSpawnDimension();
         final boolean changedDims = world.provider.getDimension() != dimToWarp;
 
-        if((mirrorType & DIMENSIONAL) != 0 || !changedDims) {
+        if(ChatUtils.getOrError(player, (mirrorType & DIMENSIONAL) != 0 || !changedDims, "err.njarm.magicMirror.wrongDimension")) {
             final World newWorld = changedDims ? DimensionManager.getWorld(dimToWarp) : world;
 
             @Nullable BlockPos bedPos = player.getBedLocation(dimToWarp);
@@ -98,7 +99,6 @@ public class ItemMagicMirror extends Item
             }
         }
 
-        else player.sendMessage(new TextComponentTranslation("err.njarm.magicMirror.wrongDimension"));
         return false;
     }
 

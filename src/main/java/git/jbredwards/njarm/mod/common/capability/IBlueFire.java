@@ -1,8 +1,12 @@
 package git.jbredwards.njarm.mod.common.capability;
 
 import git.jbredwards.njarm.mod.Constants;
+import git.jbredwards.njarm.mod.Main;
+import git.jbredwards.njarm.mod.common.message.MessageBlueFire;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTBase;
+import net.minecraft.nbt.NBTPrimitive;
 import net.minecraft.nbt.NBTTagInt;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
@@ -12,6 +16,7 @@ import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -42,6 +47,15 @@ public interface IBlueFire
         event.addCapability(new ResourceLocation(Constants.MODID, "blue_fire"), new CapabilityProvider<>(CAPABILITY));
     }
 
+    @SubscribeEvent
+    static void sync(@Nonnull PlayerEvent.PlayerChangedDimensionEvent event) {
+        if(event.player instanceof EntityPlayerMP) {
+            final @Nullable IBlueFire cap = get(event.player);
+            if(cap != null && cap.getRemaining() > 0) Main.wrapper.sendTo(
+                    new MessageBlueFire(event.player.getEntityId(), true), (EntityPlayerMP)event.player);
+        }
+    }
+
     class Impl implements IBlueFire
     {
         protected int remaining;
@@ -65,7 +79,7 @@ public interface IBlueFire
 
         @Override
         public void readNBT(@Nonnull Capability<IBlueFire> capability, @Nonnull IBlueFire instance, @Nullable EnumFacing side, @Nonnull NBTBase nbt) {
-            instance.setRemaining(((NBTTagInt)nbt).getInt());
+            instance.setRemaining(((NBTPrimitive)nbt).getInt());
         }
     }
 }

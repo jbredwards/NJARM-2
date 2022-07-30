@@ -111,12 +111,13 @@ public final class ConfigHandler
 
     @Config.LangKey("config.njarm.cfg.entity")
     @Nonnull public static final EntityConfig entityCfg = register(new EntityConfig(
-            new HighlandCooConfig(80, 3, true, 10, 1, 5, new String[] {"{BiomeTags:[\"plains\"]}"}, true, false)
+            new HighlandCooConfig(10, 1, 5, "{BiomeTags:[\"plains\"]}", true, false)
     ));
 
     @Config.LangKey("config.njarm.cfg.item")
     @Nonnull public static final ItemConfig itemCfg = register(new ItemConfig(
-            new ChargedSunstoneConfig(true, true, false, true),
+            new BonusHeartConfig(2, true, true),
+            new ChargedSunstoneConfig(true, true, false, true, true, true, 3),
             new EggShellsConfig(true, 0, 100, new String[] {"minecraft:egg"}, new String[] {"minecraft:egg", "njarm:cooked_egg"}),
             new EquipmentConfig(
                     "{HarvestLevel:4,Durability:3122,MiningSpeed:8.0f,AttackDamage:3.0f,Enchantability:10}"

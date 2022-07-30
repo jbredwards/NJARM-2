@@ -79,7 +79,8 @@ public final class NetherCoreConfig implements IConfig
                 ConfigHandler.blockCfg.netherCoreCfg.items, true, world.getLootTableManager());
 
         if(itemLoot == null) itemLoot = LootTable.EMPTY_LOOT_TABLE;
-        return itemLoot.generateLootForPools(world.rand, new LootContext.Builder(null).build());
+        return itemLoot.generateLootForPools(world.rand,
+                new LootContext(0, null, world.getLootTableManager(), null, null, null));
     }
 
     @Override

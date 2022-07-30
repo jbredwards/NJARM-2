@@ -17,6 +17,9 @@ public final class ItemConfig implements IConfig
     @Nonnull
     private final NonNullList<IConfig> CONFIGS = NonNullList.create();
 
+    @Config.LangKey("config.njarm.core.item.bonusHeart")
+    @Nonnull public final BonusHeartConfig bonusHeartCfg;
+
     @Config.LangKey("config.njarm.core.item.chargedSunstone")
     @Nonnull public final ChargedSunstoneConfig chargedSunstoneCfg;
 
@@ -42,7 +45,8 @@ public final class ItemConfig implements IConfig
     public void onFMLInit() { CONFIGS.forEach(IConfig::onFMLInit); }
 
     //needed for gson
-    public ItemConfig(@Nonnull ChargedSunstoneConfig chargedSunstoneCfg, @Nonnull EggShellsConfig eggShellCfg, @Nonnull EquipmentConfig equipmentCfg) {
+    public ItemConfig(@Nonnull BonusHeartConfig bonusHeartCfg, @Nonnull ChargedSunstoneConfig chargedSunstoneCfg, @Nonnull EggShellsConfig eggShellCfg, @Nonnull EquipmentConfig equipmentCfg) {
+        this.bonusHeartCfg = register(bonusHeartCfg);
         this.chargedSunstoneCfg = register(chargedSunstoneCfg);
         this.eggShellCfg = register(eggShellCfg);
         this.equipmentCfg = register(equipmentCfg);

@@ -11,9 +11,13 @@ import net.minecraftforge.common.config.Config;
  */
 public final class ChargedSunstoneConfig implements IConfig
 {
-    @Config.LangKey("config.njarm.item.chargedSunstone.lightning")
-    public final boolean lightning;
-    public static boolean lightning() { return ConfigHandler.itemCfg.chargedSunstoneCfg.lightning; }
+    @Config.LangKey("config.njarm.item.chargedSunstone.canDispense")
+    public final boolean canDispense;
+    public static boolean canDispense() { return ConfigHandler.itemCfg.chargedSunstoneCfg.canDispense; }
+
+    @Config.LangKey("config.njarm.item.chargedSunstone.canThrow")
+    public final boolean canThrow;
+    public static boolean canThrow() { return ConfigHandler.itemCfg.chargedSunstoneCfg.canThrow; }
 
     @Config.LangKey("config.njarm.item.chargedSunstone.explode")
     public final boolean explode;
@@ -27,11 +31,22 @@ public final class ChargedSunstoneConfig implements IConfig
     public final boolean explodeFire;
     public static boolean explodeFire() { return ConfigHandler.itemCfg.chargedSunstoneCfg.explodeFire; }
 
+    @Config.LangKey("config.njarm.item.chargedSunstone.explodeStrength")
+    public final float explodeStrength;
+    public static float explodeStrength() { return ConfigHandler.itemCfg.chargedSunstoneCfg.explodeStrength; }
+
+    @Config.LangKey("config.njarm.item.chargedSunstone.lightning")
+    public final boolean lightning;
+    public static boolean lightning() { return ConfigHandler.itemCfg.chargedSunstoneCfg.lightning; }
+
     //needed for gson
-    public ChargedSunstoneConfig(boolean lightning, boolean explode, boolean explodeDmg, boolean explodeFire) {
+    public ChargedSunstoneConfig(boolean lightning, boolean explode, boolean explodeDmg, boolean explodeFire, boolean canThrow, boolean canDispense, float explodeStrength) {
         this.lightning = lightning;
         this.explode = explode;
         this.explodeDmg = explodeDmg;
         this.explodeFire = explodeFire;
+        this.canThrow = canThrow;
+        this.canDispense = canDispense;
+        this.explodeStrength = explodeStrength;
     }
 }

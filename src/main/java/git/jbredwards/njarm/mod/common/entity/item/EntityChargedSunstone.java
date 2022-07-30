@@ -34,7 +34,7 @@ public class EntityChargedSunstone extends EntityThrowable
             }
 
             if(ChargedSunstoneConfig.explode()) {
-                world.newExplosion(this, x + 0.5, y + 0.5, z + 0.5, 3,
+                world.newExplosion(this, x + 0.5, y + 0.5, z + 0.5, ChargedSunstoneConfig.explodeStrength(),
                         ChargedSunstoneConfig.explodeFire(), ChargedSunstoneConfig.explodeDmg());
 
                 SoundUtils.playSound(world, x, y, z, ModSounds.ELECTRIC_EXPLOSION, SoundCategory.WEATHER, 4.1f,

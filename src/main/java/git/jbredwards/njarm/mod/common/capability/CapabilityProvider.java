@@ -9,7 +9,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 /**
- *
+ * A general purpose capability provider class
  * @author jbred
  *
  */
@@ -19,7 +19,12 @@ public final class CapabilityProvider<T> implements ICapabilitySerializable<NBTB
     @Nullable final T instance;
 
     public CapabilityProvider(@Nonnull Capability<T> capabilityIn) {
-        capability = capabilityIn; instance = capability.getDefaultInstance();
+        this(capabilityIn, capabilityIn.getDefaultInstance());
+    }
+
+    public CapabilityProvider(@Nonnull Capability<T> capabilityIn, @Nullable T instanceIn) {
+        capability = capabilityIn;
+        instance = instanceIn;
     }
 
     @Override

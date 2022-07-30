@@ -37,6 +37,8 @@ import net.minecraftforge.fml.relauncher.Side;
 
 import javax.annotation.Nonnull;
 
+import java.util.concurrent.Callable;
+
 import static git.jbredwards.njarm.mod.Constants.*;
 
 /**
@@ -75,6 +77,7 @@ public final class Main
             //register capabilities
             CapabilityManager.INSTANCE.register(IBlueFire.class, IBlueFire.Storage.INSTANCE, IBlueFire.Impl::new);
             CapabilityManager.INSTANCE.register(IBubbleColumn.class, IBubbleColumn.Storage.INSTANCE, IBubbleColumn.Impl::new);
+            CapabilityManager.INSTANCE.register(IBonusHealth.class, IBonusHealth.Storage.INSTANCE, IBonusHealth.NONE);
             //register packets
             wrapper = NetworkRegistry.INSTANCE.newSimpleChannel(MODID);
             wrapper.registerMessage(MessageBlueFire.Handler.INSTANCE, MessageBlueFire.class, 1, Side.CLIENT);
