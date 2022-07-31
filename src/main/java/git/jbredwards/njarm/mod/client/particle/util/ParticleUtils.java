@@ -25,11 +25,11 @@ public final class ParticleUtils
     //spawns redstone-like particles at the position
     public static void spawnRedstoneParticles(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull TriConsumer<Double, Double, Double> generator) {
         for(EnumFacing facing : EnumFacing.values()) {
-            double x = pos.getX() + world.rand.nextFloat();
-            double y = pos.getY() + world.rand.nextFloat();
-            double z = pos.getZ() + world.rand.nextFloat();
             //spawns the particles
             if(!world.getBlockState(pos.offset(facing)).isOpaqueCube()) {
+                double x = pos.getX() + world.rand.nextFloat();
+                double y = pos.getY() + world.rand.nextFloat();
+                double z = pos.getZ() + world.rand.nextFloat();
                 if(facing.getXOffset() != 0) x = pos.getX() + (facing.getXOffset() == 1 ? 1.0625 : -0.0625);
                 if(facing.getYOffset() != 0) y = pos.getY() + (facing.getYOffset() == 1 ? 1.0625 : -0.0625);
                 if(facing.getZOffset() != 0) z = pos.getZ() + (facing.getZOffset() == 1 ? 1.0625 : -0.0625);

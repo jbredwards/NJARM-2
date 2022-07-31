@@ -4,9 +4,9 @@ import git.jbredwards.njarm.mod.Main;
 import git.jbredwards.njarm.mod.client.particle.util.ParticleProviders;
 import git.jbredwards.njarm.mod.client.particle.util.ParticleUtils;
 import git.jbredwards.njarm.mod.common.config.ConfigHandler;
+import git.jbredwards.njarm.mod.common.config.block.MagicOreConfig;
 import git.jbredwards.njarm.mod.common.init.ModBlocks;
 import git.jbredwards.njarm.mod.common.init.ModItems;
-import net.minecraft.block.Block;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -20,6 +20,7 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
@@ -102,8 +103,11 @@ public class BlockMagicOre extends BlockOre
 
     @SideOnly(Side.CLIENT)
     protected void spawnParticles(@Nonnull World world, @Nonnull BlockPos pos) {
-        ParticleUtils.spawnRedstoneParticles(world, pos, (x, y, z) -> ParticleProviders.LIT_REDSTONE
-                .spawnClient(world, x, y, z, 252f/255, 157f/255, 250f/255));
+        ParticleUtils.spawnRedstoneParticles(world, pos, (x, y, z) -> {
+            if(MagicOreConfig.emissive())
+                ParticleProviders.LIT_REDSTONE.spawnClient(world, x, y, z, 252f/255, 157f/255, 250f/255);
+            else world.spawnParticle(EnumParticleTypes.REDSTONE, x, y, z, 252f/255, 157f/255, 250f/255);
+        });
     }
 
     @SideOnly(Side.CLIENT)
@@ -119,26 +123,26 @@ public class BlockMagicOre extends BlockOre
     @Override
     public boolean addLandingEffects(@Nonnull IBlockState state, @Nonnull WorldServer world, @Nonnull BlockPos pos, @Nonnull IBlockState iblockstate, @Nonnull EntityLivingBase entity, int numberOfParticles) {
         //don't check for isLit here, since the block is instantly converted to its lit version
-        return ParticleUtils.addLandingEffects(world, entity, numberOfParticles, ParticleProviders.MAGIC_ORE_BLOCK_DUST, Block.getStateId(getLit()), -1, 240);
+        return isLit && MagicOreConfig.emissive() && ParticleUtils.addLandingEffects(world, entity, numberOfParticles, ParticleProviders.MAGIC_ORE_BLOCK_DUST, getStateId(state), -1, 240);
     }
 
     @Override
     public boolean addRunningEffects(@Nonnull IBlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull Entity entity) {
         //don't check for isLit here, since the block is instantly converted to its lit version
-        return ParticleUtils.addRunningParticles(world, entity, ParticleProviders.MAGIC_ORE_DIGGING, Block.getStateId(getLit()), -1, 240);
+        return isLit && MagicOreConfig.emissive() && ParticleUtils.addRunningParticles(world, entity, ParticleProviders.MAGIC_ORE_DIGGING, getStateId(state), -1, 240);
     }
 
     @SideOnly(Side.CLIENT)
     @Override
     public boolean addHitEffects(@Nonnull IBlockState state, @Nonnull World world, @Nonnull RayTraceResult target, @Nonnull ParticleManager manager) {
         //don't check for isLit here, since the block is instantly converted to its lit version
-        return ParticleUtils.addHitEffects(state, world, target, manager, ParticleProviders.MAGIC_ORE_DIGGING, Block.getStateId(getLit()), -1, 240);
+        return isLit && MagicOreConfig.emissive() && ParticleUtils.addHitEffects(state, world, target, manager, ParticleProviders.MAGIC_ORE_DIGGING, getStateId(state), -1, 240);
     }
 
     @SideOnly(Side.CLIENT)
     @Override
     public boolean addDestroyEffects(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull ParticleManager manager) {
-        return isLit && ParticleUtils.addDestroyEffects(world, pos, manager, ParticleProviders.MAGIC_ORE_DIGGING, Block.getStateId(getDefaultState()), -1, 240);
+        return isLit && MagicOreConfig.emissive() && ParticleUtils.addDestroyEffects(world, pos, manager, ParticleProviders.MAGIC_ORE_DIGGING, getStateId(getDefaultState()), -1, 240);
     }
 
     //========================================
@@ -148,16 +152,19 @@ public class BlockMagicOre extends BlockOre
     @SideOnly(Side.CLIENT)
     @Override
     public int getPackedLightmapCoords(@Nonnull IBlockState state, @Nonnull IBlockAccess source, @Nonnull BlockPos pos) {
-        return isLit && Main.proxy.getLightForGlowingOre() ? 240 : super.getPackedLightmapCoords(state, source, pos);
+        return isLit && MagicOreConfig.emissive() && Main.proxy.getLightForGlowingOre()
+                ? 240 : super.getPackedLightmapCoords(state, source, pos);
     }
 
     @Override
     public int getLightValue(@Nonnull IBlockState state) {
-        return isLit && Main.proxy.getLightForGlowingOre() ? 1 : 0;
+        if(!isLit) return 0;
+        else if(!MagicOreConfig.emissive()) return 9;
+        return Main.proxy.getLightForGlowingOre() ? 1 : 0;
     }
 
     @Override
     public boolean canRenderInLayer(@Nonnull IBlockState state, @Nonnull BlockRenderLayer layer) {
-        return layer == BlockRenderLayer.SOLID || isLit && layer == BlockRenderLayer.CUTOUT;
+        return layer == BlockRenderLayer.SOLID || isLit && MagicOreConfig.emissive() && layer == BlockRenderLayer.CUTOUT;
     }
 }

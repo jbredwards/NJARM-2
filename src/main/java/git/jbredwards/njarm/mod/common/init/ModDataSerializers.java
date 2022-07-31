@@ -19,7 +19,7 @@ public final class ModDataSerializers
     @Nonnull public static final NonNullList<DataSerializerEntry> INIT = NonNullList.create();
 
     @Nonnull public static final DataSerializerEnum<EnumDyeColor> DYE_COLOR = register("dye_color",
-            new DataSerializerEnum<>(EnumDyeColor::values));
+            new DataSerializerEnum<>(EnumDyeColor.class));
 
     @Nonnull
     static <T extends DataSerializer<?>> T register(@Nonnull String name, T serializer) {

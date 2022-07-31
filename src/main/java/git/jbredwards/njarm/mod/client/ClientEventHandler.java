@@ -53,11 +53,11 @@ public final class ClientEventHandler
     @SubscribeEvent
     public static void registerTextures(@Nonnull TextureStitchEvent.Pre event) {
         if(event.getMap() == Minecraft.getMinecraft().getTextureMapBlocks()) {
+            //ensure these sprites are always registered, as their use cases are hardcoded
             event.getMap().registerSprite(new ResourceLocation(Constants.MODID, "blocks/water_still"));
             event.getMap().registerSprite(new ResourceLocation(Constants.MODID, "blocks/water_flow"));
             event.getMap().registerSprite(new ResourceLocation(Constants.MODID, "blocks/water_overlay"));
             event.getMap().registerSprite(new ResourceLocation(Constants.MODID, "misc/underwater"));
-            //ensure these sprites are always registered, as their use cases are hardcoded
             event.getMap().registerSprite(new ResourceLocation(Constants.MODID, "blocks/blue_fire_layer_0"));
             event.getMap().registerSprite(new ResourceLocation(Constants.MODID, "blocks/blue_fire_layer_1"));
             event.getMap().registerSprite(new ResourceLocation(ParticlesConfig.getMagicOreParticle()));
