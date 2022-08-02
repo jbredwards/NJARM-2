@@ -56,7 +56,10 @@ public final class ModItems
     @Nonnull public static final ItemBlock MOSS = register("moss", new ItemBlock(ModBlocks.MOSS));
     @Nonnull public static final ItemBlock OBSIDIAN_BLOCK = register("obsidian_block", new ItemBlock(ModBlocks.OBSIDIAN_BLOCK));
     @Nonnull public static final ItemBlock OBSIDIAN_GLASS = register("obsidian_glass", new ItemBlock(ModBlocks.OBSIDIAN_GLASS));
+    @Nonnull public static final ItemBlock OBSIDIAN_GLASS_PANE = register("obsidian_glass_pane", new ItemBlock(ModBlocks.OBSIDIAN_GLASS_PANE));
     @Nonnull public static final ItemBlock MICA_ORE = register("mica_ore", new ItemBlock(ModBlocks.MICA_ORE));
+    @Nonnull public static final ItemBlock OVERGROWN_DIRT = register("overgrown_dirt", new ItemBlock(ModBlocks.OVERGROWN_DIRT));
+    @Nonnull public static final ItemBlock OVERGROWN_STONE = register("overgrown_stone", new ItemBlock(ModBlocks.OVERGROWN_STONE));
 
     //items
     @Nonnull public static final Item RUBY = register("ruby", new Item());
@@ -64,6 +67,7 @@ public final class ModItems
     @Nonnull public static final ItemEggShell EGG_SHELL = register("egg_shell", new ItemEggShell());
     @Nonnull public static final ItemGlint MAGIC_DUST = register("magic_dust", new ItemGlint());
     @Nonnull public static final Item OBSIDIAN_INGOT = register("obsidian_ingot", new Item());
+    @Nonnull public static final Item OBSIDIAN_NUGGET = register("obsidian_nugget", new Item());
     @Nonnull public static final Item CRUMBLING_BEDROCK = register("crumbling_bedrock", new Item());
     @Nonnull public static final Item SUNSTONE = register("sunstone", new Item());
     @Nonnull public static final ItemFood BAKED_APPLE = register("baked_apple", new ItemFood(8, 4.8f, false));
@@ -91,6 +95,7 @@ public final class ModItems
     @Nonnull public static final ItemThrowable CHARGED_SUNSTONE = register("charged_sunstone", new ItemThrowable(EntityChargedSunstone::new, ChargedSunstoneConfig::canThrow, EntityChargedSunstone::new, ChargedSunstoneConfig::canDispense));
     @Nonnull public static final Item MICA_DUST = register("mica_dust", new Item());
     @Nonnull public static final ItemBonusHeart BONUS_HEART = register("bonus_heart", new ItemBonusHeart());
+    @Nonnull public static final ItemRupee RUPEE = register("rupee", new ItemRupee());
 
     //armor
 
@@ -122,6 +127,7 @@ public final class ModItems
         OreDictionary.registerOre("ingotPlatinum", PLATINUM_INGOT);
         OreDictionary.registerOre("nuggetMagicalAlloy", MAGIC_NUGGET);
         OreDictionary.registerOre("nuggetNetherite", NETHERITE_NUGGET);
+        OreDictionary.registerOre("nuggetObsidianAlloy", OBSIDIAN_NUGGET);
         OreDictionary.registerOre("nuggetPlatinum", PLATINUM_NUGGET);
         OreDictionary.registerOre("oreAncientDebris", ANCIENT_DEBRIS);
         OreDictionary.registerOre("oreMagicNJARM", MAGIC_ORE);

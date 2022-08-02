@@ -14,6 +14,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.logging.log4j.util.TriConsumer;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  *
@@ -64,14 +65,14 @@ public final class ParticleUtils
         double z = pos.getZ() + world.rand.nextDouble() * (aabb.maxZ - aabb.minZ - 0.2) + 0.1 + aabb.minZ;
 
         if(side == EnumFacing.DOWN) y = pos.getY() + aabb.minY - 0.1;
-        if(side == EnumFacing.UP) y = pos.getY() + aabb.maxY + 0.1;
-        if(side == EnumFacing.NORTH) z = pos.getZ() + aabb.minZ - 0.1;
-        if(side == EnumFacing.SOUTH) z = pos.getZ() + aabb.maxZ + 0.1;
-        if(side == EnumFacing.WEST) x = pos.getX() + aabb.minX - 0.1;
-        if(side == EnumFacing.EAST) x = pos.getX() + aabb.maxX + 0.1;
+        else if(side == EnumFacing.UP) y = pos.getY() + aabb.maxY + 0.1;
+        else if(side == EnumFacing.NORTH) z = pos.getZ() + aabb.minZ - 0.1;
+        else if(side == EnumFacing.SOUTH) z = pos.getZ() + aabb.maxZ + 0.1;
+        else if(side == EnumFacing.WEST) x = pos.getX() + aabb.minX - 0.1;
+        else x = pos.getX() + aabb.maxX + 0.1; //east
 
-        final ParticleLayeredDigging particle = (ParticleLayeredDigging)provider.getParticle(world, x, y, z, 0, 0, 0, args);
-        manager.addEffect(particle.setBlockPos(pos).multiplyVelocity(0.2f).multipleParticleScaleBy(0.6f));
+        final @Nullable ParticleLayeredDigging particle = (ParticleLayeredDigging)provider.getParticle(world, x, y, z, 0, 0, 0, args);
+        if(particle != null) manager.addEffect(particle.setBlockPos(pos).multiplyVelocity(0.2f).multipleParticleScaleBy(0.6f));
 
         return true;
     }
@@ -85,8 +86,8 @@ public final class ParticleUtils
                     final double posY = (y + 0.5) / 4;
                     final double posZ = (z + 0.5) / 4;
 
-                    ParticleLayeredDigging particle = (ParticleLayeredDigging)provider.getParticle(world, pos.getX() + posX, pos.getY() + posY, pos.getZ() + posZ, posX - 0.5, posY - 0.5, posZ - 0.5, args);
-                    manager.addEffect(particle.setBlockPos(pos));
+                    final @Nullable ParticleLayeredDigging particle = (ParticleLayeredDigging)provider.getParticle(world, pos.getX() + posX, pos.getY() + posY, pos.getZ() + posZ, posX - 0.5, posY - 0.5, posZ - 0.5, args);
+                    if(particle != null) manager.addEffect(particle.setBlockPos(pos));
                 }
             }
         }

@@ -3,6 +3,7 @@ package git.jbredwards.njarm.mod.common.block;
 import git.jbredwards.njarm.mod.Main;
 import git.jbredwards.njarm.mod.client.particle.util.ParticleProviders;
 import git.jbredwards.njarm.mod.client.particle.util.ParticleUtils;
+import git.jbredwards.njarm.mod.common.block.util.IHasDestroyEffects;
 import git.jbredwards.njarm.mod.common.config.ConfigHandler;
 import git.jbredwards.njarm.mod.common.config.block.MagicOreConfig;
 import git.jbredwards.njarm.mod.common.init.ModBlocks;
@@ -37,7 +38,7 @@ import java.util.Random;
  * @author jbred
  *
  */
-public class BlockMagicOre extends BlockOre
+public class BlockMagicOre extends BlockOre implements IHasDestroyEffects
 {
     public final boolean isLit;
 
@@ -122,27 +123,24 @@ public class BlockMagicOre extends BlockOre
 
     @Override
     public boolean addLandingEffects(@Nonnull IBlockState state, @Nonnull WorldServer world, @Nonnull BlockPos pos, @Nonnull IBlockState iblockstate, @Nonnull EntityLivingBase entity, int numberOfParticles) {
-        //don't check for isLit here, since the block is instantly converted to its lit version
         return isLit && MagicOreConfig.emissive() && ParticleUtils.addLandingEffects(world, entity, numberOfParticles, ParticleProviders.MAGIC_ORE_BLOCK_DUST, getStateId(state), -1, 240);
     }
 
     @Override
     public boolean addRunningEffects(@Nonnull IBlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull Entity entity) {
-        //don't check for isLit here, since the block is instantly converted to its lit version
         return isLit && MagicOreConfig.emissive() && ParticleUtils.addRunningParticles(world, entity, ParticleProviders.MAGIC_ORE_DIGGING, getStateId(state), -1, 240);
     }
 
     @SideOnly(Side.CLIENT)
     @Override
     public boolean addHitEffects(@Nonnull IBlockState state, @Nonnull World world, @Nonnull RayTraceResult target, @Nonnull ParticleManager manager) {
-        //don't check for isLit here, since the block is instantly converted to its lit version
         return isLit && MagicOreConfig.emissive() && ParticleUtils.addHitEffects(state, world, target, manager, ParticleProviders.MAGIC_ORE_DIGGING, getStateId(state), -1, 240);
     }
 
     @SideOnly(Side.CLIENT)
     @Override
-    public boolean addDestroyEffects(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull ParticleManager manager) {
-        return isLit && MagicOreConfig.emissive() && ParticleUtils.addDestroyEffects(world, pos, manager, ParticleProviders.MAGIC_ORE_DIGGING, getStateId(getDefaultState()), -1, 240);
+    public boolean addDestroyEffects(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull ParticleManager manager, @Nonnull IBlockState state) {
+        return isLit && MagicOreConfig.emissive() && ParticleUtils.addDestroyEffects(world, pos, manager, ParticleProviders.MAGIC_ORE_DIGGING, getStateId(state), -1, 240);
     }
 
     //========================================

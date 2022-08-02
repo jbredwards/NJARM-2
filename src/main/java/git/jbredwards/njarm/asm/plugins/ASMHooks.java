@@ -4,6 +4,7 @@ import git.jbredwards.njarm.mod.common.block.BlockUndyingTotem;
 import git.jbredwards.njarm.mod.common.block.util.gravity.ICanFallThrough;
 import git.jbredwards.njarm.mod.common.block.util.gravity.IFancyFallingBlock;
 import git.jbredwards.njarm.mod.common.block.util.IHasWorldState;
+import git.jbredwards.njarm.mod.common.capability.IHorseCarrotTime;
 import git.jbredwards.njarm.mod.common.config.block.BlueFireConfig;
 import git.jbredwards.njarm.mod.common.config.client.RenderingConfig;
 import git.jbredwards.njarm.mod.common.init.ModBlocks;
@@ -18,17 +19,22 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.tileentity.TileEntityEndPortalRenderer;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.passive.AbstractHorse;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityEndPortal;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -51,6 +57,56 @@ import java.util.function.Supplier;
 @SuppressWarnings("unused")
 public final class ASMHooks
 {
+    //PluginAbstractHorse
+    public static boolean isHoldingCarrot(boolean skipCheck, @Nonnull AbstractHorse entity) {
+        if(skipCheck) return true;
+        else if(!entity.isTame()) return false;
+
+        final @Nullable Entity rider = entity.getControllingPassenger();
+        return rider instanceof EntityLivingBase
+                && (((EntityLivingBase)rider).getHeldItemMainhand().getItem() == Items.CARROT_ON_A_STICK
+                || ((EntityLivingBase)rider).getHeldItemOffhand().getItem() == Items.CARROT_ON_A_STICK);
+    }
+
+    //PluginAbstractHorse
+    public static float setForwardSpeed(float forward, @Nonnull AbstractHorse entity) {
+        if(isHoldingCarrot(false, entity)) {
+            //damage carrot on a stick over time
+            if(!entity.world.isRemote) {
+                final @Nullable Entity rider = entity.getControllingPassenger();
+                if(rider instanceof EntityLivingBase) {
+                    final @Nullable IHorseCarrotTime cap = IHorseCarrotTime.get(rider);
+                    if(cap != null && cap.decrement() <= 0) {
+                        final EntityLivingBase livingRider = (EntityLivingBase)rider;
+                        final EnumHand hand = livingRider.getHeldItemMainhand().getItem() == Items.CARROT_ON_A_STICK
+                                ? EnumHand.MAIN_HAND : EnumHand.OFF_HAND;
+
+                        livingRider.getHeldItem(hand).damageItem(1, livingRider);
+                        if(livingRider.getHeldItem(hand).isEmpty()) livingRider
+                                .setHeldItem(hand, new ItemStack(Items.FISHING_ROD));
+
+                        cap.setTime(entity.world.rand.nextInt(100) + 100);
+                    }
+                }
+            }
+
+            //if the rider is using both a saddle & carrot on a stick, increase overall speed
+            if(entity.isHorseSaddled()) {
+                if(!entity.onGround) return Math.max(forward, 0.5f);
+                else {
+                    entity.motionX -= MathHelper.sin(entity.rotationYaw * 0.0175f) * 0.075f;
+                    entity.motionZ += MathHelper.cos(entity.rotationYaw * 0.0175f) * 0.075f;
+                    return Math.max(forward, 0.4f);
+                }
+            }
+
+            //without a saddle, cap speed
+            else return MathHelper.clamp(forward, 0.4f, 0.8f);
+        }
+
+        return forward;
+    }
+
     //PluginBlock
     @Nonnull
     public static Vec3d betterWaterFogColor(@Nonnull World world, @Nonnull BlockPos origin, float modifier) {

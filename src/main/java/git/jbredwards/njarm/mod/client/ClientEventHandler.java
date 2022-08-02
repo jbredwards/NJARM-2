@@ -33,6 +33,8 @@ public final class ClientEventHandler
         event.getBlockColors().registerBlockColorHandler(withIndex(ColorHandlers.BLOCK_WATER), Blocks.CAULDRON);
         //modded blocks
         event.getBlockColors().registerBlockColorHandler(ColorHandlers.BLOCK_GRASS, ModBlocks.MOSS);
+        event.getBlockColors().registerBlockColorHandler(withIndex(ColorHandlers.BLOCK_GRASS), ModBlocks.OVERGROWN_DIRT);
+        event.getBlockColors().registerBlockColorHandler(withIndex(ColorHandlers.BLOCK_GRASS), ModBlocks.OVERGROWN_STONE);
     }
 
     @SubscribeEvent

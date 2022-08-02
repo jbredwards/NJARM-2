@@ -37,11 +37,25 @@ public final class ParticlesConfig implements IConfig
         return ConfigHandler.clientCfg.particlesCfg.endXpOreParticleOverlay;
     }
 
+    @Config.LangKey("config.njarm.client.particles.overgrownDirtParticleOverlay")
+    @Nonnull public final String overgrownDirtParticleOverlay;
+    @Nonnull public static String getOvergrownDirtParticle() {
+        return ConfigHandler.clientCfg.particlesCfg.overgrownDirtParticleOverlay;
+    }
+
+    @Config.LangKey("config.njarm.client.particles.overgrownStoneParticleOverlay")
+    @Nonnull public final String overgrownStoneParticleOverlay;
+    @Nonnull public static String getOvergrownStoneParticle() {
+        return ConfigHandler.clientCfg.particlesCfg.overgrownStoneParticleOverlay;
+    }
+
     //needed for gson
-    public ParticlesConfig(@Nonnull String magicOreParticleOverlay, @Nonnull String xpOreParticleOverlay, @Nonnull String netherXpOreParticleOverlay, @Nonnull String endXpOreParticleOverlay) {
+    public ParticlesConfig(@Nonnull String magicOreParticleOverlay, @Nonnull String xpOreParticleOverlay, @Nonnull String netherXpOreParticleOverlay, @Nonnull String endXpOreParticleOverlay, @Nonnull String overgrownDirtParticleOverlay, @Nonnull String overgrownStoneParticleOverlay) {
         this.magicOreParticleOverlay = magicOreParticleOverlay;
         this.xpOreParticleOverlay = xpOreParticleOverlay;
         this.netherXpOreParticleOverlay = netherXpOreParticleOverlay;
         this.endXpOreParticleOverlay = endXpOreParticleOverlay;
+        this.overgrownDirtParticleOverlay = overgrownDirtParticleOverlay;
+        this.overgrownStoneParticleOverlay = overgrownStoneParticleOverlay;
     }
 }

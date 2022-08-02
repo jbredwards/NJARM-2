@@ -27,8 +27,7 @@ import javax.annotation.Nullable;
 public interface IBubbleColumn
 {
     @CapabilityInject(IBubbleColumn.class)
-    @Nonnull
-    Capability<IBubbleColumn> CAPABILITY = null;
+    @Nonnull Capability<IBubbleColumn> CAPABILITY = null;
 
     boolean isInBubbleColumn();
     void setInBubbleColumn(boolean isInBubbleColumnIn);

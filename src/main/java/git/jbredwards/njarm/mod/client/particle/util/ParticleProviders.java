@@ -14,6 +14,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  *
@@ -30,6 +31,10 @@ public enum ParticleProviders implements IParticleProvider
     NETHER_XP_ORE_DIGGING(getDiggingFromTextures(new SpriteStorage(ParticlesConfig::getNetherXpOreParticle))),
     END_XP_ORE_BLOCK_DUST(getBlockDustFromTextures(new SpriteStorage(ParticlesConfig::getEndXpOreParticle))),
     END_XP_ORE_DIGGING(getDiggingFromTextures(new SpriteStorage(ParticlesConfig::getEndXpOreParticle))),
+    OVERGROWN_DIRT_BLOCK_DUST(getBlockDustFromTextures(new SpriteStorage(ParticlesConfig::getOvergrownDirtParticle))),
+    OVERGROWN_DIRT_DIGGING(getDiggingFromTextures(new SpriteStorage(ParticlesConfig::getOvergrownDirtParticle))),
+    OVERGROWN_STONE_BLOCK_DUST(getBlockDustFromTextures(new SpriteStorage(ParticlesConfig::getOvergrownStoneParticle))),
+    OVERGROWN_STONE_DIGGING(getDiggingFromTextures(new SpriteStorage(ParticlesConfig::getOvergrownStoneParticle))),
     LIT_REDSTONE(new IParticleProvider() {
         @Nonnull
         @SideOnly(Side.CLIENT)
@@ -66,7 +71,7 @@ public enum ParticleProviders implements IParticleProvider
         };
     }
 
-    @Nonnull
+    @Nullable
     @SideOnly(Side.CLIENT)
     @Override
     public Particle getParticle(@Nonnull World world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, int... args) {

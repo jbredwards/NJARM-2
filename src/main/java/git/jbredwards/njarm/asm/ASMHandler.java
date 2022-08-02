@@ -41,11 +41,12 @@ public final class ASMHandler implements IFMLLoadingPlugin
                 .put("biomesoplenty.common.block.BlockBOPGrass", new PluginBiomesOPlenty()) //Apply the 1.16 sounds to hardcoded BOP blocks
                 //vanilla
                 .put("net.minecraft.client.particle.ParticleDrip", new PluginParticleDrip()) //Water droplet particles keep the color set by this mod
+                .put("net.minecraft.client.particle.ParticleManager", new PluginParticleManager()) //Initialize IHasDestroyEffects
                 .put("net.minecraft.client.renderer.entity.Render", new PluginRender()) //Bedrock edition entity shadow size parody
                 .put("net.minecraft.client.renderer.entity.RenderFallingBlock", new PluginRenderFallingBlock()) //Fix rendering with ILayeredFallingBlock
                 .put("net.minecraft.client.renderer.entity.RenderManager", new PluginRenderManager()) //Fixes blue fire related entity rendering lighting bugs
                 .put("net.minecraft.client.renderer.tileentity.TileEntityEndPortalRenderer", new PluginTileEntityEndPortalRenderer()) //Render the bottom of end portals
-                .put("net.minecraft.client.renderer.EntityRenderer", new PluginEntityRenderer()) //Remove the annoying night vision flashing
+                .put("net.minecraft.client.renderer.EntityRenderer", new PluginEntityRenderer()) //Color rain & remove the annoying night vision flashing
                 .put("net.minecraft.client.renderer.ItemRenderer", new PluginItemRenderer()) //Render blue fire without "quirkiness"
                 .put("net.minecraft.block.Block", new PluginBlock()) //Swap hardcoded values for biome fog color
                 .put("net.minecraft.block.BlockBasePressurePlate", new PluginIHasRunningEffects()) //Fix running effects for pressure plates
@@ -61,6 +62,7 @@ public final class ASMHandler implements IFMLLoadingPlugin
                 .put("net.minecraft.block.BlockTrapDoor", new PluginIHasRunningEffects()) //Fix running effects for trapdoors
                 .put("net.minecraft.entity.item.EntityFallingBlock", new PluginEntityFallingBlock()) //Implement IFancyFallingBlock functionality
                 .put("net.minecraft.entity.monster.EntitySnowman", new PluginEntitySnowman()) //Snow golems cannot generate falling snow layers
+                .put("net.minecraft.entity.passive.AbstractHorse", new PluginAbstractHorse()) //Lets horses be ridden by holding a carrot on a stick
                 .put("net.minecraft.entity.player.EntityPlayer", new PluginEntityPlayer()) //Plays the fire damage sound at the exact moment when the player takes damage from blue fire
                 .put("net.minecraft.entity.Entity", new PluginEntity()) //Fix MC-1691
                 .put("net.minecraft.entity.EntityLivingBase", new PluginEntityLivingBase()) //Fix MC-1691 & fix fire damage sound

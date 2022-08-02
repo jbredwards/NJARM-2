@@ -31,34 +31,34 @@ public class BlockOre extends Block
     public BlockOre(@Nonnull Material materialIn) { this(materialIn, materialIn.getMaterialMapColor()); }
     public BlockOre(@Nonnull Material materialIn, @Nonnull MapColor mapColorIn) { super(materialIn, mapColorIn); }
 
-    @SuppressWarnings("unchecked")
-    public <T extends BlockOre> T setExpDropped(@Nonnull ToIntFunction<Random> expDroppedIn) {
+    @Nonnull
+    public BlockOre setExpDropped(@Nonnull ToIntFunction<Random> expDroppedIn) {
         expDropped = expDroppedIn;
-        return (T)this;
+        return this;
     }
 
-    @SuppressWarnings("unchecked")
-    public <T extends BlockOre> T setItemDropped(@Nonnull Supplier<Item> droppedItemIn) {
+    @Nonnull
+    public BlockOre setItemDropped(@Nonnull Supplier<Item> droppedItemIn) {
         droppedItem = droppedItemIn;
-        return (T)this;
+        return this;
     }
 
-    @SuppressWarnings("unchecked")
-    public <T extends BlockOre> T setQuantityDropped(@Nonnull ToIntFunction<Random> quantityDroppedIn) {
+    @Nonnull
+    public BlockOre setQuantityDropped(@Nonnull ToIntFunction<Random> quantityDroppedIn) {
         quantityDropped = quantityDroppedIn;
-        return (T)this;
+        return this;
     }
 
-    @SuppressWarnings("unchecked")
-    public <T extends BlockOre> T setDamageDropped(int damageDroppedIn) {
+    @Nonnull
+    public BlockOre setDamageDropped(int damageDroppedIn) {
         damageDropped = damageDroppedIn;
-        return (T)this;
+        return this;
     }
 
-    @SuppressWarnings("unchecked")
-    public <T extends BlockOre> T setDoesFortuneAdd() {
+    @Nonnull
+    public BlockOre setDoesFortuneAdd() {
         doesFortuneAdd = true;
-        return (T)this;
+        return this;
     }
 
     @Override

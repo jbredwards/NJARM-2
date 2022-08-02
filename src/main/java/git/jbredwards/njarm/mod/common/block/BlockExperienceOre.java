@@ -3,9 +3,9 @@ package git.jbredwards.njarm.mod.common.block;
 import git.jbredwards.njarm.mod.Main;
 import git.jbredwards.njarm.mod.client.particle.util.ParticleProviders;
 import git.jbredwards.njarm.mod.client.particle.util.ParticleUtils;
+import git.jbredwards.njarm.mod.common.block.util.IHasDestroyEffects;
 import git.jbredwards.njarm.mod.common.init.ModSounds;
 import git.jbredwards.njarm.mod.common.util.ArrayUtils;
-import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
@@ -37,7 +37,7 @@ import javax.annotation.Nullable;
  * @author jbred
  *
  */
-public class BlockExperienceOre extends BlockOre
+public class BlockExperienceOre extends BlockOre implements IHasDestroyEffects
 {
     @Nonnull
     public static final PropertyEnum<Type> TYPE = PropertyEnum.create("type", Type.class);
@@ -93,28 +93,28 @@ public class BlockExperienceOre extends BlockOre
     public boolean addLandingEffects(@Nonnull IBlockState state, @Nonnull WorldServer world, @Nonnull BlockPos pos, @Nonnull IBlockState iblockstate, @Nonnull EntityLivingBase entity, int numberOfParticles) {
         switch(state.getValue(TYPE)) {
             case OVERWORLD:
-                return ParticleUtils.addLandingEffects(world, entity, numberOfParticles, ParticleProviders.XP_ORE_BLOCK_DUST, Block.getStateId(state), -1, 240);
+                return ParticleUtils.addLandingEffects(world, entity, numberOfParticles, ParticleProviders.XP_ORE_BLOCK_DUST, getStateId(state), -1, 240);
             case NETHER:
-                return ParticleUtils.addLandingEffects(world, entity, numberOfParticles, ParticleProviders.NETHER_XP_ORE_BLOCK_DUST, Block.getStateId(state), -1, 240);
+                return ParticleUtils.addLandingEffects(world, entity, numberOfParticles, ParticleProviders.NETHER_XP_ORE_BLOCK_DUST, getStateId(state), -1, 240);
             case END:
-                return ParticleUtils.addLandingEffects(world, entity, numberOfParticles, ParticleProviders.END_XP_ORE_BLOCK_DUST, Block.getStateId(state), -1, 240);
+                return ParticleUtils.addLandingEffects(world, entity, numberOfParticles, ParticleProviders.END_XP_ORE_BLOCK_DUST, getStateId(state), -1, 240);
         }
 
-        return ParticleUtils.addLandingEffects(world, entity, numberOfParticles, ParticleProviders.XP_ORE_BLOCK_DUST, Block.getStateId(state), -1, 240);
+        return ParticleUtils.addLandingEffects(world, entity, numberOfParticles, ParticleProviders.XP_ORE_BLOCK_DUST, getStateId(state), -1, 240);
     }
 
     @Override
     public boolean addRunningEffects(@Nonnull IBlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull Entity entity) {
         switch(state.getValue(TYPE)) {
             case OVERWORLD:
-                return ParticleUtils.addRunningParticles(world, entity, ParticleProviders.XP_ORE_DIGGING, Block.getStateId(state), -1, 240);
+                return ParticleUtils.addRunningParticles(world, entity, ParticleProviders.XP_ORE_DIGGING, getStateId(state), -1, 240);
             case NETHER:
-                return ParticleUtils.addRunningParticles(world, entity, ParticleProviders.NETHER_XP_ORE_DIGGING, Block.getStateId(state), -1, 240);
+                return ParticleUtils.addRunningParticles(world, entity, ParticleProviders.NETHER_XP_ORE_DIGGING, getStateId(state), -1, 240);
             case END:
-                return ParticleUtils.addRunningParticles(world, entity, ParticleProviders.END_XP_ORE_DIGGING, Block.getStateId(state), -1, 240);
+                return ParticleUtils.addRunningParticles(world, entity, ParticleProviders.END_XP_ORE_DIGGING, getStateId(state), -1, 240);
         }
 
-        return ParticleUtils.addRunningParticles(world, entity, ParticleProviders.XP_ORE_DIGGING, Block.getStateId(state), -1, 240);
+        return ParticleUtils.addRunningParticles(world, entity, ParticleProviders.XP_ORE_DIGGING, getStateId(state), -1, 240);
     }
 
     @SideOnly(Side.CLIENT)
@@ -122,30 +122,29 @@ public class BlockExperienceOre extends BlockOre
     public boolean addHitEffects(@Nonnull IBlockState state, @Nonnull World world, @Nonnull RayTraceResult target, @Nonnull ParticleManager manager) {
         switch(state.getValue(TYPE)) {
             case OVERWORLD:
-                return ParticleUtils.addHitEffects(state, world, target, manager, ParticleProviders.XP_ORE_DIGGING, Block.getStateId(state), -1, 240);
+                return ParticleUtils.addHitEffects(state, world, target, manager, ParticleProviders.XP_ORE_DIGGING, getStateId(state), -1, 240);
             case NETHER:
-                return ParticleUtils.addHitEffects(state, world, target, manager, ParticleProviders.NETHER_XP_ORE_DIGGING, Block.getStateId(state), -1, 240);
+                return ParticleUtils.addHitEffects(state, world, target, manager, ParticleProviders.NETHER_XP_ORE_DIGGING, getStateId(state), -1, 240);
             case END:
-                return ParticleUtils.addHitEffects(state, world, target, manager, ParticleProviders.END_XP_ORE_DIGGING, Block.getStateId(state), -1, 240);
+                return ParticleUtils.addHitEffects(state, world, target, manager, ParticleProviders.END_XP_ORE_DIGGING, getStateId(state), -1, 240);
         }
 
-        return ParticleUtils.addHitEffects(state, world, target, manager, ParticleProviders.XP_ORE_DIGGING, Block.getStateId(state), -1, 240);
+        return ParticleUtils.addHitEffects(state, world, target, manager, ParticleProviders.XP_ORE_DIGGING, getStateId(state), -1, 240);
     }
 
     @SideOnly(Side.CLIENT)
     @Override
-    public boolean addDestroyEffects(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull ParticleManager manager) {
-        final IBlockState state = world.getBlockState(pos);
+    public boolean addDestroyEffects(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull ParticleManager manager, @Nonnull IBlockState state) {
         switch(state.getValue(TYPE)) {
             case OVERWORLD:
-                return ParticleUtils.addDestroyEffects(world, pos, manager, ParticleProviders.XP_ORE_DIGGING, Block.getStateId(state), -1, 240);
+                return ParticleUtils.addDestroyEffects(world, pos, manager, ParticleProviders.XP_ORE_DIGGING, getStateId(state), -1, 240);
             case NETHER:
-                return ParticleUtils.addDestroyEffects(world, pos, manager, ParticleProviders.NETHER_XP_ORE_DIGGING, Block.getStateId(state), -1, 240);
+                return ParticleUtils.addDestroyEffects(world, pos, manager, ParticleProviders.NETHER_XP_ORE_DIGGING, getStateId(state), -1, 240);
             case END:
-                return ParticleUtils.addDestroyEffects(world, pos, manager, ParticleProviders.END_XP_ORE_DIGGING, Block.getStateId(state), -1, 240);
+                return ParticleUtils.addDestroyEffects(world, pos, manager, ParticleProviders.END_XP_ORE_DIGGING, getStateId(state), -1, 240);
         }
 
-        return ParticleUtils.addDestroyEffects(world, pos, manager, ParticleProviders.XP_ORE_DIGGING, Block.getStateId(state), -1, 240);
+        return ParticleUtils.addDestroyEffects(world, pos, manager, ParticleProviders.XP_ORE_DIGGING, getStateId(state), -1, 240);
     }
 
     //========================================

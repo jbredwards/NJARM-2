@@ -1,0 +1,28 @@
+{
+	"forge_marker":1,
+	"defaults":{
+		"model":"forge:multi-layer",
+		"transform":"forge:default-block",
+		"custom":{
+			"base":"njarm:overgrown_stone#base",
+			"Solid":"njarm:overgrown_stone#base",
+			"Cutout":"njarm:overgrown_stone#overlay"
+		}
+	},
+	"variants":{
+		"normal":[{}],
+		"inventory":[{}],
+		"base":[{
+			"model":"cube_all",
+			"textures":{
+                "all":"njarm:blocks/overgrown_stone"
+            }
+		}],
+		"overlay":[{
+			"model":"njarm:block_tintindex1",
+			"textures":{
+                "all":"njarm:blocks/overgrown_dirt_overlay"
+            }
+		}]
+	}
+}

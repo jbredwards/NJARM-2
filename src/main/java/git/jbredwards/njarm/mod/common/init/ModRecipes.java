@@ -55,6 +55,9 @@ public final class ModRecipes
         registerCrafting(registry, shapeless(1, ModItems.NETHERITE_INGOT, "scrapAncientDebris", "scrapAncientDebris", "scrapAncientDebris", "scrapAncientDebris", "ingotGold", "ingotGold", "ingotGold", "ingotGold"));
         registerCrafting(registry, shapeless(9, ModItems.NETHERITE_NUGGET, ModItems.NETHERITE_INGOT));
         registerCrafting(registry, shapeless(9, ModItems.OBSIDIAN_INGOT, ModItems.OBSIDIAN_BLOCK));
+        registerCrafting(registry, shapeless(9, ModItems.OBSIDIAN_NUGGET, ModItems.OBSIDIAN_INGOT));
+        registerCrafting(registry, shapeless(1, ModItems.OVERGROWN_DIRT, new ItemStack(Blocks.DIRT, 1, 0), "vine"));
+        registerCrafting(registry, shapeless(1, ModItems.OVERGROWN_STONE, "stone", "vine"));
         registerCrafting(registry, shapeless(9, ModItems.PLATINUM_INGOT, ModItems.PLATINUM_BLOCK));
         registerCrafting(registry, shapeless(9, ModItems.PLATINUM_NUGGET, ModItems.PLATINUM_INGOT));
         registerCrafting(registry, shapeless(9, Items.POISONOUS_POTATO, new ItemStack(ModItems.FOOD_CRATE, 1, 3)));
@@ -70,6 +73,7 @@ public final class ModRecipes
         registerCrafting(registry, shaped(3, ModItems.CHAIN, "N", "I", "N", 'N', "nuggetIron", 'I', "ingotIron"));
         registerCrafting(registry, shaped(1, ModItems.DIMENSIONAL_MAGIC_MIRROR, "DID", "IMI", "DID", 'D', "dustMagicNJARM", 'I', "ingotMagicalAlloy", 'M', ModItems.MAGIC_MIRROR));
         registerCrafting(registry, shaped(1, ModItems.DIMENSIONAL_MAGIC_MIRROR, "IDI", "DMD", "IDI", 'D', "dustMagicNJARM", 'I', "ingotMagicalAlloy", 'M', ModItems.MAGIC_MIRROR));
+        registerCrafting(registry, shaped(1, Items.EMERALD, "###", "###", "###", '#', ModItems.RUPEE));
         registerCrafting(registry, shaped(1, 0, ModItems.FOOD_CRATE, "###", "###", "###", '#', Items.WHEAT_SEEDS));
         registerCrafting(registry, shaped(1, 1, ModItems.FOOD_CRATE, "###", "###", "###", '#', Items.CARROT));
         registerCrafting(registry, shaped(1, 2, ModItems.FOOD_CRATE, "###", "###", "###", '#', Items.POTATO));
@@ -85,6 +89,8 @@ public final class ModRecipes
         registerCrafting(registry, shaped(1, 12, ModItems.FOOD_CRATE, "###", "###", "###", '#', new ItemStack(Items.FISH, 1, 3)));
         registerCrafting(registry, shaped(1, Blocks.ICE, "###", "###", "###", '#', ModItems.ICE_MUSHROOM));
         registerCrafting(registry, shaped(1, ModItems.OBSIDIAN_BLOCK, "###", "###", "###", '#', "ingotObsidianAlloy"));
+        registerCrafting(registry, shaped(16, ModItems.OBSIDIAN_GLASS_PANE, "###", "###", '#', ModItems.OBSIDIAN_GLASS));
+        registerCrafting(registry, shaped(1, ModItems.OBSIDIAN_INGOT, "###", "###", "###", '#', "nuggetObsidianAlloy"));
         registerCrafting(registry, shaped(1, ModItems.MAGIC_BLOCK, "###", "###", "###", '#', "ingotMagicalAlloy"));
         registerCrafting(registry, shaped(1, ModItems.MAGIC_INGOT, "###", "###", "###", '#', "nuggetMagicalAlloy"));
         registerCrafting(registry, shaped(2, ModItems.MAGIC_MIRROR, "MPM", "PDP", "MPM", 'M', "dustMagicNJARM", 'P', "ingotPlatinum", 'D', "dustMica"));

@@ -1,6 +1,8 @@
 package git.jbredwards.njarm.mod.common.world.generation;
 
+import git.jbredwards.fluidlogged_api.api.util.FluidloggedUtils;
 import git.jbredwards.njarm.mod.common.init.ModBlocks;
+import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
@@ -56,17 +58,17 @@ public class BasaltPillarGenerator implements IWorldGenerator
             if(movedW) movedW = rand.nextFloat() < 0.9 && world.setBlockState(pos.west(), basalt, 2);
         }
 
+        final BlockPos last = positions.get(positions.size() - 1);
         for(int x = -3; x < 4; x++) {
             for(int z = -3; z < 4; z++) {
                 final int weight = 10 - Math.abs(x) * Math.abs(z);
                 if(rand.nextInt(10) < weight) {
-                    final BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos(
-                            positions.get(positions.size() - 1).add(x, 0, z));
+                    final BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos(last.add(x, 0, z));
 
                     if(world.isAirBlock(pos)) {
-                        if(!isReplaceable(world, pos.down()) && world.getBlockState(pos.down()).getBlock() != ModBlocks.BASALT) world.setBlockState(pos.toImmutable(), basalt, 2);
-                        if(!isReplaceable(world, pos.add(1, -2, 0)) || !isReplaceable(world, pos.add(0, -2, 1)) || !isReplaceable(world, pos.add(-1, -2, 0)) || !isReplaceable(world, pos.add(0, -2, -1))) {
-                            for(int i = 5; rand.nextInt(10) < weight - i && world.getBlockState(pos.setPos(pos.down())).getBlock().isReplaceable(world, pos); i++)
+                        if(canPlaceOn(world, pos.down()) && world.getBlockState(pos.down()).getBlock() != ModBlocks.BASALT) world.setBlockState(pos.toImmutable(), basalt, 2);
+                        if(canPlaceOn(world, pos.add(1, -2, 0)) || canPlaceOn(world, pos.add(0, -2, 1)) || canPlaceOn(world, pos.add(-1, -2, 0)) || canPlaceOn(world, pos.add(0, -2, -1))) {
+                            for(int i = 5; rand.nextInt(10) < weight - i && isReplaceable(world, pos.setPos(pos.down())); i++)
                                 world.setBlockState(pos.toImmutable(), basalt, 2);
                         }
                     }
@@ -79,5 +81,10 @@ public class BasaltPillarGenerator implements IWorldGenerator
 
     protected boolean isReplaceable(@Nonnull World world, @Nonnull BlockPos pos) {
         return world.getBlockState(pos).getBlock().isReplaceable(world, pos);
+    }
+
+    protected boolean canPlaceOn(@Nonnull World world, @Nonnull BlockPos pos) {
+        final Block block = world.getBlockState(pos).getBlock();
+        return FluidloggedUtils.getFluidFromBlock(block) != null || !block.isReplaceable(world, pos);
     }
 }

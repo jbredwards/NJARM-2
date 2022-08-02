@@ -37,34 +37,34 @@ public class BlockFallingOre extends BlockFalling
         mapColor = mapColorIn;
     }
 
-    @SuppressWarnings("unchecked")
-    public <T extends BlockFallingOre> T setExpDropped(@Nonnull ToIntFunction<Random> expDroppedIn) {
+    @Nonnull
+    public BlockFallingOre setExpDropped(@Nonnull ToIntFunction<Random> expDroppedIn) {
         expDropped = expDroppedIn;
-        return (T)this;
+        return this;
     }
 
-    @SuppressWarnings("unchecked")
-    public <T extends BlockFallingOre> T setItemDropped(@Nonnull Supplier<Item> droppedItemIn) {
+    @Nonnull
+    public BlockFallingOre setItemDropped(@Nonnull Supplier<Item> droppedItemIn) {
         droppedItem = droppedItemIn;
-        return (T)this;
+        return this;
     }
 
-    @SuppressWarnings("unchecked")
-    public <T extends BlockFallingOre> T setQuantityDropped(@Nonnull ToIntFunction<Random> quantityDroppedIn) {
+    @Nonnull
+    public BlockFallingOre setQuantityDropped(@Nonnull ToIntFunction<Random> quantityDroppedIn) {
         quantityDropped = quantityDroppedIn;
-        return (T)this;
+        return this;
     }
 
-    @SuppressWarnings("unchecked")
-    public <T extends BlockFallingOre> T setDamageDropped(int damageDroppedIn) {
+    @Nonnull
+    public BlockFallingOre setDamageDropped(int damageDroppedIn) {
         damageDropped = damageDroppedIn;
-        return (T)this;
+        return this;
     }
 
-    @SuppressWarnings("unchecked")
-    public <T extends BlockFallingOre> T setDoesFortuneAdd() {
+    @Nonnull
+    public BlockFallingOre setDoesFortuneAdd() {
         doesFortuneAdd = true;
-        return (T)this;
+        return this;
     }
 
     @Override

@@ -2,6 +2,7 @@ package git.jbredwards.njarm.mod.common.init;
 
 import git.jbredwards.njarm.asm.plugins.ASMHooks;
 import git.jbredwards.njarm.mod.Constants;
+import git.jbredwards.njarm.mod.client.particle.util.ParticleProviders;
 import git.jbredwards.njarm.mod.common.block.*;
 import git.jbredwards.njarm.mod.common.item.util.CreativeTab;
 import net.minecraft.block.Block;
@@ -12,6 +13,8 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialLiquid;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
+import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.MathHelper;
 
@@ -41,9 +44,9 @@ public final class ModBlocks
     @Nonnull public static final BlockOre SAPPHIRE_ORE = register("sapphire_ore", new BlockOre(Material.ROCK, MapColor.NETHERRACK).setItemDropped(() -> ModItems.SAPPHIRE).setExpDropped(rand -> MathHelper.getInt(rand, 3, 7)), Blocks.DIAMOND_ORE, block -> block.setSoundType(ModSounds.NETHER_ORE));
     @Nonnull public static final BlockRotatedPillar ANCIENT_DEBRIS = register("ancient_debris", new BlockRotatedPillar(Material.ROCK, MapColor.NETHERRACK), Blocks.OBSIDIAN, block -> block.setSoundType(ModSounds.ANCIENT_DEBRIS));
     @Nonnull public static final Block MAGIC_BLOCK = register("magic_block", new Block(Material.IRON, MapColor.PINK), Blocks.DIAMOND_BLOCK);
-    @Nonnull public static final BlockMagicOre MAGIC_ORE = register("magic_ore", new BlockMagicOre(Material.ROCK, MapColor.SAND, false).setItemDropped(() -> ModItems.MAGIC_DUST).setQuantityDropped(rand -> MathHelper.getInt(rand, 1, 3)).setDoesFortuneAdd().setExpDropped(rand -> MathHelper.getInt(rand, 1, 5)), Blocks.END_STONE);
-    @Nonnull public static final BlockMagicOre LIT_MAGIC_ORE = register("lit_magic_ore", new BlockMagicOre(Material.ROCK, MapColor.SAND, true).setItemDropped(() -> ModItems.MAGIC_DUST).setQuantityDropped(rand -> MathHelper.getInt(rand, 1, 3)).setDoesFortuneAdd().setExpDropped(rand -> MathHelper.getInt(rand, 1, 5)), Blocks.END_STONE);
-    @Nonnull public static final BlockExperienceOre XP_ORE = register("xp_ore", new BlockExperienceOre(Material.ROCK).setItemDropped(() -> Items.AIR).setQuantityDropped(rand -> 0).setExpDropped(rand -> MathHelper.getInt(rand, 5, 14)), Blocks.COAL_ORE);
+    @Nonnull public static final BlockMagicOre MAGIC_ORE = register("magic_ore", new BlockMagicOre(Material.ROCK, MapColor.SAND, false), Blocks.END_STONE, block -> block.setItemDropped(() -> ModItems.MAGIC_DUST).setQuantityDropped(rand -> MathHelper.getInt(rand, 1, 3)).setDoesFortuneAdd().setExpDropped(rand -> MathHelper.getInt(rand, 1, 5)));
+    @Nonnull public static final BlockMagicOre LIT_MAGIC_ORE = register("lit_magic_ore", new BlockMagicOre(Material.ROCK, MapColor.SAND, true), Blocks.END_STONE, block -> block.setItemDropped(() -> ModItems.MAGIC_DUST).setQuantityDropped(rand -> MathHelper.getInt(rand, 1, 3)).setDoesFortuneAdd().setExpDropped(rand -> MathHelper.getInt(rand, 1, 5)));
+    @Nonnull public static final BlockExperienceOre XP_ORE = register("xp_ore", new BlockExperienceOre(Material.ROCK), Blocks.COAL_ORE, block -> block.setQuantityDropped(rand -> 0).setExpDropped(rand -> MathHelper.getInt(rand, 5, 14)));
     @Nonnull public static final BlockFragileIce FRAGILE_ICE = register("fragile_ice", new BlockFragileIce(), Blocks.ICE, block -> block.setHardness(0).setResistance(0));
     @Nonnull public static final BlockUndyingTotem TOTEM_OF_UNDYING = register("totem_of_undying", ASMHooks.TOTEM_BLOCK.get(), Blocks.GOLD_BLOCK, block -> block.setHardness(0).setResistance(0)); //moved to ASMHooks for vanilla class loading reasons...
     @Nonnull public static final BlockNetherCore NETHER_REACTOR_CORE = register("nether_reactor_core", new BlockNetherCore(Material.IRON, MapColor.DIAMOND), Blocks.DIAMOND_BLOCK);
@@ -61,7 +64,10 @@ public final class ModBlocks
     @Nonnull public static final BlockMoss MOSS = register("moss", new BlockMoss(Material.LEAVES), Blocks.LEAVES);
     @Nonnull public static final BlockObsidian OBSIDIAN_BLOCK = register("obsidian_block", new BlockObsidian(Material.IRON, MapColor.OBSIDIAN), Blocks.OBSIDIAN, block -> block.setSoundType(SoundType.METAL));
     @Nonnull public static final BlockObsidianGlass OBSIDIAN_GLASS = register("obsidian_glass", new BlockObsidianGlass(Material.GLASS, MapColor.OBSIDIAN, false), Blocks.OBSIDIAN, block -> block.setSoundType(SoundType.GLASS));
+    @Nonnull public static final BlockObsidianGlassPane OBSIDIAN_GLASS_PANE = register("obsidian_glass_pane", new BlockObsidianGlassPane(Material.GLASS), Blocks.OBSIDIAN, block -> block.setSoundType(SoundType.GLASS));
     @Nonnull public static final BlockFallingOre MICA_ORE = register("mica_ore", new BlockFallingOre(Material.SAND).setItemDropped(() -> ModItems.MICA_DUST).setExpDropped(rand -> MathHelper.getInt(rand, 0, 2)), Blocks.SAND);
+    @Nonnull public static final BlockOvergrown OVERGROWN_DIRT = register("overgrown_dirt", new BlockOvergrown(Material.GRASS, BlockRenderLayer.SOLID, BlockRenderLayer.CUTOUT), Blocks.GRASS, block-> block.setParticles(ParticleProviders.OVERGROWN_DIRT_DIGGING, ParticleProviders.OVERGROWN_DIRT_BLOCK_DUST).setItemDropped(() -> Item.getItemFromBlock(Blocks.DIRT)));
+    @Nonnull public static final BlockOvergrown OVERGROWN_STONE = register("overgrown_stone", new BlockOvergrown(Material.ROCK, BlockRenderLayer.SOLID, BlockRenderLayer.CUTOUT), Blocks.STONE, block-> block.setParticles(ParticleProviders.OVERGROWN_STONE_DIGGING, ParticleProviders.OVERGROWN_STONE_BLOCK_DUST).setItemDropped(() -> Item.getItemFromBlock(Blocks.COBBLESTONE)));
 
     @Nonnull public static final BlockBlueFire BLUE_FIRE = register("blue_fire", new BlockBlueFire(), Blocks.FIRE);
     @Nonnull public static final BlockBubbleColumn BUBBLE_COLUMN = register("bubble_column", new BlockBubbleColumn(BUBBLE_COLUMN_MATERIAL), Blocks.WATER);

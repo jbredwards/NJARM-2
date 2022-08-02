@@ -75,8 +75,9 @@ public final class Main
         protected void preInit() {
             //register capabilities
             CapabilityManager.INSTANCE.register(IBlueFire.class, IBlueFire.Storage.INSTANCE, IBlueFire.Impl::new);
-            CapabilityManager.INSTANCE.register(IBubbleColumn.class, IBubbleColumn.Storage.INSTANCE, IBubbleColumn.Impl::new);
             CapabilityManager.INSTANCE.register(IBonusHealth.class, IBonusHealth.Storage.INSTANCE, IBonusHealth.NONE);
+            CapabilityManager.INSTANCE.register(IBubbleColumn.class, IBubbleColumn.Storage.INSTANCE, IBubbleColumn.Impl::new);
+            CapabilityManager.INSTANCE.register(IHorseCarrotTime.class, IHorseCarrotTime.Storage.INSTANCE, IHorseCarrotTime.Impl::new);
             //register packets
             wrapper = NetworkRegistry.INSTANCE.newSimpleChannel(MODID);
             wrapper.registerMessage(MessageBlueFire.Handler.INSTANCE, MessageBlueFire.class, 1, Side.CLIENT);
