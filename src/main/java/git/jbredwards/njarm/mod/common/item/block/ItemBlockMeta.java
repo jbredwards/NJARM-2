@@ -20,11 +20,10 @@ import java.util.Objects;
  */
 public class ItemBlockMeta extends ItemBlockBasic implements ICustomModel
 {
-    @Nonnull public final String propertyName;
-
-    @SuppressWarnings("Convert2MethodRef") //lambda must be this format otherwise crash..?
-    public ItemBlockMeta(@Nonnull Block block, @Nonnull IProperty<? extends IStringSerializable> property) {
-        super(block, property.getAllowedValues().stream().map(value -> value.getName()).toArray(String[]::new));
+    @Nonnull
+    public final String propertyName;
+    public <T extends IStringSerializable & Comparable<T>> ItemBlockMeta(@Nonnull Block block, @Nonnull IProperty<T> property) {
+        super(block, property.getAllowedValues().stream().map(T::getName).toArray(String[]::new));
         propertyName = property.getName();
     }
 

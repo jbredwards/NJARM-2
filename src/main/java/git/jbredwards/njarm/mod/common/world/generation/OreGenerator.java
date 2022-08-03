@@ -48,7 +48,7 @@ public class OreGenerator extends BiomeDecorator implements IWorldGenerator
                             if(data.biomes.isEmpty() || data.biomes.contains(worldIn.getBiomeForCoordsBody(pos))) {
                                 final IBlockState here = worldIn.getBlockState(pos);
                                 if(here.getBlock().isReplaceableOreGen(here, worldIn, pos, data.condition::test))
-                                    worldIn.setBlockState(pos, data.oreState, 18);
+                                    setBlockAndNotifyAdequately(worldIn, pos, data.oreState);
                             }
 
                             return true;

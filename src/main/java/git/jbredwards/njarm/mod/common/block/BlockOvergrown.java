@@ -1,6 +1,6 @@
 package git.jbredwards.njarm.mod.common.block;
 
-import git.jbredwards.njarm.mod.client.particle.util.IParticleProvider;
+import git.jbredwards.njarm.mod.client.particle.util.ParticleProviders;
 import git.jbredwards.njarm.mod.client.particle.util.ParticleUtils;
 import git.jbredwards.njarm.mod.common.block.util.IHasDestroyEffects;
 import net.minecraft.block.material.MapColor;
@@ -18,7 +18,6 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 /**
  *
@@ -27,8 +26,6 @@ import javax.annotation.Nullable;
  */
 public class BlockOvergrown extends BlockOre implements IHasDestroyEffects
 {
-    @Nullable
-    protected IParticleProvider digging, dust;
     protected final byte layers;
 
     public BlockOvergrown(@Nonnull Material materialIn, @Nonnull BlockRenderLayer... layers) {
@@ -50,32 +47,25 @@ public class BlockOvergrown extends BlockOre implements IHasDestroyEffects
         return (layers & (1 << layer.ordinal())) != 0;
     }
 
-    @Nonnull
-    public BlockOvergrown setParticles(@Nonnull IParticleProvider diggingIn, @Nonnull IParticleProvider dustIn) {
-        digging = diggingIn;
-        dust = dustIn;
-        return this;
-    }
-
     @Override
     public boolean addLandingEffects(@Nonnull IBlockState state, @Nonnull WorldServer world, @Nonnull BlockPos pos, @Nonnull IBlockState iblockstate, @Nonnull EntityLivingBase entity, int numberOfParticles) {
-        return dust != null && ParticleUtils.addLandingEffects(world, entity, numberOfParticles, dust, getStateId(state), -1, -1);
+        return ParticleUtils.addLandingEffects(world, entity, numberOfParticles, ParticleProviders.MULTI_LAYER_BLOCK_DUST, getStateId(state));
     }
 
     @Override
     public boolean addRunningEffects(@Nonnull IBlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull Entity entity) {
-        return digging != null && ParticleUtils.addRunningParticles(world, entity, digging, getStateId(state), -1, -1);
+        return ParticleUtils.addRunningParticles(world, entity, ParticleProviders.MULTI_LAYER_DIGGING, getStateId(state));
     }
 
     @SideOnly(Side.CLIENT)
     @Override
     public boolean addHitEffects(@Nonnull IBlockState state, @Nonnull World world, @Nonnull RayTraceResult target, @Nonnull ParticleManager manager) {
-        return digging != null && ParticleUtils.addHitEffects(state, world, target, manager, digging, getStateId(state), -1, -1);
+        return ParticleUtils.addHitEffects(state, world, target, manager, ParticleProviders.MULTI_LAYER_DIGGING, getStateId(state));
     }
 
     @SideOnly(Side.CLIENT)
     @Override
     public boolean addDestroyEffects(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull ParticleManager manager, @Nonnull IBlockState state) {
-        return digging != null && ParticleUtils.addDestroyEffects(world, pos, manager, digging, getStateId(state), -1, -1);
+        return ParticleUtils.addDestroyEffects(world, pos, manager, ParticleProviders.MULTI_LAYER_DIGGING, getStateId(state));
     }
 }

@@ -1,7 +1,6 @@
 package git.jbredwards.njarm.mod.client;
 
 import git.jbredwards.njarm.mod.Constants;
-import git.jbredwards.njarm.mod.common.config.client.ParticlesConfig;
 import git.jbredwards.njarm.mod.common.init.ModBlocks;
 import git.jbredwards.njarm.mod.common.init.ModItems;
 import net.darkhax.bookshelf.data.ColorHandlers;
@@ -62,10 +61,6 @@ public final class ClientEventHandler
             event.getMap().registerSprite(new ResourceLocation(Constants.MODID, "misc/underwater"));
             event.getMap().registerSprite(new ResourceLocation(Constants.MODID, "blocks/blue_fire_layer_0"));
             event.getMap().registerSprite(new ResourceLocation(Constants.MODID, "blocks/blue_fire_layer_1"));
-            event.getMap().registerSprite(new ResourceLocation(ParticlesConfig.getMagicOreParticle()));
-            event.getMap().registerSprite(new ResourceLocation(ParticlesConfig.getXpOreParticle()));
-            event.getMap().registerSprite(new ResourceLocation(ParticlesConfig.getNetherXpOreParticle()));
-            event.getMap().registerSprite(new ResourceLocation(ParticlesConfig.getEndXpOreParticle()));
         }
     }
 }

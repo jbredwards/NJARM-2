@@ -1,47 +1,34 @@
 package git.jbredwards.njarm.mod.common.item.block;
 
-import git.jbredwards.njarm.mod.client.util.SpriteStorage;
 import git.jbredwards.njarm.mod.common.block.BlockExperienceOre;
-import git.jbredwards.njarm.mod.common.config.client.ParticlesConfig;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.*;
-import net.minecraft.client.renderer.block.model.BakedQuad;
-import net.minecraft.client.renderer.block.model.BakedQuadRetextured;
 import net.minecraft.client.renderer.block.model.IBakedModel;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.math.MathHelper;
+import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nonnull;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  *
  * @author jbred
  *
  */
-public class ItemBlockExperienceOre extends ItemBlockMeta
+public class ItemBlockMetaExpOre extends ItemBlockMeta
 {
-    @Nonnull
-    protected final SpriteStorage[] overlays = new SpriteStorage[3];
-
-    public ItemBlockExperienceOre(@Nonnull Block block) {
-        super(block, BlockExperienceOre.TYPE);
-        overlays[0] = new SpriteStorage(ParticlesConfig::getXpOreParticle);
-        overlays[1] = new SpriteStorage(ParticlesConfig::getNetherXpOreParticle);
-        overlays[2] = new SpriteStorage(ParticlesConfig::getEndXpOreParticle);
-    }
+    public ItemBlockMetaExpOre(@Nonnull Block block) { super(block, BlockExperienceOre.TYPE); }
 
     //renders the experience ore part of the item like it's glowing
     @SideOnly(Side.CLIENT)
     @Override
     public boolean hasEffect(@Nonnull ItemStack stack) {
+        ForgeHooksClient.setRenderLayer(BlockRenderLayer.CUTOUT);
         final RenderItem renderer = Minecraft.getMinecraft().getRenderItem();
         final IBakedModel model = renderer.getItemModelWithOverrides(stack, null, null);
         final BufferBuilder buffer = Tessellator.getInstance().getBuffer();
@@ -57,9 +44,9 @@ public class ItemBlockExperienceOre extends ItemBlockMeta
         GlStateManager.pushMatrix();
         //do the render
         buffer.begin(7, DefaultVertexFormats.ITEM);
-        final int meta = MathHelper.clamp(stack.getMetadata(), 0, 2);
-        for(EnumFacing facing : EnumFacing.values()) renderer.renderQuads(buffer, retexture(model.getQuads(null, facing, 0), meta), -1, stack);
-        renderer.renderQuads(buffer, retexture(model.getQuads(null, null, 0), meta), -1, stack);
+        for(EnumFacing facing : EnumFacing.values()) renderer.renderQuads(buffer, model.getQuads(null, facing, 0), -1, stack);
+        renderer.renderQuads(buffer, model.getQuads(null, null, 0), -1, stack);
+        ForgeHooksClient.setRenderLayer(null);
         Tessellator.getInstance().draw();
         //open gl finish
         GlStateManager.popMatrix();
@@ -70,12 +57,5 @@ public class ItemBlockExperienceOre extends ItemBlockMeta
         GlStateManager.popMatrix();
         //don't change the enchantment effect
         return super.hasEffect(stack);
-    }
-
-    //changes the texture to the ore overlay
-    @SideOnly(Side.CLIENT)
-    protected List<BakedQuad> retexture(List<BakedQuad> quads, int meta) {
-        final TextureAtlasSprite sprite = overlays[meta].getSprite();
-        return quads.stream().map(quad -> new BakedQuadRetextured(quad, sprite)).collect(Collectors.toList());
     }
 }

@@ -3,23 +3,15 @@ package git.jbredwards.njarm.mod.common.block;
 import git.jbredwards.njarm.mod.client.particle.util.ParticleProviders;
 import git.jbredwards.njarm.mod.client.particle.util.ParticleUtils;
 import git.jbredwards.njarm.mod.common.block.util.IEmissiveBlock;
-import git.jbredwards.njarm.mod.common.init.ModSounds;
-import git.jbredwards.njarm.mod.common.util.ArrayUtils;
-import net.minecraft.block.SoundType;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.PropertyEnum;
-import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.particle.ParticleManager;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.ItemStack;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.util.BlockRenderLayer;
-import net.minecraft.util.IStringSerializable;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
@@ -29,60 +21,25 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import java.util.Random;
 
 /**
  *
  * @author jbred
  *
  */
-public class BlockExperienceOre extends BlockOre implements IEmissiveBlock
+public class BlockFallingExpOre extends BlockFallingOre implements IEmissiveBlock
 {
-    @Nonnull
-    public static final PropertyEnum<Type> TYPE = PropertyEnum.create("type", Type.class);
-
-    public BlockExperienceOre(@Nonnull Material materialIn) { this(materialIn, materialIn.getMaterialMapColor()); }
-    public BlockExperienceOre(@Nonnull Material materialIn, @Nonnull MapColor mapColorIn) {
-        super(materialIn, mapColorIn);
-        setDefaultState(getDefaultState().withProperty(TYPE, Type.OVERWORLD));
-    }
-
-    @Nonnull
-    @Override
-    protected BlockStateContainer createBlockState() { return new BlockStateContainer(this, TYPE); }
+    public BlockFallingExpOre(@Nonnull Material materialIn) { super(materialIn); }
+    public BlockFallingExpOre(@Nonnull Material materialIn, @Nonnull MapColor mapColorIn) { super(materialIn, mapColorIn); }
 
     @Override
-    public int getMetaFromState(@Nonnull IBlockState state) { return state.getValue(TYPE).ordinal(); }
-
-    @Nonnull
-    @Override
-    public IBlockState getStateFromMeta(int meta) {
-        return getDefaultState().withProperty(TYPE, ArrayUtils.getSafe(Type.values(), meta));
-    }
-
-    @Nonnull
-    @Override
-    public SoundType getSoundType(@Nonnull IBlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nullable Entity entity) {
-        return state.getValue(TYPE) == Type.NETHER ? ModSounds.NETHER_ORE : super.getSoundType(state, world, pos, entity);
-    }
-
-    @Nonnull
-    @Override
-    public MapColor getMapColor(@Nonnull IBlockState state, @Nonnull IBlockAccess worldIn, @Nonnull BlockPos pos) {
-        final Type type = state.getValue(TYPE);
-        switch(type) {
-            case OVERWORLD: return Blocks.STONE.getDefaultState().getMapColor(worldIn, pos);
-            case NETHER: return Blocks.NETHERRACK.getDefaultState().getMapColor(worldIn, pos);
-            case END: return Blocks.END_STONE.getDefaultState().getMapColor(worldIn, pos);
-        }
-
-        return super.getMapColor(state, worldIn, pos);
+    public int quantityDroppedWithBonus(int fortune, @Nonnull Random random) {
+        return random.nextInt(10 - Math.min(fortune, 3) * 3) == 0 ? 1 : 0;
     }
 
     @Override
-    public void getSubBlocks(@Nonnull CreativeTabs itemIn, @Nonnull NonNullList<ItemStack> items) {
-        for(int meta = 0; meta < Type.values().length; meta++) items.add(new ItemStack(this, 1, meta));
-    }
+    public int quantityDropped(@Nonnull Random random) { return random.nextInt(10) == 0 ? 1 : 0; }
 
     @Override
     public boolean addLandingEffects(@Nonnull IBlockState state, @Nonnull WorldServer world, @Nonnull BlockPos pos, @Nonnull IBlockState iblockstate, @Nonnull EntityLivingBase entity, int numberOfParticles) {
@@ -123,20 +80,5 @@ public class BlockExperienceOre extends BlockOre implements IEmissiveBlock
     @Override
     public boolean isEmissive(@Nonnull IBlockState state, @Nonnull BlockRenderLayer layer) {
         return layer == BlockRenderLayer.CUTOUT;
-    }
-
-    public enum Type implements IStringSerializable
-    {
-        OVERWORLD("overworld"),
-        NETHER("nether"),
-        END("end");
-
-        @Nonnull private final String name;
-
-        Type(@Nonnull String name) { this.name = name; }
-
-        @Nonnull
-        @Override
-        public String getName() { return name; }
     }
 }

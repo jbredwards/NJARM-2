@@ -5,6 +5,7 @@ import com.google.common.collect.ImmutableMap;
 import git.jbredwards.fluidlogged_api.api.util.FluidloggedUtils;
 import git.jbredwards.njarm.mod.client.entity.renderer.EntityRendererHandler;
 import git.jbredwards.njarm.mod.client.particle.ParticleFactoryColorize;
+import git.jbredwards.njarm.mod.common.block.util.IEmissiveBlock;
 import git.jbredwards.njarm.mod.common.capability.*;
 import git.jbredwards.njarm.mod.common.config.ConfigHandler;
 import git.jbredwards.njarm.mod.common.init.ModSounds;
@@ -12,10 +13,10 @@ import git.jbredwards.njarm.mod.common.message.*;
 import git.jbredwards.njarm.mod.common.world.generation.BasaltPillarGenerator;
 import git.jbredwards.njarm.mod.common.world.generation.OreGenerator;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.*;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -110,7 +111,7 @@ public final class Main
         }
 
         //side specific functions called throughout the mod
-        public boolean getLightForGlowingOre() { return false; }
+        public boolean isLightEmissive(@Nonnull IBlockState state, @Nonnull IEmissiveBlock block) { return false; }
     }
 
     //handles client-side code
@@ -141,9 +142,11 @@ public final class Main
             super.init();
         }
 
-        //use optifine emissive textures if that mod is loaded
-        public boolean getLightForGlowingOre() {
-            return !FMLClientHandler.instance().hasOptifine() && MinecraftForgeClient.getRenderLayer() == BlockRenderLayer.CUTOUT;
+        //use optifine emissive textures if that mod is loaded (works better with OF shaderpacks)
+        //otherwise use this mod's emissive rendering
+        @Override
+        public boolean isLightEmissive(@Nonnull IBlockState state, @Nonnull IEmissiveBlock block) {
+            return !FMLClientHandler.instance().hasOptifine() && block.isEmissive(state, MinecraftForgeClient.getRenderLayer());
         }
 
         //gather vanilla assets

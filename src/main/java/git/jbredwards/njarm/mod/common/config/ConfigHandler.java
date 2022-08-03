@@ -42,7 +42,6 @@ public final class ConfigHandler
 
     @Config.LangKey("config.njarm.cfg.client")
     @Nonnull public static final ClientConfig clientCfg = register(new ClientConfig(
-            new ParticlesConfig("njarm:blocks/magic_ore_overlay", "njarm:blocks/xp_ore_overlay", "njarm:blocks/xp_ore_overlay", "njarm:blocks/xp_ore_overlay", "njarm:blocks/overgrown_dirt_overlay", "njarm:blocks/overgrown_dirt_overlay"),
             new RenderingConfig(true, true, 60, 4, new String[] {
                     "{Biome:\"plains\",Surface:4501493,Fog:4501493}",
                     "{Biome:\"desert\",Surface:3319192,Fog:3319192}",

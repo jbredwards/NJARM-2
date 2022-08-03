@@ -1,9 +1,8 @@
 package git.jbredwards.njarm.mod.common.block;
 
-import git.jbredwards.njarm.mod.Main;
 import git.jbredwards.njarm.mod.client.particle.util.ParticleProviders;
 import git.jbredwards.njarm.mod.client.particle.util.ParticleUtils;
-import git.jbredwards.njarm.mod.common.block.util.IHasDestroyEffects;
+import git.jbredwards.njarm.mod.common.block.util.IEmissiveBlock;
 import git.jbredwards.njarm.mod.common.config.ConfigHandler;
 import git.jbredwards.njarm.mod.common.config.block.MagicOreConfig;
 import git.jbredwards.njarm.mod.common.init.ModBlocks;
@@ -38,7 +37,7 @@ import java.util.Random;
  * @author jbred
  *
  */
-public class BlockMagicOre extends BlockOre implements IHasDestroyEffects
+public class BlockMagicOre extends BlockOre implements IEmissiveBlock
 {
     public final boolean isLit;
 
@@ -123,24 +122,24 @@ public class BlockMagicOre extends BlockOre implements IHasDestroyEffects
 
     @Override
     public boolean addLandingEffects(@Nonnull IBlockState state, @Nonnull WorldServer world, @Nonnull BlockPos pos, @Nonnull IBlockState iblockstate, @Nonnull EntityLivingBase entity, int numberOfParticles) {
-        return isLit && MagicOreConfig.emissive() && ParticleUtils.addLandingEffects(world, entity, numberOfParticles, ParticleProviders.MAGIC_ORE_BLOCK_DUST, getStateId(state), -1, 240);
+        return isLit && MagicOreConfig.emissive() && ParticleUtils.addLandingEffects(world, entity, numberOfParticles, ParticleProviders.MULTI_LAYER_BLOCK_DUST, getStateId(state));
     }
 
     @Override
     public boolean addRunningEffects(@Nonnull IBlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull Entity entity) {
-        return isLit && MagicOreConfig.emissive() && ParticleUtils.addRunningParticles(world, entity, ParticleProviders.MAGIC_ORE_DIGGING, getStateId(state), -1, 240);
+        return isLit && MagicOreConfig.emissive() && ParticleUtils.addRunningParticles(world, entity, ParticleProviders.MULTI_LAYER_DIGGING, getStateId(state));
     }
 
     @SideOnly(Side.CLIENT)
     @Override
     public boolean addHitEffects(@Nonnull IBlockState state, @Nonnull World world, @Nonnull RayTraceResult target, @Nonnull ParticleManager manager) {
-        return isLit && MagicOreConfig.emissive() && ParticleUtils.addHitEffects(state, world, target, manager, ParticleProviders.MAGIC_ORE_DIGGING, getStateId(state), -1, 240);
+        return isLit && MagicOreConfig.emissive() && ParticleUtils.addHitEffects(state, world, target, manager, ParticleProviders.MULTI_LAYER_DIGGING, getStateId(state));
     }
 
     @SideOnly(Side.CLIENT)
     @Override
     public boolean addDestroyEffects(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull ParticleManager manager, @Nonnull IBlockState state) {
-        return isLit && MagicOreConfig.emissive() && ParticleUtils.addDestroyEffects(world, pos, manager, ParticleProviders.MAGIC_ORE_DIGGING, getStateId(state), -1, 240);
+        return isLit && MagicOreConfig.emissive() && ParticleUtils.addDestroyEffects(world, pos, manager, ParticleProviders.MULTI_LAYER_DIGGING, getStateId(state));
     }
 
     //========================================
@@ -150,19 +149,23 @@ public class BlockMagicOre extends BlockOre implements IHasDestroyEffects
     @SideOnly(Side.CLIENT)
     @Override
     public int getPackedLightmapCoords(@Nonnull IBlockState state, @Nonnull IBlockAccess source, @Nonnull BlockPos pos) {
-        return isLit && MagicOreConfig.emissive() && Main.proxy.getLightForGlowingOre()
-                ? 240 : super.getPackedLightmapCoords(state, source, pos);
+        return isLightEmissive(state) ? 240 : super.getPackedLightmapCoords(state, source, pos);
     }
 
     @Override
     public int getLightValue(@Nonnull IBlockState state) {
-        if(!isLit) return 0;
-        else if(!MagicOreConfig.emissive()) return 9;
-        return Main.proxy.getLightForGlowingOre() ? 1 : 0;
+        if(isLit && !MagicOreConfig.emissive()) return 9;
+        return isLightEmissive(state) ? 1 : 0;
     }
 
     @Override
     public boolean canRenderInLayer(@Nonnull IBlockState state, @Nonnull BlockRenderLayer layer) {
         return layer == BlockRenderLayer.SOLID || isLit && MagicOreConfig.emissive() && layer == BlockRenderLayer.CUTOUT;
+    }
+
+    @SideOnly(Side.CLIENT)
+    @Override
+    public boolean isEmissive(@Nonnull IBlockState state, @Nonnull BlockRenderLayer layer) {
+        return isLit && MagicOreConfig.emissive() && layer == BlockRenderLayer.CUTOUT;
     }
 }

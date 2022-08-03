@@ -39,7 +39,7 @@ public final class ModItems
     @Nonnull public static final ItemBlock ANCIENT_DEBRIS = register("ancient_debris", new ItemBlock(ModBlocks.ANCIENT_DEBRIS));
     @Nonnull public static final ItemBlock MAGIC_BLOCK = register("magic_block", new ItemBlock(ModBlocks.MAGIC_BLOCK));
     @Nonnull public static final ItemBlock MAGIC_ORE = register("magic_ore", new ItemBlock(ModBlocks.MAGIC_ORE));
-    @Nonnull public static final ItemBlockExperienceOre XP_ORE = register("xp_ore", new ItemBlockExperienceOre(ModBlocks.XP_ORE));
+    @Nonnull public static final ItemBlockMetaExpOre XP_ORE = register("xp_ore", new ItemBlockMetaExpOre(ModBlocks.XP_ORE));
     @Nonnull public static final ItemBlock FRAGILE_ICE = register("fragile_ice", new ItemBlock(ModBlocks.FRAGILE_ICE));
     @Nonnull public static final ItemBlock NETHER_REACTOR_CORE = register("nether_reactor_core", new ItemBlock(ModBlocks.NETHER_REACTOR_CORE));
     @Nonnull public static final ItemBlock GLOWING_OBSIDIAN = register("glowing_obsidian", new ItemBlock(ModBlocks.GLOWING_OBSIDIAN));
@@ -60,6 +60,14 @@ public final class ModItems
     @Nonnull public static final ItemBlock MICA_ORE = register("mica_ore", new ItemBlock(ModBlocks.MICA_ORE));
     @Nonnull public static final ItemBlock OVERGROWN_DIRT = register("overgrown_dirt", new ItemBlock(ModBlocks.OVERGROWN_DIRT));
     @Nonnull public static final ItemBlock OVERGROWN_STONE = register("overgrown_stone", new ItemBlock(ModBlocks.OVERGROWN_STONE));
+    @Nonnull public static final ItemBlock QUARTZ_ORE = register("quartz_ore", new ItemBlock(ModBlocks.QUARTZ_ORE));
+    @Nonnull public static final ItemBlock GRAVEL_GOLD_ORE = register("gravel_gold_ore", new ItemBlock(ModBlocks.GRAVEL_GOLD_ORE));
+    @Nonnull public static final ItemBlock GRAVEL_IRON_ORE = register("gravel_iron_ore", new ItemBlock(ModBlocks.GRAVEL_IRON_ORE));
+    @Nonnull public static final ItemBlockExpOre GRAVEL_XP_ORE = register("gravel_xp_ore", new ItemBlockExpOre(ModBlocks.GRAVEL_XP_ORE));
+    @Nonnull public static final ItemBlock GRAVEL_QUARTZ_ORE = register("gravel_quartz_ore", new ItemBlock(ModBlocks.GRAVEL_QUARTZ_ORE));
+    @Nonnull public static final ItemBlock PLATINUM_ORE = register("platinum_ore", new ItemBlock(ModBlocks.PLATINUM_ORE));
+    @Nonnull public static final ItemBlock END_LAPIS_ORE = register("end_lapis_ore", new ItemBlock(ModBlocks.END_LAPIS_ORE));
+    @Nonnull public static final ItemBlock BONE_ORE = register("bone_ore", new ItemBlock(ModBlocks.BONE_ORE));
 
     //items
     @Nonnull public static final Item RUBY = register("ruby", new Item());
@@ -130,8 +138,15 @@ public final class ModItems
         OreDictionary.registerOre("nuggetObsidianAlloy", OBSIDIAN_NUGGET);
         OreDictionary.registerOre("nuggetPlatinum", PLATINUM_NUGGET);
         OreDictionary.registerOre("oreAncientDebris", ANCIENT_DEBRIS);
+        OreDictionary.registerOre("oreBone", BONE_ORE);
+        OreDictionary.registerOre("oreGold", GRAVEL_GOLD_ORE);
+        OreDictionary.registerOre("oreIron", GRAVEL_IRON_ORE);
+        OreDictionary.registerOre("oreLapis", END_LAPIS_ORE);
         OreDictionary.registerOre("oreMagicNJARM", MAGIC_ORE);
         OreDictionary.registerOre("oreMica", MICA_ORE);
+        OreDictionary.registerOre("orePlatinum", PLATINUM_ORE);
+        OreDictionary.registerOre("oreQuartz", GRAVEL_QUARTZ_ORE);
+        OreDictionary.registerOre("oreQuartz", QUARTZ_ORE);
         OreDictionary.registerOre("oreRuby", RUBY_ORE);
         OreDictionary.registerOre("oreSapphire", SAPPHIRE_ORE);
         OreDictionary.registerOre("scrapAncientDebris", NETHERITE_SCRAP);

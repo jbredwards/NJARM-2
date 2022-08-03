@@ -120,12 +120,19 @@ public final class ModRecipes
     static void registerSmelting() {
         GameRegistry.addSmelting(Items.APPLE, new ItemStack(ModItems.BAKED_APPLE), 0.35f);
         GameRegistry.addSmelting(ModItems.BLACKSTONE_BRICKS, new ItemStack(ModItems.BLACKSTONE_CRACKED), 0.1f);
+        GameRegistry.addSmelting(ModItems.BONE_ORE, new ItemStack(Items.BONE), 0.1f);
         GameRegistry.addSmelting(Items.EGG, new ItemStack(ModItems.COOKED_EGG), 0.1f);
+        GameRegistry.addSmelting(ModItems.END_LAPIS_ORE, new ItemStack(Items.DYE, 1, 4), 0.2f);
         GameRegistry.addSmelting(ModItems.RAW_EGG, new ItemStack(ModItems.FRIED_EGG), 0.1f);
+        GameRegistry.addSmelting(ModItems.GRAVEL_GOLD_ORE, new ItemStack(Items.GOLD_INGOT), 1);
+        GameRegistry.addSmelting(ModItems.GRAVEL_IRON_ORE, new ItemStack(Items.IRON_INGOT), 0.7f);
         GameRegistry.addSmelting(ModItems.MAGIC_ORE, new ItemStack(ModItems.MAGIC_DUST), 0.7f);
-        GameRegistry.addSmelting(ModBlocks.MICA_ORE, new ItemStack(ModItems.MICA_DUST), 0.3f);
+        GameRegistry.addSmelting(ModItems.MICA_ORE, new ItemStack(ModItems.MICA_DUST), 0.3f);
         GameRegistry.addSmelting(ModItems.ANCIENT_DEBRIS, new ItemStack(ModItems.NETHERITE_SCRAP), 2);
         GameRegistry.addSmelting(Blocks.OBSIDIAN, new ItemStack(ModItems.OBSIDIAN_GLASS), 0.1f);
+        GameRegistry.addSmelting(ModItems.PLATINUM_ORE, new ItemStack(ModItems.PLATINUM_INGOT), 1);
+        GameRegistry.addSmelting(ModItems.GRAVEL_QUARTZ_ORE, new ItemStack(Items.QUARTZ), 0.2f);
+        GameRegistry.addSmelting(ModItems.QUARTZ_ORE, new ItemStack(Items.QUARTZ), 0.2f);
         GameRegistry.addSmelting(ModItems.RUBY_ORE, new ItemStack(ModItems.RUBY), 1);
         GameRegistry.addSmelting(ModItems.SAPPHIRE_ORE, new ItemStack(ModItems.SAPPHIRE), 1);
     }

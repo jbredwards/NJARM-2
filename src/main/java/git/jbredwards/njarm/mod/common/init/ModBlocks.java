@@ -2,10 +2,10 @@ package git.jbredwards.njarm.mod.common.init;
 
 import git.jbredwards.njarm.asm.plugins.ASMHooks;
 import git.jbredwards.njarm.mod.Constants;
-import git.jbredwards.njarm.mod.client.particle.util.ParticleProviders;
 import git.jbredwards.njarm.mod.common.block.*;
 import git.jbredwards.njarm.mod.common.item.util.CreativeTab;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockFalling;
 import net.minecraft.block.BlockRotatedPillar;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.MapColor;
@@ -33,6 +33,7 @@ public final class ModBlocks
 
     //block materials
     @Nonnull public static final MaterialLiquid BUBBLE_COLUMN_MATERIAL = new MaterialLiquid(MapColor.WATER);
+    @Nonnull public static final Material GRAVEL_ORE = new Material(MapColor.STONE).setRequiresTool();
 
     //blocks
     @Nonnull public static final Block RUBY_BLOCK = register("ruby_block", new Block(Material.IRON, MapColor.RED), Blocks.DIAMOND_BLOCK, block -> block.setHarvestLevel("pickaxe", 3));
@@ -66,8 +67,16 @@ public final class ModBlocks
     @Nonnull public static final BlockObsidianGlass OBSIDIAN_GLASS = register("obsidian_glass", new BlockObsidianGlass(Material.GLASS, MapColor.OBSIDIAN, false), Blocks.OBSIDIAN, block -> block.setSoundType(SoundType.GLASS));
     @Nonnull public static final BlockObsidianGlassPane OBSIDIAN_GLASS_PANE = register("obsidian_glass_pane", new BlockObsidianGlassPane(Material.GLASS), Blocks.OBSIDIAN, block -> block.setSoundType(SoundType.GLASS));
     @Nonnull public static final BlockFallingOre MICA_ORE = register("mica_ore", new BlockFallingOre(Material.SAND).setItemDropped(() -> ModItems.MICA_DUST).setExpDropped(rand -> MathHelper.getInt(rand, 0, 2)), Blocks.SAND);
-    @Nonnull public static final BlockOvergrown OVERGROWN_DIRT = register("overgrown_dirt", new BlockOvergrown(Material.GRASS, BlockRenderLayer.SOLID, BlockRenderLayer.CUTOUT), Blocks.GRASS, block-> block.setParticles(ParticleProviders.OVERGROWN_DIRT_DIGGING, ParticleProviders.OVERGROWN_DIRT_BLOCK_DUST).setItemDropped(() -> Item.getItemFromBlock(Blocks.DIRT)));
-    @Nonnull public static final BlockOvergrown OVERGROWN_STONE = register("overgrown_stone", new BlockOvergrown(Material.ROCK, BlockRenderLayer.SOLID, BlockRenderLayer.CUTOUT), Blocks.STONE, block-> block.setParticles(ParticleProviders.OVERGROWN_STONE_DIGGING, ParticleProviders.OVERGROWN_STONE_BLOCK_DUST).setItemDropped(() -> Item.getItemFromBlock(Blocks.COBBLESTONE)));
+    @Nonnull public static final BlockOvergrown OVERGROWN_DIRT = register("overgrown_dirt", new BlockOvergrown(Material.GRASS, BlockRenderLayer.SOLID, BlockRenderLayer.CUTOUT), Blocks.GRASS, block-> block.setItemDropped(() -> Item.getItemFromBlock(Blocks.DIRT)));
+    @Nonnull public static final BlockOvergrown OVERGROWN_STONE = register("overgrown_stone", new BlockOvergrown(Material.ROCK, BlockRenderLayer.SOLID, BlockRenderLayer.CUTOUT), Blocks.STONE, block-> block.setItemDropped(() -> Item.getItemFromBlock(Blocks.COBBLESTONE)));
+    @Nonnull public static final BlockOre QUARTZ_ORE = register("quartz_ore", new BlockOre(Material.ROCK), Blocks.COAL_ORE, block -> block.setItemDropped(() -> Items.QUARTZ).setExpDropped(rand -> MathHelper.getInt(rand, 2, 5)));
+    @Nonnull public static final BlockFalling GRAVEL_GOLD_ORE = register("gravel_gold_ore", new BlockFalling(GRAVEL_ORE), Blocks.GOLD_ORE, block -> block.setSoundType(SoundType.GROUND).setHardness(1.2f).setHarvestLevel("shovel", 2));
+    @Nonnull public static final BlockFalling GRAVEL_IRON_ORE = register("gravel_iron_ore", new BlockFalling(GRAVEL_ORE), Blocks.IRON_ORE, block -> block.setSoundType(SoundType.GROUND).setHardness(1.2f).setHarvestLevel("shovel", 1));
+    @Nonnull public static final BlockFallingExpOre GRAVEL_XP_ORE = register("gravel_xp_ore", new BlockFallingExpOre(GRAVEL_ORE), XP_ORE, block -> block.setItemDropped(() -> Items.FLINT).setExpDropped(rand -> MathHelper.getInt(rand, 5, 14)).setSoundType(SoundType.GROUND).setHardness(1.2f).setHarvestLevel("shovel", 0));
+    @Nonnull public static final BlockFallingOre GRAVEL_QUARTZ_ORE = register("gravel_quartz_ore", new BlockFallingOre(GRAVEL_ORE), QUARTZ_ORE, block -> block.setItemDropped(() -> Items.QUARTZ).setExpDropped(rand -> MathHelper.getInt(rand, 2, 5)).setSoundType(SoundType.GROUND).setHardness(1.2f).setHarvestLevel("shovel", 0));
+    @Nonnull public static final Block PLATINUM_ORE = register("platinum_ore", new Block(Material.ROCK), Blocks.DIAMOND_ORE);
+    @Nonnull public static final BlockOre END_LAPIS_ORE = register("end_lapis_ore", new BlockOre(Material.ROCK, MapColor.SAND), Blocks.LAPIS_ORE, block -> block.setItemDropped(() -> Items.DYE).setQuantityDropped(rand -> MathHelper.getInt(rand, 4, 8)).setDoesFortuneAdd().setDamageDropped(4)).setExpDropped(rand -> MathHelper.getInt(rand, 2, 5));
+    @Nonnull public static final BlockOre BONE_ORE = register("bone_ore", new BlockOre(Material.GROUND), Blocks.DIRT, block -> block.setItemDropped(() -> Items.BONE).setQuantityDropped(rand -> MathHelper.getInt(rand, 2, 4)));
 
     @Nonnull public static final BlockBlueFire BLUE_FIRE = register("blue_fire", new BlockBlueFire(), Blocks.FIRE);
     @Nonnull public static final BlockBubbleColumn BUBBLE_COLUMN = register("bubble_column", new BlockBubbleColumn(BUBBLE_COLUMN_MATERIAL), Blocks.WATER);

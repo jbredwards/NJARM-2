@@ -17,9 +17,6 @@ public final class ClientConfig implements IConfig
     @Nonnull
     private final NonNullList<IConfig> CONFIGS = NonNullList.create();
 
-    @Config.LangKey("config.njarm.core.client.particles")
-    @Nonnull public final ParticlesConfig particlesCfg;
-
     @Config.LangKey("config.njarm.core.client.rendering")
     @Nonnull public final RenderingConfig renderingCfg;
 
@@ -39,8 +36,7 @@ public final class ClientConfig implements IConfig
     public void onUpdate() { CONFIGS.forEach(IConfig::onUpdate); }
 
     //needed for gson
-    public ClientConfig(@Nonnull ParticlesConfig particlesCfg, @Nonnull RenderingConfig renderingCfg) {
-        this.particlesCfg = register(particlesCfg);
+    public ClientConfig(@Nonnull RenderingConfig renderingCfg) {
         this.renderingCfg = register(renderingCfg);
     }
 }

@@ -1,7 +1,8 @@
 package git.jbredwards.njarm.mod.common.init;
 
 import git.jbredwards.njarm.mod.Constants;
-import git.jbredwards.njarm.mod.common.tileentity.TileEntityNetherCore;
+import git.jbredwards.njarm.mod.client.model.MultiLayerModel;
+import git.jbredwards.njarm.mod.common.tileentity.*;
 import net.darkhax.bookshelf.item.ICustomModel;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -10,6 +11,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -59,13 +61,18 @@ public final class RegistryHandler
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
     public static void registerItemModels(@Nullable ModelRegistryEvent event) {
+        //blocks
         for(Block block : ModBlocks.INIT)
             if(block instanceof ICustomModel) ((ICustomModel)block).registerMeshModels();
 
+        //items
         for(Item item : ModItems.INIT) {
             if(item instanceof ICustomModel) ((ICustomModel)item).registerMeshModels();
             else ModelLoader.setCustomModelResourceLocation(item, 0,
                     new ModelResourceLocation(String.valueOf(item.getRegistryName()), "inventory"));
         }
+
+        //loaders
+        ModelLoaderRegistry.registerLoader(MultiLayerModel.Loader.INSTANCE);
     }
 }
