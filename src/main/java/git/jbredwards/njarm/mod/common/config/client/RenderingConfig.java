@@ -60,6 +60,11 @@ public final class RenderingConfig implements IConfig
     public final int biomeColorBlendRadius;
     public static int biomeColorBlendRadius() { return ConfigHandler.clientCfg.renderingCfg.biomeColorBlendRadius; }
 
+    //TODO
+    /*@Config.LangKey("config.njarm.client.rendering.emissiveExpOres")
+    public final boolean emissiveExpOres;
+    public static boolean emissiveExpOres() { return ConfigHandler.clientCfg.renderingCfg.emissiveExpOres; }*/
+
     @Config.LangKey("config.njarm.client.rendering.waterColors")
     @Nonnull public final String[] waterColors;
     @Nonnull public static final Object2IntMap<Biome> FOG_COLORS = new Object2IntOpenHashMap<>();

@@ -56,9 +56,9 @@ public final class ParticleLayeredDigging extends ParticleDigging
                 final int color = Minecraft.getMinecraft().getBlockColors()
                         .colorMultiplier(sourceState, world, pos, index++);
 
-                layer.colors[0] = (color >> 16 & 255) / 255f;
-                layer.colors[1] = (color >> 8 & 255) / 255f;
-                layer.colors[2] = (color & 255) / 255f;
+                layer.colors[0] = (color >> 16 & 255) / 255f * 0.6f;
+                layer.colors[1] = (color >> 8 & 255) / 255f * 0.6f;
+                layer.colors[2] = (color & 255) / 255f * 0.6f;
             }
         }
     }
@@ -68,9 +68,9 @@ public final class ParticleLayeredDigging extends ParticleDigging
         for(@Nullable ParticleLayer layer : layers) {
             if(layer != null) {
                 particleTexture = layer.getSprite();
-                particleRed = 0.6f * layer.colors[0];
-                particleGreen = 0.6f * layer.colors[1];
-                particleBlue = 0.6f * layer.colors[2];
+                particleRed = layer.colors[0];
+                particleGreen = layer.colors[1];
+                particleBlue = layer.colors[2];
                 brightnessForRender = layer.brightness < 0 ? super.getBrightnessForRender(partialTicks) : layer.brightness;
                 super.renderParticle(buffer, entityIn, partialTicks, rotationX, rotationZ, rotationYZ, rotationXY, rotationXZ);
             }

@@ -12,6 +12,7 @@ import git.jbredwards.njarm.mod.common.init.ModSounds;
 import git.jbredwards.njarm.mod.common.message.*;
 import git.jbredwards.njarm.mod.common.world.generation.BasaltPillarGenerator;
 import git.jbredwards.njarm.mod.common.world.generation.OreGenerator;
+import net.darkhax.bookshelf.util.RenderUtils;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -112,6 +113,7 @@ public final class Main
 
         //side specific functions called throughout the mod
         public boolean isLightEmissive(@Nonnull IBlockState state, @Nonnull IEmissiveBlock block) { return false; }
+        public void markRenderUpdate() {}
     }
 
     //handles client-side code
@@ -148,6 +150,10 @@ public final class Main
         public boolean isLightEmissive(@Nonnull IBlockState state, @Nonnull IEmissiveBlock block) {
             return !FMLClientHandler.instance().hasOptifine() && block.isEmissive(state, MinecraftForgeClient.getRenderLayer());
         }
+
+        //called when certain configs change
+        @Override
+        public void markRenderUpdate() { RenderUtils.markRenderersForReload(true); }
 
         //gather vanilla assets
         @Override

@@ -2,6 +2,7 @@ package git.jbredwards.njarm.mod.common.init;
 
 import git.jbredwards.njarm.mod.Constants;
 import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -33,6 +34,10 @@ public final class RegistryRemapper
             else if(mapping.key.getNamespace().equals("njarm")) {
                 switch(mapping.key.getPath()) {
                     case "lapis_ore": mapping.remap(ModBlocks.END_LAPIS_ORE); break;
+                    case "gold_ore": mapping.remap(ModBlocks.NETHER_GOLD_ORE); break;
+                    case "diamond_ore": mapping.remap(ModBlocks.NETHER_DIAMOND_ORE); break;
+                    case "emerald_ore": mapping.remap(ModBlocks.NETHER_EMERALD_ORE); break;
+                    case "sunstone_ore": mapping.remap(Blocks.QUARTZ_ORE); break;
                 }
             }
         });
@@ -52,8 +57,14 @@ public final class RegistryRemapper
             else if(mapping.key.getNamespace().equals("njarm")) {
                 switch(mapping.key.getPath()) {
                     case "lapis_ore": mapping.remap(ModItems.END_LAPIS_ORE); break;
+                    case "gold_ore": mapping.remap(ModItems.NETHER_GOLD_ORE); break;
+                    case "diamond_ore": mapping.remap(ModItems.NETHER_DIAMOND_ORE); break;
+                    case "emerald_ore": mapping.remap(ModItems.NETHER_EMERALD_ORE); break;
+                    case "sunstone_ore": mapping.remap(Item.getItemFromBlock(Blocks.QUARTZ_ORE)); break;
+
                     case "rupee_shard": mapping.remap(ModItems.RUPEE); break;
                     case "heart": mapping.ignore(); break;
+                    case "electricity": mapping.remap(ModItems.CHARGED_SUNSTONE); break;
                 }
             }
         });

@@ -61,6 +61,7 @@ public final class ASMHandler implements IFMLLoadingPlugin
                 .put("net.minecraft.block.BlockStoneSlab", new PluginBlockStoneSlab()) //Nether brick slabs have the same nether brick sound as vanilla 1.16+
                 .put("net.minecraft.block.BlockTrapDoor", new PluginIHasRunningEffects()) //Fix running effects for trapdoors
                 .put("net.minecraft.entity.item.EntityFallingBlock", new PluginEntityFallingBlock()) //Implement IFancyFallingBlock functionality
+                .put("net.minecraft.entity.item.EntityItem", new PluginEntityItem()) //InvulnerableItem implementation
                 .put("net.minecraft.entity.monster.EntitySnowman", new PluginEntitySnowman()) //Snow golems cannot generate falling snow layers
                 .put("net.minecraft.entity.passive.AbstractHorse", new PluginAbstractHorse()) //Lets horses be ridden by holding a carrot on a stick
                 .put("net.minecraft.entity.player.EntityPlayer", new PluginEntityPlayer()) //Plays the fire damage sound at the exact moment when the player takes damage from blue fire

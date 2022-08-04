@@ -116,7 +116,7 @@ public final class ConfigHandler
     @Config.LangKey("config.njarm.cfg.item")
     @Nonnull public static final ItemConfig itemCfg = register(new ItemConfig(
             new BonusHeartConfig(2, true, true),
-            new ChargedSunstoneConfig(true, true, false, true, true, true, 3),
+            new ChargedSunstoneConfig(true, true, false, true, true, true, 3, true),
             new EggShellsConfig(true, 0, 100, new String[] {"minecraft:egg"}, new String[] {"minecraft:egg", "njarm:cooked_egg"}),
             new EquipmentConfig(
                     "{HarvestLevel:4,Durability:3122,MiningSpeed:8.0f,AttackDamage:3.0f,Enchantability:10}"

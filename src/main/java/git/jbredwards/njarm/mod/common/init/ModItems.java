@@ -30,13 +30,13 @@ public final class ModItems
 
     //item blocks
     @Nonnull public static final ItemBlock RUBY_BLOCK = register("ruby_block", new ItemBlock(ModBlocks.RUBY_BLOCK));
-    @Nonnull public static final ItemBlock SAPPHIRE_BLOCK = register("sapphire_block", new ItemBlock(ModBlocks.SAPPHIRE_BLOCK));
+    @Nonnull public static final ItemBlockFireproof SAPPHIRE_BLOCK = register("sapphire_block", new ItemBlockFireproof(ModBlocks.SAPPHIRE_BLOCK));
     @Nonnull public static final ItemBlockMeta FOOD_CRATE = register("food_crate", new ItemBlockMeta(ModBlocks.FOOD_CRATE, BlockFoodCrate.TYPE));
     @Nonnull public static final ItemBlock PLATINUM_BLOCK = register("platinum_block", new ItemBlock(ModBlocks.PLATINUM_BLOCK));
-    @Nonnull public static final ItemBlock NETHERITE_BLOCK = register("netherite_block", new ItemBlock(ModBlocks.NETHERITE_BLOCK));
+    @Nonnull public static final ItemBlockFireproof NETHERITE_BLOCK = register("netherite_block", new ItemBlockFireproof(ModBlocks.NETHERITE_BLOCK));
     @Nonnull public static final ItemBlock RUBY_ORE = register("ruby_ore", new ItemBlock(ModBlocks.RUBY_ORE));
     @Nonnull public static final ItemBlock SAPPHIRE_ORE = register("sapphire_ore", new ItemBlock(ModBlocks.SAPPHIRE_ORE));
-    @Nonnull public static final ItemBlock ANCIENT_DEBRIS = register("ancient_debris", new ItemBlock(ModBlocks.ANCIENT_DEBRIS));
+    @Nonnull public static final ItemBlockFireproof ANCIENT_DEBRIS = register("ancient_debris", new ItemBlockFireproof(ModBlocks.ANCIENT_DEBRIS));
     @Nonnull public static final ItemBlock MAGIC_BLOCK = register("magic_block", new ItemBlock(ModBlocks.MAGIC_BLOCK));
     @Nonnull public static final ItemBlock MAGIC_ORE = register("magic_ore", new ItemBlock(ModBlocks.MAGIC_ORE));
     @Nonnull public static final ItemBlockMetaExpOre XP_ORE = register("xp_ore", new ItemBlockMetaExpOre(ModBlocks.XP_ORE));
@@ -65,19 +65,22 @@ public final class ModItems
     @Nonnull public static final ItemBlock GRAVEL_IRON_ORE = register("gravel_iron_ore", new ItemBlock(ModBlocks.GRAVEL_IRON_ORE));
     @Nonnull public static final ItemBlockExpOre GRAVEL_XP_ORE = register("gravel_xp_ore", new ItemBlockExpOre(ModBlocks.GRAVEL_XP_ORE));
     @Nonnull public static final ItemBlock GRAVEL_QUARTZ_ORE = register("gravel_quartz_ore", new ItemBlock(ModBlocks.GRAVEL_QUARTZ_ORE));
+    @Nonnull public static final ItemBlock BONE_ORE = register("bone_ore", new ItemBlock(ModBlocks.BONE_ORE));
     @Nonnull public static final ItemBlock PLATINUM_ORE = register("platinum_ore", new ItemBlock(ModBlocks.PLATINUM_ORE));
     @Nonnull public static final ItemBlock END_LAPIS_ORE = register("end_lapis_ore", new ItemBlock(ModBlocks.END_LAPIS_ORE));
-    @Nonnull public static final ItemBlock BONE_ORE = register("bone_ore", new ItemBlock(ModBlocks.BONE_ORE));
+    @Nonnull public static final ItemBlock NETHER_GOLD_ORE = register("nether_gold_ore", new ItemBlock(ModBlocks.NETHER_GOLD_ORE));
+    @Nonnull public static final ItemBlock NETHER_DIAMOND_ORE = register("nether_diamond_ore", new ItemBlock(ModBlocks.NETHER_DIAMOND_ORE));
+    @Nonnull public static final ItemBlock NETHER_EMERALD_ORE = register("nether_emerald_ore", new ItemBlock(ModBlocks.NETHER_EMERALD_ORE));
 
     //items
     @Nonnull public static final Item RUBY = register("ruby", new Item());
-    @Nonnull public static final Item SAPPHIRE = register("sapphire", new Item());
+    @Nonnull public static final ItemFireproof SAPPHIRE = register("sapphire", new ItemFireproof());
     @Nonnull public static final ItemEggShell EGG_SHELL = register("egg_shell", new ItemEggShell());
     @Nonnull public static final ItemGlint MAGIC_DUST = register("magic_dust", new ItemGlint());
     @Nonnull public static final Item OBSIDIAN_INGOT = register("obsidian_ingot", new Item());
     @Nonnull public static final Item OBSIDIAN_NUGGET = register("obsidian_nugget", new Item());
     @Nonnull public static final Item CRUMBLING_BEDROCK = register("crumbling_bedrock", new Item());
-    @Nonnull public static final Item SUNSTONE = register("sunstone", new Item());
+    @Nonnull public static final ItemSunstone SUNSTONE = register("sunstone", new ItemSunstone());
     @Nonnull public static final ItemFood BAKED_APPLE = register("baked_apple", new ItemFood(8, 4.8f, false));
     @Nonnull public static final ItemFood CARAMEL_APPLE = register("caramel_apple", new ItemFood(4, 4.4f, false), item -> item.setPotionEffect(new PotionEffect(MobEffects.SPEED, 400, 1), 1));
     @Nonnull public static final ItemFood BAGUETTE = register("baguette", new ItemFood(10, 12, false));
@@ -90,9 +93,9 @@ public final class ModItems
     @Nonnull public static final ItemMagicMirror BEDROCK_MAGIC_MIRROR = register("bedrock_magic_mirror", new ItemMagicMirror(ItemMagicMirror.BEDROCK), item -> item.setMaxStackSize(1));
     @Nonnull public static final ItemMagicMirror DIMENSIONAL_MAGIC_MIRROR = register("dimensional_magic_mirror", new ItemMagicMirror(ItemMagicMirror.DIMENSIONAL));
     @Nonnull public static final ItemMagicMirror BEDROCK_DIMENSIONAL_MAGIC_MIRROR = register("bedrock_dimensional_magic_mirror", new ItemMagicMirror((byte)3), item -> item.setMaxStackSize(1));
-    @Nonnull public static final Item NETHERITE_SCRAP = register("netherite_scrap", new Item());
-    @Nonnull public static final Item NETHERITE_INGOT = register("netherite_ingot", new Item());
-    @Nonnull public static final Item NETHERITE_NUGGET = register("netherite_nugget", new Item());
+    @Nonnull public static final ItemFireproof NETHERITE_SCRAP = register("netherite_scrap", new ItemFireproof());
+    @Nonnull public static final ItemFireproof NETHERITE_INGOT = register("netherite_ingot", new ItemFireproof());
+    @Nonnull public static final ItemFireproof NETHERITE_NUGGET = register("netherite_nugget", new ItemFireproof());
     @Nonnull public static final Item PLATINUM_INGOT = register("platinum_ingot", new Item());
     @Nonnull public static final Item PLATINUM_NUGGET = register("platinum_nugget", new Item());
     @Nonnull public static final ItemGlint MAGIC_INGOT = register("magic_ingot", new ItemGlint());
@@ -100,10 +103,11 @@ public final class ModItems
     @Nonnull public static final ItemFood RAW_EGG = register("raw_egg", new ItemFood(2, 1.2f, true), item -> item.setPotionEffect(new PotionEffect(MobEffects.NAUSEA, 600, 1), 0.3f));
     @Nonnull public static final ItemFood FRIED_EGG = register("fried_egg", new ItemFood(6, 7.2f, true));
     @Nonnull public static final ItemFood COOKED_EGG = register("cooked_egg", new ItemFood(6, 7.2f, true));
-    @Nonnull public static final ItemThrowable CHARGED_SUNSTONE = register("charged_sunstone", new ItemThrowable(EntityChargedSunstone::new, ChargedSunstoneConfig::canThrow, EntityChargedSunstone::new, ChargedSunstoneConfig::canDispense));
+    @Nonnull public static final ItemChargedSunstone CHARGED_SUNSTONE = register("charged_sunstone", new ItemChargedSunstone(EntityChargedSunstone::new, ChargedSunstoneConfig::canThrow, EntityChargedSunstone::new, ChargedSunstoneConfig::canDispense));
     @Nonnull public static final Item MICA_DUST = register("mica_dust", new Item());
     @Nonnull public static final ItemBonusHeart BONUS_HEART = register("bonus_heart", new ItemBonusHeart());
     @Nonnull public static final ItemRupee RUPEE = register("rupee", new ItemRupee());
+    @Nonnull public static final ItemFire FIRE = register("fire", new ItemFire());
 
     //armor
 
@@ -127,6 +131,8 @@ public final class ModItems
         OreDictionary.registerOre("dustMica", MICA_DUST);
         OreDictionary.registerOre("gemRuby", RUBY);
         OreDictionary.registerOre("gemSapphire", SAPPHIRE);
+        OreDictionary.registerOre("gemSunstone", CHARGED_SUNSTONE);
+        OreDictionary.registerOre("gemSunstoneCharged", CHARGED_SUNSTONE);
         OreDictionary.registerOre("gemSunstone", SUNSTONE);
         OreDictionary.registerOre("blockGlass", OBSIDIAN_GLASS);
         OreDictionary.registerOre("blockGlassColorless", OBSIDIAN_GLASS);
@@ -140,6 +146,9 @@ public final class ModItems
         OreDictionary.registerOre("oreAncientDebris", ANCIENT_DEBRIS);
         OreDictionary.registerOre("oreBone", BONE_ORE);
         OreDictionary.registerOre("oreGold", GRAVEL_GOLD_ORE);
+        OreDictionary.registerOre("oreGold", NETHER_GOLD_ORE);
+        OreDictionary.registerOre("oreDiamond", NETHER_DIAMOND_ORE);
+        OreDictionary.registerOre("oreEmerald", NETHER_EMERALD_ORE);
         OreDictionary.registerOre("oreIron", GRAVEL_IRON_ORE);
         OreDictionary.registerOre("oreLapis", END_LAPIS_ORE);
         OreDictionary.registerOre("oreMagicNJARM", MAGIC_ORE);
@@ -154,19 +163,17 @@ public final class ModItems
 
     //register item
     @Nonnull
-    static <T extends Item> T register(@Nonnull String name, @Nonnull T item) {
+    static <T extends Item> T register(@Nonnull String name, @Nonnull T item) { return register(name, item, itemIn -> {}); }
+
+    //register item
+    @Nonnull
+    static <T extends Item> T register(@Nonnull String name, @Nonnull T item, @Nonnull Consumer<T> consumer) {
         INIT.add(item.setRegistryName(Constants.MODID, name)
                 .setTranslationKey(Constants.MODID + "." + name)
                 .setCreativeTab(CreativeTab.INSTANCE)
         );
 
-        return item;
-    }
-
-    //register item
-    @Nonnull
-    static <T extends Item> T register(@Nonnull String name, @Nonnull T item, @Nonnull Consumer<T> consumer) {
         consumer.accept(item);
-        return register(name, item);
+        return item;
     }
 }

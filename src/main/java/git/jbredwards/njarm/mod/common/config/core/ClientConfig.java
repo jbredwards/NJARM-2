@@ -1,5 +1,6 @@
 package git.jbredwards.njarm.mod.common.config.core;
 
+import git.jbredwards.njarm.mod.Main;
 import git.jbredwards.njarm.mod.common.config.IConfig;
 import git.jbredwards.njarm.mod.common.config.client.*;
 import net.minecraft.util.NonNullList;
@@ -33,7 +34,10 @@ public final class ClientConfig implements IConfig
 
     //update internal configs
     @Override
-    public void onUpdate() { CONFIGS.forEach(IConfig::onUpdate); }
+    public void onUpdate() {
+        CONFIGS.forEach(IConfig::onUpdate);
+        Main.proxy.markRenderUpdate();
+    }
 
     //needed for gson
     public ClientConfig(@Nonnull RenderingConfig renderingCfg) {

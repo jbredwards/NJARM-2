@@ -31,7 +31,6 @@ public class ItemThrowable extends Item
 {
     @Nonnull public final FromThrower fromThrower;
     @Nonnull public final BooleanSupplier canThrow;
-    @Nonnull public final FromDispenser fromDispenser;
 
     public ItemThrowable(@Nonnull FromThrower fromThrower, @Nonnull FromDispenser fromDispenser) {
         this(fromThrower, () -> true, fromDispenser, () -> true);
@@ -40,7 +39,6 @@ public class ItemThrowable extends Item
     public ItemThrowable(@Nonnull FromThrower fromThrower, @Nonnull BooleanSupplier canThrow, @Nonnull FromDispenser fromDispenser, @Nonnull BooleanSupplier canDispense) {
         this.fromThrower = fromThrower;
         this.canThrow = canThrow;
-        this.fromDispenser = fromDispenser;
         BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(this, new BehaviorProjectileDispense() {
             @Nonnull
             @Override

@@ -71,6 +71,10 @@ public final class ModRecipes
         //shaped
         registerCrafting(registry, shaped(4, ModItems.BLACKSTONE_BRICKS, "##", "##", '#', ModItems.POLISHED_BLACKSTONE));
         registerCrafting(registry, shaped(3, ModItems.CHAIN, "N", "I", "N", 'N', "nuggetIron", 'I', "ingotIron"));
+        registerCrafting(registry, shaped(1, Items.CHAINMAIL_CHESTPLATE, "# #", "###", "###", '#', ModItems.FIRE));
+        registerCrafting(registry, shaped(1, Items.CHAINMAIL_BOOTS, "# #", "# #", '#', ModItems.FIRE));
+        registerCrafting(registry, shaped(1, Items.CHAINMAIL_HELMET, "###", "# #", '#', ModItems.FIRE));
+        registerCrafting(registry, shaped(1, Items.CHAINMAIL_LEGGINGS, "###", "# #", "# #", '#', ModItems.FIRE));
         registerCrafting(registry, shaped(1, ModItems.DIMENSIONAL_MAGIC_MIRROR, "DID", "IMI", "DID", 'D', "dustMagicNJARM", 'I', "ingotMagicalAlloy", 'M', ModItems.MAGIC_MIRROR));
         registerCrafting(registry, shaped(1, ModItems.DIMENSIONAL_MAGIC_MIRROR, "IDI", "DMD", "IDI", 'D', "dustMagicNJARM", 'I', "ingotMagicalAlloy", 'M', ModItems.MAGIC_MIRROR));
         registerCrafting(registry, shaped(1, Items.EMERALD, "###", "###", "###", '#', ModItems.RUPEE));
@@ -122,9 +126,12 @@ public final class ModRecipes
         GameRegistry.addSmelting(ModItems.BLACKSTONE_BRICKS, new ItemStack(ModItems.BLACKSTONE_CRACKED), 0.1f);
         GameRegistry.addSmelting(ModItems.BONE_ORE, new ItemStack(Items.BONE), 0.1f);
         GameRegistry.addSmelting(Items.EGG, new ItemStack(ModItems.COOKED_EGG), 0.1f);
+        GameRegistry.addSmelting(ModItems.NETHER_DIAMOND_ORE, new ItemStack(Items.DIAMOND), 1);
+        GameRegistry.addSmelting(ModItems.NETHER_EMERALD_ORE, new ItemStack(Items.EMERALD), 1);
         GameRegistry.addSmelting(ModItems.END_LAPIS_ORE, new ItemStack(Items.DYE, 1, 4), 0.2f);
         GameRegistry.addSmelting(ModItems.RAW_EGG, new ItemStack(ModItems.FRIED_EGG), 0.1f);
         GameRegistry.addSmelting(ModItems.GRAVEL_GOLD_ORE, new ItemStack(Items.GOLD_INGOT), 1);
+        GameRegistry.addSmelting(ModItems.NETHER_GOLD_ORE, new ItemStack(Items.GOLD_INGOT), 1);
         GameRegistry.addSmelting(ModItems.GRAVEL_IRON_ORE, new ItemStack(Items.IRON_INGOT), 0.7f);
         GameRegistry.addSmelting(ModItems.MAGIC_ORE, new ItemStack(ModItems.MAGIC_DUST), 0.7f);
         GameRegistry.addSmelting(ModItems.MICA_ORE, new ItemStack(ModItems.MICA_DUST), 0.3f);
