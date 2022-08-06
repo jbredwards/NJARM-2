@@ -110,8 +110,51 @@ public final class ConfigHandler
 
     @Config.LangKey("config.njarm.cfg.entity")
     @Nonnull public static final EntityConfig entityCfg = register(new EntityConfig(
-            new HighlandCooConfig(10, 1, 5, "{BiomeTags:[plains]}", true, new String[] {"{Color:0,BiomeTags:[cold]}"})
-    ));
+            new HighlandCooConfig(new String[] {"{Weight:10,Min:1,Max:5,BiomeTags:[plains]}"}, true, new String[] {"{Color:0,BiomeTags:[cold]}"}),
+            new MoobloomConfig(-1, -1, true, true,
+                    new String[] {
+                            "{Weight:15,Min:1,Max:3,Biomes:[mutated_forest]}",
+                            "{Weight:2,Min:1,Max:1,Biomes:[plains,forest,swampland]}"
+                    },
+                    new String[] {
+                            "{Item:\"dye\",Meta:15}", "{Item:\"njarm:egg_shell\"}"
+                    },
+                    new String[] {
+                            "{Flower:{Name:air},Weight:5,Biomes:[plains,forest,swampland]}",
+                            "{Flower:{Name:yellow_flower},Weight:30,Biomes:[plains]}",
+                            "{Flower:{Name:red_flower,Properties:{type:orange_tulip}},Weight:3,Biomes:[plains]}",
+                            "{Flower:{Name:red_flower,Properties:{type:red_tulip}},Weight:3,Biomes:[plains]}",
+                            "{Flower:{Name:red_flower,Properties:{type:pink_tulip}},Weight:3,Biomes:[plains]}",
+                            "{Flower:{Name:red_flower,Properties:{type:white_tulip}},Weight:3,Biomes:[plains]}",
+                            "{Flower:{Name:red_flower,Properties:{type:poppy}},Weight:20,Biomes:[plains]}",
+                            "{Flower:{Name:red_flower,Properties:{type:houstonia}},Weight:20,Biomes:[plains]}",
+                            "{Flower:{Name:red_flower,Properties:{type:oxeye_daisy}},Weight:20,Biomes:[plains]}",
+                            "{Flower:{Name:yellow_flower},Weight:20,Biomes:[forest]}",
+                            "{Flower:{Name:red_flower,Properties:{type:poppy}},Weight:10,Biomes:[forest]}",
+                            "{Flower:{Name:red_flower,Properties:{type:blue_orchid}},Weight:10,Biomes:[swampland]}",
+                            "{Flower:{Name:yellow_flower},Weight:20,Biomes:[mutated_forest]}",
+                            "{Flower:{Name:red_flower,Properties:{type:poppy}},Weight:20,Biomes:[mutated_forest]}",
+                            "{Flower:{Name:red_flower,Properties:{type:allium}},Weight:10,Biomes:[mutated_forest]}",
+                            "{Flower:{Name:red_flower,Properties:{type:houstonia}},Weight:10,Biomes:[mutated_forest]}",
+                            "{Flower:{Name:red_flower,Properties:{type:red_tulip}},Weight:10,Biomes:[mutated_forest]}",
+                            "{Flower:{Name:red_flower,Properties:{type:orange_tulip}},Weight:10,Biomes:[mutated_forest]}",
+                            "{Flower:{Name:red_flower,Properties:{type:white_tulip}},Weight:10,Biomes:[mutated_forest]}",
+                            "{Flower:{Name:red_flower,Properties:{type:pink_tulip}},Weight:10,Biomes:[mutated_forest]}",
+                            "{Flower:{Name:red_flower,Properties:{type:oxeye_daisy}},Weight:10,Biomes:[mutated_forest]}"
+                    },
+                    new String[] {
+                            "{Name:yellow_flower}",
+                            "{Name:red_flower,Properties:{type:poppy}}",
+                            "{Name:red_flower,Properties:{type:allium}}",
+                            "{Name:red_flower,Properties:{type:houstonia}}",
+                            "{Name:red_flower,Properties:{type:red_tulip}}",
+                            "{Name:red_flower,Properties:{type:orange_tulip}}",
+                            "{Name:red_flower,Properties:{type:white_tulip}}",
+                            "{Name:red_flower,Properties:{type:pink_tulip}}",
+                            "{Name:red_flower,Properties:{type:oxeye_daisy}}"
+                    })
+            )
+    );
 
     @Config.LangKey("config.njarm.cfg.item")
     @Nonnull public static final ItemConfig itemCfg = register(new ItemConfig(
@@ -120,6 +163,11 @@ public final class ConfigHandler
             new EggShellsConfig(true, 0, 100, new String[] {"minecraft:egg"}, new String[] {"minecraft:egg", "njarm:cooked_egg"}),
             new EquipmentConfig(
                     "{HarvestLevel:4,Durability:3122,MiningSpeed:8.0f,AttackDamage:3.0f,Enchantability:10}"
+            ),
+            new ResistantItemsConfig(
+                    new String[] {"njarm:sunstone", "njarm:charged_sunstone"},
+                    new String[] {"njarm:ancient_debris", "njarm:charged_sunstone", "njarm:netherite_block", "njarm:netherite_ingot", "njarm:netherite_nugget", "njarm:netherite_scrap", "njarm:sapphire", "njarm:sapphire_block", "njarm:sapphire_ore", "njarm:sunstone"},
+                    new String[] {"njarm:crumbling_bedrock"}
             ),
             new RupeeConfig(true, 1)));
 

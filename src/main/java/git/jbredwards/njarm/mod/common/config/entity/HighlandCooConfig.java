@@ -23,30 +23,11 @@ import java.util.*;
 public final class HighlandCooConfig implements ISpawnableConfig
 {
     @Config.RequiresMcRestart
-    @Config.LangKey("config.njarm.entity.generic.biomeData")
-    @Nonnull public final String biomeData;
-    @Nonnull public String biomeData() { return biomeData; }
-    //**only called internally on entity registration**
-    @Nonnull static Biome[] spawnBiomes = new Biome[0];
-    @Nonnull public Biome[] spawnBiomes() { return spawnBiomes = ISpawnableConfig.super.spawnBiomes(); }
-
-    @Config.RequiresMcRestart
-    @Config.RangeInt(min = 0)
-    @Config.LangKey("config.njarm.entity.generic.maxSpawnCount")
-    public final int maxSpawnCount;
-    public int maxSpawnCount() { return maxSpawnCount; }
-
-    @Config.RequiresMcRestart
-    @Config.RangeInt(min = 0)
-    @Config.LangKey("config.njarm.entity.generic.minSpawnCount")
-    public final int minSpawnCount;
-    public int minSpawnCount() { return minSpawnCount; }
-
-    @Config.RequiresMcRestart
-    @Config.RangeInt(min = 0)
-    @Config.LangKey("config.njarm.entity.generic.spawnWeight")
-    public final int spawnWeight;
-    public int spawnWeight() { return spawnWeight; }
+    @Config.LangKey("config.njarm.entity.generic.spawnData")
+    @Nonnull public final String[] spawnData;
+    @Nonnull public String[] spawnData() { return ConfigHandler.entityCfg.highlandCooCfg.spawnData; }
+    @Nonnull public static final Set<Biome> spawnBiomes = new HashSet<>();
+    @Nonnull public Set<Biome> allSpawnBiomes() { return spawnBiomes; }
 
     @Config.LangKey("config.njarm.entity.highlandCoo.colorData")
     @Nonnull public final String[] colorData;
@@ -85,11 +66,8 @@ public final class HighlandCooConfig implements ISpawnableConfig
     }
 
     //needed for gson
-    public HighlandCooConfig(int spawnWeight, int minSpawnCount, int maxSpawnCount, @Nonnull String biomeData, boolean dyeable, @Nonnull String[] colorData) {
-        this.spawnWeight = spawnWeight;
-        this.minSpawnCount = minSpawnCount;
-        this.maxSpawnCount = maxSpawnCount;
-        this.biomeData = biomeData;
+    public HighlandCooConfig(@Nonnull String[] spawnData, boolean dyeable, @Nonnull String[] colorData) {
+        this.spawnData = spawnData;
         this.dyeable = dyeable;
         this.colorData = colorData;
     }

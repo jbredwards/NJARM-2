@@ -1,6 +1,7 @@
 package git.jbredwards.njarm.mod.client.entity.renderer;
 
 import git.jbredwards.njarm.mod.common.entity.passive.EntityHighlandCoo;
+import git.jbredwards.njarm.mod.common.entity.passive.EntityMoobloom;
 import net.minecraft.entity.item.EntityFallingBlock;
 import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
@@ -18,6 +19,7 @@ public final class EntityRendererHandler
     public static void registerEntityRenderers() {
         RenderingRegistry.registerEntityRenderingHandler(EntityFallingBlock.class, RenderMultiLayerFallingBlock::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityHighlandCoo.class, RenderHighlandCoo::new);
+        RenderingRegistry.registerEntityRenderingHandler(EntityMoobloom.class, RenderMoobloom::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityXPOrb.class, RenderTranslucentXPOrb::new);
     }
 }

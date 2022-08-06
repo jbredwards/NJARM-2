@@ -6,7 +6,7 @@ import org.objectweb.asm.tree.*;
 import javax.annotation.Nonnull;
 
 /**
- * {@link git.jbredwards.njarm.mod.common.item.util.InvulnerableItem InvulnerableItem} implementation
+ * {@link git.jbredwards.njarm.mod.common.config.item.ResistantItemsConfig ResistantItemsConfig} implementation
  * @author jbred
  *
  */

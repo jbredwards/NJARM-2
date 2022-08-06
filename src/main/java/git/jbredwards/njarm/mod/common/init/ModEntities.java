@@ -1,12 +1,12 @@
 package git.jbredwards.njarm.mod.common.init;
 
-import com.google.common.collect.ImmutableList;
 import git.jbredwards.njarm.mod.Constants;
 import git.jbredwards.njarm.mod.common.config.ConfigHandler;
 import git.jbredwards.njarm.mod.common.config.entity.util.ISpawnableConfig;
 import git.jbredwards.njarm.mod.common.entity.passive.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EnumCreatureType;
+import net.minecraft.util.NonNullList;
 import net.minecraftforge.fml.common.registry.EntityEntry;
 import net.minecraftforge.fml.common.registry.EntityEntryBuilder;
 
@@ -22,22 +22,44 @@ public final class ModEntities
     static int globalEntityId = 0;
 
     @Nonnull
-    public static final ImmutableList<EntityEntry> INIT = ImmutableList.<EntityEntry>builder()
-            .add(register("highland_coo", EntityHighlandCoo.class, 80, 3, true, ConfigHandler.entityCfg.highlandCooCfg,
-                    EnumCreatureType.CREATURE).egg(8606770, 10592673).build())
-            .build();
+    public static final NonNullList<EntityEntry> INIT = NonNullList.create();
+
+    //========
+    //entities
+    //========
 
     @Nonnull
-    static <T extends Entity> EntityEntryBuilder<T> register(@Nonnull String name, @Nonnull Class<T> entity, int trackerRange, int trackerUpdateFrequency, boolean trackerSendVelocityUpdates) {
-        return EntityEntryBuilder.<T>create().id(name, globalEntityId++).name(Constants.MODID + '.' + name).entity(entity).tracker(trackerRange, trackerUpdateFrequency, trackerSendVelocityUpdates);
+    public static final EntityEntry HIGHLAND_COO = register("highland_coo", builder(EntityHighlandCoo.class, 80, 3, true,
+            ConfigHandler.entityCfg.highlandCooCfg, EnumCreatureType.CREATURE).egg(8606770, 10592673));
+
+    @Nonnull
+    public static final EntityEntry MOOBLOOM = register("moobloom", builder(EntityMoobloom.class, 80, 3, true,
+            ConfigHandler.entityCfg.moobloomCfg, EnumCreatureType.CREATURE).egg(7951674, 6266677));
+
+    //=======
+    //helpers
+    //=======
+
+    @Nonnull
+    static EntityEntryBuilder<?> builder(@Nonnull Class<? extends Entity> entity, int trackerRange, int trackerUpdateFrequency, boolean trackerSendVelocityUpdates) {
+        return EntityEntryBuilder.create().entity(entity).tracker(trackerRange, trackerUpdateFrequency, trackerSendVelocityUpdates);
     }
 
     @Nonnull
-    static <T extends Entity> EntityEntryBuilder<T> register(@Nonnull String name, @Nonnull Class<T> entity, int trackerRange, int trackerUpdateFrequency, boolean trackerSendVelocityUpdates, @Nonnull ISpawnableConfig cfg, @Nonnull EnumCreatureType type) {
-        final EntityEntryBuilder<T> builder = register(name, entity, trackerRange, trackerUpdateFrequency, trackerSendVelocityUpdates);
-        if(cfg.spawnWeight() != 0 && cfg.minSpawnCount() != 0 && cfg.maxSpawnCount() >= cfg.minSpawnCount())
-            builder.spawn(type, cfg.spawnWeight(), cfg.minSpawnCount(), cfg.maxSpawnCount(), cfg.spawnBiomes());
+    static EntityEntryBuilder<?> builder(@Nonnull Class<? extends Entity> entity, int trackerRange, int trackerUpdateFrequency, boolean trackerSendVelocityUpdates, @Nonnull ISpawnableConfig cfg, @Nonnull EnumCreatureType type) {
+        final EntityEntryBuilder<?> builder = builder(entity, trackerRange, trackerUpdateFrequency, trackerSendVelocityUpdates);
+        final ISpawnableConfig.Spawn[] spawnEntries = cfg.getSpawnData();
+        for(ISpawnableConfig.Spawn entry : spawnEntries) {
+            builder.spawn(type, entry.weight, entry.min, entry.max, entry.biomes);
+        }
 
         return builder;
+    }
+
+    @Nonnull
+    static EntityEntry register(@Nonnull String name, @Nonnull EntityEntryBuilder<?> builder) {
+        final EntityEntry entry = builder.id(name, globalEntityId++).name(Constants.MODID + '.' + name).build();
+        INIT.add(entry);
+        return entry;
     }
 }

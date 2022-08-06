@@ -29,6 +29,9 @@ public final class ItemConfig implements IConfig
     @Config.LangKey("config.njarm.core.item.equipment")
     @Nonnull public final EquipmentConfig equipmentCfg;
 
+    @Config.LangKey("config.njarm.core.item.resistant")
+    @Nonnull public final ResistantItemsConfig resistantCfg;
+
     @Config.LangKey("config.njarm.core.item.rupee")
     @Nonnull public final RupeeConfig rupeeCfg;
 
@@ -48,11 +51,12 @@ public final class ItemConfig implements IConfig
     public void onFMLInit() { CONFIGS.forEach(IConfig::onFMLInit); }
 
     //needed for gson
-    public ItemConfig(@Nonnull BonusHeartConfig bonusHeartCfg, @Nonnull ChargedSunstoneConfig chargedSunstoneCfg, @Nonnull EggShellsConfig eggShellCfg, @Nonnull EquipmentConfig equipmentCfg, @Nonnull RupeeConfig rupeeCfg) {
+    public ItemConfig(@Nonnull BonusHeartConfig bonusHeartCfg, @Nonnull ChargedSunstoneConfig chargedSunstoneCfg, @Nonnull EggShellsConfig eggShellCfg, @Nonnull EquipmentConfig equipmentCfg, @Nonnull ResistantItemsConfig resistantCfg, @Nonnull RupeeConfig rupeeCfg) {
         this.bonusHeartCfg = register(bonusHeartCfg);
         this.chargedSunstoneCfg = register(chargedSunstoneCfg);
         this.eggShellCfg = register(eggShellCfg);
         this.equipmentCfg = register(equipmentCfg);
+        this.resistantCfg = register(resistantCfg);
         this.rupeeCfg = register(rupeeCfg);
     }
 }

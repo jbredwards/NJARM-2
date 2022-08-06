@@ -20,6 +20,9 @@ public final class EntityConfig implements IConfig
     @Config.LangKey("config.njarm.core.entity.highlandCoo")
     @Nonnull public final HighlandCooConfig highlandCooCfg;
 
+    @Config.LangKey("config.njarm.core.entity.moobloom")
+    @Nonnull public final MoobloomConfig moobloomCfg;
+
     //create a new config category while also adding it to the internal list
     @Nonnull
     private <T extends IConfig> T register(@Nonnull T cfg) {
@@ -36,7 +39,8 @@ public final class EntityConfig implements IConfig
     public void onUpdate() { CONFIGS.forEach(IConfig::onUpdate); }
 
     //needed for gson
-    public EntityConfig(@Nonnull HighlandCooConfig highlandCooCfg) {
+    public EntityConfig(@Nonnull HighlandCooConfig highlandCooCfg, @Nonnull MoobloomConfig moobloomCfg) {
         this.highlandCooCfg = register(highlandCooCfg);
+        this.moobloomCfg = register(moobloomCfg);
     }
 }

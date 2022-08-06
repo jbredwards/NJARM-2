@@ -98,6 +98,9 @@ public class BlockBubbleColumn extends Block implements IFluidloggable, ICustomM
     @Override
     public boolean canCollideCheck(@Nonnull IBlockState state, boolean hitIfLiquid) { return hitIfLiquid; }
 
+    @Override //shouldn't be called, but exists just in case
+    public int getLightOpacity(@Nonnull IBlockState state) { return Blocks.WATER.getDefaultState().getLightOpacity(); }
+
     @Nonnull
     @Override
     public EnumPushReaction getPushReaction(@Nonnull IBlockState state) { return EnumPushReaction.DESTROY; }

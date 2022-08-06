@@ -7,10 +7,10 @@ import git.jbredwards.njarm.mod.common.block.util.IHasWorldState;
 import git.jbredwards.njarm.mod.common.capability.IHorseCarrotTime;
 import git.jbredwards.njarm.mod.common.config.block.BlueFireConfig;
 import git.jbredwards.njarm.mod.common.config.client.RenderingConfig;
+import git.jbredwards.njarm.mod.common.config.item.ResistantItemsConfig;
 import git.jbredwards.njarm.mod.common.init.ModBlocks;
 import git.jbredwards.njarm.mod.common.init.ModSounds;
 import git.jbredwards.njarm.mod.common.item.ItemUndyingTotem;
-import git.jbredwards.njarm.mod.common.item.util.InvulnerableItem;
 import git.jbredwards.njarm.mod.common.util.BlueFireUtils;
 import git.jbredwards.njarm.mod.common.block.util.IHasRunningEffects;
 import git.jbredwards.njarm.mod.common.util.SoundUtils;
@@ -230,15 +230,12 @@ public final class ASMHooks
     //PluginEntityItem
     public static boolean isItemImmuneTo(@Nonnull EntityItem entity, @Nonnull DamageSource source) {
         if(entity.isEntityInvulnerable(source)) return true;
-
         final ItemStack stack = entity.getItem();
-        if(stack.getItem() instanceof InvulnerableItem) {
-            final InvulnerableItem item = (InvulnerableItem)stack.getItem();
-            if(source.isFireDamage()) return item.isFireImmune(stack);
-            else if(source.isExplosion()) return item.isExplodeImmune(stack);
-        }
 
-        return false;
+        if(ResistantItemsConfig.INVULNERABLE.contains(stack.getItem())) return true;
+        else if(source.isFireDamage()) return ResistantItemsConfig.FIRE.contains(stack.getItem());
+        else if(source.isExplosion()) return ResistantItemsConfig.EXPLODE.contains(stack.getItem());
+        else return false;
     }
 
     //PluginEntityLivingBase
