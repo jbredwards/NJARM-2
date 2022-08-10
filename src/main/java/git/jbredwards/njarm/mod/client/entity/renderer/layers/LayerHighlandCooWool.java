@@ -29,9 +29,7 @@ public class LayerHighlandCooWool implements LayerRenderer<EntityHighlandCoo>
     @Nonnull protected final ModelHighlandCoo WOOL_MODEL = new ModelHighlandCoo.Wool();
     @Nonnull protected final RenderHighlandCoo renderer;
 
-    public LayerHighlandCooWool(@Nonnull RenderHighlandCoo renderer) {
-        this.renderer = renderer;
-    }
+    public LayerHighlandCooWool(@Nonnull RenderHighlandCoo renderer) { this.renderer = renderer; }
 
     @Override
     public void doRenderLayer(@Nonnull EntityHighlandCoo entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {

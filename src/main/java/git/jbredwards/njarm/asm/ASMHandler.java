@@ -70,7 +70,9 @@ public final class ASMHandler implements IFMLLoadingPlugin
                 .put("net.minecraft.item.Item", new PluginItem()) //Overrides the totem of undying item
                 .put("net.minecraft.tileentity.TileEntityBeacon", new PluginTileEntityBeacon()) //Backport the vanilla 1.13+ beacon sounds
                 .put("net.minecraft.world.biome.BiomeColorHelper", new PluginBiomeColorHelper()) //Add 1.13+ biome color blend slider functionality
-                .put("net.minecraft.world.World", new PluginWorld()) //implement IHasWorldState functionality
+                .put("net.minecraft.world.gen.feature.WorldGenLakes", new PluginWorldGenLakes()) //Add magma surrounding lava lakes
+                .put("net.minecraft.world.gen.structure.StructureComponent", new PluginStructureComponent()) //Generate cracked nether bricks with nether fortresses
+                .put("net.minecraft.world.World", new PluginWorld()) //Implement IHasWorldState functionality & fix snow layer placement
                 .build();
 
         @Nonnull

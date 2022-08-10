@@ -29,9 +29,9 @@ public final class MoobloomConfig implements ISpawnableConfig
     @Config.RequiresMcRestart
     @Config.LangKey("config.njarm.entity.generic.spawnData")
     @Nonnull public final String[] spawnData;
-    @Nonnull public String[] spawnData() { return ConfigHandler.entityCfg.highlandCooCfg.spawnData; }
-    @Nonnull public static final Set<Biome> spawnBiomes = new HashSet<>();
-    @Nonnull public Set<Biome> allSpawnBiomes() { return spawnBiomes; }
+    @Nonnull public String[] spawnData() { return ConfigHandler.entityCfg.moobloomCfg.spawnData; }
+    @Nonnull public static final List<Biome> spawnBiomes = new ArrayList<>();
+    @Nonnull public List<Biome> allSpawnBiomes() { return spawnBiomes; }
 
     @Config.LangKey("config.njarm.entity.moobloom.bonemeal")
     @Nonnull public final String[] bonemeal;
@@ -82,7 +82,7 @@ public final class MoobloomConfig implements ISpawnableConfig
         for(String data : flowerData) {
             final NBTTagCompound nbt = NBTUtils.getTagFromString(data);
             if(nbt.hasKey("Flower", Constants.NBT.TAG_COMPOUND)) {
-                final Biome[] biomes = NBTUtils.gatherBiomesFromNBT(new HashSet<>(), nbt).toArray(new Biome[0]);
+                final Biome[] biomes = NBTUtils.gatherBiomesFromNBT(nbt).toArray(new Biome[0]);
                 final IBlockState flower = NBTUtil.readBlockState(nbt.getCompoundTag("Flower"));
                 final FlowerData flowerData = new FlowerData(flower.getBlock() == Blocks.AIR
                         ? Optional.empty() : Optional.of(flower), Math.max(nbt.getInteger("Weight"), 1));

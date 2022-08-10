@@ -40,8 +40,8 @@ public class EntityChargedSunstone extends EntityThrowable
                 SoundUtils.playSound(world, x, y, z, ModSounds.ELECTRIC_EXPLOSION, SoundCategory.WEATHER, 4.1f,
                         (1 + (rand.nextFloat() - rand.nextFloat()) * 0.2f) * 0.7f);
             }
-        }
 
-        setDead();
+            setDead();
+        }
     }
 }

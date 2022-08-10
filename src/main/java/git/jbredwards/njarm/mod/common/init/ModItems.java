@@ -71,6 +71,7 @@ public final class ModItems
     @Nonnull public static final ItemBlock NETHER_GOLD_ORE = register("nether_gold_ore", new ItemBlock(ModBlocks.NETHER_GOLD_ORE));
     @Nonnull public static final ItemBlock NETHER_DIAMOND_ORE = register("nether_diamond_ore", new ItemBlock(ModBlocks.NETHER_DIAMOND_ORE));
     @Nonnull public static final ItemBlock NETHER_EMERALD_ORE = register("nether_emerald_ore", new ItemBlock(ModBlocks.NETHER_EMERALD_ORE));
+    @Nonnull public static final ItemBlock CRACKED_NETHER_BRICK = register("cracked_nether_brick", new ItemBlock(ModBlocks.CRACKED_NETHER_BRICK));
 
     //items
     @Nonnull public static final Item RUBY = register("ruby", new Item());

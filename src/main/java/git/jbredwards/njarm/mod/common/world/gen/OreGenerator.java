@@ -1,4 +1,4 @@
-package git.jbredwards.njarm.mod.common.world.generation;
+package git.jbredwards.njarm.mod.common.world.gen;
 
 import git.jbredwards.njarm.mod.common.config.world.OreConfig;
 import net.minecraft.block.state.IBlockState;

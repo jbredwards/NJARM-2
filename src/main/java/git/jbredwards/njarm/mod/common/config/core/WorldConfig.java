@@ -1,7 +1,7 @@
 package git.jbredwards.njarm.mod.common.config.core;
 
 import git.jbredwards.njarm.mod.common.config.IConfig;
-import git.jbredwards.njarm.mod.common.config.world.OreConfig;
+import git.jbredwards.njarm.mod.common.config.world.*;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.common.config.Config;
 

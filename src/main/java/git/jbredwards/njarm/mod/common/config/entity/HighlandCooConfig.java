@@ -26,8 +26,8 @@ public final class HighlandCooConfig implements ISpawnableConfig
     @Config.LangKey("config.njarm.entity.generic.spawnData")
     @Nonnull public final String[] spawnData;
     @Nonnull public String[] spawnData() { return ConfigHandler.entityCfg.highlandCooCfg.spawnData; }
-    @Nonnull public static final Set<Biome> spawnBiomes = new HashSet<>();
-    @Nonnull public Set<Biome> allSpawnBiomes() { return spawnBiomes; }
+    @Nonnull public static final List<Biome> spawnBiomes = new ArrayList<>();
+    @Nonnull public List<Biome> allSpawnBiomes() { return spawnBiomes; }
 
     @Config.LangKey("config.njarm.entity.highlandCoo.colorData")
     @Nonnull public final String[] colorData;
@@ -49,7 +49,7 @@ public final class HighlandCooConfig implements ISpawnableConfig
             if(nbt.hasKey("Color", Constants.NBT.TAG_INT)) {
                 final int color = nbt.getInteger("Color");
                 if(ChatUtils.getOrError(color > -1 && color < EnumDyeColor.values().length, "NJARM Config: Could not find color with index " + color)) {
-                    final Biome[] biomes = NBTUtils.gatherBiomesFromNBT(new HashSet<>(), nbt).toArray(new Biome[0]);
+                    final Biome[] biomes = NBTUtils.gatherBiomesFromNBT(nbt).toArray(new Biome[0]);
                     final ColorData colorData = new ColorData(EnumDyeColor.values()[color],
                             Math.max(nbt.getInteger("Weight"), 1));
 

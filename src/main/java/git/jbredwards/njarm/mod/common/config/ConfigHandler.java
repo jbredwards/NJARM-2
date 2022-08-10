@@ -26,7 +26,7 @@ import javax.annotation.Nonnull;
 public final class ConfigHandler
 {
     @Nonnull
-    private static final NonNullList<IConfig> CONFIGS = NonNullList.create();
+    static final NonNullList<IConfig> CONFIGS = NonNullList.create();
 
     @Config.LangKey("config.njarm.cfg.block")
     @Nonnull public static final BlockConfig blockCfg = register(new BlockConfig(
@@ -110,6 +110,7 @@ public final class ConfigHandler
 
     @Config.LangKey("config.njarm.cfg.entity")
     @Nonnull public static final EntityConfig entityCfg = register(new EntityConfig(
+            new ChocolateCowConfig(new String[] {}),
             new HighlandCooConfig(new String[] {"{Weight:10,Min:1,Max:5,BiomeTags:[plains]}"}, true, new String[] {"{Color:0,BiomeTags:[cold]}"}),
             new MoobloomConfig(-1, -1, true, true,
                     new String[] {
@@ -152,8 +153,9 @@ public final class ConfigHandler
                             "{Name:red_flower,Properties:{type:white_tulip}}",
                             "{Name:red_flower,Properties:{type:pink_tulip}}",
                             "{Name:red_flower,Properties:{type:oxeye_daisy}}"
-                    })
-            )
+                    }
+            ),
+            new MudPigConfig(30, 10))
     );
 
     @Config.LangKey("config.njarm.cfg.item")

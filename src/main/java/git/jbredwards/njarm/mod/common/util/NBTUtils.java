@@ -11,6 +11,8 @@ import net.minecraftforge.common.util.Constants;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -31,7 +33,8 @@ public final class NBTUtils
     }
 
     @Nonnull
-    public static Set<Biome> gatherBiomesFromNBT(@Nonnull Set<Biome> dest, @Nonnull NBTTagCompound nbt) {
+    public static Set<Biome> gatherBiomesFromNBT(@Nonnull NBTTagCompound nbt) {
+        final Set<Biome> dest = new HashSet<>();
         //handle raw biome input
         nbt.getTagList("Biomes", Constants.NBT.TAG_STRING).forEach(subNbt -> {
             final @Nullable Biome biome = Biome.REGISTRY.getObject(
@@ -42,8 +45,11 @@ public final class NBTUtils
 
         //handle biome tags
         nbt.getTagList("BiomeTags", Constants.NBT.TAG_STRING).forEach(subNbt -> dest.addAll(
-                BiomeDictionary.getBiomes(BiomeDictionary.Type.getType(
-                        ((NBTTagString)subNbt).getString()))));
+                BiomeDictionary.getBiomes(BiomeDictionary.Type.getType(((NBTTagString)subNbt).getString()))));
+
+        //remove unwanted biomes
+        if(nbt.hasKey("ExcludeBiomes", Constants.NBT.TAG_COMPOUND))
+            dest.removeAll(new ArrayList<>(gatherBiomesFromNBT(nbt.getCompoundTag("ExcludeBiomes"))));
 
         return dest;
     }

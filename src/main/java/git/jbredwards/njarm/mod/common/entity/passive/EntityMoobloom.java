@@ -20,6 +20,7 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IBlockAccess;
@@ -65,6 +66,23 @@ public class EntityMoobloom extends EntityCow implements IShearable
             }
         }
     }
+
+    @Override
+    protected void onDeathUpdate() {
+        super.onDeathUpdate();
+        if(deathTime == 20 && !getSheared()) {
+            final IBlockState flower = getFlower();
+            if(world.mayPlace(flower.getBlock(), getPosition(), true, EnumFacing.UP, this))
+                world.setBlockState(getPosition(), flower);
+        }
+    }
+
+    @Nullable
+    @Override
+    protected ResourceLocation getLootTable() { return null; }
+
+    @Override
+    protected int getExperiencePoints(@Nonnull EntityPlayer player) { return 0; }
 
     @Override
     public boolean processInteract(@Nonnull EntityPlayer player, @Nonnull EnumHand hand) {

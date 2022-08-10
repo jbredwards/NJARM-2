@@ -10,8 +10,9 @@ import git.jbredwards.njarm.mod.common.capability.*;
 import git.jbredwards.njarm.mod.common.config.ConfigHandler;
 import git.jbredwards.njarm.mod.common.init.ModSounds;
 import git.jbredwards.njarm.mod.common.message.*;
-import git.jbredwards.njarm.mod.common.world.generation.BasaltPillarGenerator;
-import git.jbredwards.njarm.mod.common.world.generation.OreGenerator;
+import git.jbredwards.njarm.mod.common.world.gen.feature.BasaltPillarGenerator;
+import git.jbredwards.njarm.mod.common.world.gen.feature.LavaMagmaGenerator;
+import git.jbredwards.njarm.mod.common.world.gen.OreGenerator;
 import net.darkhax.bookshelf.util.RenderUtils;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -85,8 +86,9 @@ public final class Main
             wrapper.registerMessage(MessageBlueFire.Handler.INSTANCE, MessageBlueFire.class, 1, Side.CLIENT);
             wrapper.registerMessage(MessageParticle.Handler.INSTANCE, MessageParticle.class, 2, Side.CLIENT);
             //world generators
-            GameRegistry.registerWorldGenerator(new OreGenerator(), 3);
             GameRegistry.registerWorldGenerator(new BasaltPillarGenerator(), 3);
+            GameRegistry.registerWorldGenerator(new LavaMagmaGenerator(), 10);
+            GameRegistry.registerWorldGenerator(new OreGenerator(), 3);
         }
 
         protected void init() {

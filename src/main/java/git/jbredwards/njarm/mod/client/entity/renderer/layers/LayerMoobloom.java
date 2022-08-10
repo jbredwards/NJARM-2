@@ -29,9 +29,7 @@ public class LayerMoobloom implements LayerRenderer<EntityMoobloom>
     @Nonnull protected static final ResourceLocation GRASS_TEXTURE = new ResourceLocation(Constants.MODID, "textures/entity/moobloom/grass.png");
     @Nonnull protected final RenderMoobloom renderer;
 
-    public LayerMoobloom(@Nonnull RenderMoobloom renderer) {
-        this.renderer = renderer;
-    }
+    public LayerMoobloom(@Nonnull RenderMoobloom renderer) { this.renderer = renderer; }
 
     @Override
     public void doRenderLayer(@Nonnull EntityMoobloom entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {

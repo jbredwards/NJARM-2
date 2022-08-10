@@ -1,6 +1,7 @@
 package git.jbredwards.njarm.mod.common;
 
 import git.jbredwards.njarm.mod.Constants;
+import git.jbredwards.njarm.mod.common.entity.passive.EntityChocolateCow;
 import git.jbredwards.njarm.mod.common.init.ModItems;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.EntityCow;
@@ -35,9 +36,11 @@ public final class EventHandler
                 player.playSound(SoundEvents.ENTITY_COW_MILK, 1, 1);
                 held.shrink(1);
 
-                if(held.isEmpty()) player.setHeldItem(hand, new ItemStack(ModItems.MILK_BOTTLE));
-                else if(!player.inventory.addItemStackToInventory(new ItemStack(ModItems.MILK_BOTTLE)))
-                    player.dropItem(new ItemStack(ModItems.MILK_BOTTLE), false);
+                final ItemStack milkBottle = new ItemStack(entity instanceof EntityChocolateCow
+                        ? ModItems.CHOCOLATE_MILK_BOTTLE : ModItems.MILK_BOTTLE);
+
+                if(held.isEmpty()) player.setHeldItem(hand, milkBottle);
+                else if(!player.inventory.addItemStackToInventory(milkBottle)) player.dropItem(milkBottle, false);
             }
         }
     }

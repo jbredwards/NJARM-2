@@ -80,6 +80,7 @@ public final class ModBlocks
     @Nonnull public static final Block NETHER_GOLD_ORE = register("nether_gold_ore", new Block(Material.ROCK, MapColor.NETHERRACK), Blocks.GOLD_ORE, block -> block.setSoundType(ModSounds.NETHER_ORE));
     @Nonnull public static final BlockOre NETHER_DIAMOND_ORE = register("nether_diamond_ore", new BlockOre(Material.ROCK, MapColor.NETHERRACK), Blocks.DIAMOND_ORE, block -> block.setItemDropped(() -> Items.DIAMOND).setSoundType(ModSounds.NETHER_ORE));
     @Nonnull public static final BlockOre NETHER_EMERALD_ORE = register("nether_emerald_ore", new BlockOre(Material.ROCK, MapColor.NETHERRACK), Blocks.EMERALD_ORE, block -> block.setItemDropped(() -> Items.EMERALD).setSoundType(ModSounds.NETHER_ORE));
+    @Nonnull public static final Block CRACKED_NETHER_BRICK = register("cracked_nether_brick", new Block(Material.ROCK), Blocks.NETHER_BRICK, block -> block.setSoundType(ModSounds.NETHER_BRICKS));
 
 
     @Nonnull public static final BlockBlueFire BLUE_FIRE = register("blue_fire", new BlockBlueFire(), Blocks.FIRE);

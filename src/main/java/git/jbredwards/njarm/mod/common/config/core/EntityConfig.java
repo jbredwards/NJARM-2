@@ -17,11 +17,17 @@ public final class EntityConfig implements IConfig
     @Nonnull
     private final NonNullList<IConfig> CONFIGS = NonNullList.create();
 
+    @Config.LangKey("config.njarm.core.entity.chocolateCow")
+    @Nonnull public final ChocolateCowConfig chocolateCowCfg;
+
     @Config.LangKey("config.njarm.core.entity.highlandCoo")
     @Nonnull public final HighlandCooConfig highlandCooCfg;
 
     @Config.LangKey("config.njarm.core.entity.moobloom")
     @Nonnull public final MoobloomConfig moobloomCfg;
+
+    @Config.LangKey("config.njarm.core.entity.mudPig")
+    @Nonnull public final MudPigConfig mudPigCfg;
 
     //create a new config category while also adding it to the internal list
     @Nonnull
@@ -39,8 +45,10 @@ public final class EntityConfig implements IConfig
     public void onUpdate() { CONFIGS.forEach(IConfig::onUpdate); }
 
     //needed for gson
-    public EntityConfig(@Nonnull HighlandCooConfig highlandCooCfg, @Nonnull MoobloomConfig moobloomCfg) {
+    public EntityConfig(@Nonnull ChocolateCowConfig chocolateCowCfg, @Nonnull HighlandCooConfig highlandCooCfg, @Nonnull MoobloomConfig moobloomCfg, @Nonnull MudPigConfig mudPigCfg) {
+        this.chocolateCowCfg = chocolateCowCfg;
         this.highlandCooCfg = register(highlandCooCfg);
         this.moobloomCfg = register(moobloomCfg);
+        this.mudPigCfg = register(mudPigCfg);
     }
 }

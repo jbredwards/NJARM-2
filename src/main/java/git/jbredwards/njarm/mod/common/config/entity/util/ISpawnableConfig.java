@@ -7,6 +7,7 @@ import net.minecraft.world.biome.Biome;
 
 import javax.annotation.Nonnull;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -20,7 +21,7 @@ public interface ISpawnableConfig extends IConfig
     String[] spawnData();
 
     @Nonnull
-    Set<Biome> allSpawnBiomes();
+    List<Biome> allSpawnBiomes();
 
     @Nonnull
     default Spawn[] getSpawnData() {
@@ -39,8 +40,8 @@ public interface ISpawnableConfig extends IConfig
         public final int max;
         public final int weight;
 
-        public Spawn(@Nonnull NBTTagCompound nbt, @Nonnull Set<Biome> allSpawnBiomes) {
-            final Set<Biome> biomeSet = NBTUtils.gatherBiomesFromNBT(new HashSet<>(), nbt);
+        public Spawn(@Nonnull NBTTagCompound nbt, @Nonnull List<Biome> allSpawnBiomes) {
+            final Set<Biome> biomeSet = NBTUtils.gatherBiomesFromNBT(nbt);
             allSpawnBiomes.addAll(biomeSet);
 
             biomes = biomeSet.toArray(new Biome[0]);

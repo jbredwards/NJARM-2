@@ -3,6 +3,7 @@ package git.jbredwards.njarm.mod.common.init;
 import git.jbredwards.njarm.mod.Constants;
 import git.jbredwards.njarm.mod.common.config.ConfigHandler;
 import git.jbredwards.njarm.mod.common.config.entity.util.ISpawnableConfig;
+import git.jbredwards.njarm.mod.common.entity.item.EntityChargedSunstone;
 import git.jbredwards.njarm.mod.common.entity.passive.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EnumCreatureType;
@@ -35,6 +36,17 @@ public final class ModEntities
     @Nonnull
     public static final EntityEntry MOOBLOOM = register("moobloom", builder(EntityMoobloom.class, 80, 3, true,
             ConfigHandler.entityCfg.moobloomCfg, EnumCreatureType.CREATURE).egg(7951674, 6266677));
+
+    @Nonnull
+    public static final EntityEntry CHOCOLATE_COW = register("chocolate_cow", builder(EntityChocolateCow.class, 80, 3, true,
+            ConfigHandler.entityCfg.chocolateCowCfg, EnumCreatureType.CREATURE).egg(5580301, 10592673));
+
+    @Nonnull
+    public static final EntityEntry MUD_PIG = register("mud_pig", builder(EntityMudPig.class, 80, 3, true)
+            .egg(15771042, 6898223));
+
+    @Nonnull
+    public static final EntityEntry CHARGED_SUNSTONE = register("charged_sunstone", builder(EntityChargedSunstone.class, 160, 3, true));
 
     //=======
     //helpers

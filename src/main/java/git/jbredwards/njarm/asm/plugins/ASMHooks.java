@@ -49,6 +49,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.awt.*;
 import java.util.Map;
+import java.util.Random;
 import java.util.function.Supplier;
 
 /**
@@ -304,6 +305,13 @@ public final class ASMHooks
         return entity.isBurning() || BlueFireUtils.getRemaining(entity) > 0 && BlueFireUtils.canBeLit(entity);
     }
 
+    //PluginStructureComponent
+    @Nonnull
+    public static IBlockState getNetherBrickOrCracked(@Nonnull IBlockState defaultState, @Nonnull World world) {
+        return defaultState.getBlock() == Blocks.NETHER_BRICK && world.rand.nextFloat() < 0.3f
+                ? ModBlocks.CRACKED_NETHER_BRICK.getDefaultState() : defaultState;
+    }
+
     //PluginTileEntityBeacon
     public static void playBeaconAmbientSound(@Nonnull TileEntity te, boolean isComplete) {
         if(te.hasWorld() && !te.getWorld().isRemote && isComplete) SoundUtils.playSound(te, ModSounds.BEACON_AMBIENT, 1, 1);
@@ -342,6 +350,17 @@ public final class ASMHooks
     @Nonnull
     public static IBlockState getStateForWorld(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
         return state.getBlock() instanceof IHasWorldState ? ((IHasWorldState)state.getBlock()).getStateForWorld(world, pos, state) : state;
+    }
+
+    //PluginWorld
+    public static boolean fixSnowLayerPlacement(@Nonnull Block snow, @Nonnull World world, @Nonnull BlockPos pos) {
+        return snow.canPlaceBlockAt(world, pos) && !canFallThrough(world.getBlockState(pos.down()));
+    }
+
+    //PluginWorldGenLakes
+    @Nonnull
+    public static Block getRandomBlockForSurroundingLava(@Nonnull Random rand, int y) {
+        return y < 4 && rand.nextFloat() < 0.4f ? Blocks.MAGMA : Blocks.STONE;
     }
 
     //PluginBiomeColorHelper

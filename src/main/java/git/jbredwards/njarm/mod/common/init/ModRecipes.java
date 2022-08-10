@@ -126,6 +126,7 @@ public final class ModRecipes
         GameRegistry.addSmelting(ModItems.BLACKSTONE_BRICKS, new ItemStack(ModItems.BLACKSTONE_CRACKED), 0.1f);
         GameRegistry.addSmelting(ModItems.BONE_ORE, new ItemStack(Items.BONE), 0.1f);
         GameRegistry.addSmelting(Items.EGG, new ItemStack(ModItems.COOKED_EGG), 0.1f);
+        GameRegistry.addSmelting(Blocks.NETHER_BRICK, new ItemStack(ModItems.CRACKED_NETHER_BRICK), 0.1f);
         GameRegistry.addSmelting(ModItems.NETHER_DIAMOND_ORE, new ItemStack(Items.DIAMOND), 1);
         GameRegistry.addSmelting(ModItems.NETHER_EMERALD_ORE, new ItemStack(Items.EMERALD), 1);
         GameRegistry.addSmelting(ModItems.END_LAPIS_ORE, new ItemStack(Items.DYE, 1, 4), 0.2f);

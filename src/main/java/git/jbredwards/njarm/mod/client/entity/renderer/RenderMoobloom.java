@@ -11,7 +11,6 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 /**
  *
@@ -29,7 +28,7 @@ public class RenderMoobloom extends RenderLiving<EntityMoobloom>
         addLayer(new LayerMoobloom(this));
     }
 
-    @Nullable
+    @Nonnull
     @Override
     protected ResourceLocation getEntityTexture(@Nonnull EntityMoobloom entity) { return TEXTURE; }
 }

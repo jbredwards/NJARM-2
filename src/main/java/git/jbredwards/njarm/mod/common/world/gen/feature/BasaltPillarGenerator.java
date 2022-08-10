@@ -1,4 +1,4 @@
-package git.jbredwards.njarm.mod.common.world.generation;
+package git.jbredwards.njarm.mod.common.world.gen.feature;
 
 import git.jbredwards.fluidlogged_api.api.util.FluidloggedUtils;
 import git.jbredwards.njarm.mod.common.init.ModBlocks;

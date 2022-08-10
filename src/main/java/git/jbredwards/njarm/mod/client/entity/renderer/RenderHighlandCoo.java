@@ -11,7 +11,6 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 /**
  *
@@ -29,7 +28,7 @@ public class RenderHighlandCoo extends RenderLiving<EntityHighlandCoo>
         addLayer(new LayerHighlandCooWool(this));
     }
 
-    @Nullable
+    @Nonnull
     @Override
     public ResourceLocation getEntityTexture(@Nonnull EntityHighlandCoo entity) { return entity.isChild() ? CHILD_BASE : ADULT_BASE; }
 }
