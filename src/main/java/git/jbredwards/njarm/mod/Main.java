@@ -10,9 +10,7 @@ import git.jbredwards.njarm.mod.common.capability.*;
 import git.jbredwards.njarm.mod.common.config.ConfigHandler;
 import git.jbredwards.njarm.mod.common.init.ModSounds;
 import git.jbredwards.njarm.mod.common.message.*;
-import git.jbredwards.njarm.mod.common.world.gen.feature.BasaltPillarGenerator;
-import git.jbredwards.njarm.mod.common.world.gen.feature.LavaMagmaGenerator;
-import git.jbredwards.njarm.mod.common.world.gen.OreGenerator;
+import git.jbredwards.njarm.mod.common.world.gen.*;
 import net.darkhax.bookshelf.util.RenderUtils;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -87,6 +85,8 @@ public final class Main
             wrapper.registerMessage(MessageParticle.Handler.INSTANCE, MessageParticle.class, 2, Side.CLIENT);
             //world generators
             GameRegistry.registerWorldGenerator(new BasaltPillarGenerator(), 3);
+            GameRegistry.registerWorldGenerator(new EndLakeGenerator(), 1);
+            GameRegistry.registerWorldGenerator(new EndForestGenerator(), 5);
             GameRegistry.registerWorldGenerator(new LavaMagmaGenerator(), 10);
             GameRegistry.registerWorldGenerator(new OreGenerator(), 3);
         }

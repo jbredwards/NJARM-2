@@ -1,7 +1,9 @@
 package git.jbredwards.njarm.mod.common.config.item;
 
+import git.jbredwards.njarm.mod.common.block.BlockSmallGrass;
 import git.jbredwards.njarm.mod.common.config.ConfigHandler;
 import git.jbredwards.njarm.mod.common.config.IConfig;
+import git.jbredwards.njarm.mod.common.init.ModBlocks;
 import git.jbredwards.njarm.mod.common.init.ModItems;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
@@ -24,8 +26,12 @@ public final class RupeeConfig implements IConfig
 
     @Override
     public void onFMLInit() {
-        if(seedWeight > 0) MinecraftForge.addGrassSeed(new ItemStack(ModItems.RUPEE),
-                ConfigHandler.itemCfg.rupeeCfg.seedWeight);
+        if(seedWeight > 0) {
+            MinecraftForge.addGrassSeed(new ItemStack(ModItems.RUPEE),
+                    ConfigHandler.itemCfg.rupeeCfg.seedWeight);
+            ModBlocks.ENDER_GRASS.seeds.add(new BlockSmallGrass.SeedEntry(ModItems.RUPEE,
+                    ConfigHandler.itemCfg.rupeeCfg.seedWeight));
+        }
     }
 
     //needed for gson

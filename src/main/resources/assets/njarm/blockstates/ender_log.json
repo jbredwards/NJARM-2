@@ -1,0 +1,22 @@
+{
+    "forge_marker":1,
+    "defaults":{
+        "model":"cube_column",
+        "textures":{
+            "end":"njarm:blocks/ender_log_top",
+            "side":"njarm:blocks/ender_log"
+        }
+    },
+    "variants":{
+        "axis=x":[{"x":90, "y":90}],
+        "axis=y":[{}],
+        "axis=z":[{"x":90}],
+        "axis=none":[{
+            "model":"cube_all",
+            "textures":{
+                "all":"njarm:blocks/ender_log"
+            }
+        }],
+        "inventory":[{}]
+    }
+}

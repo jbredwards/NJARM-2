@@ -72,6 +72,10 @@ public final class ModItems
     @Nonnull public static final ItemBlock NETHER_DIAMOND_ORE = register("nether_diamond_ore", new ItemBlock(ModBlocks.NETHER_DIAMOND_ORE));
     @Nonnull public static final ItemBlock NETHER_EMERALD_ORE = register("nether_emerald_ore", new ItemBlock(ModBlocks.NETHER_EMERALD_ORE));
     @Nonnull public static final ItemBlock CRACKED_NETHER_BRICK = register("cracked_nether_brick", new ItemBlock(ModBlocks.CRACKED_NETHER_BRICK));
+    @Nonnull public static final ItemBlock ENDER_PLANKS = register("ender_planks", new ItemBlock(ModBlocks.ENDER_PLANKS));
+    @Nonnull public static final ItemBlock ENDER_LOG = register("ender_log", new ItemBlock(ModBlocks.ENDER_LOG));
+    @Nonnull public static final ItemBlock ENDER_LEAVES = register("ender_leaves", new ItemBlock(ModBlocks.ENDER_LEAVES));
+    @Nonnull public static final ItemBlock ENDER_GRASS = register("ender_grass", new ItemBlock(ModBlocks.ENDER_GRASS));
 
     //items
     @Nonnull public static final Item RUBY = register("ruby", new Item());
@@ -125,6 +129,8 @@ public final class ModItems
 
     //register ores
     public static void registerOres() {
+        OreDictionary.registerOre("blockGlass", OBSIDIAN_GLASS);
+        OreDictionary.registerOre("blockGlassColorless", OBSIDIAN_GLASS);
         OreDictionary.registerOre("blockMagicalAlloy", MAGIC_BLOCK);
         OreDictionary.registerOre("blockNetherite", NETHERITE_BLOCK);
         OreDictionary.registerOre("blockObsidianAlloy", OBSIDIAN_BLOCK);
@@ -140,11 +146,10 @@ public final class ModItems
         OreDictionary.registerOre("gemSunstone", CHARGED_SUNSTONE);
         OreDictionary.registerOre("gemSunstoneCharged", CHARGED_SUNSTONE);
         OreDictionary.registerOre("gemSunstone", SUNSTONE);
-        OreDictionary.registerOre("blockGlass", OBSIDIAN_GLASS);
-        OreDictionary.registerOre("blockGlassColorless", OBSIDIAN_GLASS);
         OreDictionary.registerOre("ingotMagicalAlloy", MAGIC_INGOT);
         OreDictionary.registerOre("ingotObsidianAlloy", OBSIDIAN_INGOT);
         OreDictionary.registerOre("ingotPlatinum", PLATINUM_INGOT);
+        OreDictionary.registerOre("logWood", ENDER_LOG);
         OreDictionary.registerOre("nuggetMagicalAlloy", MAGIC_NUGGET);
         OreDictionary.registerOre("nuggetNetherite", NETHERITE_NUGGET);
         OreDictionary.registerOre("nuggetObsidianAlloy", OBSIDIAN_NUGGET);
@@ -164,7 +169,9 @@ public final class ModItems
         OreDictionary.registerOre("oreQuartz", QUARTZ_ORE);
         OreDictionary.registerOre("oreRuby", RUBY_ORE);
         OreDictionary.registerOre("oreSapphire", SAPPHIRE_ORE);
+        OreDictionary.registerOre("plankWood", ENDER_PLANKS);
         OreDictionary.registerOre("scrapAncientDebris", NETHERITE_SCRAP);
+        OreDictionary.registerOre("treeLeaves", ENDER_LEAVES);
     }
 
     //register item

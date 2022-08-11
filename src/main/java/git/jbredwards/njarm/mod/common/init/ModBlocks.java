@@ -3,11 +3,10 @@ package git.jbredwards.njarm.mod.common.init;
 import git.jbredwards.njarm.asm.plugins.ASMHooks;
 import git.jbredwards.njarm.mod.Constants;
 import git.jbredwards.njarm.mod.common.block.*;
+import git.jbredwards.njarm.mod.common.block.BlockObsidian;
+import git.jbredwards.njarm.mod.common.block.BlockOre;
 import git.jbredwards.njarm.mod.common.item.util.CreativeTab;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockFalling;
-import net.minecraft.block.BlockRotatedPillar;
-import net.minecraft.block.SoundType;
+import net.minecraft.block.*;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialLiquid;
@@ -80,8 +79,11 @@ public final class ModBlocks
     @Nonnull public static final Block NETHER_GOLD_ORE = register("nether_gold_ore", new Block(Material.ROCK, MapColor.NETHERRACK), Blocks.GOLD_ORE, block -> block.setSoundType(ModSounds.NETHER_ORE));
     @Nonnull public static final BlockOre NETHER_DIAMOND_ORE = register("nether_diamond_ore", new BlockOre(Material.ROCK, MapColor.NETHERRACK), Blocks.DIAMOND_ORE, block -> block.setItemDropped(() -> Items.DIAMOND).setSoundType(ModSounds.NETHER_ORE));
     @Nonnull public static final BlockOre NETHER_EMERALD_ORE = register("nether_emerald_ore", new BlockOre(Material.ROCK, MapColor.NETHERRACK), Blocks.EMERALD_ORE, block -> block.setItemDropped(() -> Items.EMERALD).setSoundType(ModSounds.NETHER_ORE));
-    @Nonnull public static final Block CRACKED_NETHER_BRICK = register("cracked_nether_brick", new Block(Material.ROCK), Blocks.NETHER_BRICK, block -> block.setSoundType(ModSounds.NETHER_BRICKS));
-
+    @Nonnull public static final BlockNetherBrick CRACKED_NETHER_BRICK = register("cracked_nether_brick", new BlockNetherBrick(), Blocks.NETHER_BRICK, block -> block.setSoundType(ModSounds.NETHER_BRICKS));
+    @Nonnull public static final Block ENDER_PLANKS = register("ender_planks", new Block(Material.WOOD, MapColor.PURPLE), Blocks.PLANKS);
+    @Nonnull public static final BlockTreeLog ENDER_LOG = register("ender_log", new BlockTreeLog(MapColor.PURPLE), Blocks.LOG);
+    @Nonnull public static final BlockTreeLeaves ENDER_LEAVES = register("ender_leaves", new BlockTreeLeaves(MapColor.MAGENTA), Blocks.LEAVES, BlockTreeLeaves::disableFancyLeaves);
+    @Nonnull public static final BlockSmallGrass ENDER_GRASS = register("ender_grass", new BlockSmallGrass(Material.VINE, MapColor.SAND), Blocks.TALLGRASS, block -> block.canSustainBush = state -> state.getBlock() == Blocks.END_STONE);
 
     @Nonnull public static final BlockBlueFire BLUE_FIRE = register("blue_fire", new BlockBlueFire(), Blocks.FIRE);
     @Nonnull public static final BlockBubbleColumn BUBBLE_COLUMN = register("bubble_column", new BlockBubbleColumn(BUBBLE_COLUMN_MATERIAL), Blocks.WATER);
