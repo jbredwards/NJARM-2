@@ -128,19 +128,22 @@ public class BlockBubbleColumn extends Block implements IFluidloggable, ICustomM
     public void onBlockAdded(@Nonnull World worldIn, @Nonnull BlockPos pos, @Nonnull IBlockState state) { worldIn.scheduleUpdate(pos, this, 1); }
 
     @Override
-    public void updateTick(@Nonnull World worldIn, @Nonnull BlockPos pos, @Nonnull IBlockState state, @Nonnull Random rand) { spreadToUp(worldIn, pos, state); }
+    public void updateTick(@Nonnull World worldIn, @Nonnull BlockPos pos, @Nonnull IBlockState state, @Nonnull Random rand) {
+        final IBlockState downState = worldIn.getBlockState(pos.down());
+        final Drag drag = state.getValue(DRAG);
+
+        if(drag.hasBlock(downState) || downState.getBlock() == this && drag == downState.getValue(DRAG))
+            spreadToUp(worldIn, pos, state);
+
+        else if(drag.getOpposite().hasBlock(downState) || downState.getBlock() == this && drag == downState.getValue(DRAG).getOpposite())
+            worldIn.setBlockState(pos, state.withProperty(DRAG, drag.getOpposite()), 2);
+
+        else worldIn.setBlockToAir(pos);
+    }
 
     @Override
     public void neighborChanged(@Nonnull IBlockState state, @Nonnull World worldIn, @Nonnull BlockPos pos, @Nonnull Block blockIn, @Nonnull BlockPos fromPos) {
-        if(fromPos.equals(pos.up())) spreadToUp(worldIn, pos, state);
-        else if(fromPos.equals(pos.down())) {
-            final IBlockState downState = worldIn.getBlockState(pos.down());
-            final Drag drag = state.getValue(DRAG);
-
-            if(drag.getOpposite().hasBlock(downState) || downState.getBlock() == this && drag == downState.getValue(DRAG).getOpposite())
-                worldIn.setBlockState(pos, state.withProperty(DRAG, drag.getOpposite()));
-            else if(!drag.hasBlock(downState)) worldIn.setBlockToAir(pos);
-        }
+        if(fromPos.equals(pos.up()) || fromPos.equals(pos.down())) worldIn.scheduleUpdate(pos, this, 1);
     }
 
     public void spreadToUp(@Nonnull World worldIn, @Nonnull BlockPos pos, @Nonnull IBlockState state) {

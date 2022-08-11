@@ -84,12 +84,14 @@ public final class ModItems
     @Nonnull public static final Item SUNSTONE = register("sunstone", new Item());
     @Nonnull public static final ItemFood BAKED_APPLE = register("baked_apple", new ItemFood(8, 4.8f, false));
     @Nonnull public static final ItemFood CARAMEL_APPLE = register("caramel_apple", new ItemFood(4, 4.4f, false), item -> item.setPotionEffect(new PotionEffect(MobEffects.SPEED, 400, 1), 1));
+    @Nonnull public static final ItemFood SUGAR_BREAD = register("sugar_bread", new ItemFood(5, 8, false), item -> item.setPotionEffect(new PotionEffect(MobEffects.SPEED, 400, 1), 1));
     @Nonnull public static final ItemFood BAGUETTE = register("baguette", new ItemFood(10, 12, false));
     @Nonnull public static final ItemFood SUGAR_BAGUETTE = register("sugar_baguette", new ItemFood(10, 14, false), item -> item.setPotionEffect(new PotionEffect(MobEffects.SPEED, 400, 1), 1));
     @Nonnull public static final ItemChocolateMilk CHOCOLATE_MILK_BUCKET = register("chocolate_milk_bucket", new ItemChocolateMilk(), item -> item.setContainerItem(Items.BUCKET));
     @Nonnull public static final ItemMilkStackable MILK_BOTTLE = register("milk_bottle", new ItemMilkStackable(), item -> item.setContainerItem(Items.GLASS_BOTTLE).setMaxStackSize(64));
     @Nonnull public static final ItemChocolateMilk CHOCOLATE_MILK_BOTTLE = register("chocolate_milk_bottle", new ItemChocolateMilk(), item -> item.setContainerItem(Items.GLASS_BOTTLE).setMaxStackSize(64));
     @Nonnull public static final ItemPotionFood CANNED_SPINACH = register("canned_spinach", new ItemPotionFood(20, false), item -> item.setEffects(ItemPotionFood.SPINACH));
+    @Nonnull public static final ItemFood SUGAR_COOKIE = register("sugar_cookie", new ItemFood(2, 2.4f, false), item -> item.setPotionEffect(new PotionEffect(MobEffects.SPEED, 400, 2), 1));
     @Nonnull public static final ItemMagicMirror MAGIC_MIRROR = register("magic_mirror", new ItemMagicMirror(ItemMagicMirror.NORMAL));
     @Nonnull public static final ItemMagicMirror BEDROCK_MAGIC_MIRROR = register("bedrock_magic_mirror", new ItemMagicMirror(ItemMagicMirror.BEDROCK), item -> item.setMaxStackSize(1));
     @Nonnull public static final ItemMagicMirror DIMENSIONAL_MAGIC_MIRROR = register("dimensional_magic_mirror", new ItemMagicMirror(ItemMagicMirror.DIMENSIONAL));

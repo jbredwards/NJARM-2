@@ -1,17 +1,17 @@
 package git.jbredwards.njarm.mod.common.config.world;
 
 import git.jbredwards.njarm.mod.common.config.IConfig;
+import git.jbredwards.njarm.mod.common.util.ChatUtils;
 import git.jbredwards.njarm.mod.common.util.NBTUtils;
 import git.jbredwards.njarm.mod.common.world.gen.OreGenerator;
-import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTUtil;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.common.config.Config;
-import net.minecraftforge.oredict.OreDictionary;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.ArrayList;
 
 /**
@@ -30,24 +30,18 @@ public final class OreConfig implements IConfig
         ORES.clear();
         for(String ore : ores) {
             final NBTTagCompound nbt = NBTUtils.getTagFromString(ore);
-            final NBTTagCompound oreNBT = nbt.getCompoundTag("Ore");
-            final @Nullable Block oreBlock = Block.getBlockFromName(oreNBT.getString("block"));
-            if(oreBlock != null) {
-                final NBTTagCompound stoneNBT = nbt.getCompoundTag("Stone");
-                final @Nullable Block stoneBlock = Block.getBlockFromName(stoneNBT.getString("block"));
-                if(stoneBlock != null) {
-                    final int stoneMeta = stoneNBT.getInteger("meta");
-                    final IBlockState stoneState = stoneBlock.getStateFromMeta(stoneMeta);
-                    ORES.add(new OreGenerator.Data(oreBlock.getStateFromMeta(oreNBT.getInteger("meta")),
-                            stoneMeta == OreDictionary.WILDCARD_VALUE ? stone -> Block.isEqualTo(stoneBlock, stone.getBlock()) : stoneState::equals,
-                            new ArrayList<>(NBTUtils.gatherBiomesFromNBT(nbt)),
-                            nbt.getInteger("MinY"),
-                            nbt.getInteger("MaxY"),
-                            nbt.getInteger("ClumpSize"),
-                            nbt.getInteger("PerChunk"),
-                            nbt.getIntArray("Dimensions"))
-                    );
-                }
+            final IBlockState oreState = NBTUtil.readBlockState(nbt.getCompoundTag("Ore"));
+            if(ChatUtils.getOrError(oreState.getBlock() != Blocks.AIR, "Could not get valid ore id from: " + ore)) {
+                final IBlockState stoneState = NBTUtil.readBlockState(nbt.getCompoundTag("Stone"));
+                if(ChatUtils.getOrError(stoneState.getBlock() != Blocks.AIR, "Could not get valid stone id from: " + ore))
+                    ORES.add(new OreGenerator.Data(oreState, stoneState::equals,
+                        new ArrayList<>(NBTUtils.gatherBiomesFromNBT(nbt)),
+                        nbt.getInteger("MinY"),
+                        nbt.getInteger("MaxY"),
+                        nbt.getInteger("ClumpSize"),
+                        nbt.getInteger("PerChunk"),
+                        nbt.getIntArray("Dimensions"))
+                );
             }
         }
     }

@@ -6,6 +6,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.biome.Biome;
 
 import javax.annotation.Nonnull;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -25,10 +26,18 @@ public interface ISpawnableConfig extends IConfig
 
     @Nonnull
     default Spawn[] getSpawnData() {
-        final Set<Spawn> spawnData = new HashSet<>();
-        for(String data : spawnData())
-            spawnData.add(new Spawn(NBTUtils.getTagFromString(data), allSpawnBiomes()));
+        final List<Spawn> spawnData = new ArrayList<>();
+        final Set<Biome> allBiomes = new HashSet<>();
 
+        for(String data : spawnData()) {
+            final NBTTagCompound nbt = NBTUtils.getTagFromString(data);
+            final Set<Biome> biomeSet = NBTUtils.gatherBiomesFromNBT(nbt);
+
+            spawnData.add(new Spawn(NBTUtils.getTagFromString(data), biomeSet));
+            allBiomes.addAll(biomeSet);
+        }
+
+        allSpawnBiomes().addAll(allBiomes);
         return spawnData.toArray(new Spawn[0]);
     }
 
@@ -40,10 +49,7 @@ public interface ISpawnableConfig extends IConfig
         public final int max;
         public final int weight;
 
-        public Spawn(@Nonnull NBTTagCompound nbt, @Nonnull List<Biome> allSpawnBiomes) {
-            final Set<Biome> biomeSet = NBTUtils.gatherBiomesFromNBT(nbt);
-            allSpawnBiomes.addAll(biomeSet);
-
+        public Spawn(@Nonnull NBTTagCompound nbt, @Nonnull Set<Biome> biomeSet) {
             biomes = biomeSet.toArray(new Biome[0]);
             min = Math.max(nbt.getInteger("Min"), 1);
             max = Math.max(nbt.getInteger("Max"), 1);

@@ -45,6 +45,7 @@ public class OreGenerator extends BiomeDecorator implements IWorldGenerator
                     new WorldGenerator() {
                         @Override
                         public boolean generate(@Nonnull World worldIn, @Nonnull Random rand, @Nonnull BlockPos pos) {
+                            pos = pos.add(8, 0, 8);
                             if(data.biomes.isEmpty() || data.biomes.contains(worldIn.getBiomeForCoordsBody(pos))) {
                                 final IBlockState here = worldIn.getBlockState(pos);
                                 if(here.getBlock().isReplaceableOreGen(here, worldIn, pos, data.condition::test))

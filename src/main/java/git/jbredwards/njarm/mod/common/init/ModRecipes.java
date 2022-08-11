@@ -67,8 +67,13 @@ public final class ModRecipes
         registerCrafting(registry, shapeless(9, ModItems.SAPPHIRE, ModItems.SAPPHIRE_BLOCK));
         registerCrafting(registry, shapeless(4, Items.SNOWBALL, Blocks.SNOW));
         registerCrafting(registry, shapeless(2, Items.SNOWBALL, Blocks.SNOW_LAYER));
+        registerCrafting(registry, shapeless(1, ModItems.SUGAR_BAGUETTE, ModItems.BAGUETTE, Items.SUGAR));
+        registerCrafting(registry, shapeless(1, ModItems.SUGAR_BAGUETTE, ModItems.SUGAR_BREAD, ModItems.SUGAR_BREAD));
+        registerCrafting(registry, shapeless(1, ModItems.SUGAR_BREAD, Items.BREAD, Items.SUGAR));
+        registerCrafting(registry, shapeless(1, ModItems.SUGAR_COOKIE, Items.COOKIE, Items.SUGAR));
         registerCrafting(registry, shapeless(9, Items.WHEAT_SEEDS, new ItemStack(ModItems.FOOD_CRATE, 1, 0)));
         //shaped
+        registerCrafting(registry, shaped(1, ModItems.BAGUETTE, "##", '#', Items.BREAD));
         registerCrafting(registry, shaped(4, ModItems.BLACKSTONE_BRICKS, "##", "##", '#', ModItems.POLISHED_BLACKSTONE));
         registerCrafting(registry, shaped(3, ModItems.CHAIN, "N", "I", "N", 'N', "nuggetIron", 'I', "ingotIron"));
         registerCrafting(registry, shaped(1, Items.CHAINMAIL_CHESTPLATE, "# #", "###", "###", '#', ModItems.FIRE));

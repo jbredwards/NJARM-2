@@ -111,10 +111,12 @@ public final class ConfigHandler
     @Config.LangKey("config.njarm.cfg.entity")
     @Nonnull public static final EntityConfig entityCfg = register(new EntityConfig(
             new ChocolateCowConfig(new String[] {}),
-            new HighlandCooConfig(new String[] {"{Weight:10,Min:1,Max:5,BiomeTags:[plains]}"}, true, new String[] {"{Color:0,BiomeTags:[cold]}"}),
+            new HighlandCooConfig(
+                    new String[] {"{Weight:10,Min:1,Max:5,BiomeTags:[plains],ExcludeBiomes:{BiomeTags:[hot]}}"}, true,
+                    new String[] {"{Color:0,BiomeTags:[cold]}"}),
             new MoobloomConfig(-1, -1, true, true,
                     new String[] {
-                            "{Weight:15,Min:1,Max:3,Biomes:[mutated_forest]}",
+                            "{Weight:30,Min:1,Max:3,Biomes:[mutated_forest]}",
                             "{Weight:2,Min:1,Max:1,Biomes:[plains,forest,swampland]}"
                     },
                     new String[] {
@@ -176,7 +178,26 @@ public final class ConfigHandler
     @Config.LangKey("config.njarm.cfg.world")
     @Nonnull public static final WorldConfig worldCfg = register(new WorldConfig(
             new OreConfig(new String[] {
-                    "{Ore:{block:\"njarm:ruby_ore\"},Stone:{block:\"stone\",meta:0},MinY:0,MaxY:16,ClumpSize:8,PerChunk:2}"
+                    "{Ore:{Name:\"njarm:ruby_ore\"},Stone:{Name:stone},MinY:0,MaxY:16,ClumpSize:8,PerChunk:1}",
+                    "{Ore:{Name:\"njarm:quartz_ore\"},Stone:{Name:stone},MinY:0,MaxY:256,ClumpSize:14,PerChunk:8}",
+                    "{Ore:{Name:\"njarm:xp_ore\"},Stone:{Name:stone},MinY:0,MaxY:70,ClumpSize:8,PerChunk:4}",
+                    "{Ore:{Name:\"njarm:xp_ore\",Properties:{type:nether}},Stone:{Name:netherrack},MinY:0,MaxY:128,ClumpSize:8,PerChunk:8,Dimensions:[-1]}",
+                    "{Ore:{Name:\"njarm:xp_ore\",Properties:{type:end}},Stone:{Name:end_stone},MinY:0,MaxY:256,ClumpSize:8,PerChunk:70,Dimensions:[1]}",
+                    "{Ore:{Name:\"njarm:mica_ore\"},Stone:{Name:sand},MinY:40,MaxY:80,ClumpSize:8,PerChunk:10,BiomeTags:[beach]}",
+                    "{Ore:{Name:\"njarm:bone_ore\"},Stone:{Name:dirt},MinY:0,MaxY:256,ClumpSize:6,PerChunk:34}",
+                    "{Ore:{Name:\"njarm:platinum_ore\"},Stone:{Name:stone},MinY:0,MaxY:16,ClumpSize:8,PerChunk:2}",
+                    "{Ore:{Name:\"njarm:gravel_gold_ore\"},Stone:{Name:gravel},MinY:0,MaxY:256,ClumpSize:8,PerChunk:15,BiomeTags:[all],ExcludeBiomes:{BiomeTags:[water]}}",
+                    "{Ore:{Name:\"njarm:gravel_iron_ore\"},Stone:{Name:gravel},MinY:0,MaxY:256,ClumpSize:8,PerChunk:15,BiomeTags:[all],ExcludeBiomes:{BiomeTags:[water]}}",
+                    "{Ore:{Name:\"njarm:gravel_xp_ore\"},Stone:{Name:gravel},MinY:0,MaxY:256,ClumpSize:8,PerChunk:15,BiomeTags:[all],ExcludeBiomes:{BiomeTags:[water]}}",
+                    "{Ore:{Name:\"njarm:gravel_quartz_ore\"},Stone:{Name:gravel},MinY:0,MaxY:256,ClumpSize:14,PerChunk:15,BiomeTags:[all],ExcludeBiomes:{BiomeTags:[water]}}",
+                    "{Ore:{Name:\"njarm:magic_ore\"},Stone:{Name:end_stone},MinY:0,MaxY:256,ClumpSize:4,PerChunk:100,Dimensions:[1]}",
+                    "{Ore:{Name:\"njarm:end_lapis_ore\"},Stone:{Name:end_stone},MinY:0,MaxY:256,ClumpSize:8,PerChunk:60,Dimensions:[1]}",
+                    "{Ore:{Name:\"njarm:nether_gold_ore\"},Stone:{Name:netherrack},MinY:0,MaxY:128,ClumpSize:8,PerChunk:30,Dimensions:[-1]}",
+                    "{Ore:{Name:\"njarm:nether_diamond_ore\"},Stone:{Name:netherrack},MinY:0,MaxY:48,ClumpSize:8,PerChunk:3,Dimensions:[-1]}",
+                    "{Ore:{Name:\"njarm:nether_emerald_ore\"},Stone:{Name:netherrack},MinY:0,MaxY:128,ClumpSize:1,PerChunk:15,Dimensions:[-1]}",
+                    "{Ore:{Name:\"njarm:sapphire_ore\"},Stone:{Name:netherrack},MinY:0,MaxY:48,ClumpSize:2,PerChunk:6,Dimensions:[-1]}",
+                    "{Ore:{Name:\"njarm:blackstone\",Properties:{axis:y}},Stone:{Name:netherrack},MinY:26,MaxY:36,ClumpSize:33,PerChunk:16,Biomes:[hell]}",
+                    "{Ore:{Name:\"njarm:ancient_debris\",Properties:{axis:y}},Stone:{Name:netherrack},MinY:0,MaxY:48,ClumpSize:2,PerChunk:2,Dimensions:[-1]}"
             })
     ));
 

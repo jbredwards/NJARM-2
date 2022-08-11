@@ -11,7 +11,6 @@ import net.minecraftforge.common.util.Constants;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -44,12 +43,15 @@ public final class NBTUtils
         });
 
         //handle biome tags
-        nbt.getTagList("BiomeTags", Constants.NBT.TAG_STRING).forEach(subNbt -> dest.addAll(
-                BiomeDictionary.getBiomes(BiomeDictionary.Type.getType(((NBTTagString)subNbt).getString()))));
+        nbt.getTagList("BiomeTags", Constants.NBT.TAG_STRING).forEach(subNbt -> {
+            final String tag = ((NBTTagString)subNbt).getString();
+            if(tag.equalsIgnoreCase("all")) Biome.REGISTRY.forEach(dest::add);
+            else dest.addAll(BiomeDictionary.getBiomes(BiomeDictionary.Type.getType(tag)));
+        });
 
         //remove unwanted biomes
         if(nbt.hasKey("ExcludeBiomes", Constants.NBT.TAG_COMPOUND))
-            dest.removeAll(new ArrayList<>(gatherBiomesFromNBT(nbt.getCompoundTag("ExcludeBiomes"))));
+            dest.removeAll(gatherBiomesFromNBT(nbt.getCompoundTag("ExcludeBiomes")));
 
         return dest;
     }
