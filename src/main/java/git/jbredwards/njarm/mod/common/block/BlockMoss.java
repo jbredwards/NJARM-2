@@ -1,5 +1,6 @@
 package git.jbredwards.njarm.mod.common.block;
 
+import git.jbredwards.njarm.mod.common.block.util.IHasRunningEffects;
 import git.jbredwards.njarm.mod.common.util.AABBUtils;
 import net.minecraft.block.BlockBush;
 import net.minecraft.block.material.MapColor;
@@ -24,7 +25,7 @@ import java.util.Random;
  * @author jbred
  *
  */
-public class BlockMoss extends BlockBush implements IShearable
+public class BlockMoss extends BlockBush implements IShearable, IHasRunningEffects
 {
     @Nonnull
     public static final AxisAlignedBB AABB = AABBUtils.of(0, 0, 0, 16, 2, 16);
