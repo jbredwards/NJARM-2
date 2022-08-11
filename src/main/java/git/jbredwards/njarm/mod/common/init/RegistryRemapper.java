@@ -87,6 +87,8 @@ public final class RegistryRemapper
                     case "rupee_shard": mapping.remap(ModItems.RUPEE); break;
                     case "heart": mapping.ignore(); break;
                     case "electricity": mapping.remap(ModItems.CHARGED_SUNSTONE); break;
+                    case "light": mapping.remap(ModItems.ENDER_STAR); break;
+                    case "dark": mapping.remap(ModItems.BLESTEM_HEART); break;
                 }
             }
         });

@@ -38,6 +38,7 @@ public final class ModRecipes
     static void registerCrafting(@Nonnull IForgeRegistry<IRecipe> registry) {
         //shapeless
         registerCrafting(registry, shapeless(9, Items.APPLE, new ItemStack(ModItems.FOOD_CRATE, 1, 6)));
+        registerCrafting(registry, shapeless(1, ModItems.BAGUETTE, Items.BREAD, Items.BREAD));
         registerCrafting(registry, shapeless(9, Items.BEETROOT, new ItemStack(ModItems.FOOD_CRATE, 1, 4)));
         registerCrafting(registry, shapeless(9, Items.BEETROOT_SEEDS, new ItemStack(ModItems.FOOD_CRATE, 1, 5)));
         registerCrafting(registry, shapeless(1, ModItems.CARAMEL_APPLE, Items.APPLE, Items.SUGAR, Items.STICK));
@@ -73,7 +74,7 @@ public final class ModRecipes
         registerCrafting(registry, shapeless(1, ModItems.SUGAR_COOKIE, Items.COOKIE, Items.SUGAR));
         registerCrafting(registry, shapeless(9, Items.WHEAT_SEEDS, new ItemStack(ModItems.FOOD_CRATE, 1, 0)));
         //shaped
-        registerCrafting(registry, shaped(1, ModItems.BAGUETTE, "##", '#', Items.BREAD));
+        registerCrafting(registry, shaped(1, ModItems.BAGUETTE, "###", "###", '#', "cropWheat"));
         registerCrafting(registry, shaped(4, ModItems.BLACKSTONE_BRICKS, "##", "##", '#', ModItems.POLISHED_BLACKSTONE));
         registerCrafting(registry, shaped(3, ModItems.CHAIN, "N", "I", "N", 'N', "nuggetIron", 'I', "ingotIron"));
         registerCrafting(registry, shaped(1, Items.CHAINMAIL_CHESTPLATE, "# #", "###", "###", '#', ModItems.FIRE));

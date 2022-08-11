@@ -108,9 +108,11 @@ public final class ModItems
     @Nonnull public static final ItemFood COOKED_EGG = register("cooked_egg", new ItemFood(6, 7.2f, true));
     @Nonnull public static final ItemChargedSunstone CHARGED_SUNSTONE = register("charged_sunstone", new ItemChargedSunstone(EntityChargedSunstone::new, ChargedSunstoneConfig::canThrow, EntityChargedSunstone::new, ChargedSunstoneConfig::canDispense));
     @Nonnull public static final Item MICA_DUST = register("mica_dust", new Item());
-    @Nonnull public static final ItemBonusHeart BONUS_HEART = register("bonus_heart", new ItemBonusHeart());
+    @Nonnull public static final ItemBonusHeart BONUS_HEART = register("bonus_heart", new ItemBonusHeart(), item -> item.setMaxStackSize(1));
     @Nonnull public static final ItemRupee RUPEE = register("rupee", new ItemRupee());
     @Nonnull public static final ItemFire FIRE = register("fire", new ItemFire());
+    @Nonnull public static final ItemGlint ENDER_STAR = register("ender_star", new ItemGlint());
+    @Nonnull public static final Item BLESTEM_HEART = register("blestem_heart", new Item());
 
     //armor
 
