@@ -4,6 +4,7 @@ import git.jbredwards.njarm.mod.Constants;
 import git.jbredwards.njarm.mod.common.block.BlockFoodCrate;
 import git.jbredwards.njarm.mod.common.config.item.ChargedSunstoneConfig;
 import git.jbredwards.njarm.mod.common.config.item.EquipmentConfig;
+import git.jbredwards.njarm.mod.common.config.item.TeleportStaffConfig;
 import git.jbredwards.njarm.mod.common.entity.item.EntityChargedSunstone;
 import git.jbredwards.njarm.mod.common.item.*;
 import git.jbredwards.njarm.mod.common.item.block.*;
@@ -116,7 +117,11 @@ public final class ModItems
     @Nonnull public static final ItemRupee RUPEE = register("rupee", new ItemRupee());
     @Nonnull public static final ItemFire FIRE = register("fire", new ItemFire());
     @Nonnull public static final ItemGlint ENDER_STAR = register("ender_star", new ItemGlint());
-    @Nonnull public static final Item BLESTEM_HEART = register("blestem_heart", new Item());
+    @Nonnull public static final Item BLESTEM_ROD = register("blestem_rod", new Item());
+    @Nonnull public static final ItemBlestemArrow BLESTEM_ARROW = register("blestem_arrow", new ItemBlestemArrow());
+    @Nonnull public static final Item STAFF_BASE = register("staff_base", new Item(), item -> item.setMaxStackSize(1));
+    @Nonnull public static final ItemStaffTeleport TELEPORT_STAFF = register("teleport_staff", new ItemStaffTeleport(), item -> item.setMaxStackSize(1).setMaxDamage(TeleportStaffConfig.durability()));
+    @Nonnull public static final ItemDummy DUMMY = register("dummy", new ItemDummy());
 
     //armor
 

@@ -1,6 +1,8 @@
-package git.jbredwards.njarm.mod.client.entity.renderer;
+package git.jbredwards.njarm.mod.client.entity;
 
-import git.jbredwards.njarm.mod.common.entity.item.EntityChargedSunstone;
+import git.jbredwards.njarm.mod.client.entity.renderer.*;
+import git.jbredwards.njarm.mod.common.entity.item.*;
+import git.jbredwards.njarm.mod.common.entity.monster.*;
 import git.jbredwards.njarm.mod.common.entity.passive.*;
 import git.jbredwards.njarm.mod.common.init.ModItems;
 import net.minecraft.client.Minecraft;
@@ -20,8 +22,11 @@ public final class EntityRendererHandler
 {
     @SideOnly(Side.CLIENT)
     public static void registerEntityRenderers() {
+        RenderingRegistry.registerEntityRenderingHandler(EntityBlestem.class, RenderBlestem::new);
+        RenderingRegistry.registerEntityRenderingHandler(EntityBlestemArrow.class, RenderBlestemArrow::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityChocolateCow.class, RenderChocolateCow::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityFallingBlock.class, RenderMultiLayerFallingBlock::new);
+        RenderingRegistry.registerEntityRenderingHandler(EntityFireSkeleton.class, RenderFireSkeleton::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityHighlandCoo.class, RenderHighlandCoo::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityMoobloom.class, RenderMoobloom::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityMudPig.class, RenderMudPig::new);

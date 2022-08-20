@@ -35,6 +35,9 @@ public final class ItemConfig implements IConfig
     @Config.LangKey("config.njarm.core.item.rupee")
     @Nonnull public final RupeeConfig rupeeCfg;
 
+    @Config.LangKey("config.njarm.core.item.teleportStaff")
+    @Nonnull public final TeleportStaffConfig teleportStaffCfg;
+
     //create a new config category while also adding it to the internal list
     @Nonnull
     private <T extends IConfig> T register(@Nonnull T cfg) {
@@ -51,12 +54,13 @@ public final class ItemConfig implements IConfig
     public void onFMLInit() { CONFIGS.forEach(IConfig::onFMLInit); }
 
     //needed for gson
-    public ItemConfig(@Nonnull BonusHeartConfig bonusHeartCfg, @Nonnull ChargedSunstoneConfig chargedSunstoneCfg, @Nonnull EggShellsConfig eggShellCfg, @Nonnull EquipmentConfig equipmentCfg, @Nonnull ResistantItemsConfig resistantCfg, @Nonnull RupeeConfig rupeeCfg) {
+    public ItemConfig(@Nonnull BonusHeartConfig bonusHeartCfg, @Nonnull ChargedSunstoneConfig chargedSunstoneCfg, @Nonnull EggShellsConfig eggShellCfg, @Nonnull EquipmentConfig equipmentCfg, @Nonnull ResistantItemsConfig resistantCfg, @Nonnull RupeeConfig rupeeCfg, @Nonnull TeleportStaffConfig teleportStaffCfg) {
         this.bonusHeartCfg = register(bonusHeartCfg);
         this.chargedSunstoneCfg = register(chargedSunstoneCfg);
         this.eggShellCfg = register(eggShellCfg);
         this.equipmentCfg = register(equipmentCfg);
         this.resistantCfg = register(resistantCfg);
         this.rupeeCfg = register(rupeeCfg);
+        this.teleportStaffCfg = register(teleportStaffCfg);
     }
 }

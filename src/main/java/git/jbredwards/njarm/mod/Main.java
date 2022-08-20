@@ -3,7 +3,7 @@ package git.jbredwards.njarm.mod;
 import com.cleanroommc.assetmover.AssetMoverAPI;
 import com.google.common.collect.ImmutableMap;
 import git.jbredwards.fluidlogged_api.api.util.FluidloggedUtils;
-import git.jbredwards.njarm.mod.client.entity.renderer.EntityRendererHandler;
+import git.jbredwards.njarm.mod.client.entity.EntityRendererHandler;
 import git.jbredwards.njarm.mod.client.particle.ParticleFactoryColorize;
 import git.jbredwards.njarm.mod.common.block.util.IEmissiveBlock;
 import git.jbredwards.njarm.mod.common.capability.*;

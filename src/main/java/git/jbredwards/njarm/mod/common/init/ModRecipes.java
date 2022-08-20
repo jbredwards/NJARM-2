@@ -17,6 +17,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 import net.minecraftforge.registries.IForgeRegistry;
+import net.minecraftforge.registries.IForgeRegistryModifiable;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -45,11 +46,14 @@ public final class ModRecipes
         registerCrafting(registry, shapeless(9, Items.CARROT, new ItemStack(ModItems.FOOD_CRATE, 1, 1)));
         registerCrafting(registry, shapeless(9, Items.GOLDEN_APPLE, new ItemStack(ModItems.FOOD_CRATE, 1, 7)));
         registerCrafting(registry, shapeless(9, Items.GOLDEN_CARROT, new ItemStack(ModItems.FOOD_CRATE, 1, 8)));
+        registerCrafting(registry, shapeless(4, ModItems.ENDER_PLANKS, ModItems.ENDER_LOG));
         registerCrafting(registry, shapeless(9, 0, Items.FISH, new ItemStack(ModItems.FOOD_CRATE, 1, 9)));
         registerCrafting(registry, shapeless(9, 1, Items.FISH, new ItemStack(ModItems.FOOD_CRATE, 1, 10)));
         registerCrafting(registry, shapeless(9, 2, Items.FISH, new ItemStack(ModItems.FOOD_CRATE, 1, 11)));
         registerCrafting(registry, shapeless(9, 3, Items.FISH, new ItemStack(ModItems.FOOD_CRATE, 1, 12)));
         registerCrafting(registry, shapeless(16, ModItems.FRAGILE_ICE, Blocks.ICE));
+        registerCrafting(registry, shapeless(2, ModItems.MAGIC_DUST, ModItems.BLESTEM_ROD));
+        registerCrafting(registry, shapeless(1, ModItems.MAGIC_INGOT, "dustMagicNJARM", "dustMica", "dustMagicNJARM", "dustMica", "ingotObsidianAlloy", "dustMica", "dustMagicNJARM", "dustMica", "dustMagicNJARM"));
         registerCrafting(registry, shapeless(9, ModItems.MAGIC_INGOT, ModItems.MAGIC_BLOCK));
         registerCrafting(registry, shapeless(9, ModItems.MAGIC_NUGGET, ModItems.MAGIC_INGOT));
         registerCrafting(registry, shapeless(9, ModItems.NETHERITE_INGOT, ModItems.NETHERITE_BLOCK));
@@ -75,6 +79,7 @@ public final class ModRecipes
         registerCrafting(registry, shapeless(9, Items.WHEAT_SEEDS, new ItemStack(ModItems.FOOD_CRATE, 1, 0)));
         //shaped
         registerCrafting(registry, shaped(1, ModItems.BAGUETTE, "###", "###", '#', "cropWheat"));
+        registerCrafting(registry, shaped(3, ModItems.BLESTEM_ARROW, "IRI", "RAR", "ISI", 'I', "ingotMagicalAlloy", 'R', ModItems.BLESTEM_ROD, 'A', Items.ARROW, 'S', ModItems.ENDER_STAR));
         registerCrafting(registry, shaped(4, ModItems.BLACKSTONE_BRICKS, "##", "##", '#', ModItems.POLISHED_BLACKSTONE));
         registerCrafting(registry, shaped(3, ModItems.CHAIN, "N", "I", "N", 'N', "nuggetIron", 'I', "ingotIron"));
         registerCrafting(registry, shaped(1, Items.CHAINMAIL_CHESTPLATE, "# #", "###", "###", '#', ModItems.FIRE));
@@ -120,11 +125,21 @@ public final class ModRecipes
         registerCrafting(registry, shaped(1, ModItems.RUBY_SWORD, "#", "#", "S", '#', "gemRuby", 'S', "stickWood"));
         registerCrafting(registry, shaped(1, ModItems.SAPPHIRE_BLOCK, "###", "###", "###", '#', "gemSapphire"));
         registerCrafting(registry, shaped(1, Blocks.SNOW_LAYER, "##", '#', Items.SNOWBALL));
+        //edit vanilla recipes
+        removeCrafting(registry, "end_rod", shaped(4, Blocks.END_ROD, "R", "C", 'R', ModItems.BLESTEM_ROD, 'C', Items.CHORUS_FRUIT_POPPED));
+        Constants.LOGGER.info("^^^ These are intended overrides, done to either change the recipes, or to set their priorities further back");
     }
 
     static void registerCrafting(@Nonnull IForgeRegistry<IRecipe> registry, @Nonnull IRecipe recipe) {
         registry.register(recipe.setRegistryName(generateName(registry, recipe instanceof IShapedRecipe
                 ? "shaped" : "shapeless", recipe.getRecipeOutput())));
+    }
+
+    static void removeCrafting(@Nonnull IForgeRegistry<IRecipe> registry, @Nonnull String idToRemove, @Nonnull IRecipe replacement) {
+        if(registry instanceof IForgeRegistryModifiable) {
+            ((IForgeRegistryModifiable<IRecipe>)registry).remove(new ResourceLocation(idToRemove));
+            registry.register(replacement.setRegistryName(new ResourceLocation(idToRemove)));
+        }
     }
 
     static void registerSmelting() {

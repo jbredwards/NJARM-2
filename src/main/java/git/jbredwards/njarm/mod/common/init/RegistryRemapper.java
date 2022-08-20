@@ -59,6 +59,7 @@ public final class RegistryRemapper
             else if(mapping.key.getNamespace().equals("njarm")) {
                 switch(mapping.key.getPath()) {
                     case "item_netherite": mapping.remap(ForgeRegistries.ENTITIES.getValue(new ResourceLocation("item"))); break;
+                    case "dark_arrow": mapping.remap(ModEntities.BLESTEM_ARROW); break;
                 }
             }
         });
@@ -88,7 +89,9 @@ public final class RegistryRemapper
                     case "heart": mapping.ignore(); break;
                     case "electricity": mapping.remap(ModItems.CHARGED_SUNSTONE); break;
                     case "light": mapping.remap(ModItems.ENDER_STAR); break;
-                    case "dark": mapping.remap(ModItems.BLESTEM_HEART); break;
+                    case "dark": mapping.remap(ModItems.BLESTEM_ROD); break;
+                    case "dark_arrow": mapping.remap(ModItems.BLESTEM_ARROW); break;
+                    case "staff": mapping.remap(ModItems.STAFF_BASE); break;
                 }
             }
         });

@@ -40,7 +40,7 @@ public class ItemMagicMirror extends Item
             final ItemStack stack = playerIn.getHeldItem(handIn);
             damageAndCooldown(stack, playerIn);
 
-            return new ActionResult<>(EnumActionResult.SUCCESS, stack);
+            return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
         }
 
         return super.onItemRightClick(worldIn, playerIn, handIn);

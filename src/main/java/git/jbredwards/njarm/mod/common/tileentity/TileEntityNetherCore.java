@@ -96,7 +96,7 @@ public class TileEntityNetherCore extends TileEntityBasic implements ITickable
                                     @Nullable EntityPlayer player = world.getPlayerEntityByUUID(activator);
                                     if(player == null) {
                                         final List<EntityPlayer> players = world.getEntitiesWithinAABB(EntityPlayer.class,
-                                                new AxisAlignedBB(pos, pos.add(1, 1, 1)).grow(NetherCoreConfig.getRange()),
+                                                new AxisAlignedBB(pos).grow(NetherCoreConfig.getRange()),
                                                 EntitySelectors.CAN_AI_TARGET.and(Entity::isEntityAlive)::test);
 
                                         if(players.size() > 0) player = players.get(world.rand.nextInt(players.size()));

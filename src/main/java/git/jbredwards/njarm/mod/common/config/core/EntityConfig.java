@@ -17,8 +17,14 @@ public final class EntityConfig implements IConfig
     @Nonnull
     private final NonNullList<IConfig> CONFIGS = NonNullList.create();
 
+    @Config.LangKey("config.njarm.core.entity.blestem")
+    @Nonnull public final BlestemConfig blestemCfg;
+
     @Config.LangKey("config.njarm.core.entity.chocolateCow")
     @Nonnull public final ChocolateCowConfig chocolateCowCfg;
+
+    @Config.LangKey("config.njarm.core.entity.fireSkeleton")
+    @Nonnull public final FireSkeletonConfig fireSkeletonCfg;
 
     @Config.LangKey("config.njarm.core.entity.highlandCoo")
     @Nonnull public final HighlandCooConfig highlandCooCfg;
@@ -45,8 +51,10 @@ public final class EntityConfig implements IConfig
     public void onUpdate() { CONFIGS.forEach(IConfig::onUpdate); }
 
     //needed for gson
-    public EntityConfig(@Nonnull ChocolateCowConfig chocolateCowCfg, @Nonnull HighlandCooConfig highlandCooCfg, @Nonnull MoobloomConfig moobloomCfg, @Nonnull MudPigConfig mudPigCfg) {
-        this.chocolateCowCfg = chocolateCowCfg;
+    public EntityConfig(@Nonnull BlestemConfig blestemCfg, @Nonnull ChocolateCowConfig chocolateCowCfg, @Nonnull FireSkeletonConfig fireSkeletonCfg, @Nonnull HighlandCooConfig highlandCooCfg, @Nonnull MoobloomConfig moobloomCfg, @Nonnull MudPigConfig mudPigCfg) {
+        this.blestemCfg = register(blestemCfg);
+        this.chocolateCowCfg = register(chocolateCowCfg);
+        this.fireSkeletonCfg = register(fireSkeletonCfg);
         this.highlandCooCfg = register(highlandCooCfg);
         this.moobloomCfg = register(moobloomCfg);
         this.mudPigCfg = register(mudPigCfg);

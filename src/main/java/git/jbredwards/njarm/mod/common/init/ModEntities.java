@@ -3,7 +3,8 @@ package git.jbredwards.njarm.mod.common.init;
 import git.jbredwards.njarm.mod.Constants;
 import git.jbredwards.njarm.mod.common.config.ConfigHandler;
 import git.jbredwards.njarm.mod.common.config.entity.util.ISpawnableConfig;
-import git.jbredwards.njarm.mod.common.entity.item.EntityChargedSunstone;
+import git.jbredwards.njarm.mod.common.entity.item.*;
+import git.jbredwards.njarm.mod.common.entity.monster.*;
 import git.jbredwards.njarm.mod.common.entity.passive.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EnumCreatureType;
@@ -47,6 +48,17 @@ public final class ModEntities
 
     @Nonnull
     public static final EntityEntry CHARGED_SUNSTONE = register("charged_sunstone", builder(EntityChargedSunstone.class, 160, 3, true));
+
+    @Nonnull
+    public static final EntityEntry BLESTEM_ARROW = register("blestem_arrow", builder(EntityBlestemArrow.class, 160, 3, true));
+
+    @Nonnull
+    public static final EntityEntry BLESTEM = register("blestem", builder(EntityBlestem.class, 80, 3, true,
+            ConfigHandler.entityCfg.blestemCfg, EnumCreatureType.MONSTER).egg(9725844, 15134893));
+
+    @Nonnull
+    public static final EntityEntry FIRE_SKELETON = register("fire_skeleton", builder(EntityFireSkeleton.class, 80, 3, true,
+            ConfigHandler.entityCfg.fireSkeletonCfg, EnumCreatureType.MONSTER).egg(4325389, 3670027));
 
     //=======
     //helpers

@@ -110,7 +110,9 @@ public final class ConfigHandler
 
     @Config.LangKey("config.njarm.cfg.entity")
     @Nonnull public static final EntityConfig entityCfg = register(new EntityConfig(
+            new BlestemConfig(new String[] {"{Weight:10,Min:1,Max:3,BiomeTags:[end]}"}),
             new ChocolateCowConfig(new String[] {}),
+            new FireSkeletonConfig(new String[] {"{Weight:20,Min:1,Max:3,BiomeTags:[nether]}"}),
             new HighlandCooConfig(
                     new String[] {"{Weight:10,Min:1,Max:5,BiomeTags:[plains],ExcludeBiomes:{BiomeTags:[hot]}}"}, true,
                     new String[] {"{Color:0,BiomeTags:[cold]}"}),
@@ -173,7 +175,8 @@ public final class ConfigHandler
                     new String[] {"njarm:ancient_debris", "njarm:charged_sunstone", "njarm:netherite_block", "njarm:netherite_ingot", "njarm:netherite_nugget", "njarm:netherite_scrap", "njarm:sapphire", "njarm:sapphire_block", "njarm:sapphire_ore", "njarm:sunstone"},
                     new String[] {"njarm:crumbling_bedrock"}
             ),
-            new RupeeConfig(true, 1)));
+            new RupeeConfig(true, 1),
+            new TeleportStaffConfig(1, 40, 384, 500)));
 
     @Config.LangKey("config.njarm.cfg.world")
     @Nonnull public static final WorldConfig worldCfg = register(new WorldConfig(

@@ -28,7 +28,7 @@ public class RenderMudPig extends RenderLiving<EntityMudPig>
         addLayer(new LayerMudPig(this));
     }
 
-    @Nullable
+    @Nonnull
     @Override
     protected ResourceLocation getEntityTexture(@Nonnull EntityMudPig entity) { return TEXTURE; }
 }
