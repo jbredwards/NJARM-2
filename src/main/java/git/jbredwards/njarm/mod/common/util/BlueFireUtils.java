@@ -5,6 +5,7 @@ import git.jbredwards.njarm.mod.Main;
 import git.jbredwards.njarm.mod.common.capability.IBlueFire;
 import git.jbredwards.njarm.mod.common.config.block.BlueFireConfig;
 import git.jbredwards.njarm.mod.common.entity.ai.EntityAIPanicBlueFire;
+import git.jbredwards.njarm.mod.common.entity.util.IBlueFireproof;
 import git.jbredwards.njarm.mod.common.message.MessageBlueFire;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
@@ -19,7 +20,9 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.EntityAIPanic;
 import net.minecraft.entity.ai.EntityAITasks;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
@@ -27,12 +30,13 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.entity.ProjectileImpactEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -65,8 +69,8 @@ public final class BlueFireUtils
     }
 
     public static boolean canBeLit(@Nonnull Entity entity) {
-        return !(entity instanceof EntityPlayer && ((EntityPlayer)entity).isCreative() || entity.isWet()
-                || entity.isBurning() || entity.world.isFlammableWithin(entity.getEntityBoundingBox().shrink(0.001)));
+        return !(entity instanceof EntityPlayer && ((EntityPlayer)entity).isCreative() || entity instanceof IBlueFireproof
+                || entity.isWet() || entity.isBurning() || entity.world.isFlammableWithin(entity.getEntityBoundingBox().shrink(0.001)));
     }
 
     public static boolean damageEntityIn(@Nonnull Entity entity) {
@@ -89,6 +93,22 @@ public final class BlueFireUtils
         }
     }
 
+    //syncs the blue fire of an entity
+    public static void syncBlueFire(@Nonnull Entity entity) {
+        if(!entity.world.isRemote) {
+            final MessageBlueFire message = new MessageBlueFire(entity.getEntityId(), getRemaining(entity) > 0);
+            if(entity instanceof EntityPlayerMP) Main.wrapper.sendTo(message, (EntityPlayerMP)entity);
+            Main.wrapper.sendToAllTracking(message, entity);
+        }
+    }
+
+    @SubscribeEvent
+    public static void syncBlueFireEntities(@Nonnull PlayerEvent.StartTracking event) {
+        if(event.getEntityPlayer() instanceof EntityPlayerMP) Main.wrapper.sendTo(
+                new MessageBlueFire(event.getTarget().getEntityId(), getRemaining(event.getTarget()) > 0),
+                (EntityPlayerMP)event.getEntityPlayer());
+    }
+
     @SubscribeEvent
     public static void tick(@Nonnull LivingEvent.LivingUpdateEvent event) {
         final EntityLivingBase entity = event.getEntityLiving();
@@ -102,18 +122,29 @@ public final class BlueFireUtils
                             1.6f + (entity.getRNG().nextFloat() - entity.getRNG().nextFloat()) * 0.4f);
 
                     cap.setRemaining(0);
-                    Main.wrapper.sendToAllAround(
-                            new MessageBlueFire(entity.getEntityId(), false),
-                            new NetworkRegistry.TargetPoint(entity.world.provider.getDimension(), entity.posX, entity.posY, entity.posZ, 64));
+                    syncBlueFire(entity);
                 }
                 //deals the damage & shrinks the time left
                 else if(entity.ticksExisted % 20 == 0) {
                     cap.setRemaining(cap.getRemaining() - 1);
                     damageEntityOn(entity);
 
-                    if(cap.getRemaining() == 0) Main.wrapper.sendToAllAround(
-                            new MessageBlueFire(entity.getEntityId(), false),
-                            new NetworkRegistry.TargetPoint(entity.world.provider.getDimension(), entity.posX, entity.posY, entity.posZ, 64));
+                    if(cap.getRemaining() == 0)
+                        syncBlueFire(entity);
+                }
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void blueFireArrows(@Nonnull ProjectileImpactEvent.Arrow event) {
+        if(!event.getArrow().world.isRemote) {
+            final int remaining = getRemaining(event.getArrow());
+            if(remaining > 0 && event.getRayTraceResult() != null) {
+                final @Nullable Entity entityHit = event.getRayTraceResult().entityHit;
+                if(entityHit != null && !(entityHit instanceof EntityEnderman) && !(entityHit instanceof EntityLivingBase && ((EntityLivingBase)entityHit).isActiveItemStackBlocking()) && canBeLit(entityHit)) {
+                    setRemaining(entityHit, remaining);
+                    syncBlueFire(entityHit);
                 }
             }
         }

@@ -4,25 +4,38 @@ import git.jbredwards.njarm.mod.Constants;
 import git.jbredwards.njarm.mod.common.entity.passive.EntityChocolateCow;
 import git.jbredwards.njarm.mod.common.init.ModBlocks;
 import git.jbredwards.njarm.mod.common.init.ModItems;
+import git.jbredwards.njarm.mod.common.util.SoundUtils;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockCauldron;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.init.PotionTypes;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.PotionUtils;
+import net.minecraft.stats.StatList;
+import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.BonemealEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidUtil;
+import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  *
@@ -32,6 +45,71 @@ import javax.annotation.Nonnull;
 @Mod.EventBusSubscriber(modid = Constants.MODID)
 public final class EventHandler
 {
+    @SubscribeEvent
+    public static void fixCauldronInteractions(@Nonnull PlayerInteractEvent.RightClickBlock event) {
+        final IBlockState state = event.getWorld().getBlockState(event.getPos());
+        if(state.getBlock() instanceof BlockCauldron) {
+            final int level = state.getValue(BlockCauldron.LEVEL);
+            if(level < 3) {
+                final FluidStack fluidStack = new FluidStack(FluidRegistry.WATER, Fluid.BUCKET_VOLUME);
+                final ItemStack held = event.getItemStack();
+                final BlockPos pos = event.getPos();
+                final World world = event.getWorld();
+                final EntityPlayer player = event.getEntityPlayer();
+
+                //fix water bottle interaction
+                if(held.getItem() == Items.POTIONITEM && PotionUtils.getPotionFromItem(held) == PotionTypes.WATER) {
+                    if(!player.isCreative() && !world.isRemote) {
+                        held.shrink(1);
+
+                        if(held.isEmpty()) player.setHeldItem(event.getHand(), new ItemStack(Items.GLASS_BOTTLE));
+                        else if(!player.inventory.addItemStackToInventory(new ItemStack(Items.GLASS_BOTTLE)))
+                            player.dropItem(new ItemStack(Items.GLASS_BOTTLE), false);
+                    }
+
+                    if(world.provider.doesWaterVaporize() && FluidRegistry.WATER.doesVaporize(fluidStack))
+                        FluidRegistry.WATER.vaporize(null, world, pos, fluidStack);
+
+                    else if(!world.isRemote) {
+                        player.addStat(StatList.CAULDRON_USED);
+                        SoundUtils.playSound(world, pos, SoundEvents.ITEM_BOTTLE_EMPTY, SoundCategory.BLOCKS, 1, 1);
+                        ((BlockCauldron)state.getBlock()).setWaterLevel(world, pos, state, level + 1);
+                    }
+
+                    event.setCancellationResult(EnumActionResult.SUCCESS);
+                    event.setCanceled(true);
+                }
+
+                //fix water bucket interaction
+                else {
+                    final @Nullable IFluidHandlerItem handler = FluidUtil.getFluidHandler(held);
+                    if(handler != null && handler.drain(fluidStack, false) != null) {
+                        if(!player.isCreative() && !world.isRemote) {
+                            handler.drain(fluidStack, true);
+                            held.shrink(1);
+
+                            if(held.isEmpty()) player.setHeldItem(event.getHand(), handler.getContainer());
+                            else if(!player.inventory.addItemStackToInventory(handler.getContainer()))
+                                player.dropItem(handler.getContainer(), false);
+                        }
+
+                        if(world.provider.doesWaterVaporize() && FluidRegistry.WATER.doesVaporize(fluidStack))
+                            FluidRegistry.WATER.vaporize(null, world, pos, fluidStack);
+
+                        else if(!world.isRemote) {
+                            player.addStat(StatList.CAULDRON_USED);
+                            SoundUtils.playSound(world, pos, FluidRegistry.WATER.getEmptySound(fluidStack), SoundCategory.BLOCKS, 1, 1);
+                            ((BlockCauldron)state.getBlock()).setWaterLevel(world, pos, state, 3);
+                        }
+
+                        event.setCancellationResult(EnumActionResult.SUCCESS);
+                        event.setCanceled(true);
+                    }
+                }
+            }
+        }
+    }
+
     @SubscribeEvent
     public static void onBonemeal(@Nonnull BonemealEvent event) {
         if(event.getBlock() == Blocks.END_STONE.getDefaultState()) {

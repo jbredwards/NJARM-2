@@ -1,9 +1,7 @@
 package git.jbredwards.njarm.mod.common.block;
 
 import git.jbredwards.njarm.mod.Constants;
-import git.jbredwards.njarm.mod.Main;
 import git.jbredwards.njarm.mod.common.config.block.BlueFireConfig;
-import git.jbredwards.njarm.mod.common.message.MessageBlueFire;
 import git.jbredwards.njarm.mod.common.util.BlueFireUtils;
 import git.jbredwards.njarm.mod.common.util.SoundUtils;
 import net.darkhax.bookshelf.item.ICustomModel;
@@ -96,15 +94,13 @@ public class BlockBlueFire extends BlockFire implements ICustomModel
     @Override
     public void onEntityCollision(@Nonnull World worldIn, @Nonnull BlockPos pos, @Nonnull IBlockState state, @Nonnull Entity entityIn) {
         final boolean isSoulItem = entityIn instanceof EntityItem && BlueFireConfig.SOUL_SAND.containsKey(getBlockFromItem(((EntityItem)entityIn).getItem().getItem()));
-        if(!isSoulItem && BlueFireUtils.damageEntityIn(entityIn)) {
+        if(!isSoulItem) {
             if(entityIn.isWet()) SoundUtils.playSound(entityIn, SoundEvents.ENTITY_GENERIC_EXTINGUISH_FIRE, 0.7f,
                     1.6f + (worldIn.rand.nextFloat() - worldIn.rand.nextFloat()) * 0.4f);
             else if(BlueFireUtils.canBeLit(entityIn)) {
-                Main.wrapper.sendToAllAround(
-                        new MessageBlueFire(entityIn.getEntityId(), true),
-                        new NetworkRegistry.TargetPoint(worldIn.provider.getDimension(), entityIn.posX, entityIn.posY, entityIn.posZ, 64));
-
+                BlueFireUtils.damageEntityIn(entityIn);
                 BlueFireUtils.setRemaining(entityIn, 5);
+                BlueFireUtils.syncBlueFire(entityIn);
             }
         }
     }

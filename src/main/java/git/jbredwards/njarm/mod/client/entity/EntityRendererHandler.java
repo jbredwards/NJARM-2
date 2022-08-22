@@ -30,6 +30,7 @@ public final class EntityRendererHandler
         RenderingRegistry.registerEntityRenderingHandler(EntityHighlandCoo.class, RenderHighlandCoo::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityMoobloom.class, RenderMoobloom::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityMudPig.class, RenderMudPig::new);
+        RenderingRegistry.registerEntityRenderingHandler(EntitySoulSkeleton.class, RenderSoulSkeleton::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityXPOrb.class, RenderTranslucentXPOrb::new);
 
         RenderingRegistry.registerEntityRenderingHandler(EntityChargedSunstone.class, manager ->

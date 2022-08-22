@@ -35,6 +35,9 @@ public final class EntityConfig implements IConfig
     @Config.LangKey("config.njarm.core.entity.mudPig")
     @Nonnull public final MudPigConfig mudPigCfg;
 
+    @Config.LangKey("config.njarm.core.entity.soulSkeleton")
+    @Nonnull public final SoulSkeletonConfig soulSkeletonCfg;
+
     //create a new config category while also adding it to the internal list
     @Nonnull
     private <T extends IConfig> T register(@Nonnull T cfg) {
@@ -51,12 +54,13 @@ public final class EntityConfig implements IConfig
     public void onUpdate() { CONFIGS.forEach(IConfig::onUpdate); }
 
     //needed for gson
-    public EntityConfig(@Nonnull BlestemConfig blestemCfg, @Nonnull ChocolateCowConfig chocolateCowCfg, @Nonnull FireSkeletonConfig fireSkeletonCfg, @Nonnull HighlandCooConfig highlandCooCfg, @Nonnull MoobloomConfig moobloomCfg, @Nonnull MudPigConfig mudPigCfg) {
+    public EntityConfig(@Nonnull BlestemConfig blestemCfg, @Nonnull ChocolateCowConfig chocolateCowCfg, @Nonnull FireSkeletonConfig fireSkeletonCfg, @Nonnull HighlandCooConfig highlandCooCfg, @Nonnull MoobloomConfig moobloomCfg, @Nonnull MudPigConfig mudPigCfg, @Nonnull SoulSkeletonConfig soulSkeletonCfg) {
         this.blestemCfg = register(blestemCfg);
         this.chocolateCowCfg = register(chocolateCowCfg);
         this.fireSkeletonCfg = register(fireSkeletonCfg);
         this.highlandCooCfg = register(highlandCooCfg);
         this.moobloomCfg = register(moobloomCfg);
         this.mudPigCfg = register(mudPigCfg);
+        this.soulSkeletonCfg = register(soulSkeletonCfg);
     }
 }

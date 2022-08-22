@@ -9,6 +9,7 @@ import git.jbredwards.njarm.mod.common.entity.item.EntityChargedSunstone;
 import git.jbredwards.njarm.mod.common.item.*;
 import git.jbredwards.njarm.mod.common.item.block.*;
 import git.jbredwards.njarm.mod.common.item.equipment.ItemAxe;
+import git.jbredwards.njarm.mod.common.item.equipment.ItemSapphireBow;
 import git.jbredwards.njarm.mod.common.item.util.CreativeTab;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
@@ -131,6 +132,7 @@ public final class ModItems
     @Nonnull public static final ItemPickaxe RUBY_PICKAXE = register("ruby_pickaxe", new ItemPickaxe(EquipmentConfig.RUBY_TOOL_MATERIAL));
     @Nonnull public static final ItemAxe RUBY_AXE = register("ruby_axe", new ItemAxe(EquipmentConfig.RUBY_TOOL_MATERIAL));
     @Nonnull public static final ItemHoe RUBY_HOE = register("ruby_hoe", new ItemHoe(EquipmentConfig.RUBY_TOOL_MATERIAL));
+    @Nonnull public static final ItemSapphireBow SAPPHIRE_BOW = register("sapphire_bow", new ItemSapphireBow(), item -> item.setMaxDamage(EquipmentConfig.sapphireBowDurability()));
 
     //register ores
     public static void registerOres() {

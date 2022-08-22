@@ -1,5 +1,6 @@
 package git.jbredwards.njarm.mod.common.config.item;
 
+import git.jbredwards.njarm.mod.common.config.ConfigHandler;
 import git.jbredwards.njarm.mod.common.config.IConfig;
 import git.jbredwards.njarm.mod.common.util.NBTUtils;
 import net.minecraft.item.Item;
@@ -26,6 +27,14 @@ public final class EquipmentConfig implements IConfig
     @Nonnull public final String rubyToolMaterial;
     @Nonnull public static Item.ToolMaterial RUBY_TOOL_MATERIAL;
 
+    @Config.LangKey("config.njarm.item.equipment.sapphireBowDurability")
+    public final int sapphireBowDurability;
+    public static int sapphireBowDurability() { return ConfigHandler.itemCfg.equipmentCfg.sapphireBowDurability; }
+
+    @Config.LangKey("config.njarm.item.equipment.sapphireBowHasFlame")
+    public final boolean sapphireBowHasFlame;
+    public static boolean sapphireBowHasFlame() { return ConfigHandler.itemCfg.equipmentCfg.sapphireBowHasFlame; }
+
     void initializeMaterials() {
         RUBY_TOOL_MATERIAL = toolMaterial("ruby", rubyToolMaterial);
     }
@@ -43,8 +52,10 @@ public final class EquipmentConfig implements IConfig
     }
 
     //needed for gson
-    public EquipmentConfig(@Nonnull String rubyToolMaterial) {
+    public EquipmentConfig(@Nonnull String rubyToolMaterial, int sapphireBowDurability, boolean sapphireBowHasFlame) {
         this.rubyToolMaterial = rubyToolMaterial;
+        this.sapphireBowDurability = sapphireBowDurability;
+        this.sapphireBowHasFlame = sapphireBowHasFlame;
         //only initialize materials on first load
         if(initializeMaterials) {
             initializeMaterials = false;

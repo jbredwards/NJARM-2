@@ -1,10 +1,8 @@
 package git.jbredwards.njarm.mod.common.capability;
 
 import git.jbredwards.njarm.mod.Constants;
-import git.jbredwards.njarm.mod.Main;
-import git.jbredwards.njarm.mod.common.message.MessageBlueFire;
+import git.jbredwards.njarm.mod.common.util.BlueFireUtils;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTPrimitive;
 import net.minecraft.nbt.NBTTagInt;
@@ -39,7 +37,7 @@ public interface IBlueFire
 
     @Nullable
     static IBlueFire get(@Nullable ICapabilityProvider provider) {
-        return provider.hasCapability(CAPABILITY, null) ? provider.getCapability(CAPABILITY, null) : null;
+        return provider != null && provider.hasCapability(CAPABILITY, null) ? provider.getCapability(CAPABILITY, null) : null;
     }
 
     @SubscribeEvent
@@ -49,11 +47,9 @@ public interface IBlueFire
 
     @SubscribeEvent
     static void sync(@Nonnull PlayerEvent.PlayerChangedDimensionEvent event) {
-        if(event.player instanceof EntityPlayerMP) {
-            final @Nullable IBlueFire cap = get(event.player);
-            if(cap != null && cap.getRemaining() > 0) Main.wrapper.sendTo(
-                    new MessageBlueFire(event.player.getEntityId(), true), (EntityPlayerMP)event.player);
-        }
+        final @Nullable IBlueFire cap = get(event.player);
+        if(cap != null && cap.getRemaining() > 0)
+            BlueFireUtils.syncBlueFire(event.player);
     }
 
     class Impl implements IBlueFire

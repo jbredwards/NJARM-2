@@ -159,7 +159,8 @@ public final class ConfigHandler
                             "{Name:red_flower,Properties:{type:oxeye_daisy}}"
                     }
             ),
-            new MudPigConfig(30, 10))
+            new MudPigConfig(30, 10),
+            new SoulSkeletonConfig(new String[] {"{Weight:10,Min:1,Max:3,BiomeTags:[nether]}"}))
     );
 
     @Config.LangKey("config.njarm.cfg.item")
@@ -168,8 +169,8 @@ public final class ConfigHandler
             new ChargedSunstoneConfig(true, true, false, true, true, true, 3, true),
             new EggShellsConfig(true, 0, 100, new String[] {"minecraft:egg"}, new String[] {"minecraft:egg", "njarm:cooked_egg"}),
             new EquipmentConfig(
-                    "{HarvestLevel:4,Durability:3122,MiningSpeed:8.0f,AttackDamage:3.0f,Enchantability:10}"
-            ),
+                    "{HarvestLevel:4,Durability:3122,MiningSpeed:8.0f,AttackDamage:3.0f,Enchantability:10}",
+                    384, true),
             new ResistantItemsConfig(
                     new String[] {"njarm:sunstone", "njarm:charged_sunstone"},
                     new String[] {"njarm:ancient_debris", "njarm:charged_sunstone", "njarm:netherite_block", "njarm:netherite_ingot", "njarm:netherite_nugget", "njarm:netherite_scrap", "njarm:sapphire", "njarm:sapphire_block", "njarm:sapphire_ore", "njarm:sunstone"},
