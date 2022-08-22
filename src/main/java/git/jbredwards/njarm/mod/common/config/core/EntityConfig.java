@@ -23,6 +23,9 @@ public final class EntityConfig implements IConfig
     @Config.LangKey("config.njarm.core.entity.chocolateCow")
     @Nonnull public final ChocolateCowConfig chocolateCowCfg;
 
+    @Config.LangKey("config.njarm.core.entity.fireCreeper")
+    @Nonnull public final FireCreeperConfig fireCreeperCfg;
+
     @Config.LangKey("config.njarm.core.entity.fireSkeleton")
     @Nonnull public final FireSkeletonConfig fireSkeletonCfg;
 
@@ -54,9 +57,10 @@ public final class EntityConfig implements IConfig
     public void onUpdate() { CONFIGS.forEach(IConfig::onUpdate); }
 
     //needed for gson
-    public EntityConfig(@Nonnull BlestemConfig blestemCfg, @Nonnull ChocolateCowConfig chocolateCowCfg, @Nonnull FireSkeletonConfig fireSkeletonCfg, @Nonnull HighlandCooConfig highlandCooCfg, @Nonnull MoobloomConfig moobloomCfg, @Nonnull MudPigConfig mudPigCfg, @Nonnull SoulSkeletonConfig soulSkeletonCfg) {
+    public EntityConfig(@Nonnull BlestemConfig blestemCfg, @Nonnull ChocolateCowConfig chocolateCowCfg, @Nonnull FireCreeperConfig fireCreeperCfg, @Nonnull FireSkeletonConfig fireSkeletonCfg, @Nonnull HighlandCooConfig highlandCooCfg, @Nonnull MoobloomConfig moobloomCfg, @Nonnull MudPigConfig mudPigCfg, @Nonnull SoulSkeletonConfig soulSkeletonCfg) {
         this.blestemCfg = register(blestemCfg);
         this.chocolateCowCfg = register(chocolateCowCfg);
+        this.fireCreeperCfg = register(fireCreeperCfg);
         this.fireSkeletonCfg = register(fireSkeletonCfg);
         this.highlandCooCfg = register(highlandCooCfg);
         this.moobloomCfg = register(moobloomCfg);

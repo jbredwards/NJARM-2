@@ -112,6 +112,7 @@ public final class ConfigHandler
     @Nonnull public static final EntityConfig entityCfg = register(new EntityConfig(
             new BlestemConfig(new String[] {"{Weight:10,Min:1,Max:3,BiomeTags:[end]}"}),
             new ChocolateCowConfig(new String[] {}),
+            new FireCreeperConfig(new String[] {"{Weight:20,Min:1,Max:3,BiomeTags:[nether]}"}),
             new FireSkeletonConfig(new String[] {"{Weight:20,Min:1,Max:3,BiomeTags:[nether]}"}),
             new HighlandCooConfig(
                     new String[] {"{Weight:10,Min:1,Max:5,BiomeTags:[plains],ExcludeBiomes:{BiomeTags:[hot]}}"}, true,
