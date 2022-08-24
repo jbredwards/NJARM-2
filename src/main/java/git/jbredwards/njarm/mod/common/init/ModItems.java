@@ -9,10 +9,12 @@ import git.jbredwards.njarm.mod.common.entity.item.EntityChargedSunstone;
 import git.jbredwards.njarm.mod.common.item.*;
 import git.jbredwards.njarm.mod.common.item.block.*;
 import git.jbredwards.njarm.mod.common.item.equipment.ItemAxe;
-import git.jbredwards.njarm.mod.common.item.equipment.ItemSapphireBow;
+import git.jbredwards.njarm.mod.common.item.equipment.*;
 import git.jbredwards.njarm.mod.common.item.util.CreativeTab;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.*;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.NonNullList;
@@ -124,15 +126,81 @@ public final class ModItems
     @Nonnull public static final ItemStaffTeleport TELEPORT_STAFF = register("teleport_staff", new ItemStaffTeleport(), item -> item.setMaxStackSize(1).setMaxDamage(TeleportStaffConfig.durability()));
     @Nonnull public static final ItemDummy DUMMY = register("dummy", new ItemDummy());
 
+    @Nonnull public static final Item ASH_PILE = register("ash_pile", new Item());
+
     //armor
+    @Nonnull public static final ItemArmor RUBY_HELMET = register("ruby_helmet", new ItemArmor(EquipmentConfig.RUBY_ARMOR_MATERIAL, 1, EntityEquipmentSlot.HEAD), item -> EquipmentConfig.RUBY_ARMOR_MATERIAL.setRepairItem(new ItemStack(RUBY)));
+    @Nonnull public static final ItemArmor RUBY_CHESTPLATE = register("ruby_chestplate", new ItemArmor(EquipmentConfig.RUBY_ARMOR_MATERIAL, 1, EntityEquipmentSlot.CHEST));
+    @Nonnull public static final ItemArmor RUBY_LEGGINGS = register("ruby_leggings", new ItemArmor(EquipmentConfig.RUBY_ARMOR_MATERIAL, 2, EntityEquipmentSlot.LEGS));
+    @Nonnull public static final ItemArmor RUBY_BOOTS = register("ruby_boots", new ItemArmor(EquipmentConfig.RUBY_ARMOR_MATERIAL, 1, EntityEquipmentSlot.FEET));
+    @Nonnull public static final ItemSapphireArmor SAPPHIRE_HELMET = register("sapphire_helmet", new ItemSapphireArmor(EquipmentConfig.SAPPHIRE_ARMOR_MATERIAL, 1, EntityEquipmentSlot.HEAD), item -> EquipmentConfig.SAPPHIRE_ARMOR_MATERIAL.setRepairItem(new ItemStack(SAPPHIRE)));
+    @Nonnull public static final ItemSapphireArmor SAPPHIRE_CHESTPLATE = register("sapphire_chestplate", new ItemSapphireArmor(EquipmentConfig.SAPPHIRE_ARMOR_MATERIAL, 1, EntityEquipmentSlot.CHEST));
+    @Nonnull public static final ItemSapphireArmor SAPPHIRE_LEGGINGS = register("sapphire_leggings", new ItemSapphireArmor(EquipmentConfig.SAPPHIRE_ARMOR_MATERIAL, 2, EntityEquipmentSlot.LEGS));
+    @Nonnull public static final ItemSapphireArmor SAPPHIRE_BOOTS = register("sapphire_boots", new ItemSapphireArmor(EquipmentConfig.SAPPHIRE_ARMOR_MATERIAL, 1, EntityEquipmentSlot.FEET));
+    @Nonnull public static final ItemArmor WOOD_HELMET = register("wood_helmet", new ItemArmor(EquipmentConfig.WOOD_ARMOR_MATERIAL, 1, EntityEquipmentSlot.HEAD), item -> EquipmentConfig.WOOD_ARMOR_MATERIAL.setRepairItem(new ItemStack(Blocks.PLANKS)));
+    @Nonnull public static final ItemArmor WOOD_CHESTPLATE = register("wood_chestplate", new ItemArmor(EquipmentConfig.WOOD_ARMOR_MATERIAL, 1, EntityEquipmentSlot.CHEST));
+    @Nonnull public static final ItemArmor WOOD_LEGGINGS = register("wood_leggings", new ItemArmor(EquipmentConfig.WOOD_ARMOR_MATERIAL, 2, EntityEquipmentSlot.LEGS));
+    @Nonnull public static final ItemArmor WOOD_BOOTS = register("wood_boots", new ItemArmor(EquipmentConfig.WOOD_ARMOR_MATERIAL, 1, EntityEquipmentSlot.FEET));
+    @Nonnull public static final ItemArmor PLATINUM_HELMET = register("platinum_helmet", new ItemArmor(EquipmentConfig.PLATINUM_ARMOR_MATERIAL, 1, EntityEquipmentSlot.HEAD), item -> EquipmentConfig.PLATINUM_ARMOR_MATERIAL.setRepairItem(new ItemStack(PLATINUM_INGOT)));
+    @Nonnull public static final ItemArmor PLATINUM_CHESTPLATE = register("platinum_chestplate", new ItemArmor(EquipmentConfig.PLATINUM_ARMOR_MATERIAL, 1, EntityEquipmentSlot.CHEST));
+    @Nonnull public static final ItemArmor PLATINUM_LEGGINGS = register("platinum_leggings", new ItemArmor(EquipmentConfig.PLATINUM_ARMOR_MATERIAL, 2, EntityEquipmentSlot.LEGS));
+    @Nonnull public static final ItemArmor PLATINUM_BOOTS = register("platinum_boots", new ItemArmor(EquipmentConfig.PLATINUM_ARMOR_MATERIAL, 1, EntityEquipmentSlot.FEET));
+    @Nonnull public static final ItemArmor NETHERITE_HELMET = register("netherite_helmet", new ItemArmor(EquipmentConfig.NETHERITE_ARMOR_MATERIAL, 1, EntityEquipmentSlot.HEAD), item -> EquipmentConfig.NETHERITE_ARMOR_MATERIAL.setRepairItem(new ItemStack(NETHERITE_INGOT)));
+    @Nonnull public static final ItemArmor NETHERITE_CHESTPLATE = register("netherite_chestplate", new ItemArmor(EquipmentConfig.NETHERITE_ARMOR_MATERIAL, 1, EntityEquipmentSlot.CHEST));
+    @Nonnull public static final ItemArmor NETHERITE_LEGGINGS = register("netherite_leggings", new ItemArmor(EquipmentConfig.NETHERITE_ARMOR_MATERIAL, 2, EntityEquipmentSlot.LEGS));
+    @Nonnull public static final ItemArmor NETHERITE_BOOTS = register("netherite_boots", new ItemArmor(EquipmentConfig.NETHERITE_ARMOR_MATERIAL, 1, EntityEquipmentSlot.FEET));
+    @Nonnull public static final ItemObsidianArmor OBSIDIAN_HELMET = register("obsidian_helmet", new ItemObsidianArmor(EquipmentConfig.OBSIDIAN_ARMOR_MATERIAL, 1, EntityEquipmentSlot.HEAD), item -> EquipmentConfig.OBSIDIAN_ARMOR_MATERIAL.setRepairItem(new ItemStack(OBSIDIAN_INGOT)));
+    @Nonnull public static final ItemObsidianArmor OBSIDIAN_CHESTPLATE = register("obsidian_chestplate", new ItemObsidianArmor(EquipmentConfig.OBSIDIAN_ARMOR_MATERIAL, 1, EntityEquipmentSlot.CHEST));
+    @Nonnull public static final ItemObsidianArmor OBSIDIAN_LEGGINGS = register("obsidian_leggings", new ItemObsidianArmor(EquipmentConfig.OBSIDIAN_ARMOR_MATERIAL, 2, EntityEquipmentSlot.LEGS));
+    @Nonnull public static final ItemObsidianArmor OBSIDIAN_BOOTS = register("obsidian_boots", new ItemObsidianArmor(EquipmentConfig.OBSIDIAN_ARMOR_MATERIAL, 1, EntityEquipmentSlot.FEET));
+    @Nonnull public static final ItemArmor BEDROCK_HELMET = register("bedrock_helmet", new ItemArmor(EquipmentConfig.BEDROCK_ARMOR_MATERIAL, 1, EntityEquipmentSlot.HEAD));
+    @Nonnull public static final ItemArmor BEDROCK_CHESTPLATE = register("bedrock_chestplate", new ItemArmor(EquipmentConfig.BEDROCK_ARMOR_MATERIAL, 1, EntityEquipmentSlot.CHEST));
+    @Nonnull public static final ItemArmor BEDROCK_LEGGINGS = register("bedrock_leggings", new ItemArmor(EquipmentConfig.BEDROCK_ARMOR_MATERIAL, 2, EntityEquipmentSlot.LEGS));
+    @Nonnull public static final ItemArmor BEDROCK_BOOTS = register("bedrock_boots", new ItemArmor(EquipmentConfig.BEDROCK_ARMOR_MATERIAL, 1, EntityEquipmentSlot.FEET));
+    @Nonnull public static final ItemArmor FEATHER_BOOTS = register("feather_boots", new ItemArmor(EquipmentConfig.FEATHER_ARMOR_MATERIAL, 1, EntityEquipmentSlot.FEET));
+    @Nonnull public static final ItemCactusArmor CACTUS_HELMET = register("cactus_helmet", new ItemCactusArmor(EquipmentConfig.CACTUS_ARMOR_MATERIAL, 1, EntityEquipmentSlot.HEAD), item -> EquipmentConfig.CACTUS_ARMOR_MATERIAL.setRepairItem(new ItemStack(Blocks.CACTUS)));
+    @Nonnull public static final ItemCactusArmor CACTUS_CHESTPLATE = register("cactus_chestplate", new ItemCactusArmor(EquipmentConfig.CACTUS_ARMOR_MATERIAL, 1, EntityEquipmentSlot.CHEST));
+    @Nonnull public static final ItemCactusArmor CACTUS_LEGGINGS = register("cactus_leggings", new ItemCactusArmor(EquipmentConfig.CACTUS_ARMOR_MATERIAL, 2, EntityEquipmentSlot.LEGS));
+    @Nonnull public static final ItemCactusArmor CACTUS_BOOTS = register("cactus_boots", new ItemCactusArmor(EquipmentConfig.CACTUS_ARMOR_MATERIAL, 1, EntityEquipmentSlot.FEET));
 
     //tools
-    @Nonnull public static final ItemSword RUBY_SWORD = register("ruby_sword", new ItemSword(EquipmentConfig.RUBY_TOOL_MATERIAL));
+    @Nonnull public static final ItemSword RUBY_SWORD = register("ruby_sword", new ItemSword(EquipmentConfig.RUBY_TOOL_MATERIAL), item -> EquipmentConfig.RUBY_TOOL_MATERIAL.setRepairItem(new ItemStack(RUBY)));
     @Nonnull public static final ItemSpade RUBY_SHOVEL = register("ruby_shovel", new ItemSpade(EquipmentConfig.RUBY_TOOL_MATERIAL));
     @Nonnull public static final ItemPickaxe RUBY_PICKAXE = register("ruby_pickaxe", new ItemPickaxe(EquipmentConfig.RUBY_TOOL_MATERIAL));
     @Nonnull public static final ItemAxe RUBY_AXE = register("ruby_axe", new ItemAxe(EquipmentConfig.RUBY_TOOL_MATERIAL));
     @Nonnull public static final ItemHoe RUBY_HOE = register("ruby_hoe", new ItemHoe(EquipmentConfig.RUBY_TOOL_MATERIAL));
+    @Nonnull public static final ItemSapphireSword SAPPHIRE_SWORD = register("sapphire_sword", new ItemSapphireSword(EquipmentConfig.SAPPHIRE_TOOL_MATERIAL), item -> EquipmentConfig.SAPPHIRE_TOOL_MATERIAL.setRepairItem(new ItemStack(SAPPHIRE)));
+    @Nonnull public static final ItemSapphireSpade SAPPHIRE_SHOVEL = register("sapphire_shovel", new ItemSapphireSpade(EquipmentConfig.SAPPHIRE_TOOL_MATERIAL));
+    @Nonnull public static final ItemSapphirePickaxe SAPPHIRE_PICKAXE = register("sapphire_pickaxe", new ItemSapphirePickaxe(EquipmentConfig.SAPPHIRE_TOOL_MATERIAL));
+    @Nonnull public static final ItemSapphireAxe SAPPHIRE_AXE = register("sapphire_axe", new ItemSapphireAxe(EquipmentConfig.SAPPHIRE_TOOL_MATERIAL));
+    @Nonnull public static final ItemSapphireHoe SAPPHIRE_HOE = register("sapphire_hoe", new ItemSapphireHoe(EquipmentConfig.SAPPHIRE_TOOL_MATERIAL));
     @Nonnull public static final ItemSapphireBow SAPPHIRE_BOW = register("sapphire_bow", new ItemSapphireBow(), item -> item.setMaxDamage(EquipmentConfig.sapphireBowDurability()));
+    @Nonnull public static final ItemSword PLATINUM_SWORD = register("platinum_sword", new ItemSword(EquipmentConfig.PLATINUM_TOOL_MATERIAL), item -> EquipmentConfig.PLATINUM_TOOL_MATERIAL.setRepairItem(new ItemStack(PLATINUM_INGOT)));
+    @Nonnull public static final ItemSpade PLATINUM_SHOVEL = register("platinum_shovel", new ItemSpade(EquipmentConfig.PLATINUM_TOOL_MATERIAL));
+    @Nonnull public static final ItemPickaxe PLATINUM_PICKAXE = register("platinum_pickaxe", new ItemPickaxe(EquipmentConfig.PLATINUM_TOOL_MATERIAL));
+    @Nonnull public static final ItemAxe PLATINUM_AXE = register("platinum_axe", new ItemAxe(EquipmentConfig.PLATINUM_TOOL_MATERIAL));
+    @Nonnull public static final ItemHoe PLATINUM_HOE = register("platinum_hoe", new ItemHoe(EquipmentConfig.PLATINUM_TOOL_MATERIAL));
+    @Nonnull public static final ItemSword NETHERITE_SWORD = register("netherite_sword", new ItemSword(EquipmentConfig.NETHERITE_TOOL_MATERIAL), item -> EquipmentConfig.NETHERITE_TOOL_MATERIAL.setRepairItem(new ItemStack(NETHERITE_INGOT)));
+    @Nonnull public static final ItemSpade NETHERITE_SHOVEL = register("netherite_shovel", new ItemSpade(EquipmentConfig.NETHERITE_TOOL_MATERIAL));
+    @Nonnull public static final ItemPickaxe NETHERITE_PICKAXE = register("netherite_pickaxe", new ItemPickaxe(EquipmentConfig.NETHERITE_TOOL_MATERIAL));
+    @Nonnull public static final ItemAxe NETHERITE_AXE = register("netherite_axe", new ItemAxe(EquipmentConfig.NETHERITE_TOOL_MATERIAL));
+    @Nonnull public static final ItemHoe NETHERITE_HOE = register("netherite_hoe", new ItemHoe(EquipmentConfig.NETHERITE_TOOL_MATERIAL));
+    @Nonnull public static final ItemSword POPPY_SWORD = register("poppy_sword", new ItemSword(EquipmentConfig.POPPY_TOOL_MATERIAL), item -> EquipmentConfig.POPPY_TOOL_MATERIAL.setRepairItem(new ItemStack(Blocks.RED_FLOWER)));
+    @Nonnull public static final ItemSword OBSIDIAN_SWORD = register("obsidian_sword", new ItemSword(EquipmentConfig.OBSIDIAN_TOOL_MATERIAL), item -> EquipmentConfig.OBSIDIAN_TOOL_MATERIAL.setRepairItem(new ItemStack(OBSIDIAN_INGOT)));
+    @Nonnull public static final ItemSpade OBSIDIAN_SHOVEL = register("obsidian_shovel", new ItemSpade(EquipmentConfig.OBSIDIAN_TOOL_MATERIAL));
+    @Nonnull public static final ItemPickaxe OBSIDIAN_PICKAXE = register("obsidian_pickaxe", new ItemPickaxe(EquipmentConfig.OBSIDIAN_TOOL_MATERIAL));
+    @Nonnull public static final ItemAxe OBSIDIAN_AXE = register("obsidian_axe", new ItemAxe(EquipmentConfig.OBSIDIAN_TOOL_MATERIAL));
+    @Nonnull public static final ItemHoe OBSIDIAN_HOE = register("obsidian_hoe", new ItemHoe(EquipmentConfig.OBSIDIAN_TOOL_MATERIAL));
+    @Nonnull public static final ItemSword BEDROCK_SWORD = register("bedrock_sword", new ItemSword(EquipmentConfig.BEDROCK_TOOL_MATERIAL));
+    @Nonnull public static final ItemSpade BEDROCK_SHOVEL = register("bedrock_shovel", new ItemSpade(EquipmentConfig.BEDROCK_TOOL_MATERIAL));
+    @Nonnull public static final ItemPickaxe BEDROCK_PICKAXE = register("bedrock_pickaxe", new ItemPickaxe(EquipmentConfig.BEDROCK_TOOL_MATERIAL));
+    @Nonnull public static final ItemAxe BEDROCK_AXE = register("bedrock_axe", new ItemAxe(EquipmentConfig.BEDROCK_TOOL_MATERIAL));
+    @Nonnull public static final ItemHoe BEDROCK_HOE = register("bedrock_hoe", new ItemHoe(EquipmentConfig.BEDROCK_TOOL_MATERIAL));
+    @Nonnull public static final ItemCactusSword CACTUS_SWORD = register("cactus_sword", new ItemCactusSword(EquipmentConfig.CACTUS_TOOL_MATERIAL), item -> EquipmentConfig.CACTUS_TOOL_MATERIAL.setRepairItem(new ItemStack(Blocks.CACTUS)));
+    @Nonnull public static final ItemCactusSpade CACTUS_SHOVEL = register("cactus_shovel", new ItemCactusSpade(EquipmentConfig.CACTUS_TOOL_MATERIAL));
+    @Nonnull public static final ItemCactusPickaxe CACTUS_PICKAXE = register("cactus_pickaxe", new ItemCactusPickaxe(EquipmentConfig.CACTUS_TOOL_MATERIAL));
+    @Nonnull public static final ItemCactusAxe CACTUS_AXE = register("cactus_axe", new ItemCactusAxe(EquipmentConfig.CACTUS_TOOL_MATERIAL));
+    @Nonnull public static final ItemCactusHoe CACTUS_HOE = register("cactus_hoe", new ItemCactusHoe(EquipmentConfig.CACTUS_TOOL_MATERIAL));
 
     //register ores
     public static void registerOres() {

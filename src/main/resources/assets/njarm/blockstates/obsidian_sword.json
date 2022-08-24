@@ -1,0 +1,11 @@
+{
+    "forge_marker":1,
+    "variants":{
+        "inventory":{
+            "model":"njarm:handheld",
+            "textures":{
+                "layer0":"njarm:items/obsidian_sword"
+            }
+        }
+    }
+}

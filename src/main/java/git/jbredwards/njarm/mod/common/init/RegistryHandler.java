@@ -7,6 +7,8 @@ import net.darkhax.bookshelf.item.ICustomModel;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionType;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
@@ -51,6 +53,16 @@ public final class RegistryHandler
     public static void registerItems(@Nonnull RegistryEvent.Register<Item> event) {
         event.getRegistry().registerAll(ModItems.INIT.toArray(new Item[0]));
         ModItems.registerOres();
+    }
+
+    @SubscribeEvent
+    public static void registerPotions(@Nonnull RegistryEvent.Register<Potion> event) {
+        event.getRegistry().registerAll(ModPotions.INIT.toArray(new Potion[0]));
+    }
+
+    @SubscribeEvent
+    public static void registerPotionTypes(@Nonnull RegistryEvent.Register<PotionType> event) {
+        event.getRegistry().registerAll(ModPotionTypes.INIT.toArray(new PotionType[0]));
     }
 
     @SubscribeEvent

@@ -1,6 +1,8 @@
 package git.jbredwards.njarm.mod.common.item;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemFireball;
 import net.minecraft.item.ItemStack;
@@ -23,8 +25,8 @@ public class ItemFire extends ItemFireball
     public String getTranslationKey(@Nonnull ItemStack stack) { return getTranslationKey(); }
 
     @Override
-    public boolean hitEntity(@Nonnull ItemStack stack, @Nonnull EntityLivingBase target, @Nonnull EntityLivingBase attacker) {
-        target.setFire(1);
-        return super.hitEntity(stack, target, attacker);
+    public boolean onLeftClickEntity(@Nonnull ItemStack stack, @Nonnull EntityPlayer player, @Nonnull Entity entity) {
+        entity.setFire(1);
+        return super.onLeftClickEntity(stack, player, entity);
     }
 }

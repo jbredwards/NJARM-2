@@ -11,6 +11,7 @@ import git.jbredwards.njarm.mod.common.config.item.ResistantItemsConfig;
 import git.jbredwards.njarm.mod.common.init.ModBlocks;
 import git.jbredwards.njarm.mod.common.init.ModSounds;
 import git.jbredwards.njarm.mod.common.item.ItemUndyingTotem;
+import git.jbredwards.njarm.mod.common.item.util.IBlueFireWeapon;
 import git.jbredwards.njarm.mod.common.util.BlueFireUtils;
 import git.jbredwards.njarm.mod.common.block.util.IHasRunningEffects;
 import git.jbredwards.njarm.mod.common.util.SoundUtils;
@@ -24,6 +25,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.AbstractHorse;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -244,6 +246,14 @@ public final class ASMHooks
     public static Pair<IBlockState, BlockPos> updateFallState(@Nonnull World world, @Nonnull IBlockState state, @Nonnull BlockPos pos) {
         final IBlockState upState = world.getBlockState(pos.up());
         return upState.getBlock() instanceof IHasRunningEffects ? Pair.of(upState, pos.up()) : Pair.of(state, pos);
+    }
+
+    //PluginEntityMob & PluginEntityPlayer
+    public static void updateAttackBlueFire(@Nonnull EntityLivingBase attacker, @Nonnull Entity target) {
+        if(!attacker.world.isRemote && attacker.getHeldItemMainhand().getItem() instanceof IBlueFireWeapon && BlueFireUtils.canBeLit(target)) {
+            BlueFireUtils.setRemaining(target, 2);
+            BlueFireUtils.syncBlueFire(target);
+        }
     }
 
     //PluginEntityPlayer

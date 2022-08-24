@@ -2,7 +2,6 @@ package git.jbredwards.njarm.mod.client.particle;
 
 import git.jbredwards.fluidlogged_api.mod.asm.plugins.ASMHooks;
 import git.jbredwards.njarm.mod.client.particle.util.ParticleLayer;
-import git.jbredwards.njarm.mod.client.util.SpriteStorage;
 import git.jbredwards.njarm.mod.common.block.util.IEmissiveBlock;
 import net.darkhax.bookshelf.util.RenderUtils;
 import net.minecraft.block.Block;

@@ -1,12 +1,16 @@
 package git.jbredwards.njarm.mod.common.init;
 
 import git.jbredwards.njarm.mod.Constants;
+import git.jbredwards.njarm.mod.common.recipes.crafting.CactusArmorRecipe;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.init.PotionTypes;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.potion.PotionHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.crafting.IShapedRecipe;
 import net.minecraftforge.event.RegistryEvent;
@@ -34,6 +38,7 @@ public final class ModRecipes
     public static void registerAll(@Nonnull RegistryEvent.Register<IRecipe> event) {
         registerCrafting(event.getRegistry());
         registerSmelting();
+        registerBrewing();
     }
 
     static void registerCrafting(@Nonnull IForgeRegistry<IRecipe> registry) {
@@ -81,6 +86,11 @@ public final class ModRecipes
         registerCrafting(registry, shaped(1, ModItems.BAGUETTE, "###", "###", '#', "cropWheat"));
         registerCrafting(registry, shaped(3, ModItems.BLESTEM_ARROW, "IRI", "RAR", "ISI", 'I', "ingotMagicalAlloy", 'R', ModItems.BLESTEM_ROD, 'A', Items.ARROW, 'S', ModItems.ENDER_STAR));
         registerCrafting(registry, shaped(4, ModItems.BLACKSTONE_BRICKS, "##", "##", '#', ModItems.POLISHED_BLACKSTONE));
+        registerCrafting(registry, shaped(1, ModItems.CACTUS_AXE, "##", "#S", " S", '#', "blockCactus", 'S', "stickWood"));
+        registerCrafting(registry, shaped(1, ModItems.CACTUS_HOE, "##", " S", " S", '#', "blockCactus", 'S', "stickWood"));
+        registerCrafting(registry, shaped(1, ModItems.CACTUS_PICKAXE, "###", " S ", " S ", '#', "blockCactus", 'S', "stickWood"));
+        registerCrafting(registry, shaped(1, ModItems.CACTUS_SHOVEL, "#", "S", "S", '#', "blockCactus", 'S', "stickWood"));
+        registerCrafting(registry, shaped(1, ModItems.CACTUS_SWORD, "#", "#", "S", '#', "blockCactus", 'S', "stickWood"));
         registerCrafting(registry, shaped(3, ModItems.CHAIN, "N", "I", "N", 'N', "nuggetIron", 'I', "ingotIron"));
         registerCrafting(registry, shaped(1, Items.CHAINMAIL_CHESTPLATE, "# #", "###", "###", '#', ModItems.FIRE));
         registerCrafting(registry, shaped(1, Items.CHAINMAIL_BOOTS, "# #", "# #", '#', ModItems.FIRE));
@@ -103,28 +113,79 @@ public final class ModRecipes
         registerCrafting(registry, shaped(1, 11, ModItems.FOOD_CRATE, "###", "###", "###", '#', new ItemStack(Items.FISH, 1, 2)));
         registerCrafting(registry, shaped(1, 12, ModItems.FOOD_CRATE, "###", "###", "###", '#', new ItemStack(Items.FISH, 1, 3)));
         registerCrafting(registry, shaped(1, Blocks.ICE, "###", "###", "###", '#', ModItems.ICE_MUSHROOM));
+        registerCrafting(registry, shaped(1, ModItems.OBSIDIAN_AXE, "##", "#S", " S", '#', "ingotObsidianAlloy", 'S', "stickWood"));
         registerCrafting(registry, shaped(1, ModItems.OBSIDIAN_BLOCK, "###", "###", "###", '#', "ingotObsidianAlloy"));
+        registerCrafting(registry, shaped(1, ModItems.OBSIDIAN_BOOTS, "# #", "# #", '#', "ingotObsidianAlloy"));
+        registerCrafting(registry, shaped(1, ModItems.OBSIDIAN_CHESTPLATE, "# #", "###", "###", '#', "ingotObsidianAlloy"));
         registerCrafting(registry, shaped(16, ModItems.OBSIDIAN_GLASS_PANE, "###", "###", '#', ModItems.OBSIDIAN_GLASS));
+        registerCrafting(registry, shaped(1, ModItems.OBSIDIAN_HELMET, "###", "# #", '#', "ingotObsidianAlloy"));
+        registerCrafting(registry, shaped(1, ModItems.OBSIDIAN_HOE, "##", " S", " S", '#', "ingotObsidianAlloy", 'S', "stickWood"));
         registerCrafting(registry, shaped(1, ModItems.OBSIDIAN_INGOT, "###", "###", "###", '#', "nuggetObsidianAlloy"));
+        registerCrafting(registry, shaped(1, ModItems.OBSIDIAN_LEGGINGS, "###", "# #", "# #", '#', "ingotObsidianAlloy"));
+        registerCrafting(registry, shaped(1, ModItems.OBSIDIAN_PICKAXE, "###", " S ", " S ", '#', "ingotObsidianAlloy", 'S', "stickWood"));
+        registerCrafting(registry, shaped(1, ModItems.OBSIDIAN_SHOVEL, "#", "S", "S", '#', "ingotObsidianAlloy", 'S', "stickWood"));
+        registerCrafting(registry, shaped(1, ModItems.OBSIDIAN_SWORD, "#", "#", "S", '#', "ingotObsidianAlloy", 'S', "stickWood"));
         registerCrafting(registry, shaped(1, ModItems.MAGIC_BLOCK, "###", "###", "###", '#', "ingotMagicalAlloy"));
         registerCrafting(registry, shaped(1, ModItems.MAGIC_INGOT, "###", "###", "###", '#', "nuggetMagicalAlloy"));
         registerCrafting(registry, shaped(2, ModItems.MAGIC_MIRROR, "MPM", "PDP", "MPM", 'M', "dustMagicNJARM", 'P', "ingotPlatinum", 'D', "dustMica"));
         registerCrafting(registry, shaped(2, ModItems.MAGIC_MIRROR, "PMP", "MDM", "PMP", 'M', "dustMagicNJARM", 'P', "ingotPlatinum", 'D', "dustMica"));
         registerCrafting(registry, shaped(1, ModItems.NETHER_REACTOR_CORE, "IDI", "IDI", "IDI", 'I', "ingotIron", 'D', "gemDiamond"));
+        registerCrafting(registry, shaped(1, ModItems.NETHERITE_AXE, "##", "#S", " S", '#', "ingotNetherite", 'S', "stickWood"));
         registerCrafting(registry, shaped(1, ModItems.NETHERITE_BLOCK, "###", "###", "###", '#', "ingotNetherite"));
+        registerCrafting(registry, shaped(1, ModItems.NETHERITE_BOOTS, "# #", "# #", '#', "ingotNetherite"));
+        registerCrafting(registry, shaped(1, ModItems.NETHERITE_CHESTPLATE, "# #", "###", "###", '#', "ingotNetherite"));
+        registerCrafting(registry, shaped(1, ModItems.NETHERITE_HELMET, "###", "# #", '#', "ingotNetherite"));
+        registerCrafting(registry, shaped(1, ModItems.NETHERITE_HOE, "##", " S", " S", '#', "ingotNetherite", 'S', "stickWood"));
         registerCrafting(registry, shaped(1, ModItems.NETHERITE_INGOT, "###", "###", "###", '#', "nuggetNetherite"));
+        registerCrafting(registry, shaped(1, ModItems.NETHERITE_LEGGINGS, "###", "# #", "# #", '#', "ingotNetherite"));
+        registerCrafting(registry, shaped(1, ModItems.NETHERITE_PICKAXE, "###", " S ", " S ", '#', "ingotNetherite", 'S', "stickWood"));
+        registerCrafting(registry, shaped(1, ModItems.NETHERITE_SHOVEL, "#", "S", "S", '#', "ingotNetherite", 'S', "stickWood"));
+        registerCrafting(registry, shaped(1, ModItems.NETHERITE_SWORD, "#", "#", "S", '#', "ingotNetherite", 'S', "stickWood"));
+        registerCrafting(registry, shaped(1, ModItems.PLATINUM_AXE, "##", "#S", " S", '#', "ingotPlatinum", 'S', "stickWood"));
         registerCrafting(registry, shaped(1, ModItems.PLATINUM_BLOCK, "###", "###", "###", '#', "ingotPlatinum"));
+        registerCrafting(registry, shaped(1, ModItems.PLATINUM_BOOTS, "# #", "# #", '#', "ingotPlatinum"));
+        registerCrafting(registry, shaped(1, ModItems.PLATINUM_CHESTPLATE, "# #", "###", "###", '#', "ingotPlatinum"));
+        registerCrafting(registry, shaped(1, ModItems.PLATINUM_HELMET, "###", "# #", '#', "ingotPlatinum"));
+        registerCrafting(registry, shaped(1, ModItems.PLATINUM_HOE, "##", " S", " S", '#', "ingotPlatinum", 'S', "stickWood"));
         registerCrafting(registry, shaped(1, ModItems.PLATINUM_INGOT, "###", "###", "###", '#', "nuggetPlatinum"));
+        registerCrafting(registry, shaped(1, ModItems.PLATINUM_LEGGINGS, "###", "# #", "# #", '#', "ingotPlatinum"));
+        registerCrafting(registry, shaped(1, ModItems.PLATINUM_PICKAXE, "###", " S ", " S ", '#', "ingotPlatinum", 'S', "stickWood"));
+        registerCrafting(registry, shaped(1, ModItems.PLATINUM_SHOVEL, "#", "S", "S", '#', "ingotPlatinum", 'S', "stickWood"));
+        registerCrafting(registry, shaped(1, ModItems.PLATINUM_SWORD, "#", "#", "S", '#', "ingotPlatinum", 'S', "stickWood"));
         registerCrafting(registry, shaped(4, ModItems.POLISHED_BASALT, "##", "##", '#', ModItems.BASALT));
         registerCrafting(registry, shaped(4, ModItems.POLISHED_BLACKSTONE, "##", "##", '#', ModItems.BLACKSTONE));
+        registerCrafting(registry, shaped(1, ModItems.POPPY_SWORD, "#", "#", "S", '#', new ItemStack(Blocks.RED_FLOWER, 1, 0), 'S', "stickWood"));
         registerCrafting(registry, shaped(1, ModItems.RUBY_AXE, "##", "#S", " S", '#', "gemRuby", 'S', "stickWood"));
         registerCrafting(registry, shaped(1, ModItems.RUBY_BLOCK, "###", "###", "###", '#', "gemRuby"));
+        registerCrafting(registry, shaped(1, ModItems.RUBY_BOOTS, "# #", "# #", '#', "gemRuby"));
+        registerCrafting(registry, shaped(1, ModItems.RUBY_CHESTPLATE, "# #", "###", "###", '#', "gemRuby"));
+        registerCrafting(registry, shaped(1, ModItems.RUBY_HELMET, "###", "# #", '#', "gemRuby"));
         registerCrafting(registry, shaped(1, ModItems.RUBY_HOE, "##", " S", " S", '#', "gemRuby", 'S', "stickWood"));
+        registerCrafting(registry, shaped(1, ModItems.RUBY_LEGGINGS, "###", "# #", "# #", '#', "gemRuby"));
         registerCrafting(registry, shaped(1, ModItems.RUBY_PICKAXE, "###", " S ", " S ", '#', "gemRuby", 'S', "stickWood"));
         registerCrafting(registry, shaped(1, ModItems.RUBY_SHOVEL, "#", "S", "S", '#', "gemRuby", 'S', "stickWood"));
         registerCrafting(registry, shaped(1, ModItems.RUBY_SWORD, "#", "#", "S", '#', "gemRuby", 'S', "stickWood"));
+        registerCrafting(registry, shaped(1, ModItems.SAPPHIRE_AXE, "##", "#S", " S", '#', "gemSapphire", 'S', "stickWood"));
         registerCrafting(registry, shaped(1, ModItems.SAPPHIRE_BLOCK, "###", "###", "###", '#', "gemSapphire"));
+        registerCrafting(registry, shaped(1, ModItems.SAPPHIRE_BOOTS, "# #", "# #", '#', "gemSapphire"));
+        registerCrafting(registry, shaped(1, ModItems.SAPPHIRE_CHESTPLATE, "# #", "###", "###", '#', "gemSapphire"));
+        registerCrafting(registry, shaped(1, ModItems.SAPPHIRE_HELMET, "###", "# #", '#', "gemSapphire"));
+        registerCrafting(registry, shaped(1, ModItems.SAPPHIRE_HOE, "##", " S", " S", '#', "gemSapphire", 'S', "stickWood"));
+        registerCrafting(registry, shaped(1, ModItems.SAPPHIRE_LEGGINGS, "###", "# #", "# #", '#', "gemSapphire"));
+        registerCrafting(registry, shaped(1, ModItems.SAPPHIRE_PICKAXE, "###", " S ", " S ", '#', "gemSapphire", 'S', "stickWood"));
+        registerCrafting(registry, shaped(1, ModItems.SAPPHIRE_SHOVEL, "#", "S", "S", '#', "gemSapphire", 'S', "stickWood"));
+        registerCrafting(registry, shaped(1, ModItems.SAPPHIRE_SWORD, "#", "#", "S", '#', "gemSapphire", 'S', "stickWood"));
         registerCrafting(registry, shaped(1, Blocks.SNOW_LAYER, "##", '#', Items.SNOWBALL));
+        registerCrafting(registry, shaped(1, Blocks.SOUL_SAND, "##", "##", '#', ModItems.ASH_PILE));
+        registerCrafting(registry, shaped(1, ModItems.WOOD_BOOTS, "# #", "# #", '#', "plankWood"));
+        registerCrafting(registry, shaped(1, ModItems.WOOD_CHESTPLATE, "# #", "###", "###", '#', "plankWood"));
+        registerCrafting(registry, shaped(1, ModItems.WOOD_HELMET, "###", "# #", '#', "plankWood"));
+        registerCrafting(registry, shaped(1, ModItems.WOOD_LEGGINGS, "###", "# #", "# #", '#', "plankWood"));
+        //custom recipes
+        registerCrafting(registry, new CactusArmorRecipe(new ResourceLocation(Constants.MODID, Constants.NAME), ModItems.CACTUS_BOOTS, "# #", "# #", '#', "blockCactus"));
+        registerCrafting(registry, new CactusArmorRecipe(new ResourceLocation(Constants.MODID, Constants.NAME), ModItems.CACTUS_CHESTPLATE, "# #", "###", "###", '#', "blockCactus"));
+        registerCrafting(registry, new CactusArmorRecipe(new ResourceLocation(Constants.MODID, Constants.NAME), ModItems.CACTUS_HELMET, "###", "# #", '#', "blockCactus"));
+        registerCrafting(registry, new CactusArmorRecipe(new ResourceLocation(Constants.MODID, Constants.NAME), ModItems.CACTUS_LEGGINGS, "###", "# #", "# #", '#', "blockCactus"));
         //edit vanilla recipes
         removeCrafting(registry, "end_rod", shaped(4, Blocks.END_ROD, "R", "C", 'R', ModItems.BLESTEM_ROD, 'C', Items.CHORUS_FRUIT_POPPED));
         Constants.LOGGER.info("^^^ These are intended overrides, done to either change the recipes, or to set their priorities further back");
@@ -170,6 +231,12 @@ public final class ModRecipes
     public static void registerFurnaceFuels(@Nonnull FurnaceFuelBurnTimeEvent event) {
         final @Nullable Item item = event.getItemStack().getItem();
         if(item == ModItems.SUNSTONE) event.setBurnTime(6400 * 200);
+    }
+
+    static void registerBrewing() {
+        PotionHelper.addMix(PotionTypes.WATER, Ingredient.fromItems(ModItems.ASH_PILE), PotionTypes.MUNDANE);
+        PotionHelper.addMix(PotionTypes.AWKWARD, Ingredient.fromItems(ModItems.ASH_PILE), ModPotionTypes.BLUE_FIRE_RESISTANCE);
+        PotionHelper.addMix(ModPotionTypes.BLUE_FIRE_RESISTANCE, Ingredient.fromItems(Items.REDSTONE), ModPotionTypes.LONG_BLUE_FIRE_RESISTANCE);
     }
 
     //constructs a new shapeless recipe

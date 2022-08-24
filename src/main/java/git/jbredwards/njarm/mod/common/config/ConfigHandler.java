@@ -170,12 +170,27 @@ public final class ConfigHandler
             new ChargedSunstoneConfig(true, true, false, true, true, true, 3, true),
             new EggShellsConfig(true, 0, 100, new String[] {"minecraft:egg"}, new String[] {"minecraft:egg", "njarm:cooked_egg"}),
             new EquipmentConfig(
-                    "{HarvestLevel:4,Durability:3122,MiningSpeed:8.0f,AttackDamage:3.0f,Enchantability:10}",
-                    384, true),
+                    "{Durability:66,ArmorValues:[3,6,8,3],Enchantability:10,EquipSound:\"item.armor.equip_diamond\",Toughness:2f}", //ruby
+                    "{Durability:33,ArmorValues:[3,6,8,3],Enchantability:10,EquipSound:\"njarm:items.netherite_equip\",Toughness:2f}", true, false, //sapphire
+                    "{Durability:8,ArmorValues:[1,2,3,1],Enchantability:5,EquipSound:\"item.armor.equip_generic\",Toughness:0f}", //wood
+                    "{Durability:33,ArmorValues:[3,6,8,3],Enchantability:25,EquipSound:\"item.armor.equip_iron\",Toughness:4f}", //platinum
+                    "{Durability:37,ArmorValues:[3,6,8,3],Enchantability:15,EquipSound:\"njarm:items.netherite_equip\",Toughness:3f}", //netherite
+                    "{Durability:37,ArmorValues:[3,6,8,3],Enchantability:10,EquipSound:\"item.armor.equip_diamond\",Toughness:4f}", true, //obsidian
+                    "{Durability:-1,ArmorValues:[3,6,8,3],Enchantability:25,EquipSound:\"njarm:items.netherite_equip\",Toughness:4f}", //bedrock
+                    "{Durability:7,ArmorValues:[1,1,1,1],Enchantability:10,EquipSound:\"item.armor.equip_elytra\",Toughness:0f}", //feather
+                    "{Durability:15,ArmorValues:[1,2,3,1],Enchantability:5,EquipSound:\"item.armor.equip_leather\",Toughness:0f}", 1, //cactus
+                    "{HarvestLevel:4,Durability:3122,MiningSpeed:8f,AttackDamage:3f,Enchantability:10}", //ruby
+                    "{HarvestLevel:3,Durability:1561,MiningSpeed:8f,AttackDamage:3f,Enchantability:10}", 384, true, true, //sapphire
+                    "{HarvestLevel:4,Durability:1561,MiningSpeed:12f,AttackDamage:3f,Enchantability:25}", //platinum
+                    "{HarvestLevel:4,Durability:2031,MiningSpeed:9f,AttackDamage:4f,Enchantability:15}", //netherite
+                    "{HarvestLevel:2,Durability:131,MiningSpeed:6f,AttackDamage:2f,Enchantability:14}", //poppy
+                    "{HarvestLevel:4,Durability:2031,MiningSpeed:8f,AttackDamage:5f,Enchantability:10}", //obsidian
+                    "{HarvestLevel:4,Durability:-1,MiningSpeed:12f,AttackDamage:5f,Enchantability:25}", //bedrock
+                    "{HarvestLevel:0,Durability:131,MiningSpeed:5f,AttackDamage:2f,Enchantability:5}", true), //cactus
             new ResistantItemsConfig(
-                    new String[] {"njarm:sunstone", "njarm:charged_sunstone"},
-                    new String[] {"njarm:ancient_debris", "njarm:charged_sunstone", "njarm:netherite_block", "njarm:netherite_ingot", "njarm:netherite_nugget", "njarm:netherite_scrap", "njarm:sapphire", "njarm:sapphire_block", "njarm:sapphire_ore", "njarm:sunstone"},
-                    new String[] {"njarm:crumbling_bedrock"}
+                    blueFireImmune, new String[] {"njarm:charged_sunstone", "njarm:sunstone"},
+                    new String[] {"njarm:ancient_debris", "njarm:charged_sunstone", "njarm:netherite_axe", "njarm:netherite_block", "njarm:netherite_boots", "njarm:netherite_chestplate", "njarm:netherite_helmet", "njarm:netherite_hoe", "njarm:netherite_ingot", "njarm:netherite_leggings", "njarm:netherite_nugget", "njarm:netherite_pickaxe", "njarm:netherite_shovel", "njarm:netherite_sword", "njarm:netherite_scrap", "njarm:sapphire", "njarm:sapphire_block", "njarm:sapphire_ore", "njarm:sunstone"},
+                    new String[] {"njarm:bedrock_axe", "njarm:bedrock_boots", "njarm:bedrock_chestplate", "njarm:bedrock_helmet", "njarm:bedrock_hoe", "njarm:bedrock_leggings", "njarm:bedrock_pickaxe", "njarm:bedrock_shovel", "njarm:bedrock_sword", "njarm:crumbling_bedrock"}
             ),
             new RupeeConfig(true, 1),
             new TeleportStaffConfig(1, 40, 384, 500)));

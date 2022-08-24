@@ -62,6 +62,7 @@ public final class ASMHandler implements IFMLLoadingPlugin
                 .put("net.minecraft.block.BlockTrapDoor", new PluginIHasRunningEffects()) //Fix running effects for trapdoors
                 .put("net.minecraft.entity.item.EntityFallingBlock", new PluginEntityFallingBlock()) //Implement IFancyFallingBlock functionality
                 .put("net.minecraft.entity.item.EntityItem", new PluginEntityItem()) //ResistantItemsConfig implementation
+                .put("net.minecraft.entity.monster.EntityMob", new PluginEntityMob()) //When a mob attacks with a blue fire weapon, the target is lit on blue fire
                 .put("net.minecraft.entity.monster.EntitySnowman", new PluginEntitySnowman()) //Snow golems cannot generate falling snow layers
                 .put("net.minecraft.entity.passive.AbstractHorse", new PluginAbstractHorse()) //Lets horses be ridden by holding a carrot on a stick
                 .put("net.minecraft.entity.player.EntityPlayer", new PluginEntityPlayer()) //Plays the fire damage sound at the exact moment when the player takes damage from blue fire

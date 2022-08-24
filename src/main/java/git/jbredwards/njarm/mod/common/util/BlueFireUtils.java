@@ -6,6 +6,7 @@ import git.jbredwards.njarm.mod.common.capability.IBlueFire;
 import git.jbredwards.njarm.mod.common.config.block.BlueFireConfig;
 import git.jbredwards.njarm.mod.common.entity.ai.EntityAIPanicBlueFire;
 import git.jbredwards.njarm.mod.common.entity.util.IBlueFireproof;
+import git.jbredwards.njarm.mod.common.init.ModPotions;
 import git.jbredwards.njarm.mod.common.message.MessageBlueFire;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
@@ -70,7 +71,9 @@ public final class BlueFireUtils
 
     public static boolean canBeLit(@Nonnull Entity entity) {
         return !(entity instanceof EntityPlayer && ((EntityPlayer)entity).isCreative() || entity instanceof IBlueFireproof
-                || entity.isWet() || entity.isBurning() || entity.world.isFlammableWithin(entity.getEntityBoundingBox().shrink(0.001)));
+                || entity.isWet() || entity.isBurning()
+                || entity.world.isFlammableWithin(entity.getEntityBoundingBox().shrink(0.001))
+                || (entity instanceof EntityLivingBase && ((EntityLivingBase)entity).isPotionActive(ModPotions.BLUE_FIRE_RESISTANCE)));
     }
 
     public static boolean damageEntityIn(@Nonnull Entity entity) {
@@ -169,6 +172,7 @@ public final class BlueFireUtils
         //don't smelt the loot of players, that's just cruel
         if(!(event.getEntityLiving() instanceof EntityPlayer)) {
             final EntityLivingBase entity = event.getEntityLiving();
+
             if(getRemaining(entity) > 0 && canBeLit(entity) || event.getSource() == IN_BLUE_FIRE || event.getSource() == ON_BLUE_FIRE) {
                 final NonNullList<EntityItem> smeltedDrops = NonNullList.create();
                 for(Iterator<EntityItem> it = event.getDrops().iterator(); it.hasNext();) {

@@ -1,11 +1,13 @@
 package git.jbredwards.njarm.mod.client;
 
 import git.jbredwards.njarm.mod.Constants;
+import git.jbredwards.njarm.mod.client.util.SpriteStorage;
 import git.jbredwards.njarm.mod.common.init.ModBlocks;
 import git.jbredwards.njarm.mod.common.init.ModItems;
 import net.darkhax.bookshelf.data.ColorHandlers;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.color.IBlockColor;
+import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.ColorizerGrass;
@@ -26,6 +28,24 @@ import javax.annotation.Nonnull;
 @Mod.EventBusSubscriber(modid = Constants.MODID, value = Side.CLIENT)
 public final class ClientEventHandler
 {
+    @Nonnull
+    @SideOnly(Side.CLIENT)
+    public static final SpriteStorage BLUE_FLAME = new SpriteStorage(() -> "njarm:particles/blue_flame");
+
+    @SubscribeEvent
+    public static void registerTextures(@Nonnull TextureStitchEvent.Pre event) {
+        if(event.getMap() == Minecraft.getMinecraft().getTextureMapBlocks()) {
+            //ensure these sprites are always registered, as their use cases are hardcoded
+            event.getMap().registerSprite(new ResourceLocation(Constants.MODID, "blocks/blue_fire_layer_0"));
+            event.getMap().registerSprite(new ResourceLocation(Constants.MODID, "blocks/blue_fire_layer_1"));
+            event.getMap().registerSprite(new ResourceLocation(Constants.MODID, "blocks/water_flow"));
+            event.getMap().registerSprite(new ResourceLocation(Constants.MODID, "blocks/water_overlay"));
+            event.getMap().registerSprite(new ResourceLocation(Constants.MODID, "blocks/water_still"));
+            event.getMap().registerSprite(new ResourceLocation(Constants.MODID, "misc/underwater"));
+            event.getMap().registerSprite(new ResourceLocation(Constants.MODID, "particles/blue_flame"));
+        }
+    }
+
     @SubscribeEvent
     public static void blockColorHandler(@Nonnull ColorHandlerEvent.Block event) {
         //vanilla blocks
@@ -51,16 +71,19 @@ public final class ClientEventHandler
                 : -1;
     }
 
-    @SubscribeEvent
-    public static void registerTextures(@Nonnull TextureStitchEvent.Pre event) {
-        if(event.getMap() == Minecraft.getMinecraft().getTextureMapBlocks()) {
-            //ensure these sprites are always registered, as their use cases are hardcoded
-            event.getMap().registerSprite(new ResourceLocation(Constants.MODID, "blocks/water_still"));
-            event.getMap().registerSprite(new ResourceLocation(Constants.MODID, "blocks/water_flow"));
-            event.getMap().registerSprite(new ResourceLocation(Constants.MODID, "blocks/water_overlay"));
-            event.getMap().registerSprite(new ResourceLocation(Constants.MODID, "misc/underwater"));
-            event.getMap().registerSprite(new ResourceLocation(Constants.MODID, "blocks/blue_fire_layer_0"));
-            event.getMap().registerSprite(new ResourceLocation(Constants.MODID, "blocks/blue_fire_layer_1"));
-        }
+    @Nonnull
+    @SideOnly(Side.CLIENT)
+    static IBlockColor block(@Nonnull int... colors) {
+        return colors.length > 1
+                ? (state, world, pos, tintIndex) -> colors[tintIndex]
+                : (state, world, pos, tintIndex) -> colors[0];
+    }
+
+    @Nonnull
+    @SideOnly(Side.CLIENT)
+    static IItemColor item(@Nonnull int... colors) {
+        return colors.length > 1
+            ? (stack, tintIndex) -> colors[tintIndex]
+            : (stack, tintIndex) -> colors[0];
     }
 }

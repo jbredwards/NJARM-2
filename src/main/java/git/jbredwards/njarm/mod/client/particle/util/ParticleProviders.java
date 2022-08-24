@@ -1,6 +1,7 @@
 package git.jbredwards.njarm.mod.client.particle.util;
 
 import git.jbredwards.njarm.mod.Main;
+import git.jbredwards.njarm.mod.client.particle.ParticleBlueFlame;
 import git.jbredwards.njarm.mod.client.particle.ParticleLayeredBlockDust;
 import git.jbredwards.njarm.mod.client.particle.ParticleLayeredDigging;
 import git.jbredwards.njarm.mod.client.particle.ParticleLitRedstone;
@@ -22,6 +23,14 @@ import javax.annotation.Nullable;
  */
 public enum ParticleProviders implements IParticleProvider
 {
+    BLUE_FLAME(new IParticleProvider() {
+        @Nonnull
+        @SideOnly(Side.CLIENT)
+        @Override
+        public Particle getParticle(@Nonnull World world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, int... args) {
+            return new ParticleBlueFlame(world, x, y, z, xSpeed, ySpeed, zSpeed);
+        }
+    }),
     LIT_REDSTONE(new IParticleProvider() {
         @Nonnull
         @SideOnly(Side.CLIENT)

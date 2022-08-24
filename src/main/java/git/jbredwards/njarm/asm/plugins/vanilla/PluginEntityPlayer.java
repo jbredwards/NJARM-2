@@ -13,14 +13,24 @@ import javax.annotation.Nonnull;
 public final class PluginEntityPlayer implements IASMPlugin
 {
     @Override
-    public boolean isMethodValid(@Nonnull MethodNode method, boolean obfuscated) { return method.name.equals(obfuscated ? "func_184601_bQ" : "getHurtSound"); }
+    public int getMethodIndex(@Nonnull MethodNode method, boolean obfuscated) {
+        if(method.name.equals(obfuscated ? "func_184601_bQ" : "getHurtSound")) return 1;
+        else return method.name.equals(obfuscated ? "func_71059_n" : "attackTargetEntityWithCurrentItem") ? 2 : 0;
+    }
 
     @Override
     public boolean transform(@Nonnull InsnList instructions, @Nonnull MethodNode method, @Nonnull AbstractInsnNode insn, boolean obfuscated, int index) {
-        if(insn.getNext().getOpcode() == IF_ACMPNE) {
+        if(index == 1 && insn.getNext().getOpcode() == IF_ACMPNE) {
             ((JumpInsnNode)insn.getNext()).setOpcode(IFEQ);
             instructions.insert(insn, genMethodNode("fixPlayerBlueFireDamageSound", "(Lnet/minecraft/util/DamageSource;)Z"));
             instructions.remove(insn);
+            return true;
+        }
+
+        else if(index == 2 && checkMethod(insn.getNext(), obfuscated ? "func_90036_a" : "getFireAspectModifier")) {
+            instructions.insertBefore(insn, new VarInsnNode(ALOAD, 0));
+            instructions.insertBefore(insn, new VarInsnNode(ALOAD, 1));
+            instructions.insertBefore(insn, genMethodNode("updateAttackBlueFire", "(Lnet/minecraft/entity/EntityLivingBase;Lnet/minecraft/entity/Entity;)V"));
             return true;
         }
 
