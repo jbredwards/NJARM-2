@@ -73,6 +73,7 @@ public final class ASMHandler implements IFMLLoadingPlugin
                 .put("net.minecraft.world.biome.BiomeColorHelper", new PluginBiomeColorHelper()) //Add 1.13+ biome color blend slider functionality
                 .put("net.minecraft.world.gen.feature.WorldGenLakes", new PluginWorldGenLakes()) //Add magma surrounding lava lakes
                 .put("net.minecraft.world.gen.structure.StructureComponent", new PluginStructureComponent()) //Generate cracked nether bricks with nether fortresses
+                .put("net.minecraft.world.gen.ChunkGeneratorHell", new PluginChunkGeneratorHell()) //Adds soul soil under soul sand during world gen
                 .put("net.minecraft.world.World", new PluginWorld()) //Implement IHasWorldState functionality & fix snow layer placement
                 .build();
 

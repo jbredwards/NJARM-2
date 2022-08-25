@@ -19,6 +19,10 @@ import java.util.Set;
  */
 public final class ResistantItemsConfig implements IConfig
 {
+    @Config.LangKey("config.njarm.item.resistant.blueFireImmune")
+    @Nonnull public final String[] blueFireImmune;
+    @Nonnull public static final List<Item> BLUE_FIRE = new ArrayList<>();
+
     @Config.LangKey("config.njarm.item.resistant.explodeImmune")
     @Nonnull public final String[] explodeImmune;
     @Nonnull public static final List<Item> EXPLODE = new ArrayList<>();
@@ -33,6 +37,13 @@ public final class ResistantItemsConfig implements IConfig
 
     @Override
     public void onUpdate() {
+        BLUE_FIRE.clear();
+        final Set<Item> blueFire = new HashSet<>();
+        for(String name : blueFireImmune) {
+            final @Nullable Item item = Item.getByNameOrId(name);
+            if(ChatUtils.getOrError(item != null, "Could not resolve item in config: " + name)) blueFire.add(item);
+        }
+
         EXPLODE.clear();
         final Set<Item> explode = new HashSet<>();
         for(String name : explodeImmune) {
@@ -54,13 +65,15 @@ public final class ResistantItemsConfig implements IConfig
             if(ChatUtils.getOrError(item != null, "Could not resolve item in config: " + name)) inv.add(item);
         }
 
+        BLUE_FIRE.addAll(blueFire);
         EXPLODE.addAll(explode);
         FIRE.addAll(fire);
         INVULNERABLE.addAll(inv);
     }
 
     //needed for gson
-    public ResistantItemsConfig(@Nonnull String[] explodeImmune, @Nonnull String[] fireImmune, @Nonnull String[] invulnerable) {
+    public ResistantItemsConfig(@Nonnull String[] blueFireImmune, @Nonnull String[] explodeImmune, @Nonnull String[] fireImmune, @Nonnull String[] invulnerable) {
+        this.blueFireImmune = blueFireImmune;
         this.explodeImmune = explodeImmune;
         this.fireImmune = fireImmune;
         this.invulnerable = invulnerable;

@@ -157,7 +157,7 @@ public final class ModItems
     @Nonnull public static final ItemArmor BEDROCK_CHESTPLATE = register("bedrock_chestplate", new ItemArmor(EquipmentConfig.BEDROCK_ARMOR_MATERIAL, 1, EntityEquipmentSlot.CHEST));
     @Nonnull public static final ItemArmor BEDROCK_LEGGINGS = register("bedrock_leggings", new ItemArmor(EquipmentConfig.BEDROCK_ARMOR_MATERIAL, 2, EntityEquipmentSlot.LEGS));
     @Nonnull public static final ItemArmor BEDROCK_BOOTS = register("bedrock_boots", new ItemArmor(EquipmentConfig.BEDROCK_ARMOR_MATERIAL, 1, EntityEquipmentSlot.FEET));
-    @Nonnull public static final ItemArmor FEATHER_BOOTS = register("feather_boots", new ItemArmor(EquipmentConfig.FEATHER_ARMOR_MATERIAL, 1, EntityEquipmentSlot.FEET));
+    @Nonnull public static final ItemFeatherArmor FEATHER_BOOTS = register("feather_boots", new ItemFeatherArmor(EquipmentConfig.FEATHER_ARMOR_MATERIAL, 1, EntityEquipmentSlot.FEET));
     @Nonnull public static final ItemCactusArmor CACTUS_HELMET = register("cactus_helmet", new ItemCactusArmor(EquipmentConfig.CACTUS_ARMOR_MATERIAL, 1, EntityEquipmentSlot.HEAD), item -> EquipmentConfig.CACTUS_ARMOR_MATERIAL.setRepairItem(new ItemStack(Blocks.CACTUS)));
     @Nonnull public static final ItemCactusArmor CACTUS_CHESTPLATE = register("cactus_chestplate", new ItemCactusArmor(EquipmentConfig.CACTUS_ARMOR_MATERIAL, 1, EntityEquipmentSlot.CHEST));
     @Nonnull public static final ItemCactusArmor CACTUS_LEGGINGS = register("cactus_leggings", new ItemCactusArmor(EquipmentConfig.CACTUS_ARMOR_MATERIAL, 2, EntityEquipmentSlot.LEGS));
@@ -222,6 +222,7 @@ public final class ModItems
         OreDictionary.registerOre("gemSunstoneCharged", CHARGED_SUNSTONE);
         OreDictionary.registerOre("gemSunstone", SUNSTONE);
         OreDictionary.registerOre("ingotMagicalAlloy", MAGIC_INGOT);
+        OreDictionary.registerOre("ingotNetherite", NETHERITE_INGOT);
         OreDictionary.registerOre("ingotObsidianAlloy", OBSIDIAN_INGOT);
         OreDictionary.registerOre("ingotPlatinum", PLATINUM_INGOT);
         OreDictionary.registerOre("logWood", ENDER_LOG);

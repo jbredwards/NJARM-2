@@ -31,6 +31,7 @@ import java.util.Random;
 public interface IAutoSmelt
 {
     default boolean doesAutoSmelt(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState state, @Nonnull ItemStack stack) { return true; }
+    default boolean canAutoSmeltDrop(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState state, @Nonnull ItemStack stack, @Nonnull ItemStack drop) { return true; }
     default void handleEffects(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState state, @Nonnull ItemStack stack, @Nonnull Random rand) {
         world.playSound(null, pos, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.BLOCKS, 0.5f, 2 / rand.nextFloat() * 0.4f + 0.8f);
     }
@@ -44,38 +45,44 @@ public interface IAutoSmelt
             final IBlockState state = world.getBlockState(pos);
 
             if(stack.getItem() instanceof IAutoSmelt && ((IAutoSmelt)stack.getItem()).doesAutoSmelt(world, pos, state, stack)) {
+                boolean attemptedSmelt = false;
                 for(Iterator<ItemStack> it = event.getDrops().iterator(); it.hasNext();) {
                     final ItemStack drop = it.next();
-                    final ItemStack smelted = ItemStackUtils.copyStackWithScale(FurnaceRecipes.instance().getSmeltingResult(drop), drop.getCount());
-                    if(!smelted.isEmpty()) {
-                        //increment crafting stat
-                        event.getHarvester().addStat(Objects.requireNonNull(StatList.getCraftStats(smelted.getItem())), smelted.getCount());
+                    if(((IAutoSmelt)stack.getItem()).canAutoSmeltDrop(world, pos, state, stack, drop)) {
+                        final ItemStack smelted = ItemStackUtils.copyStackWithScale(FurnaceRecipes.instance().getSmeltingResult(drop), drop.getCount());
+                        attemptedSmelt = true;
 
-                        //get xp that normally results from smelting
-                        float smeltedXp = FurnaceRecipes.instance().getSmeltingExperience(smelted);
-                        int amount = smelted.getCount();
-                        if(smeltedXp == 0) amount = 0;
-                        else if(smeltedXp < 1) {
-                            amount = MathHelper.floor(smelted.getCount() * smeltedXp);
-                            if(amount < MathHelper.ceil(smelted.getCount() * smeltedXp) && Math.random() < (smelted.getCount() * smeltedXp - amount))
-                                ++amount;
+                        if(!smelted.isEmpty()) {
+                            //increment crafting stat
+                            event.getHarvester().addStat(Objects.requireNonNull(StatList.getCraftStats(smelted.getItem())), smelted.getCount());
+
+                            //get xp that normally results from smelting
+                            float smeltedXp = FurnaceRecipes.instance().getSmeltingExperience(smelted);
+                            int amount = smelted.getCount();
+                            if(smeltedXp == 0) amount = 0;
+                            else if(smeltedXp < 1) {
+                                amount = MathHelper.floor(smelted.getCount() * smeltedXp);
+                                if(amount < MathHelper.ceil(smelted.getCount() * smeltedXp) && Math.random() < (smelted.getCount() * smeltedXp - amount))
+                                    ++amount;
+                            }
+
+                            //spawn xp orbs
+                            state.getBlock().dropXpOnBlockBreak(world, pos, amount);
+
+                            //run smelting event
+                            FMLCommonHandler.instance().firePlayerSmeltedEvent(event.getHarvester(), smelted);
+
+                            //prevent individual drops from having too large a stack size
+                            do event.getDrops().add(smelted.splitStack(smelted.getMaxStackSize()));
+                            while(!smelted.isEmpty());
+
+                            it.remove();
                         }
-
-                        //spawn xp orbs
-                        state.getBlock().dropXpOnBlockBreak(world, pos, amount);
-
-                        //run smelting event
-                        FMLCommonHandler.instance().firePlayerSmeltedEvent(event.getHarvester(), smelted);
-
-                        //prevent individual drops from having too large a stack size
-                        do event.getDrops().add(smelted.splitStack(smelted.getMaxStackSize()));
-                        while(!smelted.isEmpty());
-
-                        it.remove();
                     }
                 }
 
-                ((IAutoSmelt)stack.getItem()).handleEffects(world, pos, state, stack, world.rand);
+                if(attemptedSmelt)
+                    ((IAutoSmelt)stack.getItem()).handleEffects(world, pos, state, stack, world.rand);
             }
         }
     }

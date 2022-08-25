@@ -129,7 +129,7 @@ public class EntityMoobloom extends EntityCow implements IShearable
     public IEntityLivingData onInitialSpawn(@Nonnull DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
         final IEntityLivingData data = super.onInitialSpawn(difficulty, livingdata);
         final @Nullable Optional<IBlockState> flower = Optional.fromJavaUtil(
-                MoobloomConfig.getRandFlower(rand, world.getBiomeForCoordsBody(getPosition())));
+                MoobloomConfig.getRandFlower(world.getBiomeForCoordsBody(getPosition())));
 
         if(flower != null && flower.isPresent()) setFlower(flower.get());
         return data;

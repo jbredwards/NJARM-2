@@ -44,7 +44,11 @@ public class ItemSapphireBow extends ItemBow implements IBlueFireWeapon
     @Nonnull
     @Override
     public EntityArrow customizeArrow(@Nonnull EntityArrow arrow) {
-        if(EquipmentConfig.sapphireBowHasFlame()) BlueFireUtils.setRemaining(arrow, 2);
+        if(EquipmentConfig.sapphireBowHasFlame()) {
+            if(arrow.isBurning()) arrow.setFire(0);
+            BlueFireUtils.setRemaining(arrow, 2);
+        }
+
         return arrow;
     }
 

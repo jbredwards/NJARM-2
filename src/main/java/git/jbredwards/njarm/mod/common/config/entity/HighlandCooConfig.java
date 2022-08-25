@@ -4,16 +4,19 @@ import git.jbredwards.njarm.mod.common.config.ConfigHandler;
 import git.jbredwards.njarm.mod.common.config.entity.util.ISpawnableConfig;
 import git.jbredwards.njarm.mod.common.util.ChatUtils;
 import git.jbredwards.njarm.mod.common.util.NBTUtils;
+import net.darkhax.bookshelf.lib.WeightedSelector;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.WeightedRandom;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.config.Config;
 import net.minecraftforge.common.util.Constants;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -31,10 +34,10 @@ public final class HighlandCooConfig implements ISpawnableConfig
 
     @Config.LangKey("config.njarm.entity.highlandCoo.colorData")
     @Nonnull public final String[] colorData;
-    @Nonnull public static final Map<Biome, List<ColorData>> colorDataMap = new HashMap<>();
-    @Nonnull public static EnumDyeColor getRandColor(@Nonnull Random rand, @Nonnull Biome biome) {
-        final @Nullable List<ColorData> colorData = colorDataMap.get(biome);
-        return colorData != null ? WeightedRandom.getRandomItem(rand, colorData).color : EnumDyeColor.BROWN;
+    @Nonnull public static final Map<Biome, WeightedSelector<EnumDyeColor>> colorDataMap = new HashMap<>();
+    @Nonnull public static EnumDyeColor getRandColor(@Nonnull Biome biome) {
+        final @Nullable WeightedSelector<EnumDyeColor> colorData = colorDataMap.get(biome);
+        return colorData != null ? colorData.getRandomEntry().getEntry() : EnumDyeColor.BROWN;
     }
 
     @Config.LangKey("config.njarm.entity.highlandCoo.dyeable")
@@ -50,16 +53,16 @@ public final class HighlandCooConfig implements ISpawnableConfig
                 final int color = nbt.getInteger("Color");
                 if(ChatUtils.getOrError(color > -1 && color < EnumDyeColor.values().length, "NJARM Config: Could not find color with index " + color)) {
                     final Biome[] biomes = NBTUtils.gatherBiomesFromNBT(nbt).toArray(new Biome[0]);
-                    final ColorData colorData = new ColorData(EnumDyeColor.values()[color],
-                            Math.max(nbt.getInteger("Weight"), 1));
+                    final int weight = Math.max(nbt.getInteger("Weight"), 1);
+                    final EnumDyeColor colorData = EnumDyeColor.values()[color];
 
                     //if biome input is absent, assume all spawn biomes are valid
                     if(biomes.length == 0) for(Biome biome : spawnBiomes)
-                        colorDataMap.computeIfAbsent(biome, biomeIn -> new ArrayList<>()).add(colorData);
+                        colorDataMap.computeIfAbsent(biome, biomeIn -> new WeightedSelector<>()).addEntry(colorData, weight);
 
                     //use biome input for color data
                     else for(Biome biome : biomes)
-                        colorDataMap.computeIfAbsent(biome, biomeIn -> new ArrayList<>()).add(colorData);
+                        colorDataMap.computeIfAbsent(biome, biomeIn -> new WeightedSelector<>()).addEntry(colorData, weight);
                 }
             }
         }
@@ -70,15 +73,5 @@ public final class HighlandCooConfig implements ISpawnableConfig
         this.spawnData = spawnData;
         this.dyeable = dyeable;
         this.colorData = colorData;
-    }
-
-    public static class ColorData extends WeightedRandom.Item
-    {
-        @Nonnull
-        protected final EnumDyeColor color;
-        public ColorData(@Nonnull EnumDyeColor colorIn, int itemWeightIn) {
-            super(itemWeightIn);
-            color = colorIn;
-        }
     }
 }

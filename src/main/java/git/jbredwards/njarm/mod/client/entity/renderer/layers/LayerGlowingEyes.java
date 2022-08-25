@@ -1,6 +1,5 @@
 package git.jbredwards.njarm.mod.client.entity.renderer.layers;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.entity.RenderLivingBase;
@@ -53,11 +52,6 @@ public class LayerGlowingEyes implements LayerRenderer<EntityLivingBase>
             GlStateManager.disableBlend();
             GlStateManager.popMatrix();
         }
-    }
-
-    public void resetLightmap(@Nonnull EntityLivingBase entity) {
-        final int brightness = entity.getBrightnessForRender();
-        OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, brightness % 65536, brightness / 65536f);
     }
 
     @Override

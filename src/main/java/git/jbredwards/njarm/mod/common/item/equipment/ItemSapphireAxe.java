@@ -1,11 +1,10 @@
 package git.jbredwards.njarm.mod.common.item.equipment;
 
 import git.jbredwards.njarm.mod.client.particle.util.ParticleProviders;
-import git.jbredwards.njarm.mod.common.config.block.BlueFireConfig;
 import git.jbredwards.njarm.mod.common.config.item.EquipmentConfig;
+import git.jbredwards.njarm.mod.common.config.item.ResistantItemsConfig;
 import git.jbredwards.njarm.mod.common.item.util.IAutoSmelt;
 import git.jbredwards.njarm.mod.common.item.util.IBlueFireWeapon;
-import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.init.Enchantments;
@@ -29,7 +28,12 @@ public class ItemSapphireAxe extends ItemAxe implements IAutoSmelt, IBlueFireWea
 
     @Override
     public boolean doesAutoSmelt(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState state, @Nonnull ItemStack stack) {
-        return EquipmentConfig.sapphireToolsAutoSmelt() && !BlueFireConfig.SOUL_SAND.containsKey(Block.getBlockFromItem(stack.getItem()));
+        return EquipmentConfig.sapphireToolsAutoSmelt();
+    }
+
+    @Override
+    public boolean canAutoSmeltDrop(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState state, @Nonnull ItemStack stack, @Nonnull ItemStack drop) {
+        return !ResistantItemsConfig.BLUE_FIRE.contains(drop.getItem());
     }
 
     @Override

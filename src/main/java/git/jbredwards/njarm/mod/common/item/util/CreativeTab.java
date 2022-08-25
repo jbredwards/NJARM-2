@@ -3,10 +3,12 @@ package git.jbredwards.njarm.mod.common.item.util;
 import git.jbredwards.njarm.mod.Constants;
 import git.jbredwards.njarm.mod.common.init.ModEntities;
 import git.jbredwards.njarm.mod.common.init.ModItems;
+import git.jbredwards.njarm.mod.common.init.ModPotionTypes;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemMonsterPlacer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.PotionUtils;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.fml.common.registry.EntityEntry;
 import net.minecraftforge.fml.relauncher.Side;
@@ -34,6 +36,13 @@ public final class CreativeTab extends CreativeTabs
     @Override
     public void displayAllRelevantItems(@Nonnull NonNullList<ItemStack> items) {
         super.displayAllRelevantItems(items);
+
+        //adds this mod's potion types
+        ModPotionTypes.INIT.forEach(potion -> items.add(PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM), potion)));
+        ModPotionTypes.INIT.forEach(potion -> items.add(PotionUtils.addPotionToItemStack(new ItemStack(Items.SPLASH_POTION), potion)));
+        ModPotionTypes.INIT.forEach(potion -> items.add(PotionUtils.addPotionToItemStack(new ItemStack(Items.LINGERING_POTION), potion)));
+        ModPotionTypes.INIT.forEach(potion -> items.add(PotionUtils.addPotionToItemStack(new ItemStack(Items.TIPPED_ARROW), potion)));
+
         //adds this mod's spawn eggs
         for(EntityEntry entry : ModEntities.INIT) {
             if(entry.getEgg() != null) {
@@ -42,6 +51,5 @@ public final class CreativeTab extends CreativeTabs
                 items.add(stack);
             }
         }
-        //TODO add potions & enchants
     }
 }

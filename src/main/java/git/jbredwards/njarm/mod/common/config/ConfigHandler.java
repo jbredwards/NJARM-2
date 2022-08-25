@@ -30,7 +30,7 @@ public final class ConfigHandler
 
     @Config.LangKey("config.njarm.cfg.block")
     @Nonnull public static final BlockConfig blockCfg = register(new BlockConfig(
-            new BlueFireConfig(new String[] {"minecraft:soul_sand"}, "Math.max(2, health / 4)", "Math.max(2, health / 32)", "Math.max(2, health / 4)", "Math.max(2, health / 32)", false),
+            new BlueFireConfig(new String[] {"soul_sand", "njarm:soul_soil"}, "Math.max(2, health / 4)", "Math.max(2, health / 32)", "Math.max(2, health / 4)", "Math.max(2, health / 32)", false),
             new BubbleColumnConfig(new String[] {"{blockId:\"minecraft:magma\"}"}, new String[] {"{blockId:\"minecraft:soul_sand\"}"}),
             new ChainConfig(true),
             new FoodCrateConfig(new String[] {"{Type:\"poisonous_potato\",Effects:[{Id:19,Duration:65,Ambient:1b}]}", "{Type:\"golden_apple\",Effects:[{Id:10,Duration:65,Ambient:1b}]}", "{Type:\"golden_carrot\",Effects:[{Id:16,Duration:65,Ambient:1b}]}"}, false),
@@ -161,6 +161,11 @@ public final class ConfigHandler
                     }
             ),
             new MudPigConfig(30, 10),
+            new MummyConfig(
+                    new String[] {"{Weight:200,Min:1,Max:3,Biomes:[desert,desert_hills,mutated_desert]}"},
+                    new String[] {"{Weight:90,Empty:true}","{Weight:}","{Weight:}","{Weight:}","{Weight:}","{Weight:}","{Weight:}","{Weight:}"},
+                    new String[] {"{Weight:1,Empty:true}","{Weight:4,id:\"bow\"}","{Weight:4,id:\"golden_sword\"}","{Weight:1,id:\"diamond_sword\"}","{Weight:1,id:\"njarm:ruby_sword\"}","{Weight:1,\"njarm:sapphire_sword\"}"}
+            ),
             new SoulSkeletonConfig(new String[] {"{Weight:10,Min:1,Max:3,BiomeTags:[nether]}"}))
     );
 
@@ -170,25 +175,26 @@ public final class ConfigHandler
             new ChargedSunstoneConfig(true, true, false, true, true, true, 3, true),
             new EggShellsConfig(true, 0, 100, new String[] {"minecraft:egg"}, new String[] {"minecraft:egg", "njarm:cooked_egg"}),
             new EquipmentConfig(
-                    "{Durability:66,ArmorValues:[3,6,8,3],Enchantability:10,EquipSound:\"item.armor.equip_diamond\",Toughness:2f}", //ruby
-                    "{Durability:33,ArmorValues:[3,6,8,3],Enchantability:10,EquipSound:\"njarm:items.netherite_equip\",Toughness:2f}", true, false, //sapphire
-                    "{Durability:8,ArmorValues:[1,2,3,1],Enchantability:5,EquipSound:\"item.armor.equip_generic\",Toughness:0f}", //wood
-                    "{Durability:33,ArmorValues:[3,6,8,3],Enchantability:25,EquipSound:\"item.armor.equip_iron\",Toughness:4f}", //platinum
-                    "{Durability:37,ArmorValues:[3,6,8,3],Enchantability:15,EquipSound:\"njarm:items.netherite_equip\",Toughness:3f}", //netherite
-                    "{Durability:37,ArmorValues:[3,6,8,3],Enchantability:10,EquipSound:\"item.armor.equip_diamond\",Toughness:4f}", true, //obsidian
-                    "{Durability:-1,ArmorValues:[3,6,8,3],Enchantability:25,EquipSound:\"njarm:items.netherite_equip\",Toughness:4f}", //bedrock
-                    "{Durability:7,ArmorValues:[1,1,1,1],Enchantability:10,EquipSound:\"item.armor.equip_elytra\",Toughness:0f}", //feather
-                    "{Durability:15,ArmorValues:[1,2,3,1],Enchantability:5,EquipSound:\"item.armor.equip_leather\",Toughness:0f}", 1, //cactus
+                    "{Durability:66,ArmorValues:[3,6,8,3],Enchantability:10,Toughness:2f}", //ruby
+                    "{Durability:33,ArmorValues:[3,6,8,3],Enchantability:10,Toughness:2f}", true, false, //sapphire
+                    "{Durability:8,ArmorValues:[1,2,3,1],Enchantability:5,Toughness:0f}", //wood
+                    "{Durability:33,ArmorValues:[3,6,8,3],Enchantability:25,Toughness:4f}", //platinum
+                    "{Durability:37,ArmorValues:[3,6,8,3],Enchantability:15,Toughness:3f}", //netherite
+                    "{Durability:37,ArmorValues:[3,6,8,3],Enchantability:10,Toughness:4f}", true, //obsidian
+                    "{Durability:-1,ArmorValues:[3,6,8,3],Enchantability:25,Toughness:4f}", //bedrock
+                    "{Durability:7,ArmorValues:[1,1,1,1],Enchantability:10,Toughness:0f}", //feather
+                    "{Durability:15,ArmorValues:[1,2,3,1],Enchantability:5,Toughness:0f}", 1, //cactus
                     "{HarvestLevel:4,Durability:3122,MiningSpeed:8f,AttackDamage:3f,Enchantability:10}", //ruby
                     "{HarvestLevel:3,Durability:1561,MiningSpeed:8f,AttackDamage:3f,Enchantability:10}", 384, true, true, //sapphire
-                    "{HarvestLevel:4,Durability:1561,MiningSpeed:12f,AttackDamage:3f,Enchantability:25}", //platinum
+                    "{HarvestLevel:3,Durability:781,MiningSpeed:11f,AttackDamage:3f,Enchantability:25}", //platinum
                     "{HarvestLevel:4,Durability:2031,MiningSpeed:9f,AttackDamage:4f,Enchantability:15}", //netherite
-                    "{HarvestLevel:2,Durability:131,MiningSpeed:6f,AttackDamage:2f,Enchantability:14}", //poppy
-                    "{HarvestLevel:4,Durability:2031,MiningSpeed:8f,AttackDamage:5f,Enchantability:10}", //obsidian
+                    "{HarvestLevel:0,Durability:29,MiningSpeed:6f,AttackDamage:2f,Enchantability:9999}", //poppy
+                    "{HarvestLevel:4,Durability:1041,MiningSpeed:10f,AttackDamage:5f,Enchantability:15}", //obsidian
                     "{HarvestLevel:4,Durability:-1,MiningSpeed:12f,AttackDamage:5f,Enchantability:25}", //bedrock
                     "{HarvestLevel:0,Durability:131,MiningSpeed:5f,AttackDamage:2f,Enchantability:5}", true), //cactus
             new ResistantItemsConfig(
-                    blueFireImmune, new String[] {"njarm:charged_sunstone", "njarm:sunstone"},
+                    new String[] {"njarm:ash_pile", "soul_sand", "njarm:soul_soil"},
+                    new String[] {"njarm:charged_sunstone", "njarm:sunstone"},
                     new String[] {"njarm:ancient_debris", "njarm:charged_sunstone", "njarm:netherite_axe", "njarm:netherite_block", "njarm:netherite_boots", "njarm:netherite_chestplate", "njarm:netherite_helmet", "njarm:netherite_hoe", "njarm:netherite_ingot", "njarm:netherite_leggings", "njarm:netherite_nugget", "njarm:netherite_pickaxe", "njarm:netherite_shovel", "njarm:netherite_sword", "njarm:netherite_scrap", "njarm:sapphire", "njarm:sapphire_block", "njarm:sapphire_ore", "njarm:sunstone"},
                     new String[] {"njarm:bedrock_axe", "njarm:bedrock_boots", "njarm:bedrock_chestplate", "njarm:bedrock_helmet", "njarm:bedrock_hoe", "njarm:bedrock_leggings", "njarm:bedrock_pickaxe", "njarm:bedrock_shovel", "njarm:bedrock_sword", "njarm:crumbling_bedrock"}
             ),
@@ -215,8 +221,9 @@ public final class ConfigHandler
                     "{Ore:{Name:\"njarm:nether_gold_ore\"},Stone:{Name:netherrack},MinY:0,MaxY:128,ClumpSize:8,PerChunk:30,Dimensions:[-1]}",
                     "{Ore:{Name:\"njarm:nether_diamond_ore\"},Stone:{Name:netherrack},MinY:0,MaxY:48,ClumpSize:8,PerChunk:3,Dimensions:[-1]}",
                     "{Ore:{Name:\"njarm:nether_emerald_ore\"},Stone:{Name:netherrack},MinY:0,MaxY:128,ClumpSize:1,PerChunk:15,Dimensions:[-1]}",
-                    "{Ore:{Name:\"njarm:sapphire_ore\"},Stone:{Name:netherrack},MinY:0,MaxY:48,ClumpSize:2,PerChunk:6,Dimensions:[-1]}",
-                    "{Ore:{Name:\"njarm:blackstone\",Properties:{axis:y}},Stone:{Name:netherrack},MinY:26,MaxY:36,ClumpSize:33,PerChunk:16,Biomes:[hell]}",
+                    "{Ore:{Name:\"njarm:sapphire_ore\"},Stone:{Name:netherrack},MinY:0,MaxY:48,ClumpSize:4,PerChunk:4,Dimensions:[-1]}",
+                    "{Ore:{Name:\"njarm:blackstone\",Properties:{axis:y}},Stone:{Name:netherrack},MinY:121,MaxY:126,ClumpSize:33,PerChunk:16,Biomes:[hell]}",
+                    "{Ore:{Name:\"njarm:blackstone\",Properties:{axis:y}},Stone:{Name:netherrack},MinY:1,MaxY:5,ClumpSize:33,PerChunk:16,Biomes:[hell]}",
                     "{Ore:{Name:\"njarm:ancient_debris\",Properties:{axis:y}},Stone:{Name:netherrack},MinY:0,MaxY:48,ClumpSize:2,PerChunk:2,Dimensions:[-1]}"
             })
     ));

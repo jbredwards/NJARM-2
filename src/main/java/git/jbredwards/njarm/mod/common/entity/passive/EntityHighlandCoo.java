@@ -252,7 +252,7 @@ public class EntityHighlandCoo extends EntityCow implements IShearable
     @Override
     public IEntityLivingData onInitialSpawn(@Nonnull DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
         livingdata = super.onInitialSpawn(difficulty, livingdata);
-        setFleeceColor(HighlandCooConfig.getRandColor(rand,
+        setFleeceColor(HighlandCooConfig.getRandColor(
                 world.getBiomeForCoordsBody(getPosition())));
 
         return livingdata;

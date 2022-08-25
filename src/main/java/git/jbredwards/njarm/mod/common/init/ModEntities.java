@@ -65,6 +65,10 @@ public final class ModEntities
             ConfigHandler.entityCfg.fireCreeperCfg, EnumCreatureType.MONSTER).egg(6896957, 14646307));
 
     @Nonnull
+    public static final EntityEntry MUMMY = register("mummy", builder(EntityMummy.class, 80, 3, true,
+            ConfigHandler.entityCfg.mummyCfg, EnumCreatureType.MONSTER).egg(12100467, 9601117));
+
+    @Nonnull
     public static final EntityEntry SOUL_SKELETON = register("soul_skeleton", builder(EntitySoulSkeleton.class, 80, 3, true,
             ConfigHandler.entityCfg.soulSkeletonCfg, EnumCreatureType.MONSTER).egg(3679771, 4243391));
 

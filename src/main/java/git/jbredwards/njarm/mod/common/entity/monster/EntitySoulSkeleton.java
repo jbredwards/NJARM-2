@@ -1,5 +1,6 @@
 package git.jbredwards.njarm.mod.common.entity.monster;
 
+import git.jbredwards.njarm.mod.Constants;
 import git.jbredwards.njarm.mod.common.entity.util.IBlueFireproof;
 import git.jbredwards.njarm.mod.common.init.ModItems;
 import net.minecraft.entity.monster.AbstractSkeleton;
@@ -11,7 +12,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
-import net.minecraft.world.storage.loot.LootTableList;
 
 import javax.annotation.Nonnull;
 
@@ -54,5 +54,5 @@ public class EntitySoulSkeleton extends AbstractSkeleton implements IBlueFirepro
 
     @Nonnull
     @Override
-    protected ResourceLocation getLootTable() { return LootTableList.ENTITIES_SKELETON; }
+    protected ResourceLocation getLootTable() { return new ResourceLocation(Constants.MODID, "entities/soul_skeleton"); }
 }

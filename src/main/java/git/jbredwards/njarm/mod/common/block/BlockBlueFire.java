@@ -2,6 +2,7 @@ package git.jbredwards.njarm.mod.common.block;
 
 import git.jbredwards.njarm.mod.Constants;
 import git.jbredwards.njarm.mod.common.config.block.BlueFireConfig;
+import git.jbredwards.njarm.mod.common.config.item.ResistantItemsConfig;
 import git.jbredwards.njarm.mod.common.util.BlueFireUtils;
 import git.jbredwards.njarm.mod.common.util.SoundUtils;
 import net.darkhax.bookshelf.item.ICustomModel;
@@ -25,7 +26,6 @@ import net.minecraftforge.common.util.Constants.WorldEvents;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -93,8 +93,7 @@ public class BlockBlueFire extends BlockFire implements ICustomModel
 
     @Override
     public void onEntityCollision(@Nonnull World worldIn, @Nonnull BlockPos pos, @Nonnull IBlockState state, @Nonnull Entity entityIn) {
-        final boolean isSoulItem = entityIn instanceof EntityItem && BlueFireConfig.SOUL_SAND.containsKey(getBlockFromItem(((EntityItem)entityIn).getItem().getItem()));
-        if(!isSoulItem) {
+        if(!(entityIn instanceof EntityItem) || !ResistantItemsConfig.BLUE_FIRE.contains(((EntityItem)entityIn).getItem().getItem())) {
             if(entityIn.isWet()) SoundUtils.playSound(entityIn, SoundEvents.ENTITY_GENERIC_EXTINGUISH_FIRE, 0.7f,
                     1.6f + (worldIn.rand.nextFloat() - worldIn.rand.nextFloat()) * 0.4f);
             else if(BlueFireUtils.canBeLit(entityIn)) {

@@ -4,12 +4,12 @@ import git.jbredwards.njarm.mod.common.config.ConfigHandler;
 import git.jbredwards.njarm.mod.common.config.entity.util.ISpawnableConfig;
 import git.jbredwards.njarm.mod.common.util.ChatUtils;
 import git.jbredwards.njarm.mod.common.util.NBTUtils;
+import net.darkhax.bookshelf.lib.WeightedSelector;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTUtil;
-import net.minecraft.util.WeightedRandom;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.config.Config;
 import net.minecraftforge.common.util.Constants;
@@ -39,10 +39,10 @@ public final class MoobloomConfig implements ISpawnableConfig
 
     @Config.LangKey("config.njarm.entity.moobloom.flowerData")
     @Nonnull public final String[] flowerData;
-    @Nonnull public static final Map<Biome, List<FlowerData>> flowerDataMap = new HashMap<>();
-    @Nonnull public static Optional<IBlockState> getRandFlower(@Nonnull Random rand, @Nonnull Biome biome) {
-        final @Nullable List<FlowerData> flowerData = flowerDataMap.get(biome);
-        return flowerData != null ? WeightedRandom.getRandomItem(rand, flowerData).flower : Optional.empty();
+    @Nonnull public static final Map<Biome, WeightedSelector<Optional<IBlockState>>> flowerDataMap = new HashMap<>();
+    @Nonnull public static Optional<IBlockState> getRandFlower(@Nonnull Biome biome) {
+        final @Nullable  WeightedSelector<Optional<IBlockState>> flowerData = flowerDataMap.get(biome);
+        return flowerData != null ? flowerData.getRandomEntry().getEntry() : Optional.empty();
     }
 
     @Config.LangKey("config.njarm.entity.moobloom.flowers")
@@ -83,17 +83,19 @@ public final class MoobloomConfig implements ISpawnableConfig
             final NBTTagCompound nbt = NBTUtils.getTagFromString(data);
             if(nbt.hasKey("Flower", Constants.NBT.TAG_COMPOUND)) {
                 final Biome[] biomes = NBTUtils.gatherBiomesFromNBT(nbt).toArray(new Biome[0]);
+                final int weight = Math.max(nbt.getInteger("Weight"), 1);
+
                 final IBlockState flower = NBTUtil.readBlockState(nbt.getCompoundTag("Flower"));
-                final FlowerData flowerData = new FlowerData(flower.getBlock() == Blocks.AIR
-                        ? Optional.empty() : Optional.of(flower), Math.max(nbt.getInteger("Weight"), 1));
+                final Optional<IBlockState> flowerData = flower.getBlock() == Blocks.AIR
+                        ? Optional.empty() : Optional.of(flower);
 
                 //if biome input is absent, assume all spawn biomes are valid
                 if(biomes.length == 0) for(Biome biome : spawnBiomes)
-                    flowerDataMap.computeIfAbsent(biome, biomeIn -> new ArrayList<>()).add(flowerData);
+                    flowerDataMap.computeIfAbsent(biome, biomeIn -> new WeightedSelector<>()).addEntry(flowerData, weight);
 
-                    //use biome input for color data
+                //use biome input for color data
                 else for(Biome biome : biomes)
-                    flowerDataMap.computeIfAbsent(biome, biomeIn -> new ArrayList<>()).add(flowerData);
+                    flowerDataMap.computeIfAbsent(biome, biomeIn -> new WeightedSelector<>()).addEntry(flowerData, weight);
             }
         }
 
@@ -118,16 +120,5 @@ public final class MoobloomConfig implements ISpawnableConfig
         this.minPlantTime = minPlantTime;
         this.shearable = shearable;
         this.weather = weather;
-    }
-
-    @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
-    public static class FlowerData extends WeightedRandom.Item
-    {
-        @Nonnull
-        protected final Optional<IBlockState> flower;
-        public FlowerData(@Nonnull Optional<IBlockState> flowerIn, int itemWeightIn) {
-            super(itemWeightIn);
-            flower = flowerIn;
-        }
     }
 }
