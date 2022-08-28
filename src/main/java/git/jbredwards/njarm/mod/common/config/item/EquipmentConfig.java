@@ -93,6 +93,16 @@ public final class EquipmentConfig implements IConfig
     public static int cactusThorns() { return ConfigHandler.itemCfg.equipmentCfg.cactusThorns; }
 
     @Config.RequiresMcRestart
+    @Config.LangKey("config.njarm.item.equipment.crownArmorMaterial")
+    @Nonnull public final String crownArmorMaterial;
+    @Nonnull public static ItemArmor.ArmorMaterial CROWN_ARMOR_MATERIAL;
+
+    @Config.RangeInt(min = 0)
+    @Config.LangKey("config.njarm.item.equipment.ticksPerCrownDurability")
+    public final int ticksPerCrownDurability;
+    public static int ticksPerCrownDurability() { return ConfigHandler.itemCfg.equipmentCfg.ticksPerCrownDurability; }
+
+    @Config.RequiresMcRestart
     @Config.LangKey("config.njarm.item.equipment.rubyToolMaterial")
     @Nonnull public final String rubyToolMaterial;
     @Nonnull public static Item.ToolMaterial RUBY_TOOL_MATERIAL;
@@ -159,6 +169,7 @@ public final class EquipmentConfig implements IConfig
         BEDROCK_ARMOR_MATERIAL = armorMaterial("bedrock", bedrockArmorMaterial, ModSounds.NETHERITE_EQUIP);
         FEATHER_ARMOR_MATERIAL = armorMaterial("feather", featherArmorMaterial, SoundEvents.ITEM_ARMOR_EQIIP_ELYTRA);
         CACTUS_ARMOR_MATERIAL = armorMaterial("cactus", cactusArmorMaterial, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER);
+        CROWN_ARMOR_MATERIAL = armorMaterial("crown", crownArmorMaterial, SoundEvents.ITEM_ARMOR_EQUIP_GOLD);
 
         RUBY_TOOL_MATERIAL = toolMaterial("ruby", rubyToolMaterial);
         SAPPHIRE_TOOL_MATERIAL = toolMaterial("sapphire", sapphireToolMaterial);
@@ -205,7 +216,7 @@ public final class EquipmentConfig implements IConfig
     }
 
     //needed for gson
-    public EquipmentConfig(@Nonnull String rubyArmorMaterial, @Nonnull String sapphireArmorMaterial, boolean sapphireFireResist, boolean sapphireBlueFireResist, @Nonnull String woodArmorMaterial, @Nonnull String platinumArmorMaterial, @Nonnull String netheriteArmorMaterial, @Nonnull String obsidianArmorMaterial, boolean obsidianResistKnockback, @Nonnull String bedrockArmorMaterial, @Nonnull String featherArmorMaterial, @Nonnull String cactusArmorMaterial, int cactusThorns, @Nonnull String rubyToolMaterial, @Nonnull String sapphireToolMaterial, int sapphireBowDurability, boolean sapphireBowHasFlame, boolean sapphireToolsAutoSmelt, @Nonnull String platinumToolMaterial, @Nonnull String netheriteToolMaterial, @Nonnull String poppyToolMaterial, @Nonnull String obsidianToolMaterial, @Nonnull String bedrockToolMaterial, @Nonnull String cactusToolMaterial, boolean cactusReach) {
+    public EquipmentConfig(@Nonnull String rubyArmorMaterial, @Nonnull String sapphireArmorMaterial, boolean sapphireFireResist, boolean sapphireBlueFireResist, @Nonnull String woodArmorMaterial, @Nonnull String platinumArmorMaterial, @Nonnull String netheriteArmorMaterial, @Nonnull String obsidianArmorMaterial, boolean obsidianResistKnockback, @Nonnull String bedrockArmorMaterial, @Nonnull String featherArmorMaterial, @Nonnull String cactusArmorMaterial, int cactusThorns, @Nonnull String crownArmorMaterial, int ticksPerCrownDurability, @Nonnull String rubyToolMaterial, @Nonnull String sapphireToolMaterial, int sapphireBowDurability, boolean sapphireBowHasFlame, boolean sapphireToolsAutoSmelt, @Nonnull String platinumToolMaterial, @Nonnull String netheriteToolMaterial, @Nonnull String poppyToolMaterial, @Nonnull String obsidianToolMaterial, @Nonnull String bedrockToolMaterial, @Nonnull String cactusToolMaterial, boolean cactusReach) {
         this.rubyArmorMaterial = rubyArmorMaterial;
         this.sapphireArmorMaterial = sapphireArmorMaterial;
         this.sapphireFireResist = sapphireFireResist;
@@ -219,6 +230,8 @@ public final class EquipmentConfig implements IConfig
         this.featherArmorMaterial = featherArmorMaterial;
         this.cactusArmorMaterial = cactusArmorMaterial;
         this.cactusThorns = cactusThorns;
+        this.crownArmorMaterial = crownArmorMaterial;
+        this.ticksPerCrownDurability = ticksPerCrownDurability;
         this.rubyToolMaterial = rubyToolMaterial;
         this.sapphireToolMaterial = sapphireToolMaterial;
         this.platinumToolMaterial = platinumToolMaterial;

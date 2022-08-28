@@ -125,6 +125,7 @@ public final class ModItems
     @Nonnull public static final Item STAFF_BASE = register("staff_base", new Item(), item -> item.setMaxStackSize(1));
     @Nonnull public static final ItemStaffTeleport TELEPORT_STAFF = register("teleport_staff", new ItemStaffTeleport(), item -> item.setMaxStackSize(1).setMaxDamage(TeleportStaffConfig.durability()));
     @Nonnull public static final ItemDummy DUMMY = register("dummy", new ItemDummy());
+    @Nonnull public static final ItemCrown CROWN = register("crown", new ItemCrown(EquipmentConfig.CROWN_ARMOR_MATERIAL));
 
     @Nonnull public static final Item ASH_PILE = register("ash_pile", new Item());
 

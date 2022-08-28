@@ -163,8 +163,8 @@ public final class ConfigHandler
             new MudPigConfig(30, 10),
             new MummyConfig(
                     new String[] {"{Weight:200,Min:1,Max:3,Biomes:[desert,desert_hills,mutated_desert]}"},
-                    new String[] {"{Weight:90,Empty:true}","{Weight:}","{Weight:}","{Weight:}","{Weight:}","{Weight:}","{Weight:}","{Weight:}"},
-                    new String[] {"{Weight:1,Empty:true}","{Weight:4,id:\"bow\"}","{Weight:4,id:\"golden_sword\"}","{Weight:1,id:\"diamond_sword\"}","{Weight:1,id:\"njarm:ruby_sword\"}","{Weight:1,\"njarm:sapphire_sword\"}"}
+                    new String[] {"{Weight:72,Empty:true}","{Id:11,Duration:200}","{Id:12,Duration:200}","{Id:10,Duration:200}","{Id:13,Duration:200}","{Id:26,Duration:200}","{Id:3,Duration:200}","{Id:8,Duration:200}","{Id:16,Duration:200}"},
+                    new String[] {"{Weight:1,Empty:true}","{Weight:4,id:\"bow\",Count:1}","{Weight:4,id:\"golden_sword\",Count:1}","{Weight:1,id:\"diamond_sword\",Count:1}","{Weight:1,id:\"njarm:ruby_sword\",Count:1}","{Weight:1,id:\"njarm:sapphire_sword\",Count:1}"}
             ),
             new SoulSkeletonConfig(new String[] {"{Weight:10,Min:1,Max:3,BiomeTags:[nether]}"}))
     );
@@ -184,6 +184,7 @@ public final class ConfigHandler
                     "{Durability:-1,ArmorValues:[3,6,8,3],Enchantability:25,Toughness:4f}", //bedrock
                     "{Durability:7,ArmorValues:[1,1,1,1],Enchantability:10,Toughness:0f}", //feather
                     "{Durability:15,ArmorValues:[1,2,3,1],Enchantability:5,Toughness:0f}", 1, //cactus
+                    "{Durability:7,ArmorValues:[0,0,0,0],Enchantability:10,Toughness:0f}", 40, //crown
                     "{HarvestLevel:4,Durability:3122,MiningSpeed:8f,AttackDamage:3f,Enchantability:10}", //ruby
                     "{HarvestLevel:3,Durability:1561,MiningSpeed:8f,AttackDamage:3f,Enchantability:10}", 384, true, true, //sapphire
                     "{HarvestLevel:3,Durability:781,MiningSpeed:11f,AttackDamage:3f,Enchantability:25}", //platinum

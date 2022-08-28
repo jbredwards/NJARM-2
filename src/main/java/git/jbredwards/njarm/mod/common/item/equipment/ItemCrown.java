@@ -3,6 +3,7 @@ package git.jbredwards.njarm.mod.common.item.equipment;
 import baubles.api.BaubleType;
 import baubles.api.IBauble;
 import baubles.api.render.IRenderBauble;
+import git.jbredwards.njarm.mod.Constants;
 import git.jbredwards.njarm.mod.common.config.entity.MummyConfig;
 import git.jbredwards.njarm.mod.common.config.item.EquipmentConfig;
 import net.minecraft.client.Minecraft;
@@ -17,8 +18,11 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.potion.PotionUtils;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.relauncher.Side;
@@ -39,24 +43,42 @@ import java.util.List;
 @Optional.Interface(iface = "baubles.api.render.IRenderBauble", modid = "baubles")})
 public class ItemCrown extends ItemArmor implements IBauble, IRenderBauble
 {
-    public ItemCrown(@Nonnull ArmorMaterial materialIn) { super(materialIn, 0, EntityEquipmentSlot.HEAD); }
+    public ItemCrown(@Nonnull ArmorMaterial materialIn) {
+        super(materialIn, 0, EntityEquipmentSlot.HEAD);
+        addPropertyOverride(new ResourceLocation(Constants.MODID, "broken"),
+                (stack, world, entity) -> isUseable(stack) ? 0 : 1);
+    }
+
+    public static boolean isUseable(@Nonnull ItemStack stack) {
+        return stack.getItemDamage() < stack.getMaxDamage() - 1;
+    }
 
     @Override
     public boolean hasColor(@Nonnull ItemStack stack) { return true; }
 
     @Override
-    public int getColor(@Nonnull ItemStack stack) { return PotionUtils.getColor(stack); }
+    public int getColor(@Nonnull ItemStack stack) {
+        return PotionUtils.getPotionColorFromEffectList(PotionUtils.getEffectsFromStack(stack));
+    }
 
     @Override
     public void onArmorTick(@Nonnull World world, @Nonnull EntityPlayer player, @Nonnull ItemStack stack) {
         super.onArmorTick(world, player, stack);
-        if(!world.isRemote) {
+        if(!world.isRemote && isUseable(stack)) {
             //damages the crown while worn
             if(!player.isCreative() && EquipmentConfig.ticksPerCrownDurability() != 0 && player.ticksExisted != 0
                     && player.ticksExisted % EquipmentConfig.ticksPerCrownDurability() == 0) stack.damageItem(1, player);
 
             PotionUtils.getEffectsFromStack(stack).forEach(player::addPotionEffect);
         }
+    }
+
+    @Nonnull
+    @Override
+    public String getItemStackDisplayName(@Nonnull ItemStack stack) {
+        final List<PotionEffect> effects = PotionUtils.getEffectsFromStack(stack);
+        return I18n.translateToLocalFormatted(getUnlocalizedNameInefficiently(stack) + ".name",
+                I18n.translateToLocal(effects.size() > 0 ? effects.get(0).getEffectName() : "effect.none")).trim();
     }
 
     @SideOnly(Side.CLIENT)
@@ -67,9 +89,12 @@ public class ItemCrown extends ItemArmor implements IBauble, IRenderBauble
 
     @Override
     public void getSubItems(@Nonnull CreativeTabs tab, @Nonnull NonNullList<ItemStack> items) {
-        if(isInCreativeTab(tab)) MummyConfig.EFFECTS.getEntries().forEach(effect
-                -> items.add(PotionUtils.appendEffects(new ItemStack(this),
-                Collections.singleton(effect.getEntry()))));
+        if(isInCreativeTab(tab)) MummyConfig.EFFECTS.getEntries().forEach(entry -> {
+            final PotionEffect effect = entry.getEntry();
+            if(effect.getDuration() > 0)
+                items.add(PotionUtils.appendEffects(new ItemStack(this),
+                    Collections.singleton(new PotionEffect(effect))));
+        });
     }
 
     @Optional.Method(modid = "baubles")
@@ -98,8 +123,7 @@ public class ItemCrown extends ItemArmor implements IBauble, IRenderBauble
             Helper.translateToFace();
             Helper.defaultTransforms();
             //translates the crown to a proper position
-            GlStateManager.translate(0.03f, 0.5f, -0.07f);
-
+            GlStateManager.translate(-0.03f, -0.35f, -0.5f);
             //renders the crown (not the helmet, so others know that it's a bauble)
             GlStateManager.pushMatrix();
             Minecraft.getMinecraft().getTextureManager().bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);

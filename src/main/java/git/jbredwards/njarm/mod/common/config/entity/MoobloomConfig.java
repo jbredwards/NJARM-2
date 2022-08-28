@@ -41,7 +41,7 @@ public final class MoobloomConfig implements ISpawnableConfig
     @Nonnull public final String[] flowerData;
     @Nonnull public static final Map<Biome, WeightedSelector<Optional<IBlockState>>> flowerDataMap = new HashMap<>();
     @Nonnull public static Optional<IBlockState> getRandFlower(@Nonnull Biome biome) {
-        final @Nullable  WeightedSelector<Optional<IBlockState>> flowerData = flowerDataMap.get(biome);
+        final @Nullable WeightedSelector<Optional<IBlockState>> flowerData = flowerDataMap.get(biome);
         return flowerData != null ? flowerData.getRandomEntry().getEntry() : Optional.empty();
     }
 

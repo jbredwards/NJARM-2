@@ -23,7 +23,7 @@ public class LayerGlowingEyes implements LayerRenderer<EntityLivingBase>
     @Nonnull protected final RenderLivingBase<?> renderer;
     protected final boolean renderIfInvisible;
 
-    public LayerGlowingEyes(@Nonnull ResourceLocation texture, @Nonnull RenderLivingBase<?> renderer, boolean renderIfInvisible) {
+    public LayerGlowingEyes(@Nonnull RenderLivingBase<?> renderer, boolean renderIfInvisible, @Nonnull ResourceLocation texture) {
         this.texture = texture;
         this.renderer = renderer;
         this.renderIfInvisible = renderIfInvisible;

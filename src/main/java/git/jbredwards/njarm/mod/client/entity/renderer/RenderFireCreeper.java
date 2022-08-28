@@ -20,11 +20,13 @@ import javax.annotation.Nonnull;
 public class RenderFireCreeper extends RenderCreeper
 {
     @Nonnull
-    protected static final ResourceLocation TEXTURE = new ResourceLocation(Constants.MODID, "textures/entity/fire_creeper/creeper.png");
+    protected static final ResourceLocation
+            TEXTURE = new ResourceLocation(Constants.MODID, "textures/entity/fire_creeper/creeper.png"),
+            EYES = new ResourceLocation(Constants.MODID, "textures/entity/fire_creeper/eyes.png");
 
     public RenderFireCreeper(@Nonnull RenderManager renderManagerIn) {
         super(renderManagerIn);
-        addLayer(new LayerGlowingEyes(new ResourceLocation(Constants.MODID, "textures/entity/fire_creeper/eyes.png"), this, true));
+        addLayer(new LayerGlowingEyes(this, true, EYES));
     }
 
     @Nonnull

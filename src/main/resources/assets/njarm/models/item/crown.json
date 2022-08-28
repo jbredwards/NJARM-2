@@ -1,0 +1,13 @@
+{
+    "parent":"item/generated",
+    "textures":{
+        "layer0":"njarm:items/crown",
+        "layer1":"njarm:items/crown_overlay"
+    },
+    "overrides":[
+        {
+            "predicate":{"njarm:broken":1},
+            "model":"njarm:item/crown_broken"
+        }
+    ]
+}

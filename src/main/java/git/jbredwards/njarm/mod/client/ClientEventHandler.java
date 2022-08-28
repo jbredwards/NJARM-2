@@ -60,7 +60,11 @@ public final class ClientEventHandler
     public static void itemColorHandler(@Nonnull ColorHandlerEvent.Item event) {
         //modded items
         event.getItemColors().registerItemColorHandler((stack, tintIndex)
-                -> ColorizerGrass.getGrassColor(0.5, 1), ModItems.MOSS);
+                -> ColorizerGrass.getGrassColor(0.5, 1),
+                ModItems.MOSS);
+        event.getItemColors().registerItemColorHandler((stack, tintIndex)
+                -> (tintIndex == 1 ? ModItems.CROWN.getColor(stack) : -1),
+                ModItems.CROWN);
     }
 
     @Nonnull
