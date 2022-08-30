@@ -36,6 +36,14 @@ public final class ModSounds
     @Nonnull public static final SoundEvent BEACON_ACTIVATE = register("blocks.beacon.activate");
     @Nonnull public static final SoundEvent BEACON_DEACTIVATE = register("blocks.beacon.deactivate");
     @Nonnull public static final SoundEvent BEACON_POWER_SELECT = register("blocks.beacon.power_select");
+    @Nonnull public static final SoundEvent PIGMAN_ADMIRE = register("entity.pigman.admire");
+    @Nonnull public static final SoundEvent PIGMAN_AMBIENT = register("entity.pigman.ambient");
+    @Nonnull public static final SoundEvent PIGMAN_ANGRY = register("entity.pigman.angry");
+    @Nonnull public static final SoundEvent PIGMAN_COVERT = register("entity.pigman.convert");
+    @Nonnull public static final SoundEvent PIGMAN_DEATH = register("entity.pigman.death");
+    @Nonnull public static final SoundEvent PIGMAN_HURT = register("entity.pigman.hurt");
+    @Nonnull public static final SoundEvent PIGMAN_JEALOUS = register("entity.pigman.jealous");
+    @Nonnull public static final SoundEvent PIGMAN_STEP = register("entity.pigman.step");
 
     //music
     @Nonnull public static final SoundEvent MUSIC_WATER = register("music.water_ambient");

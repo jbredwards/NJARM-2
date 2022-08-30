@@ -36,8 +36,7 @@ public final class ConfigHandler
             new FoodCrateConfig(new String[] {"{Type:\"poisonous_potato\",Effects:[{Id:19,Duration:65,Ambient:1b}]}", "{Type:\"golden_apple\",Effects:[{Id:10,Duration:65,Ambient:1b}]}", "{Type:\"golden_carrot\",Effects:[{Id:16,Duration:65,Ambient:1b}]}"}, false),
             new FragileIceConfig(400),
             new MagicOreConfig(true, true, 1, true),
-            new NetherCoreConfig(true, 17, 900, 40, 60, false, new String[] {"minecraft:zombie_pigman"},
-                    "{\"type\":\"block\",\"pools\":[{\"rolls\":10,\"entries\":[{\"type\":\"item\",\"name\":\"quartz\",\"weight\":30},{\"type\":\"item\",\"name\":\"glowstone_dust\",\"weight\":30},{\"type\":\"item\",\"name\":\"cactus\",\"weight\":10},{\"type\":\"item\",\"name\":\"red_mushroom\",\"weight\":12},{\"type\":\"item\",\"name\":\"brown_mushroom\",\"weight\":12},{\"type\":\"item\",\"name\":\"pumpkin_seeds\",\"weight\":10},{\"type\":\"item\",\"name\":\"melon_seeds\",\"weight\":10},{\"type\":\"item\",\"name\":\"bow\",\"weight\":8,\"functions\":[{\"function\":\"set_damage\",\"damage\":{\"min\":0,\"max\":1}}]},{\"type\":\"item\",\"name\":\"bow\",\"weight\":2,\"functions\":[{\"function\":\"set_damage\",\"damage\":{\"min\":0,\"max\":1}},{\"function\":\"enchant_with_levels\",\"treasure\":true,\"levels\":{\"min\":0,\"max\":25}}]}]}]}"),
+            new NetherCoreConfig(true, 17, 900, 40, 60, false, new String[] {"minecraft:zombie_pigman"}),
             new TotemOfUndyingConfig(true, 16, true, true, 16, 0.000625)));
 
     @Config.LangKey("config.njarm.cfg.client")
@@ -166,6 +165,10 @@ public final class ConfigHandler
                     new String[] {"{Weight:72,Empty:true}","{Id:11,Duration:200}","{Id:12,Duration:200}","{Id:10,Duration:200}","{Id:13,Duration:200}","{Id:26,Duration:200}","{Id:3,Duration:200}","{Id:8,Duration:200}","{Id:16,Duration:200}"},
                     new String[] {"{Weight:1,Empty:true}","{Weight:4,id:\"bow\",Count:1}","{Weight:4,id:\"golden_sword\",Count:1}","{Weight:1,id:\"diamond_sword\",Count:1}","{Weight:1,id:\"njarm:ruby_sword\",Count:1}","{Weight:1,id:\"njarm:sapphire_sword\",Count:1}"}
             ),
+            new PigmanConfig(
+                    new String[] {"{Weight:30,Min:3,Max:8,Biomes:[hell]}"}, false,
+                    new String[] {"{id:\"golden_helmet\",Count:1,Damage:32767}","{id:\"golden_chestplate\",Count:1,Damage:32767}","{id:\"golden_leggings\",Count:1,Damage:32767}","{id:\"golden_boots\",Count:1,Damage:32767}","{id:\"njarm:crown\",Count:1,Damage:32767}"},
+                    new String[] {"{id:\"gold_ingot\",Count:1}"}),
             new SoulSkeletonConfig(new String[] {"{Weight:10,Min:1,Max:3,BiomeTags:[nether]}"}))
     );
 

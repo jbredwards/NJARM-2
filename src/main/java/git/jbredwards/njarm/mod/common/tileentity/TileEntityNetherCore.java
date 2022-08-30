@@ -1,5 +1,6 @@
 package git.jbredwards.njarm.mod.common.tileentity;
 
+import git.jbredwards.njarm.mod.Constants;
 import git.jbredwards.njarm.mod.client.particle.util.ParticleUtils;
 import git.jbredwards.njarm.mod.common.block.BlockNetherCore;
 import git.jbredwards.njarm.mod.common.config.block.NetherCoreConfig;
@@ -25,11 +26,15 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.EntitySelectors;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ITickable;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextComponentTranslation;
-import net.minecraftforge.common.util.Constants;
+import net.minecraft.world.WorldServer;
+import net.minecraft.world.storage.loot.LootContext;
+import net.minecraftforge.common.util.Constants.BlockFlags;
+import net.minecraftforge.common.util.Constants.NBT;
 import net.minecraftforge.common.util.FakePlayer;
 
 import javax.annotation.Nonnull;
@@ -83,7 +88,7 @@ public class TileEntityNetherCore extends TileEntityBasic implements ITickable
                     if(time > 80) {
                         //reactor is still running
                         if(time < duration) {
-                            //try summon entity
+                            //try to summon entity
                             if(canMakeWave(NetherCoreConfig.getPigmanCooldown())) {
                                 final Entity entity = NetherCoreConfig.getRandomEntity(world);
 
@@ -111,9 +116,12 @@ public class TileEntityNetherCore extends TileEntityBasic implements ITickable
                                 if(entity instanceof EntityLiving) ((EntityLiving)entity).onInitialSpawn(world.getDifficultyForLocation(pos), null);
                                 world.spawnEntity(entity);
                             }
-                            //try summon items
-                            if(canMakeWave(NetherCoreConfig.getItemCooldown())) {
-                                NetherCoreConfig.getRandomItems(world).forEach(stack -> {
+                            //try to summon items
+                            if(world instanceof WorldServer && canMakeWave(NetherCoreConfig.getItemCooldown())) {
+                                world.getLootTableManager()
+                                        .getLootTableFromLocation(new ResourceLocation(Constants.MODID, "gameplay/nether_reactor"))
+                                        .generateLootForPools(world.rand, new LootContext.Builder((WorldServer)world).build())
+                                        .forEach(stack -> {
                                     final int x = world.rand.nextInt(15) - 7, z;
                                     if(x > 1 || x < -1) z = world.rand.nextInt(15) - 7;
                                     else z = world.rand.nextBoolean() ? world.rand.nextInt(6) + 2 : world.rand.nextInt(6) - 7;
@@ -174,17 +182,17 @@ public class TileEntityNetherCore extends TileEntityBasic implements ITickable
 
     @Override
     public void readNBT(@Nonnull NBTTagCompound dataTag) {
-        if(dataTag.hasKey("Player", Constants.NBT.TAG_STRING)) {
+        if(dataTag.hasKey("Player", NBT.TAG_STRING)) {
             final String id = dataTag.getString("Player");
             if(id.split("-").length == 5) activator = UUID.fromString(id);
         }
 
-        if(dataTag.hasKey("Time", Constants.NBT.TAG_INT)) {
+        if(dataTag.hasKey("Time", NBT.TAG_INT)) {
             time = dataTag.getInteger("Time");
             activated = time > 0;
         }
 
-        if(dataTag.hasKey("Duration", Constants.NBT.TAG_INT))
+        if(dataTag.hasKey("Duration", NBT.TAG_INT))
             duration = Math.max(dataTag.getInteger("Duration"), 100);
     }
 
@@ -373,6 +381,6 @@ public class TileEntityNetherCore extends TileEntityBasic implements ITickable
     protected void setBlock(@Nonnull BlockPos pos, @Nonnull Block block) {
         final IBlockState state = world.getBlockState(pos);
         if(state.getBlockHardness(world, pos) != -1)
-            world.setBlockState(pos, block.getDefaultState(), Constants.BlockFlags.SEND_TO_CLIENTS);
+            world.setBlockState(pos, block.getDefaultState(), BlockFlags.SEND_TO_CLIENTS);
     }
 }

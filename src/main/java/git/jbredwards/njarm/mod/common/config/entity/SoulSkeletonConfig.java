@@ -18,8 +18,7 @@ public final class SoulSkeletonConfig implements ISpawnableConfig
 {
     @Config.RequiresMcRestart
     @Config.LangKey("config.njarm.entity.generic.spawnData")
-    @Nonnull
-    public final String[] spawnData;
+    @Nonnull public final String[] spawnData;
     @Nonnull public String[] spawnData() { return ConfigHandler.entityCfg.soulSkeletonCfg.spawnData; }
     @Nonnull public static final List<Biome> spawnBiomes = new ArrayList<>();
     @Nonnull public List<Biome> allSpawnBiomes() { return spawnBiomes; }

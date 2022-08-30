@@ -32,6 +32,7 @@ public final class EntityRendererHandler
         RenderingRegistry.registerEntityRenderingHandler(EntityMoobloom.class, RenderMoobloom::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityMummy.class, RenderMummy::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityMudPig.class, RenderMudPig::new);
+        RenderingRegistry.registerEntityRenderingHandler(EntityPigman.class, RenderPigman::new);
         RenderingRegistry.registerEntityRenderingHandler(EntitySoulSkeleton.class, RenderSoulSkeleton::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityXPOrb.class, RenderTranslucentXPOrb::new);
 

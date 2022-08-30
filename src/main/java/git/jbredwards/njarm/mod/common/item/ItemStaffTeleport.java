@@ -34,7 +34,7 @@ public class ItemStaffTeleport extends Item
         final ItemStack held = playerIn.getHeldItem(handIn);
         magicStack = ItemStack.EMPTY;
 
-        final boolean skipAmoCount = playerIn.isCreative() || TeleportStaffConfig.amoChance() == 0;
+        final boolean skipAmoCount = playerIn.isCreative() || TeleportStaffConfig.ammoChance() == 0;
         if(skipAmoCount || ChatUtils.getOrError(playerIn, !prepareMagicAmo(playerIn).isEmpty(), "err.njarm.teleportStaff.insufficientAmo")) {
             final double range = TeleportStaffConfig.range();
             final Vec3d eyePos = playerIn.getPositionEyes(1);
@@ -42,7 +42,7 @@ public class ItemStaffTeleport extends Item
                     eyePos.add(playerIn.getLookVec().scale(range)), true, false, false);
 
             if(trace != null && trace.typeOfHit == RayTraceResult.Type.BLOCK) {
-                final double amountToConsume = TeleportStaffConfig.amoChance() * (eyePos.distanceTo(trace.hitVec) / 10);
+                final double amountToConsume = TeleportStaffConfig.ammoChance() * (eyePos.distanceTo(trace.hitVec) / 10);
                 int magicCount = 0;
 
                 if(!skipAmoCount) {

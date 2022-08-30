@@ -1,16 +1,10 @@
 package git.jbredwards.njarm.mod.common.config.block;
 
-import git.jbredwards.njarm.mod.Constants;
 import git.jbredwards.njarm.mod.common.config.ConfigHandler;
 import git.jbredwards.njarm.mod.common.config.IConfig;
 import net.minecraft.entity.Entity;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-import net.minecraft.world.storage.loot.LootContext;
-import net.minecraft.world.storage.loot.LootTable;
-import net.minecraft.world.storage.loot.LootTableManager;
-import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.config.Config;
 import net.minecraftforge.fml.common.registry.EntityEntry;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
@@ -64,25 +58,6 @@ public final class NetherCoreConfig implements IConfig
         return entries[world.rand.nextInt(entries.length)].newInstance(world);
     }
 
-    @Nonnull
-    @Config.LangKey("config.njarm.block.netherCore.items")
-    public final String items;
-
-    @Nullable
-    static LootTable itemLoot;
-
-    @Nonnull
-    @SuppressWarnings("ConstantConditions")
-    public static List<ItemStack> getRandomItems(@Nonnull World world) {
-        if(itemLoot == null) itemLoot = ForgeHooks.loadLootTable(LootTableManager.GSON_INSTANCE,
-                new ResourceLocation(Constants.MODID, "blocks/nether_reactor"),
-                ConfigHandler.blockCfg.netherCoreCfg.items, true, world.getLootTableManager());
-
-        if(itemLoot == null) itemLoot = LootTable.EMPTY_LOOT_TABLE;
-        return itemLoot.generateLootForPools(world.rand,
-                new LootContext(0, null, world.getLootTableManager(), null, null, null));
-    }
-
     @Override
     public void onUpdate() {
         final List<EntityEntry> list = new ArrayList<>();
@@ -92,11 +67,10 @@ public final class NetherCoreConfig implements IConfig
         }
 
         entries = list.toArray(new EntityEntry[0]);
-        itemLoot = null;
     }
 
     //needed for gson
-    public NetherCoreConfig(boolean altReactorBehavior, int range, int duration, int pigmanCooldown, int itemCooldown, boolean dynamicDifficulty, @Nonnull String[] entities, @Nonnull String items) {
+    public NetherCoreConfig(boolean altReactorBehavior, int range, int duration, int pigmanCooldown, int itemCooldown, boolean dynamicDifficulty, @Nonnull String[] entities) {
         this.altReactorBehavior = altReactorBehavior;
         this.range = range;
         this.duration = duration;
@@ -104,6 +78,5 @@ public final class NetherCoreConfig implements IConfig
         this.itemCooldown = itemCooldown;
         this.dynamicDifficulty = dynamicDifficulty;
         this.entities = entities;
-        this.items = items;
     }
 }

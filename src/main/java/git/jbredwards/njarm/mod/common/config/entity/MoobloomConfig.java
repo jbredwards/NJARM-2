@@ -13,10 +13,12 @@ import net.minecraft.nbt.NBTUtil;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.config.Config;
 import net.minecraftforge.common.util.Constants;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import org.apache.commons.lang3.tuple.Pair;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.lang.reflect.Field;
 import java.util.*;
 
 /**
@@ -40,9 +42,29 @@ public final class MoobloomConfig implements ISpawnableConfig
     @Config.LangKey("config.njarm.entity.moobloom.flowerData")
     @Nonnull public final String[] flowerData;
     @Nonnull public static final Map<Biome, WeightedSelector<Optional<IBlockState>>> flowerDataMap = new HashMap<>();
+
+    @Nonnull
+    static final Field FLOWERS_FIELD = ObfuscationReflectionHelper.findField(Biome.class, "flowers");
+    static { FLOWERS_FIELD.setAccessible(true); }
+
+    @SuppressWarnings("unchecked")
     @Nonnull public static Optional<IBlockState> getRandFlower(@Nonnull Biome biome) {
         final @Nullable WeightedSelector<Optional<IBlockState>> flowerData = flowerDataMap.get(biome);
-        return flowerData != null ? flowerData.getRandomEntry().getEntry() : Optional.empty();
+        if(flowerData != null) return flowerData.getRandomEntry().getEntry();
+        //use the biome flowers as a fallback
+        try {
+            final WeightedSelector<Optional<IBlockState>> defaultData = new WeightedSelector<>();
+            ((List<Biome.FlowerEntry>)FLOWERS_FIELD.get(biome)).forEach(entry ->
+                defaultData.addEntry(Optional.of(entry.state), entry.itemWeight));
+
+            flowerDataMap.put(biome, defaultData);
+            return defaultData.getRandomEntry().getEntry();
+        }
+        //should never catch, if it does something went very wrong
+        catch(IllegalAccessException | ClassCastException e) {
+            e.printStackTrace();
+            return Optional.empty();
+        }
     }
 
     @Config.LangKey("config.njarm.entity.moobloom.flowers")
