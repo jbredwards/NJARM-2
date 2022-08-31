@@ -42,6 +42,7 @@ public final class RegistryRemapper
                     case "emerald_ore": mapping.remap(ModBlocks.NETHER_EMERALD_ORE); break;
                     case "sunstone_ore": mapping.remap(Blocks.QUARTZ_ORE); break;
                     case "nether_brick": mapping.remap(ModBlocks.CRACKED_NETHER_BRICK); break;
+                    case "fire_sponge": mapping.remap(ModBlocks.MAGIC_SPONGE); break;
                 }
             }
         });
@@ -85,6 +86,7 @@ public final class RegistryRemapper
                     case "emerald_ore": mapping.remap(ModItems.NETHER_EMERALD_ORE); break;
                     case "sunstone_ore": mapping.remap(Item.getItemFromBlock(Blocks.QUARTZ_ORE)); break;
                     case "nether_brick": mapping.remap(ModItems.CRACKED_NETHER_BRICK); break;
+                    case "fire_sponge": mapping.remap(ModItems.MAGIC_SPONGE); break;
 
                     case "rupee_shard": mapping.remap(ModItems.RUPEE); break;
                     case "heart": mapping.ignore(); break;

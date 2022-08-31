@@ -56,6 +56,7 @@ public final class ModItems
     @Nonnull public static final ItemBlock BLACKSTONE_BRICKS = register("blackstone_bricks", new ItemBlock(ModBlocks.BLACKSTONE_BRICKS));
     @Nonnull public static final ItemBlock BLACKSTONE_CHISELED = register("blackstone_chiseled", new ItemBlock(ModBlocks.BLACKSTONE_CHISELED));
     @Nonnull public static final ItemBlock BLACKSTONE_CRACKED = register("blackstone_cracked", new ItemBlock(ModBlocks.BLACKSTONE_CRACKED));
+    @Nonnull public static final ItemBlock ICE_GRASS = register("ice_grass", new ItemBlock(ModBlocks.ICE_GRASS));
     @Nonnull public static final ItemBlock ICE_MUSHROOM = register("ice_mushroom", new ItemBlock(ModBlocks.ICE_MUSHROOM));
     @Nonnull public static final ItemBlock MOSS = register("moss", new ItemBlock(ModBlocks.MOSS));
     @Nonnull public static final ItemBlock OBSIDIAN_BLOCK = register("obsidian_block", new ItemBlock(ModBlocks.OBSIDIAN_BLOCK));
@@ -86,6 +87,7 @@ public final class ModItems
     @Nonnull public static final ItemBlock COMPRESSED_RED_SANDSTONE = register("compressed_red_sandstone", new ItemBlock(ModBlocks.COMPRESSED_RED_SANDSTONE));
     @Nonnull public static final ItemBlock CRACKED_COMPRESSED_RED_SANDSTONE = register("cracked_compressed_red_sandstone", new ItemBlock(ModBlocks.CRACKED_COMPRESSED_RED_SANDSTONE));
     @Nonnull public static final ItemBlock COMPRESSED_QUARTZ_BLOCK = register("compressed_quartz_block", new ItemBlock(ModBlocks.COMPRESSED_QUARTZ_BLOCK));
+    @Nonnull public static final ItemBlock MAGIC_SPONGE = register("magic_sponge", new ItemBlock(ModBlocks.MAGIC_SPONGE));
 
     //items
     @Nonnull public static final Item RUBY = register("ruby", new Item());
@@ -223,6 +225,7 @@ public final class ModItems
         OreDictionary.registerOre("dustMagicNJARM", MAGIC_DUST);
         OreDictionary.registerOre("dustMica", MICA_DUST);
         OreDictionary.registerOre("egg", RAW_EGG);
+        OreDictionary.registerOre("enderStar", ENDER_STAR);
         OreDictionary.registerOre("gemRuby", RUBY);
         OreDictionary.registerOre("gemSapphire", SAPPHIRE);
         OreDictionary.registerOre("gemSunstone", CHARGED_SUNSTONE);

@@ -10,6 +10,7 @@ import net.minecraft.block.*;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialLiquid;
+import net.minecraft.block.state.IBlockProperties;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -60,6 +61,7 @@ public final class ModBlocks
     @Nonnull public static final Block BLACKSTONE_BRICKS = register("blackstone_bricks", new Block(Material.ROCK, MapColor.BLACK), Blocks.STONEBRICK);
     @Nonnull public static final Block BLACKSTONE_CHISELED = register("blackstone_chiseled", new Block(Material.ROCK, MapColor.BLACK), Blocks.STONEBRICK);
     @Nonnull public static final Block BLACKSTONE_CRACKED = register("blackstone_cracked", new Block(Material.ROCK, MapColor.BLACK), Blocks.STONEBRICK);
+    @Nonnull public static final BlockIceGrass ICE_GRASS = register("ice_grass", new BlockIceGrass(), block -> { block.setSoundType(SoundType.GLASS).setTickRandomly(true); block.canSustainBush = IBlockProperties::isFullBlock; });
     @Nonnull public static final BlockIceMushroom ICE_MUSHROOM = register("ice_mushroom", new BlockIceMushroom(), block -> block.setSoundType(SoundType.GLASS));
     @Nonnull public static final BlockMoss MOSS = register("moss", new BlockMoss(Material.LEAVES), Blocks.LEAVES);
     @Nonnull public static final BlockObsidian OBSIDIAN_BLOCK = register("obsidian_block", new BlockObsidian(Material.IRON, MapColor.OBSIDIAN), Blocks.OBSIDIAN, block -> block.setSoundType(SoundType.METAL));
@@ -90,6 +92,7 @@ public final class ModBlocks
     @Nonnull public static final Block COMPRESSED_RED_SANDSTONE = register("compressed_red_sandstone", new Block(Material.ROCK, MapColor.ADOBE), Blocks.SANDSTONE);
     @Nonnull public static final Block CRACKED_COMPRESSED_RED_SANDSTONE = register("cracked_compressed_red_sandstone", new Block(Material.ROCK, MapColor.ADOBE), Blocks.SANDSTONE);
     @Nonnull public static final Block COMPRESSED_QUARTZ_BLOCK = register("compressed_quartz_block", new Block(Material.ROCK, MapColor.QUARTZ), Blocks.QUARTZ_BLOCK);
+    @Nonnull public static final BlockMagicSponge MAGIC_SPONGE = register("magic_sponge", new BlockMagicSponge(Material.SPONGE), Blocks.SPONGE);
 
     @Nonnull public static final BlockBlueFire BLUE_FIRE = register("blue_fire", new BlockBlueFire(), Blocks.FIRE);
     @Nonnull public static final BlockBubbleColumn BUBBLE_COLUMN = register("bubble_column", new BlockBubbleColumn(BUBBLE_COLUMN_MATERIAL), Blocks.WATER);
