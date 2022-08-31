@@ -84,6 +84,12 @@ public final class ModBlocks
     @Nonnull public static final BlockTreeLog ENDER_LOG = register("ender_log", new BlockTreeLog(MapColor.PURPLE), Blocks.LOG);
     @Nonnull public static final BlockTreeLeaves ENDER_LEAVES = register("ender_leaves", new BlockTreeLeaves(MapColor.MAGENTA), Blocks.LEAVES, BlockTreeLeaves::disableFancyLeaves);
     @Nonnull public static final BlockSmallGrass ENDER_GRASS = register("ender_grass", new BlockSmallGrass(Material.VINE, MapColor.SAND), Blocks.TALLGRASS, block -> block.canSustainBush = state -> state.getBlock() == Blocks.END_STONE);
+    @Nonnull public static final Block COMPRESSED_STONE = register("compressed_stone", new Block(Material.ROCK, MapColor.SILVER), Blocks.STONE);
+    @Nonnull public static final Block COMPRESSED_SANDSTONE = register("compressed_sandstone", new Block(Material.ROCK, MapColor.SAND), Blocks.SANDSTONE);
+    @Nonnull public static final Block CRACKED_COMPRESSED_SANDSTONE = register("cracked_compressed_sandstone", new Block(Material.ROCK, MapColor.SAND), Blocks.SANDSTONE);
+    @Nonnull public static final Block COMPRESSED_RED_SANDSTONE = register("compressed_red_sandstone", new Block(Material.ROCK, MapColor.ADOBE), Blocks.SANDSTONE);
+    @Nonnull public static final Block CRACKED_COMPRESSED_RED_SANDSTONE = register("cracked_compressed_red_sandstone", new Block(Material.ROCK, MapColor.ADOBE), Blocks.SANDSTONE);
+    @Nonnull public static final Block COMPRESSED_QUARTZ_BLOCK = register("compressed_quartz_block", new Block(Material.ROCK, MapColor.QUARTZ), Blocks.QUARTZ_BLOCK);
 
     @Nonnull public static final BlockBlueFire BLUE_FIRE = register("blue_fire", new BlockBlueFire(), Blocks.FIRE);
     @Nonnull public static final BlockBubbleColumn BUBBLE_COLUMN = register("bubble_column", new BlockBubbleColumn(BUBBLE_COLUMN_MATERIAL), Blocks.WATER);

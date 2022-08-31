@@ -49,14 +49,14 @@ public final class ModRecipes
         registerCrafting(registry, shapeless(9, Items.BEETROOT_SEEDS, new ItemStack(ModItems.FOOD_CRATE, 1, 5)));
         registerCrafting(registry, shapeless(1, ModItems.CARAMEL_APPLE, Items.APPLE, Items.SUGAR, Items.STICK));
         registerCrafting(registry, shapeless(9, Items.CARROT, new ItemStack(ModItems.FOOD_CRATE, 1, 1)));
-        registerCrafting(registry, shapeless(9, Items.GOLDEN_APPLE, new ItemStack(ModItems.FOOD_CRATE, 1, 7)));
-        registerCrafting(registry, shapeless(9, Items.GOLDEN_CARROT, new ItemStack(ModItems.FOOD_CRATE, 1, 8)));
         registerCrafting(registry, shapeless(4, ModItems.ENDER_PLANKS, ModItems.ENDER_LOG));
         registerCrafting(registry, shapeless(9, 0, Items.FISH, new ItemStack(ModItems.FOOD_CRATE, 1, 9)));
         registerCrafting(registry, shapeless(9, 1, Items.FISH, new ItemStack(ModItems.FOOD_CRATE, 1, 10)));
         registerCrafting(registry, shapeless(9, 2, Items.FISH, new ItemStack(ModItems.FOOD_CRATE, 1, 11)));
         registerCrafting(registry, shapeless(9, 3, Items.FISH, new ItemStack(ModItems.FOOD_CRATE, 1, 12)));
         registerCrafting(registry, shapeless(16, ModItems.FRAGILE_ICE, Blocks.ICE));
+        registerCrafting(registry, shapeless(9, Items.GOLDEN_APPLE, new ItemStack(ModItems.FOOD_CRATE, 1, 7)));
+        registerCrafting(registry, shapeless(9, Items.GOLDEN_CARROT, new ItemStack(ModItems.FOOD_CRATE, 1, 8)));
         registerCrafting(registry, shapeless(2, ModItems.MAGIC_DUST, ModItems.BLESTEM_ROD));
         registerCrafting(registry, shapeless(1, ModItems.MAGIC_INGOT, "dustMagicNJARM", "dustMica", "dustMagicNJARM", "dustMica", "ingotObsidianAlloy", "dustMica", "dustMagicNJARM", "dustMica", "dustMagicNJARM"));
         registerCrafting(registry, shapeless(9, ModItems.MAGIC_INGOT, ModItems.MAGIC_BLOCK));
@@ -72,11 +72,17 @@ public final class ModRecipes
         registerCrafting(registry, shapeless(9, ModItems.PLATINUM_NUGGET, ModItems.PLATINUM_INGOT));
         registerCrafting(registry, shapeless(9, Items.POISONOUS_POTATO, new ItemStack(ModItems.FOOD_CRATE, 1, 3)));
         registerCrafting(registry, shapeless(9, Items.POTATO, new ItemStack(ModItems.FOOD_CRATE, 1, 2)));
+        registerCrafting(registry, shapeless(9, Blocks.QUARTZ_BLOCK, ModItems.COMPRESSED_QUARTZ_BLOCK));
         registerCrafting(registry, shapeless(1, ModItems.RAW_EGG, Items.EGG));
+        registerCrafting(registry, shapeless(9, Blocks.RED_SANDSTONE, ModItems.COMPRESSED_RED_SANDSTONE));
+        registerCrafting(registry, shapeless(9, Blocks.RED_SANDSTONE, ModItems.CRACKED_COMPRESSED_RED_SANDSTONE));
         registerCrafting(registry, shapeless(9, ModItems.RUBY, ModItems.RUBY_BLOCK));
+        registerCrafting(registry, shapeless(9, Blocks.SANDSTONE, ModItems.COMPRESSED_SANDSTONE));
+        registerCrafting(registry, shapeless(9, Blocks.SANDSTONE, ModItems.CRACKED_COMPRESSED_SANDSTONE));
         registerCrafting(registry, shapeless(9, ModItems.SAPPHIRE, ModItems.SAPPHIRE_BLOCK));
         registerCrafting(registry, shapeless(4, Items.SNOWBALL, Blocks.SNOW));
         registerCrafting(registry, shapeless(2, Items.SNOWBALL, Blocks.SNOW_LAYER));
+        registerCrafting(registry, shapeless(9, Blocks.STONE, ModItems.COMPRESSED_STONE));
         registerCrafting(registry, shapeless(1, ModItems.SUGAR_BAGUETTE, ModItems.BAGUETTE, Items.SUGAR));
         registerCrafting(registry, shapeless(1, ModItems.SUGAR_BAGUETTE, ModItems.SUGAR_BREAD, ModItems.SUGAR_BREAD));
         registerCrafting(registry, shapeless(1, ModItems.SUGAR_BREAD, Items.BREAD, Items.SUGAR));
@@ -96,6 +102,10 @@ public final class ModRecipes
         registerCrafting(registry, shaped(1, Items.CHAINMAIL_BOOTS, "# #", "# #", '#', ModItems.FIRE));
         registerCrafting(registry, shaped(1, Items.CHAINMAIL_HELMET, "###", "# #", '#', ModItems.FIRE));
         registerCrafting(registry, shaped(1, Items.CHAINMAIL_LEGGINGS, "###", "# #", "# #", '#', ModItems.FIRE));
+        registerCrafting(registry, shaped(1, ModItems.COMPRESSED_QUARTZ_BLOCK, "###", "###", "###", '#', "blockQuartz"));
+        registerCrafting(registry, shaped(1, ModItems.COMPRESSED_RED_SANDSTONE, "###", "###", "###", '#', Blocks.RED_SANDSTONE));
+        registerCrafting(registry, shaped(1, ModItems.COMPRESSED_SANDSTONE, "###", "###", "###", '#', Blocks.SANDSTONE));
+        registerCrafting(registry, shaped(1, ModItems.COMPRESSED_STONE, "###", "###", "###", '#', new ItemStack(Blocks.STONE, 1, 0)));
         registerCrafting(registry, shaped(1, ModItems.DIMENSIONAL_MAGIC_MIRROR, "DID", "IMI", "DID", 'D', "dustMagicNJARM", 'I', "ingotMagicalAlloy", 'M', ModItems.MAGIC_MIRROR));
         registerCrafting(registry, shaped(1, ModItems.DIMENSIONAL_MAGIC_MIRROR, "IDI", "DMD", "IDI", 'D', "dustMagicNJARM", 'I', "ingotMagicalAlloy", 'M', ModItems.MAGIC_MIRROR));
         registerCrafting(registry, shaped(1, Items.EMERALD, "###", "###", "###", '#', ModItems.RUPEE));
@@ -188,6 +198,7 @@ public final class ModRecipes
         registerCrafting(registry, new CactusArmorRecipe(new ResourceLocation(Constants.MODID, Constants.NAME), ModItems.CACTUS_LEGGINGS, "###", "# #", "# #", '#', "blockCactus"));
         //edit vanilla recipes
         removeCrafting(registry, "end_rod", shaped(4, Blocks.END_ROD, "R", "C", 'R', ModItems.BLESTEM_ROD, 'C', Items.CHORUS_FRUIT_POPPED));
+        removeCrafting(registry, "stone_slab", shaped(6, Blocks.STONE_SLAB, "###", '#', ModItems.COMPRESSED_STONE));
         Constants.LOGGER.info("^^^ These are intended overrides, done to either change the recipes, or to set their priorities further back");
     }
 
@@ -208,10 +219,12 @@ public final class ModRecipes
         GameRegistry.addSmelting(ModItems.BLACKSTONE_BRICKS, new ItemStack(ModItems.BLACKSTONE_CRACKED), 0.1f);
         GameRegistry.addSmelting(ModItems.BONE_ORE, new ItemStack(Items.BONE), 0.1f);
         GameRegistry.addSmelting(Items.EGG, new ItemStack(ModItems.COOKED_EGG), 0.1f);
+        GameRegistry.addSmelting(ModItems.COMPRESSED_RED_SANDSTONE, new ItemStack(ModItems.CRACKED_COMPRESSED_RED_SANDSTONE), 0.1f);
+        GameRegistry.addSmelting(ModItems.COMPRESSED_SANDSTONE, new ItemStack(ModItems.CRACKED_COMPRESSED_SANDSTONE), 0.1f);
         GameRegistry.addSmelting(Blocks.NETHER_BRICK, new ItemStack(ModItems.CRACKED_NETHER_BRICK), 0.1f);
         GameRegistry.addSmelting(ModItems.NETHER_DIAMOND_ORE, new ItemStack(Items.DIAMOND), 1);
-        GameRegistry.addSmelting(ModItems.NETHER_EMERALD_ORE, new ItemStack(Items.EMERALD), 1);
         GameRegistry.addSmelting(ModItems.END_LAPIS_ORE, new ItemStack(Items.DYE, 1, 4), 0.2f);
+        GameRegistry.addSmelting(ModItems.NETHER_EMERALD_ORE, new ItemStack(Items.EMERALD), 1);
         GameRegistry.addSmelting(ModItems.RAW_EGG, new ItemStack(ModItems.FRIED_EGG), 0.1f);
         GameRegistry.addSmelting(ModItems.GRAVEL_GOLD_ORE, new ItemStack(Items.GOLD_INGOT), 1);
         GameRegistry.addSmelting(ModItems.NETHER_GOLD_ORE, new ItemStack(Items.GOLD_INGOT), 1);

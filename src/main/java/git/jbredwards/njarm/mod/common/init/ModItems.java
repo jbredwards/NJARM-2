@@ -80,6 +80,12 @@ public final class ModItems
     @Nonnull public static final ItemBlock ENDER_LOG = register("ender_log", new ItemBlock(ModBlocks.ENDER_LOG));
     @Nonnull public static final ItemBlock ENDER_LEAVES = register("ender_leaves", new ItemBlock(ModBlocks.ENDER_LEAVES));
     @Nonnull public static final ItemBlock ENDER_GRASS = register("ender_grass", new ItemBlock(ModBlocks.ENDER_GRASS));
+    @Nonnull public static final ItemBlock COMPRESSED_STONE = register("compressed_stone", new ItemBlock(ModBlocks.COMPRESSED_STONE));
+    @Nonnull public static final ItemBlock COMPRESSED_SANDSTONE = register("compressed_sandstone", new ItemBlock(ModBlocks.COMPRESSED_SANDSTONE));
+    @Nonnull public static final ItemBlock CRACKED_COMPRESSED_SANDSTONE = register("cracked_compressed_sandstone", new ItemBlock(ModBlocks.CRACKED_COMPRESSED_SANDSTONE));
+    @Nonnull public static final ItemBlock COMPRESSED_RED_SANDSTONE = register("compressed_red_sandstone", new ItemBlock(ModBlocks.COMPRESSED_RED_SANDSTONE));
+    @Nonnull public static final ItemBlock CRACKED_COMPRESSED_RED_SANDSTONE = register("cracked_compressed_red_sandstone", new ItemBlock(ModBlocks.CRACKED_COMPRESSED_RED_SANDSTONE));
+    @Nonnull public static final ItemBlock COMPRESSED_QUARTZ_BLOCK = register("compressed_quartz_block", new ItemBlock(ModBlocks.COMPRESSED_QUARTZ_BLOCK));
 
     //items
     @Nonnull public static final Item RUBY = register("ruby", new Item());
