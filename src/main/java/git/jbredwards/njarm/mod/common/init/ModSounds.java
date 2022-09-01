@@ -44,6 +44,9 @@ public final class ModSounds
     @Nonnull public static final SoundEvent PIGMAN_HURT = register("entity.pigman.hurt");
     @Nonnull public static final SoundEvent PIGMAN_JEALOUS = register("entity.pigman.jealous");
     @Nonnull public static final SoundEvent PIGMAN_STEP = register("entity.pigman.step");
+    @Nonnull public static final SoundEvent GLOW_SQUID_AMBIENT = register("entity.glow_squid.ambient");
+    @Nonnull public static final SoundEvent GLOW_SQUID_DEATH = register("entity.glow_squid.death");
+    @Nonnull public static final SoundEvent GLOW_SQUID_HURT = register("entity.glow_squid.hurt");
 
     //music
     @Nonnull public static final SoundEvent MUSIC_WATER = register("music.water_ambient");

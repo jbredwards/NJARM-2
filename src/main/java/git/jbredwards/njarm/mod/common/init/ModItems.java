@@ -171,6 +171,7 @@ public final class ModItems
     @Nonnull public static final ItemCactusArmor CACTUS_CHESTPLATE = register("cactus_chestplate", new ItemCactusArmor(EquipmentConfig.CACTUS_ARMOR_MATERIAL, 1, EntityEquipmentSlot.CHEST));
     @Nonnull public static final ItemCactusArmor CACTUS_LEGGINGS = register("cactus_leggings", new ItemCactusArmor(EquipmentConfig.CACTUS_ARMOR_MATERIAL, 2, EntityEquipmentSlot.LEGS));
     @Nonnull public static final ItemCactusArmor CACTUS_BOOTS = register("cactus_boots", new ItemCactusArmor(EquipmentConfig.CACTUS_ARMOR_MATERIAL, 1, EntityEquipmentSlot.FEET));
+    @Nonnull public static final ItemShulkerArmor SHULKER_BOOTS = register("shulker_boots", new ItemShulkerArmor(EquipmentConfig.SHULKER_ARMOR_MATERIAL, 1, EntityEquipmentSlot.FEET));
 
     //tools
     @Nonnull public static final ItemSword RUBY_SWORD = register("ruby_sword", new ItemSword(EquipmentConfig.RUBY_TOOL_MATERIAL), item -> EquipmentConfig.RUBY_TOOL_MATERIAL.setRepairItem(new ItemStack(RUBY)));

@@ -75,6 +75,10 @@ public final class ModEntities
     public static final EntityEntry DUMMY = register("dummy", builder(EntityDummy.class, 80, 3, true));
 
     @Nonnull
+    public static final EntityEntry GLOW_SQUID = register("glow_squid", builder(EntityGlowSquid.class, 80, 3, true,
+            ConfigHandler.entityCfg.glowSquidCfg, EnumCreatureType.WATER_CREATURE).egg(3515039, 11730125));
+
+    @Nonnull
     public static final EntityEntry SOUL_SKELETON = register("soul_skeleton", builder(EntitySoulSkeleton.class, 80, 3, true,
             ConfigHandler.entityCfg.soulSkeletonCfg, EnumCreatureType.MONSTER).egg(3679771, 4243391));
 

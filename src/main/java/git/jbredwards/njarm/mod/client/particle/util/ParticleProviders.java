@@ -1,10 +1,7 @@
 package git.jbredwards.njarm.mod.client.particle.util;
 
 import git.jbredwards.njarm.mod.Main;
-import git.jbredwards.njarm.mod.client.particle.ParticleBlueFlame;
-import git.jbredwards.njarm.mod.client.particle.ParticleLayeredBlockDust;
-import git.jbredwards.njarm.mod.client.particle.ParticleLayeredDigging;
-import git.jbredwards.njarm.mod.client.particle.ParticleLitRedstone;
+import git.jbredwards.njarm.mod.client.particle.*;
 import git.jbredwards.njarm.mod.common.message.MessageParticle;
 import net.minecraft.block.Block;
 import net.minecraft.client.particle.Particle;
@@ -29,6 +26,14 @@ public enum ParticleProviders implements IParticleProvider
         @Override
         public Particle getParticle(@Nonnull World world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, int... args) {
             return new ParticleBlueFlame(world, x, y, z, xSpeed, ySpeed, zSpeed);
+        }
+    }),
+    GLOW_SQUID_AURA(new IParticleProvider() {
+        @Nonnull
+        @SideOnly(Side.CLIENT)
+        @Override
+        public Particle getParticle(@Nonnull World world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, int... args) {
+            return new ParticleGlowSquidAura(world, x, y, z, xSpeed, ySpeed, zSpeed);
         }
     }),
     LIT_REDSTONE(new IParticleProvider() {

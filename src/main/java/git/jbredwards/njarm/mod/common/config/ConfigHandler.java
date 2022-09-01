@@ -110,9 +110,10 @@ public final class ConfigHandler
     @Config.LangKey("config.njarm.cfg.entity")
     @Nonnull public static final EntityConfig entityCfg = register(new EntityConfig(
             new BlestemConfig(new String[] {"{Weight:10,Min:1,Max:3,BiomeTags:[end]}"}),
-            new ChocolateCowConfig(new String[] {}),
+            new ChocolateCowConfig(new String[0]),
             new FireCreeperConfig(new String[] {"{Weight:20,Min:1,Max:3,BiomeTags:[nether]}"}),
             new FireSkeletonConfig(new String[] {"{Weight:20,Min:1,Max:3,BiomeTags:[nether]}"}),
+            new GlowSquidConfig(new String[0], new String[] {"{BiomeTags:[swamp]}"}),
             new HighlandCooConfig(
                     new String[] {"{Weight:10,Min:1,Max:5,BiomeTags:[plains],ExcludeBiomes:{BiomeTags:[hot]}}"}, true,
                     new String[] {"{Color:0,BiomeTags:[cold]}"}),
@@ -187,6 +188,7 @@ public final class ConfigHandler
                     "{Durability:37,ArmorValues:[3,6,8,3],Enchantability:10,Toughness:4f}", true, //obsidian
                     "{Durability:-1,ArmorValues:[3,6,8,3],Enchantability:25,Toughness:4f}", //bedrock
                     "{Durability:7,ArmorValues:[1,1,1,1],Enchantability:10,Toughness:0f}", //feather
+                    "{Durability:15,ArmorValues:[1,1,1,1],Enchantability:10,Toughness:0f}", //shulker
                     "{Durability:15,ArmorValues:[1,2,3,1],Enchantability:5,Toughness:0f}", 1, //cactus
                     "{Durability:7,ArmorValues:[0,0,0,0],Enchantability:10,Toughness:0f}", 40, //crown
                     "{HarvestLevel:4,Durability:3122,MiningSpeed:8f,AttackDamage:3f,Enchantability:10}", //ruby

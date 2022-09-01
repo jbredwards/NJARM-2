@@ -29,6 +29,7 @@ public final class EntityRendererHandler
         RenderingRegistry.registerEntityRenderingHandler(EntityFallingBlock.class, RenderMultiLayerFallingBlock::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityFireCreeper.class, RenderFireCreeper::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityFireSkeleton.class, RenderFireSkeleton::new);
+        RenderingRegistry.registerEntityRenderingHandler(EntityGlowSquid.class, RenderGlowSquid::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityHighlandCoo.class, RenderHighlandCoo::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityMoobloom.class, RenderMoobloom::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityMummy.class, RenderMummy::new);

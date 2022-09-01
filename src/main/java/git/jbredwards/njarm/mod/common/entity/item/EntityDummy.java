@@ -97,7 +97,7 @@ public class EntityDummy extends EntityArmorStand
                 else if(!world.isRemote) SoundUtils.playSound(this, SoundEvents.ENTITY_ARMORSTAND_BREAK, 1, 1);
 
                 if(world instanceof WorldServer) {
-                    ((WorldServer)world).spawnParticle(EnumParticleTypes.BLOCK_DUST, posX, posY + height / 1.5, posZ, 20,
+                    ((WorldServer)world).spawnParticle(EnumParticleTypes.BLOCK_DUST, posX, posY + height / 1.5, posZ, 40,
                             width / 4, height / 4, width / 4, 0.05, Block.getStateId(Blocks.HAY_BLOCK.getDefaultState()));
                 }
 

@@ -963,80 +963,110 @@
    "entity.pigman.admire":{
       "category":"entity",
       "sounds":[
-         "njarm:entities/pigman/admire1",
-         "njarm:entities/pigman/admire2"
+         "njarm:entity/pigman/admire1",
+         "njarm:entity/pigman/admire2"
       ],
       "subtitle":"subtitles.njarm.entity.pigman.admire"
    },
    "entity.pigman.ambient":{
       "category":"entity",
       "sounds":[
-         "njarm:entities/pigman/ambient1",
-         "njarm:entities/pigman/ambient2",
-         "njarm:entities/pigman/ambient3",
-         "njarm:entities/pigman/ambient4",
-         "njarm:entities/pigman/ambient5"
+         "njarm:entity/pigman/ambient1",
+         "njarm:entity/pigman/ambient2",
+         "njarm:entity/pigman/ambient3",
+         "njarm:entity/pigman/ambient4",
+         "njarm:entity/pigman/ambient5"
       ],
       "subtitle":"subtitles.njarm.entity.pigman.ambient"
    },
    "entity.pigman.angry":{
       "category":"entity",
       "sounds":[
-         "njarm:entities/pigman/angry1",
-         "njarm:entities/pigman/angry2",
-         "njarm:entities/pigman/angry3",
-         "njarm:entities/pigman/angry4"
+         "njarm:entity/pigman/angry1",
+         "njarm:entity/pigman/angry2",
+         "njarm:entity/pigman/angry3",
+         "njarm:entity/pigman/angry4"
       ],
       "subtitle":"subtitles.njarm.entity.pigman.angry"
    },
    "entity.pigman.convert":{
       "category":"entity",
       "sounds":[
-         "njarm:entities/pigman/convert1",
-         "njarm:entities/pigman/convert2"
+         "njarm:entity/pigman/convert1",
+         "njarm:entity/pigman/convert2"
       ],
       "subtitle":"subtitles.njarm.entity.pigman.convert"
    },
    "entity.pigman.death":{
       "category":"entity",
       "sounds":[
-         "njarm:entities/pigman/death1",
-         "njarm:entities/pigman/death2",
-         "njarm:entities/pigman/death3",
-         "njarm:entities/pigman/death4"
+         "njarm:entity/pigman/death1",
+         "njarm:entity/pigman/death2",
+         "njarm:entity/pigman/death3",
+         "njarm:entity/pigman/death4"
       ],
       "subtitle":"subtitles.njarm.entity.pigman.death"
    },
    "entity.pigman.hurt":{
       "category":"entity",
       "sounds":[
-         "njarm:entities/pigman/hurt1",
-         "njarm:entities/pigman/hurt2",
-         "njarm:entities/pigman/hurt3"
+         "njarm:entity/pigman/hurt1",
+         "njarm:entity/pigman/hurt2",
+         "njarm:entity/pigman/hurt3"
       ],
       "subtitle":"subtitles.njarm.entity.pigman.hurt"
    },
    "entity.pigman.jealous":{
       "category":"entity",
       "sounds":[
-         "njarm:entities/pigman/jealous1",
-         "njarm:entities/pigman/jealous2",
-         "njarm:entities/pigman/jealous3",
-         "njarm:entities/pigman/jealous4",
-         "njarm:entities/pigman/jealous5"
+         "njarm:entity/pigman/jealous1",
+         "njarm:entity/pigman/jealous2",
+         "njarm:entity/pigman/jealous3",
+         "njarm:entity/pigman/jealous4",
+         "njarm:entity/pigman/jealous5"
       ],
       "subtitle":"subtitles.njarm.entity.pigman.jealous"
    },
    "entity.pigman.step":{
       "category":"entity",
       "sounds":[
-         "njarm:entities/pigman/step1",
-         "njarm:entities/pigman/step2",
-         "njarm:entities/pigman/step3",
-         "njarm:entities/pigman/step4",
-         "njarm:entities/pigman/step5"
+         "njarm:entity/pigman/step1",
+         "njarm:entity/pigman/step2",
+         "njarm:entity/pigman/step3",
+         "njarm:entity/pigman/step4",
+         "njarm:entity/pigman/step5"
       ],
       "subtitle":"subtitles.njarm.entity.pigman.step"
+   },
+   "entity.glow_squid.ambient":{
+      "category":"entity",
+      "sounds":[
+         "njarm:entity/glow_squid/ambient1",
+         "njarm:entity/glow_squid/ambient2",
+         "njarm:entity/glow_squid/ambient3",
+         "njarm:entity/glow_squid/ambient4",
+         "njarm:entity/glow_squid/ambient5"
+      ],
+      "subtitle":"subtitles.njarm.entity.glow_squid.ambient"
+   },
+   "entity.glow_squid.death":{
+      "category":"entity",
+      "sounds":[
+         "njarm:entity/glow_squid/death1",
+         "njarm:entity/glow_squid/death2",
+         "njarm:entity/glow_squid/death3"
+      ],
+      "subtitle":"subtitles.njarm.entity.glow_squid.death"
+   },
+   "entity.glow_squid.hurt":{
+      "category":"entity",
+      "sounds":[
+         "njarm:entity/glow_squid/hurt1",
+         "njarm:entity/glow_squid/hurt2",
+         "njarm:entity/glow_squid/hurt3",
+         "njarm:entity/glow_squid/hurt4"
+      ],
+      "subtitle":"subtitles.njarm.entity.glow_squid.hurt"
    },
    "music.water_ambient":{
       "category":"music",

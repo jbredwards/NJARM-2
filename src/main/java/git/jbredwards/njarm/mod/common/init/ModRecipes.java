@@ -108,8 +108,9 @@ public final class ModRecipes
         registerCrafting(registry, shaped(1, ModItems.COMPRESSED_STONE, "###", "###", "###", '#', new ItemStack(Blocks.STONE, 1, 0)));
         registerCrafting(registry, shaped(1, ModItems.DIMENSIONAL_MAGIC_MIRROR, "DID", "IMI", "DID", 'D', "dustMagicNJARM", 'I', "ingotMagicalAlloy", 'M', ModItems.MAGIC_MIRROR));
         registerCrafting(registry, shaped(1, ModItems.DIMENSIONAL_MAGIC_MIRROR, "IDI", "DMD", "IDI", 'D', "dustMagicNJARM", 'I', "ingotMagicalAlloy", 'M', ModItems.MAGIC_MIRROR));
-        registerCrafting(registry, shaped(1, ModItems.DUMMY, "WBW", "WCW", "WLW", 'W', "cropWheat", 'B', Blocks.HAY_BLOCK, 'C', Items.LEATHER_CHESTPLATE, 'L', Items.LEATHER_LEGGINGS));
+        registerCrafting(registry, shaped(1, ModItems.DUMMY, "B", "C", "A", 'B', Blocks.HAY_BLOCK, 'C', Items.LEATHER_CHESTPLATE, 'A', Items.ARMOR_STAND));
         registerCrafting(registry, shaped(1, Items.EMERALD, "###", "###", "###", '#', ModItems.RUPEE));
+        registerCrafting(registry, shaped(1, ModItems.FEATHER_BOOTS, "# #", "# #", '#', "feather"));
         registerCrafting(registry, shaped(1, 0, ModItems.FOOD_CRATE, "###", "###", "###", '#', Items.WHEAT_SEEDS));
         registerCrafting(registry, shaped(1, 1, ModItems.FOOD_CRATE, "###", "###", "###", '#', Items.CARROT));
         registerCrafting(registry, shaped(1, 2, ModItems.FOOD_CRATE, "###", "###", "###", '#', Items.POTATO));
@@ -187,6 +188,7 @@ public final class ModRecipes
         registerCrafting(registry, shaped(1, ModItems.SAPPHIRE_PICKAXE, "###", " S ", " S ", '#', "gemSapphire", 'S', "stickWood"));
         registerCrafting(registry, shaped(1, ModItems.SAPPHIRE_SHOVEL, "#", "S", "S", '#', "gemSapphire", 'S', "stickWood"));
         registerCrafting(registry, shaped(1, ModItems.SAPPHIRE_SWORD, "#", "#", "S", '#', "gemSapphire", 'S', "stickWood"));
+        registerCrafting(registry, shaped(1, ModItems.SHULKER_BOOTS, "S S", "SES", 'S', "shulkerShell", 'E', "enderStar"));
         registerCrafting(registry, shaped(1, Blocks.SNOW_LAYER, "##", '#', Items.SNOWBALL));
         registerCrafting(registry, shaped(1, Blocks.SOUL_SAND, "##", "##", '#', ModItems.ASH_PILE));
         registerCrafting(registry, shaped(1, ModItems.WOOD_BOOTS, "# #", "# #", '#', "plankWood"));
