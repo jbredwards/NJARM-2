@@ -14,6 +14,7 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Rotations;
 import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
@@ -39,9 +40,10 @@ public class ItemDummy extends Item
                 if(isReplaceable && worldIn.getEntitiesWithinAABBExcludingEntity(null, new AxisAlignedBB(placeAt, placeAt.add(1, 2, 1))).isEmpty()) {
                     if(!worldIn.isRemote) {
                         final EntityDummy dummy = new EntityDummy(worldIn);
+                        dummy.setLeftArmRotation(new Rotations(0, 0, 0));
+                        dummy.setRightArmRotation(new Rotations(0, 0, 0));
                         dummy.setLocationAndAngles(placeAt.getX() + 0.5, placeAt.getY(), placeAt.getZ() + 0.5,
-                                MathHelper.floor((MathHelper.wrapDegrees(player.rotationYaw - 180) + 22.5) / 45) * 45,
-                                45 * (float)Math.PI / 180);
+                                MathHelper.floor((MathHelper.wrapDegrees(player.getRotationYawHead() - 180) + 22.5) / 45) * 45, 0);
 
                         SoundUtils.playSound(worldIn, placeAt, SoundEvents.ENTITY_ARMORSTAND_PLACE, SoundCategory.BLOCKS, 0.75f, 0.8f);
                         ItemMonsterPlacer.applyItemEntityDataToEntity(worldIn, player, held, dummy);

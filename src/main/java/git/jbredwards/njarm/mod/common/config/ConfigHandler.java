@@ -176,6 +176,7 @@ public final class ConfigHandler
     @Nonnull public static final ItemConfig itemCfg = register(new ItemConfig(
             new BonusHeartConfig(2, true, true),
             new ChargedSunstoneConfig(true, true, false, true, true, true, 3, true),
+            new DummyConfig(true),
             new EggShellsConfig(true, 0, 100, new String[] {"minecraft:egg"}, new String[] {"minecraft:egg", "njarm:cooked_egg"}),
             new EquipmentConfig(
                     "{Durability:66,ArmorValues:[3,6,8,3],Enchantability:10,Toughness:2f}", //ruby

@@ -4,6 +4,7 @@ import git.jbredwards.fluidlogged_api.mod.asm.plugins.ASMHooks;
 import git.jbredwards.njarm.mod.common.block.util.IEmissiveBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.entity.RenderFallingBlock;
 import net.minecraft.client.renderer.entity.RenderManager;
@@ -42,12 +43,15 @@ public class RenderMultiLayerFallingBlock extends RenderFallingBlock
                     final float lastX = OpenGlHelper.lastBrightnessX;
                     final float lastY = OpenGlHelper.lastBrightnessY;
 
-                    if(emissive) OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240, 240);
+                    if(emissive) {
+                        GlStateManager.disableLighting();
+                        OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240, 240);
+                    }
+
                     super.doRender(entity, x, y, z, entityYaw, partialTicks);
                     if(emissive) OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, lastX, lastY);
                 }
             }
-
 
             renderName = true;
             if(!renderOutlines) renderName(entity, x, y, z);

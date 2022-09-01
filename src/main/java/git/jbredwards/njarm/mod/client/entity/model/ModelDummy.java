@@ -3,7 +3,6 @@ package git.jbredwards.njarm.mod.client.entity.model;
 import git.jbredwards.njarm.mod.common.entity.item.EntityDummy;
 import net.darkhax.bookshelf.client.model.ModelPlayerMob;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.EnumHandSide;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -59,7 +58,4 @@ public class ModelDummy extends ModelPlayerMob
             bipedRightLeg.setRotationPoint(-1.9f, 12, 0);
         }
     }
-
-    @Override
-    public void postRenderArm(float scale, @Nonnull EnumHandSide side) {}
 }

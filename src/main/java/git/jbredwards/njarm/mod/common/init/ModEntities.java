@@ -72,6 +72,9 @@ public final class ModEntities
             ConfigHandler.entityCfg.pigmanCfg, EnumCreatureType.MONSTER).egg(15771042, 4793873));
 
     @Nonnull
+    public static final EntityEntry DUMMY = register("dummy", builder(EntityDummy.class, 80, 3, true));
+
+    @Nonnull
     public static final EntityEntry SOUL_SKELETON = register("soul_skeleton", builder(EntitySoulSkeleton.class, 80, 3, true,
             ConfigHandler.entityCfg.soulSkeletonCfg, EnumCreatureType.MONSTER).egg(3679771, 4243391));
 

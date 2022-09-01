@@ -108,6 +108,7 @@ public final class ModRecipes
         registerCrafting(registry, shaped(1, ModItems.COMPRESSED_STONE, "###", "###", "###", '#', new ItemStack(Blocks.STONE, 1, 0)));
         registerCrafting(registry, shaped(1, ModItems.DIMENSIONAL_MAGIC_MIRROR, "DID", "IMI", "DID", 'D', "dustMagicNJARM", 'I', "ingotMagicalAlloy", 'M', ModItems.MAGIC_MIRROR));
         registerCrafting(registry, shaped(1, ModItems.DIMENSIONAL_MAGIC_MIRROR, "IDI", "DMD", "IDI", 'D', "dustMagicNJARM", 'I', "ingotMagicalAlloy", 'M', ModItems.MAGIC_MIRROR));
+        registerCrafting(registry, shaped(1, ModItems.DUMMY, "WBW", "WCW", "WLW", 'W', "cropWheat", 'B', Blocks.HAY_BLOCK, 'C', Items.LEATHER_CHESTPLATE, 'L', Items.LEATHER_LEGGINGS));
         registerCrafting(registry, shaped(1, Items.EMERALD, "###", "###", "###", '#', ModItems.RUPEE));
         registerCrafting(registry, shaped(1, 0, ModItems.FOOD_CRATE, "###", "###", "###", '#', Items.WHEAT_SEEDS));
         registerCrafting(registry, shaped(1, 1, ModItems.FOOD_CRATE, "###", "###", "###", '#', Items.CARROT));
