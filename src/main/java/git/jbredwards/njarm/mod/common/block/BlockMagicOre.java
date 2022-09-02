@@ -13,6 +13,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.particle.ParticleManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.item.ItemStack;
@@ -63,6 +64,11 @@ public class BlockMagicOre extends BlockOre implements IEmissiveBlock
 
     @Override
     public float getEnchantPowerBonus(@Nonnull World world, @Nonnull BlockPos pos) { return ConfigHandler.blockCfg.magicOreCfg.enchantPowerBonus; }
+
+    @Override
+    public boolean canEntityDestroy(@Nonnull IBlockState state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos, @Nonnull Entity entity) {
+        return !(entity instanceof EntityDragon) && super.canEntityDestroy(state, world, pos, entity);
+    }
 
     //==================================================================
     //mimic behavior of redstone ore (light up when clicked for example)

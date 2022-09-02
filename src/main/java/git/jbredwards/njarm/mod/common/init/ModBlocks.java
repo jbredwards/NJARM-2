@@ -93,6 +93,8 @@ public final class ModBlocks
     @Nonnull public static final Block CRACKED_COMPRESSED_RED_SANDSTONE = register("cracked_compressed_red_sandstone", new Block(Material.ROCK, MapColor.ADOBE), Blocks.SANDSTONE);
     @Nonnull public static final Block COMPRESSED_QUARTZ_BLOCK = register("compressed_quartz_block", new Block(Material.ROCK, MapColor.QUARTZ), Blocks.QUARTZ_BLOCK);
     @Nonnull public static final BlockMagicSponge MAGIC_SPONGE = register("magic_sponge", new BlockMagicSponge(Material.SPONGE), Blocks.SPONGE);
+    @Nonnull public static final BlockTreeLog ENDER_LOG_CURSED = register("ender_log_cursed", new BlockTreeLog(MapColor.PURPLE), Blocks.LOG, block -> block.setLightLevel(0.5f));
+    @Nonnull public static final BlockTreeLeaves ENDER_LEAVES_CURSED = register("ender_leaves_cursed", new BlockTreeLeaves(MapColor.MAGENTA, () -> ModItems.MAGIC_DUST), Blocks.LEAVES, block -> {block.setLightLevel(0.5f); block.disableFancyLeaves();});
 
     @Nonnull public static final BlockBlueFire BLUE_FIRE = register("blue_fire", new BlockBlueFire(), Blocks.FIRE);
     @Nonnull public static final BlockBubbleColumn BUBBLE_COLUMN = register("bubble_column", new BlockBubbleColumn(BUBBLE_COLUMN_MATERIAL), Blocks.WATER);

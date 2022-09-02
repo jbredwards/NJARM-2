@@ -15,6 +15,7 @@ import net.minecraft.client.particle.ParticleManager;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockRenderLayer;
@@ -77,6 +78,11 @@ public class BlockExperienceOre extends BlockOre implements IEmissiveBlock
         }
 
         return super.getMapColor(state, worldIn, pos);
+    }
+
+    @Override
+    public boolean canEntityDestroy(@Nonnull IBlockState state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos, @Nonnull Entity entity) {
+        return !(entity instanceof EntityDragon && state.getValue(TYPE) == Type.END) && super.canEntityDestroy(state, world, pos, entity);
     }
 
     @Override

@@ -397,6 +397,7 @@ public final class Main
                     .put(Pair.of("1.18.2", "assets/minecraft/textures/block/chiseled_polished_blackstone.png"), String.format("assets/%s/textures/blocks/blackstone_chiseled.png", MODID))
                     .put(Pair.of("1.18.2", "assets/minecraft/textures/block/cracked_polished_blackstone_bricks.png"), String.format("assets/%s/textures/blocks/blackstone_bricks_cracked.png", MODID))
                     .put(Pair.of("1.18.2", "assets/minecraft/textures/item/netherite_scrap.png"), String.format("assets/%s/textures/items/netherite_scrap.png", MODID))
+                    .put(Pair.of("1.18.2", "assets/minecraft/textures/item/dried_kelp.png"), String.format("assets/%s/textures/items/dried_kelp.png", MODID))
                     .put(Pair.of("1.18.2", "assets/minecraft/textures/particle/glow.png"), String.format("assets/%s/textures/particles/glow_squid_aura.png", MODID))
                     .build();
 

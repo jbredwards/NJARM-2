@@ -59,9 +59,12 @@ public final class RegistryRemapper
             //njarm2
             else if(mapping.key.getNamespace().equals("njarm")) {
                 switch(mapping.key.getPath()) {
-                    case "item_netherite": mapping.remap(ForgeRegistries.ENTITIES.getValue(new ResourceLocation("item"))); break;
                     case "dark_arrow": mapping.remap(ModEntities.BLESTEM_ARROW); break;
                     case "pigman_njarm": mapping.remap(ModEntities.PIGMAN); break;
+                    //replaced with asm, swap back to vanilla item entities
+                    case "item_floating": case "item_netherite":
+                        mapping.remap(ForgeRegistries.ENTITIES
+                            .getValue(new ResourceLocation("item"))); break;
                 }
             }
         });

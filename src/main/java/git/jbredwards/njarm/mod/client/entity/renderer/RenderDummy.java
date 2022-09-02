@@ -72,11 +72,11 @@ public class RenderDummy extends RenderLivingBase<EntityDummy>
     public void doRender(@Nonnull EntityDummy entity, double x, double y, double z, float entityYaw, float partialTicks) {
         if(!entity.isInvisible() && !entity.isDead && entity.getTicksToDisplay() > 0) {
             renderLivingLabel(entity, I18n.format("entity.njarm.dummy.lastDamage",
-                    getFormattedAmount(entity.getLastDamage())), x, y, z, 8);
+                    getFormattedAmount(entity.getLastDamage())), x, y, z, 64);
 
             if(DummyConfig.displayCombo())
                 renderLivingLabel(entity, I18n.format("entity.njarm.dummy.comboDamage",
-                        getFormattedAmount(entity.getComboDamage())), x, y + 0.25, z, 8);
+                        getFormattedAmount(entity.getComboDamage())), x, y + 0.25, z, 64);
         }
 
         super.doRender(entity, x, y, z, entityYaw, partialTicks);

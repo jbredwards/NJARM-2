@@ -9,6 +9,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockCauldron;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -23,6 +24,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.event.entity.living.LivingDestroyBlockEvent;
 import net.minecraftforge.event.entity.player.BonemealEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fluids.Fluid;
@@ -32,6 +34,7 @@ import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.Event;
+import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import javax.annotation.Nonnull;
@@ -110,7 +113,7 @@ public final class EventHandler
         }
     }
 
-    @SubscribeEvent
+    @SubscribeEvent(priority = EventPriority.HIGH)
     public static void onBonemeal(@Nonnull BonemealEvent event) {
         if(event.getBlock() == Blocks.END_STONE.getDefaultState()) {
             bonemealGrass(event.getWorld(), event.getPos().up(), event.getBlock(), ModBlocks.ENDER_GRASS);
@@ -137,6 +140,30 @@ public final class EventHandler
 
                 attempts++;
             }
+        }
+    }
+
+    @SubscribeEvent(priority = EventPriority.HIGH)
+    public static void addDragonImmuneBlocks(@Nonnull LivingDestroyBlockEvent event) {
+        if(event.getEntityLiving() instanceof EntityDragon) {
+            if(event.getState().getBlock() == Blocks.END_BRICKS
+                    || event.getState().getBlock() == Blocks.DRAGON_EGG
+                    || event.getState().getBlock() == Blocks.ENCHANTING_TABLE
+                    || event.getState().getBlock() == Blocks.ENDER_CHEST
+                    || event.getState().getBlock() == Blocks.BEACON
+                    //above checks fix MC-165218
+                    || event.getState().getBlock() == ModBlocks.END_LAPIS_ORE
+                    || event.getState().getBlock() == ModBlocks.ENDER_GRASS
+                    || event.getState().getBlock() == ModBlocks.ENDER_LEAVES
+                    || event.getState().getBlock() == ModBlocks.ENDER_LEAVES_CURSED
+                    || event.getState().getBlock() == ModBlocks.ENDER_LOG
+                    || event.getState().getBlock() == ModBlocks.ENDER_LOG_CURSED
+                    || event.getState().getBlock() == ModBlocks.ENDER_PLANKS
+                    || event.getState().getBlock() == ModBlocks.OBSIDIAN_BLOCK
+                    || event.getState().getBlock() == ModBlocks.OBSIDIAN_GLASS
+                    || event.getState().getBlock() == ModBlocks.OBSIDIAN_GLASS_PANE
+                    || event.getState().getBlock() == ModBlocks.MAGIC_BLOCK)
+                event.setCanceled(true);
         }
     }
 

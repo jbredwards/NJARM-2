@@ -31,8 +31,10 @@ public class EndForestGenerator implements IWorldGenerator
 
                 if(world.getBlockState(pos.down()).getBlock() == Blocks.END_STONE && world.isAirBlock(pos)) {
                     if(rand.nextFloat() < 0.1 && (!MathsUtils.isInRange(-50, 50, x) || !MathsUtils.isInRange(-50, 50, z)))
-                        new WorldGenEndTree(false, ModBlocks.ENDER_LOG, ModBlocks.ENDER_LEAVES, Blocks.END_STONE)
-                                .generate(world, rand, pos);
+                        (rand.nextFloat() < 0.1 //chance of generating a cursed tree
+                                ? new WorldGenEndTree(false, ModBlocks.ENDER_LOG_CURSED, ModBlocks.ENDER_LEAVES_CURSED, Blocks.END_STONE)
+                                : new WorldGenEndTree(false, ModBlocks.ENDER_LOG, ModBlocks.ENDER_LEAVES, Blocks.END_STONE)
+                        ).generate(world, rand, pos);
 
                     else world.setBlockState(pos, ModBlocks.ENDER_GRASS.getDefaultState(), 2);
                 }

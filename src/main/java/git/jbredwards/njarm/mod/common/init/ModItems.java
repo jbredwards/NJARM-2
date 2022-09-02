@@ -88,6 +88,8 @@ public final class ModItems
     @Nonnull public static final ItemBlock CRACKED_COMPRESSED_RED_SANDSTONE = register("cracked_compressed_red_sandstone", new ItemBlock(ModBlocks.CRACKED_COMPRESSED_RED_SANDSTONE));
     @Nonnull public static final ItemBlock COMPRESSED_QUARTZ_BLOCK = register("compressed_quartz_block", new ItemBlock(ModBlocks.COMPRESSED_QUARTZ_BLOCK));
     @Nonnull public static final ItemBlock MAGIC_SPONGE = register("magic_sponge", new ItemBlock(ModBlocks.MAGIC_SPONGE));
+    @Nonnull public static final ItemBlock ENDER_LOG_CURSED = register("ender_log_cursed", new ItemBlock(ModBlocks.ENDER_LOG_CURSED));
+    @Nonnull public static final ItemBlock ENDER_LEAVES_CURSED = register("ender_leaves_cursed", new ItemBlock(ModBlocks.ENDER_LEAVES_CURSED));
 
     //items
     @Nonnull public static final Item RUBY = register("ruby", new Item());
@@ -133,7 +135,7 @@ public final class ModItems
     @Nonnull public static final Item STAFF_BASE = register("staff_base", new Item(), item -> item.setMaxStackSize(1));
     @Nonnull public static final ItemStaffTeleport TELEPORT_STAFF = register("teleport_staff", new ItemStaffTeleport(), item -> item.setMaxStackSize(1).setMaxDamage(TeleportStaffConfig.durability()));
     @Nonnull public static final ItemDummy DUMMY = register("dummy", new ItemDummy());
-    @Nonnull public static final ItemCrown CROWN = register("crown", new ItemCrown(EquipmentConfig.CROWN_ARMOR_MATERIAL));
+    @Nonnull public static final ItemQuickFood DRIED_KELP = register("dried_kelp", new ItemQuickFood(1, 0, false));
 
     @Nonnull public static final Item ASH_PILE = register("ash_pile", new Item());
 
@@ -171,6 +173,7 @@ public final class ModItems
     @Nonnull public static final ItemCactusArmor CACTUS_CHESTPLATE = register("cactus_chestplate", new ItemCactusArmor(EquipmentConfig.CACTUS_ARMOR_MATERIAL, 1, EntityEquipmentSlot.CHEST));
     @Nonnull public static final ItemCactusArmor CACTUS_LEGGINGS = register("cactus_leggings", new ItemCactusArmor(EquipmentConfig.CACTUS_ARMOR_MATERIAL, 2, EntityEquipmentSlot.LEGS));
     @Nonnull public static final ItemCactusArmor CACTUS_BOOTS = register("cactus_boots", new ItemCactusArmor(EquipmentConfig.CACTUS_ARMOR_MATERIAL, 1, EntityEquipmentSlot.FEET));
+    @Nonnull public static final ItemCrown CROWN = register("crown", new ItemCrown(EquipmentConfig.CROWN_ARMOR_MATERIAL));
     @Nonnull public static final ItemShulkerArmor SHULKER_BOOTS = register("shulker_boots", new ItemShulkerArmor(EquipmentConfig.SHULKER_ARMOR_MATERIAL, 1, EntityEquipmentSlot.FEET));
 
     //tools
@@ -237,6 +240,7 @@ public final class ModItems
         OreDictionary.registerOre("ingotObsidianAlloy", OBSIDIAN_INGOT);
         OreDictionary.registerOre("ingotPlatinum", PLATINUM_INGOT);
         OreDictionary.registerOre("logWood", ENDER_LOG);
+        OreDictionary.registerOre("logWood", ENDER_LOG_CURSED);
         OreDictionary.registerOre("nuggetMagicalAlloy", MAGIC_NUGGET);
         OreDictionary.registerOre("nuggetNetherite", NETHERITE_NUGGET);
         OreDictionary.registerOre("nuggetObsidianAlloy", OBSIDIAN_NUGGET);
@@ -259,6 +263,7 @@ public final class ModItems
         OreDictionary.registerOre("plankWood", ENDER_PLANKS);
         OreDictionary.registerOre("scrapAncientDebris", NETHERITE_SCRAP);
         OreDictionary.registerOre("treeLeaves", ENDER_LEAVES);
+        OreDictionary.registerOre("treeLeaves", ENDER_LEAVES_CURSED);
     }
 
     //register item

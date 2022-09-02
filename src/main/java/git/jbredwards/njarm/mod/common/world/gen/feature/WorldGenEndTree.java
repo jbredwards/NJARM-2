@@ -20,11 +20,11 @@ import java.util.Random;
  */
 public class WorldGenEndTree extends WorldGenAbstractTree
 {
-    public final IBlockState log;
-    public final IBlockState leaves;
-    public final List<Block> ground;
+    @Nonnull public final IBlockState log;
+    @Nonnull public final IBlockState leaves;
+    @Nonnull public final List<Block> ground;
 
-    public WorldGenEndTree(boolean notify, Block log, BlockLeaves leaves, @Nullable Block... ground) {
+    public WorldGenEndTree(boolean notify, @Nonnull Block log, @Nonnull BlockLeaves leaves, @Nullable Block... ground) {
         super(notify);
         this.log = log.getStateFromMeta(1);
         this.leaves = leaves.getDefaultState().withProperty(BlockLeaves.CHECK_DECAY, true);
