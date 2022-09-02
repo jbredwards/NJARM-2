@@ -385,7 +385,6 @@ public final class Main
                     .put(Pair.of("1.18.2", "assets/minecraft/textures/block/netherite_block.png"), String.format("assets/%s/textures/blocks/netherite_block.png", MODID))
                     .put(Pair.of("1.18.2", "assets/minecraft/textures/block/ancient_debris_side.png"), String.format("assets/%s/textures/blocks/ancient_debris_side.png", MODID))
                     .put(Pair.of("1.18.2", "assets/minecraft/textures/block/ancient_debris_top.png"), String.format("assets/%s/textures/blocks/ancient_debris_top.png", MODID))
-                    .put(Pair.of("1.18.2", "assets/minecraft/textures/block/soul_soil.png"), String.format("assets/%s/textures/blocks/soul_soil.png", MODID))
                     .put(Pair.of("1.18.2", "assets/minecraft/textures/block/basalt_side.png"), String.format("assets/%s/textures/blocks/basalt_side.png", MODID))
                     .put(Pair.of("1.18.2", "assets/minecraft/textures/block/basalt_top.png"), String.format("assets/%s/textures/blocks/basalt_top.png", MODID))
                     .put(Pair.of("1.18.2", "assets/minecraft/textures/block/polished_basalt_side.png"), String.format("assets/%s/textures/blocks/polished_basalt_side.png", MODID))
