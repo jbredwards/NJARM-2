@@ -79,6 +79,14 @@ public final class ModEntities
             ConfigHandler.entityCfg.glowSquidCfg, EnumCreatureType.WATER_CREATURE).egg(3515039, 11730125));
 
     @Nonnull
+    public static final EntityEntry SAP = register("sap", builder(EntitySap.class, 80, 3, true,
+            ConfigHandler.entityCfg.sapCfg, EnumCreatureType.MONSTER).egg(16678921, 16678921));
+
+    @Nonnull
+    public static final EntityEntry BLOOD = register("blood", builder(EntityBlood.class, 80, 3, true,
+            ConfigHandler.entityCfg.bloodCfg, EnumCreatureType.MONSTER).egg(10813440, 10813440));
+
+    @Nonnull
     public static final EntityEntry SOUL_SKELETON = register("soul_skeleton", builder(EntitySoulSkeleton.class, 80, 3, true,
             ConfigHandler.entityCfg.soulSkeletonCfg, EnumCreatureType.MONSTER).egg(3679771, 4243391));
 

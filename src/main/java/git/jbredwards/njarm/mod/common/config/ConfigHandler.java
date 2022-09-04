@@ -37,6 +37,7 @@ public final class ConfigHandler
             new FragileIceConfig(400),
             new MagicOreConfig(true, true, 1, true),
             new NetherCoreConfig(true, 17, 900, 40, 60, false, new String[] {"minecraft:zombie_pigman"}),
+            new SoulSoilConfig(true),
             new TotemOfUndyingConfig(true, 16, true, true, 16, 0.000625)));
 
     @Config.LangKey("config.njarm.cfg.client")
@@ -110,6 +111,7 @@ public final class ConfigHandler
     @Config.LangKey("config.njarm.cfg.entity")
     @Nonnull public static final EntityConfig entityCfg = register(new EntityConfig(
             new BlestemConfig(new String[] {"{Weight:10,Min:1,Max:3,BiomeTags:[end]}"}),
+            new BloodConfig(new String[0]),
             new ChocolateCowConfig(new String[0]),
             new FireCreeperConfig(new String[] {"{Weight:20,Min:1,Max:3,BiomeTags:[nether]}"}),
             new FireSkeletonConfig(new String[] {"{Weight:20,Min:1,Max:3,BiomeTags:[nether]}"}),
@@ -170,6 +172,7 @@ public final class ConfigHandler
                     new String[] {"{Weight:30,Min:3,Max:8,Biomes:[hell]}"}, false,
                     new String[] {"{id:\"golden_helmet\",Count:1,Damage:32767}","{id:\"golden_chestplate\",Count:1,Damage:32767}","{id:\"golden_leggings\",Count:1,Damage:32767}","{id:\"golden_boots\",Count:1,Damage:32767}","{id:\"njarm:crown\",Count:1,Damage:32767}"},
                     new String[] {"{id:\"gold_ingot\",Count:1}"}),
+            new SapConfig(new String[] {"{Weight:30,Min:1,Max:3,BiomeTags:[forest]}"}),
             new SoulSkeletonConfig(new String[] {"{Weight:10,Min:1,Max:3,BiomeTags:[nether]}"}))
     );
 

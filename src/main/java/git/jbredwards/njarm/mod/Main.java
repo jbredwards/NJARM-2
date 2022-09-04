@@ -17,6 +17,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.*;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.MobEffects;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -105,6 +106,8 @@ public final class Main
             Blocks.NETHERRACK.setSoundType(ModSounds.NETHERRACK);
             Blocks.SOUL_SAND.setSoundType(ModSounds.SOUL_SAND);
             Blocks.WATERLILY.setSoundType(ModSounds.WET_GRASS);
+            //improve the potion color for the health boost effect
+            MobEffects.HEALTH_BOOST.liquidColor = 10420224;
         }
 
         protected void postInit() {

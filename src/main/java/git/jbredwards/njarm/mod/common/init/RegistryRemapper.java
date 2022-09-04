@@ -3,6 +3,7 @@ package git.jbredwards.njarm.mod.common.init;
 import git.jbredwards.njarm.mod.Constants;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
@@ -98,6 +99,9 @@ public final class RegistryRemapper
                     case "dark": mapping.remap(ModItems.BLESTEM_ROD); break;
                     case "dark_arrow": mapping.remap(ModItems.BLESTEM_ARROW); break;
                     case "staff": mapping.remap(ModItems.STAFF_BASE); break;
+                    case "sap": mapping.remap(ModItems.SAP_BALL); break;
+                    case "blood": mapping.remap(ModItems.BLOOD_BALL); break;
+                    case "undying_bauble": mapping.remap(Items.TOTEM_OF_UNDYING); break;
                 }
             }
         });

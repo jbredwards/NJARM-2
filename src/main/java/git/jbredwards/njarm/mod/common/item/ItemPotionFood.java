@@ -2,7 +2,6 @@ package git.jbredwards.njarm.mod.common.item;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
-import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
@@ -14,7 +13,7 @@ import javax.annotation.Nonnull;
  * @author jbred
  *
  */
-public class ItemPotionFood extends ItemFood
+public class ItemPotionFood extends ItemQuickFood
 {
     @Nonnull
     public static final PotionEffect[] SPINACH = {
@@ -32,16 +31,22 @@ public class ItemPotionFood extends ItemFood
     @Nonnull
     protected PotionEffect[] effects = new PotionEffect[0];
 
-    public ItemPotionFood(int amount, boolean isWolfFood) { super(amount, isWolfFood); }
+    public ItemPotionFood(int amount, boolean isWolfFood) { this(amount, 0.6f, isWolfFood); }
     public ItemPotionFood(int amount, float saturation, boolean isWolfFood) {
         super(amount, saturation, isWolfFood);
+        maxItemUseDuration = 32;
     }
 
     @Override
     protected void onFoodEaten(@Nonnull ItemStack stack, @Nonnull World worldIn, @Nonnull EntityPlayer player) {
+        super.onFoodEaten(stack, worldIn, player);
         if(!worldIn.isRemote) for(PotionEffect effect : effects)
             player.addPotionEffect(new PotionEffect(effect));
     }
 
-    public void setEffects(@Nonnull PotionEffect... effects) { this.effects = effects; }
+    @Nonnull
+    public ItemPotionFood setEffects(@Nonnull PotionEffect... effects) {
+        this.effects = effects;
+        return this;
+    }
 }

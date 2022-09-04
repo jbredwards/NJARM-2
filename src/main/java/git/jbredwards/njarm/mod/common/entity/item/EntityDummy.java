@@ -59,7 +59,7 @@ public class EntityDummy extends EntityArmorStand
             punchCooldown = world.getTotalWorldTime();
         }
 
-        return false;
+        return true;
     }
 
     protected boolean displayDamage(float amount) {

@@ -20,6 +20,9 @@ public final class EntityConfig implements IConfig
     @Config.LangKey("config.njarm.core.entity.blestem")
     @Nonnull public final BlestemConfig blestemCfg;
 
+    @Config.LangKey("config.njarm.core.entity.blood")
+    @Nonnull public final BloodConfig bloodCfg;
+
     @Config.LangKey("config.njarm.core.entity.chocolateCow")
     @Nonnull public final ChocolateCowConfig chocolateCowCfg;
 
@@ -47,6 +50,9 @@ public final class EntityConfig implements IConfig
     @Config.LangKey("config.njarm.core.entity.pigman")
     @Nonnull public final PigmanConfig pigmanCfg;
 
+    @Config.LangKey("config.njarm.core.entity.sap")
+    @Nonnull public final SapConfig sapCfg;
+
     @Config.LangKey("config.njarm.core.entity.soulSkeleton")
     @Nonnull public final SoulSkeletonConfig soulSkeletonCfg;
 
@@ -66,8 +72,9 @@ public final class EntityConfig implements IConfig
     public void onUpdate() { CONFIGS.forEach(IConfig::onUpdate); }
 
     //needed for gson
-    public EntityConfig(@Nonnull BlestemConfig blestemCfg, @Nonnull ChocolateCowConfig chocolateCowCfg, @Nonnull FireCreeperConfig fireCreeperCfg, @Nonnull FireSkeletonConfig fireSkeletonCfg, @Nonnull GlowSquidConfig glowSquidCfg, @Nonnull HighlandCooConfig highlandCooCfg, @Nonnull MoobloomConfig moobloomCfg, @Nonnull MudPigConfig mudPigCfg, @Nonnull MummyConfig mummyCfg, @Nonnull PigmanConfig pigmanCfg, @Nonnull SoulSkeletonConfig soulSkeletonCfg) {
+    public EntityConfig(@Nonnull BlestemConfig blestemCfg, @Nonnull BloodConfig bloodCfg, @Nonnull ChocolateCowConfig chocolateCowCfg, @Nonnull FireCreeperConfig fireCreeperCfg, @Nonnull FireSkeletonConfig fireSkeletonCfg, @Nonnull GlowSquidConfig glowSquidCfg, @Nonnull HighlandCooConfig highlandCooCfg, @Nonnull MoobloomConfig moobloomCfg, @Nonnull MudPigConfig mudPigCfg, @Nonnull MummyConfig mummyCfg, @Nonnull PigmanConfig pigmanCfg, @Nonnull SapConfig sapCfg, @Nonnull SoulSkeletonConfig soulSkeletonCfg) {
         this.blestemCfg = register(blestemCfg);
+        this.bloodCfg = register(bloodCfg);
         this.chocolateCowCfg = register(chocolateCowCfg);
         this.fireCreeperCfg = register(fireCreeperCfg);
         this.fireSkeletonCfg = register(fireSkeletonCfg);
@@ -77,6 +84,7 @@ public final class EntityConfig implements IConfig
         this.mudPigCfg = register(mudPigCfg);
         this.mummyCfg = register(mummyCfg);
         this.pigmanCfg = register(pigmanCfg);
+        this.sapCfg = register(sapCfg);
         this.soulSkeletonCfg = register(soulSkeletonCfg);
     }
 }

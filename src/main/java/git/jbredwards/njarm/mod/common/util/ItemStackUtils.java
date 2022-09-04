@@ -25,6 +25,16 @@ public final class ItemStackUtils
     }
 
     /**
+     * @return a copy of the input stack with the input meta
+     */
+    @Nonnull
+    public static ItemStack copyStackWithMeta(@Nonnull ItemStack stack, int meta) {
+        final ItemStack copy = stack.copy();
+        copy.setItemDamage(meta);
+        return copy;
+    }
+
+    /**
      * @return true if the given IBlockState has the ore dict entry
      */
     public static boolean hasOreName(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState state, @Nonnull String name) {

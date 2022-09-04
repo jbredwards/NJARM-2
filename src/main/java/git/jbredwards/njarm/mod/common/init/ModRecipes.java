@@ -57,6 +57,7 @@ public final class ModRecipes
         registerCrafting(registry, shapeless(16, ModItems.FRAGILE_ICE, Blocks.ICE));
         registerCrafting(registry, shapeless(9, Items.GOLDEN_APPLE, new ItemStack(ModItems.FOOD_CRATE, 1, 7)));
         registerCrafting(registry, shapeless(9, Items.GOLDEN_CARROT, new ItemStack(ModItems.FOOD_CRATE, 1, 8)));
+        registerCrafting(registry, shapeless(1, ModItems.MAGIC_CHORUS_FRUIT, Items.CHORUS_FRUIT, "dustMagicNJARM", Items.LEAD));
         registerCrafting(registry, shapeless(2, ModItems.MAGIC_DUST, ModItems.BLESTEM_ROD));
         registerCrafting(registry, shapeless(1, ModItems.MAGIC_INGOT, "dustMagicNJARM", "dustMica", "dustMagicNJARM", "dustMica", "ingotObsidianAlloy", "dustMica", "dustMagicNJARM", "dustMica", "dustMagicNJARM"));
         registerCrafting(registry, shapeless(9, ModItems.MAGIC_INGOT, ModItems.MAGIC_BLOCK));
@@ -92,6 +93,7 @@ public final class ModRecipes
         registerCrafting(registry, shaped(1, ModItems.BAGUETTE, "###", "###", '#', "cropWheat"));
         registerCrafting(registry, shaped(3, ModItems.BLESTEM_ARROW, "IRI", "RAR", "ISI", 'I', "ingotMagicalAlloy", 'R', ModItems.BLESTEM_ROD, 'A', Items.ARROW, 'S', "enderStar"));
         registerCrafting(registry, shaped(4, ModItems.BLACKSTONE_BRICKS, "##", "##", '#', ModItems.POLISHED_BLACKSTONE));
+        registerCrafting(registry, shaped(1, ModItems.BONUS_HEART, "BRB", "BTB", "BSB", 'B', "bloodball", 'R', ModItems.GOLD_HEART_RADISH, 'T', Items.TOTEM_OF_UNDYING, 'S', "enderStar"));
         registerCrafting(registry, shaped(1, ModItems.CACTUS_AXE, "##", "#S", " S", '#', "blockCactus", 'S', "stickWood"));
         registerCrafting(registry, shaped(1, ModItems.CACTUS_HOE, "##", " S", " S", '#', "blockCactus", 'S', "stickWood"));
         registerCrafting(registry, shaped(1, ModItems.CACTUS_PICKAXE, "###", " S ", " S ", '#', "blockCactus", 'S', "stickWood"));
@@ -124,6 +126,7 @@ public final class ModRecipes
         registerCrafting(registry, shaped(1, 10, ModItems.FOOD_CRATE, "###", "###", "###", '#', new ItemStack(Items.FISH, 1, 1)));
         registerCrafting(registry, shaped(1, 11, ModItems.FOOD_CRATE, "###", "###", "###", '#', new ItemStack(Items.FISH, 1, 2)));
         registerCrafting(registry, shaped(1, 12, ModItems.FOOD_CRATE, "###", "###", "###", '#', new ItemStack(Items.FISH, 1, 3)));
+        registerCrafting(registry, shaped(1, ModItems.GOLD_HEART_RADISH, "GGG", "GRG", "GGG", 'G', "blockGold", 'R', ModItems.HEART_RADISH));
         registerCrafting(registry, shaped(1, Blocks.ICE, "###", "###", "###", '#', Ingredient.fromItems(ModItems.ICE_GRASS, ModItems.ICE_MUSHROOM)));
         registerCrafting(registry, shaped(1, ModItems.MAGIC_BLOCK, "###", "###", "###", '#', "ingotMagicalAlloy"));
         registerCrafting(registry, shaped(1, ModItems.MAGIC_INGOT, "###", "###", "###", '#', "nuggetMagicalAlloy"));
@@ -202,6 +205,7 @@ public final class ModRecipes
         registerCrafting(registry, new CactusArmorRecipe(new ResourceLocation(Constants.MODID, Constants.NAME), ModItems.CACTUS_LEGGINGS, "###", "# #", "# #", '#', "blockCactus"));
         //edit vanilla recipes
         removeCrafting(registry, "end_rod", shaped(4, Blocks.END_ROD, "R", "C", 'R', ModItems.BLESTEM_ROD, 'C', Items.CHORUS_FRUIT_POPPED));
+        removeCrafting(registry, "slime", shaped(1, Blocks.SLIME_BLOCK, "###", "###", "###", '#', Items.SLIME_BALL));
         removeCrafting(registry, "stone_slab", shaped(6, Blocks.STONE_SLAB, "###", '#', ModItems.COMPRESSED_STONE));
         Constants.LOGGER.info("^^^ These are intended overrides, done to either change the recipes, or to set their priorities further back");
     }
@@ -230,6 +234,7 @@ public final class ModRecipes
         GameRegistry.addSmelting(ModItems.END_LAPIS_ORE, new ItemStack(Items.DYE, 1, 4), 0.2f);
         GameRegistry.addSmelting(ModItems.NETHER_EMERALD_ORE, new ItemStack(Items.EMERALD), 1);
         GameRegistry.addSmelting(ModItems.RAW_EGG, new ItemStack(ModItems.FRIED_EGG), 0.1f);
+        GameRegistry.addSmelting(ModItems.VINE_FRUIT, new ItemStack(Items.GLOWSTONE_DUST), 0.1f);
         GameRegistry.addSmelting(ModItems.GRAVEL_GOLD_ORE, new ItemStack(Items.GOLD_INGOT), 1);
         GameRegistry.addSmelting(ModItems.NETHER_GOLD_ORE, new ItemStack(Items.GOLD_INGOT), 1);
         GameRegistry.addSmelting(ModItems.GRAVEL_IRON_ORE, new ItemStack(Items.IRON_INGOT), 0.7f);
@@ -251,9 +256,14 @@ public final class ModRecipes
     }
 
     static void registerBrewing() {
-        PotionHelper.addMix(PotionTypes.WATER, Ingredient.fromItems(ModItems.ASH_PILE), PotionTypes.MUNDANE);
-        PotionHelper.addMix(PotionTypes.AWKWARD, Ingredient.fromItems(ModItems.ASH_PILE), ModPotionTypes.BLUE_FIRE_RESISTANCE);
-        PotionHelper.addMix(ModPotionTypes.BLUE_FIRE_RESISTANCE, Ingredient.fromItems(Items.REDSTONE), ModPotionTypes.LONG_BLUE_FIRE_RESISTANCE);
+        PotionHelper.addMix(PotionTypes.WATER, Ingredient.fromItem(ModItems.ASH_PILE), PotionTypes.MUNDANE);
+        
+        PotionHelper.addMix(PotionTypes.AWKWARD, Ingredient.fromItem(ModItems.ASH_PILE), ModPotionTypes.BLUE_FIRE_RESISTANCE);
+        PotionHelper.addMix(ModPotionTypes.BLUE_FIRE_RESISTANCE, Ingredient.fromItem(Items.REDSTONE), ModPotionTypes.LONG_BLUE_FIRE_RESISTANCE);
+        
+        PotionHelper.addMix(PotionTypes.AWKWARD, Ingredient.fromItem(ModItems.BLOOD_BALL), ModPotionTypes.HEALTH_BOOST);
+        PotionHelper.addMix(ModPotionTypes.HEALTH_BOOST, Ingredient.fromItem(Items.REDSTONE), ModPotionTypes.LONG_HEALTH_BOOST);
+        PotionHelper.addMix(ModPotionTypes.HEALTH_BOOST, Ingredient.fromItem(Items.GLOWSTONE_DUST), ModPotionTypes.STRONG_HEALTH_BOOST);
     }
 
     //constructs a new shapeless recipe

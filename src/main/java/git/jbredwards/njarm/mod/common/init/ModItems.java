@@ -101,15 +101,15 @@ public final class ModItems
     @Nonnull public static final Item CRUMBLING_BEDROCK = register("crumbling_bedrock", new Item());
     @Nonnull public static final Item SUNSTONE = register("sunstone", new Item());
     @Nonnull public static final ItemFood BAKED_APPLE = register("baked_apple", new ItemFood(8, 4.8f, false));
-    @Nonnull public static final ItemFood CARAMEL_APPLE = register("caramel_apple", new ItemFood(4, 4.4f, false), item -> item.setPotionEffect(new PotionEffect(MobEffects.SPEED, 400, 1), 1));
-    @Nonnull public static final ItemFood SUGAR_BREAD = register("sugar_bread", new ItemFood(5, 8, false), item -> item.setPotionEffect(new PotionEffect(MobEffects.SPEED, 400, 1), 1));
+    @Nonnull public static final ItemFood CARAMEL_APPLE = register("caramel_apple", new ItemFood(4, 4.4f, false), item -> item.setPotionEffect(new PotionEffect(MobEffects.SPEED, 400, 1), 1).setAlwaysEdible());
+    @Nonnull public static final ItemFood SUGAR_BREAD = register("sugar_bread", new ItemFood(5, 8, false), item -> item.setPotionEffect(new PotionEffect(MobEffects.SPEED, 400, 1), 1).setAlwaysEdible());
     @Nonnull public static final ItemFood BAGUETTE = register("baguette", new ItemFood(10, 12, false));
-    @Nonnull public static final ItemFood SUGAR_BAGUETTE = register("sugar_baguette", new ItemFood(10, 14, false), item -> item.setPotionEffect(new PotionEffect(MobEffects.SPEED, 400, 1), 1));
+    @Nonnull public static final ItemFood SUGAR_BAGUETTE = register("sugar_baguette", new ItemFood(10, 14, false), item -> item.setPotionEffect(new PotionEffect(MobEffects.SPEED, 400, 1), 1).setAlwaysEdible());
     @Nonnull public static final ItemChocolateMilk CHOCOLATE_MILK_BUCKET = register("chocolate_milk_bucket", new ItemChocolateMilk(), item -> item.setContainerItem(Items.BUCKET));
     @Nonnull public static final ItemMilkStackable MILK_BOTTLE = register("milk_bottle", new ItemMilkStackable(), item -> item.setContainerItem(Items.GLASS_BOTTLE).setMaxStackSize(64));
     @Nonnull public static final ItemChocolateMilk CHOCOLATE_MILK_BOTTLE = register("chocolate_milk_bottle", new ItemChocolateMilk(), item -> item.setContainerItem(Items.GLASS_BOTTLE).setMaxStackSize(64));
-    @Nonnull public static final ItemPotionFood CANNED_SPINACH = register("canned_spinach", new ItemPotionFood(20, false), item -> item.setEffects(ItemPotionFood.SPINACH));
-    @Nonnull public static final ItemFood SUGAR_COOKIE = register("sugar_cookie", new ItemFood(2, 2.4f, false), item -> item.setPotionEffect(new PotionEffect(MobEffects.SPEED, 400, 2), 1));
+    @Nonnull public static final ItemPotionFood CANNED_SPINACH = register("canned_spinach", new ItemPotionFood(20, false), item -> item.setEffects(ItemPotionFood.SPINACH).setAlwaysEdible());
+    @Nonnull public static final ItemFood SUGAR_COOKIE = register("sugar_cookie", new ItemFood(2, 2.4f, false), item -> item.setPotionEffect(new PotionEffect(MobEffects.SPEED, 400, 2), 1).setAlwaysEdible());
     @Nonnull public static final ItemMagicMirror MAGIC_MIRROR = register("magic_mirror", new ItemMagicMirror(ItemMagicMirror.NORMAL));
     @Nonnull public static final ItemMagicMirror BEDROCK_MAGIC_MIRROR = register("bedrock_magic_mirror", new ItemMagicMirror(ItemMagicMirror.BEDROCK), item -> item.setMaxStackSize(1));
     @Nonnull public static final ItemMagicMirror DIMENSIONAL_MAGIC_MIRROR = register("dimensional_magic_mirror", new ItemMagicMirror(ItemMagicMirror.DIMENSIONAL));
@@ -136,7 +136,13 @@ public final class ModItems
     @Nonnull public static final ItemStaffTeleport TELEPORT_STAFF = register("teleport_staff", new ItemStaffTeleport(), item -> item.setMaxStackSize(1).setMaxDamage(TeleportStaffConfig.durability()));
     @Nonnull public static final ItemDummy DUMMY = register("dummy", new ItemDummy());
     @Nonnull public static final ItemQuickFood DRIED_KELP = register("dried_kelp", new ItemQuickFood(1, 0, false));
+    @Nonnull public static final ItemFoodLeftovers MAGIC_CHORUS_FRUIT = register("magic_chorus_fruit", new ItemFoodLeftovers(5, 3.4f, false), item -> item.setPotionEffect(new PotionEffect(MobEffects.LEVITATION, 120, 2), 1).setAlwaysEdible().setContainerItem(Items.LEAD));
+    @Nonnull public static final ItemHeartRadish HEART_RADISH = register("heart_radish", new ItemHeartRadish(3, 1.2f, false), ItemFood::setAlwaysEdible);
+    @Nonnull public static final ItemPotionFood VINE_FRUIT = register("vine_fruit", new ItemPotionFood(2, 2.4f, false), item -> item.setEffects(new PotionEffect(MobEffects.NIGHT_VISION, 15*20), new PotionEffect(MobEffects.GLOWING, 30*20)).setAlwaysEdible());
+    @Nonnull public static final Item SAP_BALL = register("sap_ball", new Item());
+    @Nonnull public static final Item BLOOD_BALL = register("blood_ball", new Item());
 
+    @Nonnull public static final ItemHeartRadish GOLD_HEART_RADISH = register("gold_heart_radish", new ItemHeartRadish(3, 1.2f, false), item -> item.setPotionEffect(new PotionEffect(MobEffects.SATURATION, 40), 1).setAlwaysEdible());
     @Nonnull public static final Item ASH_PILE = register("ash_pile", new Item());
 
     //armor
@@ -173,8 +179,8 @@ public final class ModItems
     @Nonnull public static final ItemCactusArmor CACTUS_CHESTPLATE = register("cactus_chestplate", new ItemCactusArmor(EquipmentConfig.CACTUS_ARMOR_MATERIAL, 1, EntityEquipmentSlot.CHEST));
     @Nonnull public static final ItemCactusArmor CACTUS_LEGGINGS = register("cactus_leggings", new ItemCactusArmor(EquipmentConfig.CACTUS_ARMOR_MATERIAL, 2, EntityEquipmentSlot.LEGS));
     @Nonnull public static final ItemCactusArmor CACTUS_BOOTS = register("cactus_boots", new ItemCactusArmor(EquipmentConfig.CACTUS_ARMOR_MATERIAL, 1, EntityEquipmentSlot.FEET));
-    @Nonnull public static final ItemCrown CROWN = register("crown", new ItemCrown(EquipmentConfig.CROWN_ARMOR_MATERIAL));
-    @Nonnull public static final ItemShulkerArmor SHULKER_BOOTS = register("shulker_boots", new ItemShulkerArmor(EquipmentConfig.SHULKER_ARMOR_MATERIAL, 1, EntityEquipmentSlot.FEET));
+    @Nonnull public static final ItemShulkerArmor SHULKER_BOOTS = register("shulker_boots", new ItemShulkerArmor(EquipmentConfig.SHULKER_ARMOR_MATERIAL, 1, EntityEquipmentSlot.FEET), item -> EquipmentConfig.SHULKER_ARMOR_MATERIAL.setRepairItem(new ItemStack(Items.SHULKER_SHELL)));
+    @Nonnull public static final ItemCrown CROWN = register("crown", new ItemCrown(EquipmentConfig.CROWN_ARMOR_MATERIAL), item -> EquipmentConfig.CROWN_ARMOR_MATERIAL.setRepairItem(new ItemStack(Items.GOLDEN_APPLE, 1, 1)));
 
     //tools
     @Nonnull public static final ItemSword RUBY_SWORD = register("ruby_sword", new ItemSword(EquipmentConfig.RUBY_TOOL_MATERIAL), item -> EquipmentConfig.RUBY_TOOL_MATERIAL.setRepairItem(new ItemStack(RUBY)));
@@ -225,6 +231,7 @@ public final class ModItems
         OreDictionary.registerOre("blockPlatinum", PLATINUM_BLOCK);
         OreDictionary.registerOre("blockRuby", RUBY_BLOCK);
         OreDictionary.registerOre("blockSapphire", SAPPHIRE_BLOCK);
+        OreDictionary.registerOre("bloodball", BLOOD_BALL);
         OreDictionary.registerOre("cobblestone", BLACKSTONE);
         OreDictionary.registerOre("dustMagicNJARM", MAGIC_DUST);
         OreDictionary.registerOre("dustMica", MICA_DUST);
@@ -262,6 +269,7 @@ public final class ModItems
         OreDictionary.registerOre("oreSapphire", SAPPHIRE_ORE);
         OreDictionary.registerOre("plankWood", ENDER_PLANKS);
         OreDictionary.registerOre("scrapAncientDebris", NETHERITE_SCRAP);
+        OreDictionary.registerOre("slimeball", SAP_BALL);
         OreDictionary.registerOre("treeLeaves", ENDER_LEAVES);
         OreDictionary.registerOre("treeLeaves", ENDER_LEAVES_CURSED);
     }

@@ -57,6 +57,7 @@ public final class ASMHandler implements IFMLLoadingPlugin
                 .put("net.minecraft.block.BlockLilyPad", new PluginIHasRunningEffects()) //Fix running effects for lily pads
                 .put("net.minecraft.block.BlockRailBase", new PluginIHasRunningEffects()) //Fix running effects for rails
                 .put("net.minecraft.block.BlockRedstoneDiode", new PluginIHasRunningEffects()) //Fix running effects for repeaters & comparators
+                .put("net.minecraft.block.BlockSkull", new PluginBlockSkull()) //Use soul soil instead of soul sand for withers
                 .put("net.minecraft.block.BlockSnow", new PluginBlockSnow()) //Snow layers have gravity
                 .put("net.minecraft.block.BlockStoneSlab", new PluginBlockStoneSlab()) //Nether brick slabs have the same nether brick sound as vanilla 1.16+
                 .put("net.minecraft.block.BlockTrapDoor", new PluginIHasRunningEffects()) //Fix running effects for trapdoors
@@ -73,7 +74,6 @@ public final class ASMHandler implements IFMLLoadingPlugin
                 .put("net.minecraft.world.biome.BiomeColorHelper", new PluginBiomeColorHelper()) //Add 1.13+ biome color blend slider functionality
                 .put("net.minecraft.world.gen.feature.WorldGenLakes", new PluginWorldGenLakes()) //Add magma surrounding lava lakes
                 .put("net.minecraft.world.gen.structure.StructureComponent", new PluginStructureComponent()) //Generate cracked nether bricks with nether fortresses
-                .put("net.minecraft.world.gen.ChunkGeneratorHell", new PluginChunkGeneratorHell()) //Adds soul soil under soul sand during world gen
                 .put("net.minecraft.world.World", new PluginWorld()) //Implement IHasWorldState functionality & fix snow layer placement
                 .build();
 

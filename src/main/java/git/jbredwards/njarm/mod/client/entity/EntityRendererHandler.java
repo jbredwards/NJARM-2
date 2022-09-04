@@ -24,6 +24,7 @@ public final class EntityRendererHandler
     public static void registerEntityRenderers() {
         RenderingRegistry.registerEntityRenderingHandler(EntityBlestem.class, RenderBlestem::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityBlestemArrow.class, RenderBlestemArrow::new);
+        RenderingRegistry.registerEntityRenderingHandler(EntityBlood.class, RenderBlood::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityChocolateCow.class, RenderChocolateCow::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityDummy.class, RenderDummy::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityFallingBlock.class, RenderMultiLayerFallingBlock::new);
@@ -35,6 +36,7 @@ public final class EntityRendererHandler
         RenderingRegistry.registerEntityRenderingHandler(EntityMummy.class, RenderMummy::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityMudPig.class, RenderMudPig::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityPigman.class, RenderPigman::new);
+        RenderingRegistry.registerEntityRenderingHandler(EntitySap.class, RenderSap::new);
         RenderingRegistry.registerEntityRenderingHandler(EntitySoulSkeleton.class, RenderSoulSkeleton::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityXPOrb.class, RenderTranslucentXPOrb::new);
 

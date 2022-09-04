@@ -1,10 +1,12 @@
 package git.jbredwards.njarm.asm.plugins;
 
+import com.google.common.base.Predicate;
 import git.jbredwards.njarm.mod.common.block.BlockUndyingTotem;
 import git.jbredwards.njarm.mod.common.block.util.gravity.ICanFallThrough;
 import git.jbredwards.njarm.mod.common.block.util.gravity.IFancyFallingBlock;
 import git.jbredwards.njarm.mod.common.block.util.IHasWorldState;
 import git.jbredwards.njarm.mod.common.capability.IHorseCarrotTime;
+import git.jbredwards.njarm.mod.common.config.ConfigHandler;
 import git.jbredwards.njarm.mod.common.config.block.BlueFireConfig;
 import git.jbredwards.njarm.mod.common.config.client.RenderingConfig;
 import git.jbredwards.njarm.mod.common.config.item.ResistantItemsConfig;
@@ -191,6 +193,13 @@ public final class ASMHooks
 
         //default
         return false;
+    }
+
+    //PluginBlockSkull
+    @SuppressWarnings("Guava")
+    @Nonnull
+    public static Predicate<IBlockState> getWitherBaseBlock() {
+        return state -> Block.isEqualTo(state.getBlock(), ConfigHandler.blockCfg.soulSoilCfg.useSoilForWither ? ModBlocks.SOUL_SOIL : Blocks.SOUL_SAND);
     }
 
     //PluginBlockSnow
