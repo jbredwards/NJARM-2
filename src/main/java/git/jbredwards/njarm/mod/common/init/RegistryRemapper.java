@@ -6,6 +6,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -103,6 +104,17 @@ public final class RegistryRemapper
                     case "blood": mapping.remap(ModItems.BLOOD_BALL); break;
                     case "undying_bauble": mapping.remap(Items.TOTEM_OF_UNDYING); break;
                 }
+            }
+        });
+    }
+
+    @SubscribeEvent
+    public static void ignoreMissingSounds(@Nonnull RegistryEvent.MissingMappings<SoundEvent> event) {
+        event.getAllMappings().forEach(mapping -> {
+            switch(mapping.key.getNamespace()) {
+                case "ruby_mod":
+                case "njarm":
+                    mapping.ignore();
             }
         });
     }

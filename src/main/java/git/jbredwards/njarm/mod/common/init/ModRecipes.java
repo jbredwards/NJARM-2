@@ -49,7 +49,7 @@ public final class ModRecipes
         registerCrafting(registry, shapeless(9, Items.BEETROOT_SEEDS, new ItemStack(ModItems.FOOD_CRATE, 1, 5)));
         registerCrafting(registry, shapeless(1, ModItems.CARAMEL_APPLE, Items.APPLE, Items.SUGAR, Items.STICK));
         registerCrafting(registry, shapeless(9, Items.CARROT, new ItemStack(ModItems.FOOD_CRATE, 1, 1)));
-        registerCrafting(registry, shapeless(4, ModItems.ENDER_PLANKS, ModItems.ENDER_LOG));
+        registerCrafting(registry, shapeless(4, ModItems.ENDER_PLANKS, Ingredient.fromItems(ModItems.ENDER_LOG, ModItems.ENDER_LOG_CURSED)));
         registerCrafting(registry, shapeless(9, 0, Items.FISH, new ItemStack(ModItems.FOOD_CRATE, 1, 9)));
         registerCrafting(registry, shapeless(9, 1, Items.FISH, new ItemStack(ModItems.FOOD_CRATE, 1, 10)));
         registerCrafting(registry, shapeless(9, 2, Items.FISH, new ItemStack(ModItems.FOOD_CRATE, 1, 11)));
