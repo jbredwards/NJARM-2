@@ -234,6 +234,7 @@
     ["1.18.2", "assets/minecraft/textures/block/polished_blackstone_bricks.png", "assets/njarm/textures/blocks/blackstone_bricks.png"],
     ["1.18.2", "assets/minecraft/textures/block/chiseled_polished_blackstone.png", "assets/njarm/textures/blocks/blackstone_chiseled.png"],
     ["1.18.2", "assets/minecraft/textures/block/cracked_polished_blackstone_bricks.png", "assets/njarm/textures/blocks/blackstone_bricks_cracked.png"],
+    ["1.18.2", "assets/minecraft/textures/block/blue_ice.png", "assets/njarm/textures/blocks/blue_ice.png"],
     ["1.18.2", "assets/minecraft/textures/item/netherite_scrap.png", "assets/njarm/textures/items/netherite_scrap.png"],
     ["1.18.2", "assets/minecraft/textures/item/dried_kelp.png", "assets/njarm/textures/items/dried_kelp.png"],
     ["1.18.2", "assets/minecraft/textures/particle/glow.png", "assets/njarm/textures/particles/glow_squid_aura.png"]

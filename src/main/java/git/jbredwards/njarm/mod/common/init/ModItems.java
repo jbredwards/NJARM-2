@@ -90,6 +90,7 @@ public final class ModItems
     @Nonnull public static final ItemBlock MAGIC_SPONGE = register("magic_sponge", new ItemBlock(ModBlocks.MAGIC_SPONGE));
     @Nonnull public static final ItemBlock ENDER_LOG_CURSED = register("ender_log_cursed", new ItemBlock(ModBlocks.ENDER_LOG_CURSED));
     @Nonnull public static final ItemBlock ENDER_LEAVES_CURSED = register("ender_leaves_cursed", new ItemBlock(ModBlocks.ENDER_LEAVES_CURSED));
+    @Nonnull public static final ItemBlock BLUE_ICE = register("blue_ice", new ItemBlock(ModBlocks.BLUE_ICE));
 
     //items
     @Nonnull public static final Item RUBY = register("ruby", new Item());

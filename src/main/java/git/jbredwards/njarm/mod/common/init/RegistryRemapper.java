@@ -45,6 +45,16 @@ public final class RegistryRemapper
                     case "sunstone_ore": mapping.remap(Blocks.QUARTZ_ORE); break;
                     case "nether_brick": mapping.remap(ModBlocks.CRACKED_NETHER_BRICK); break;
                     case "fire_sponge": mapping.remap(ModBlocks.MAGIC_SPONGE); break;
+                    //pots are being rethought, might be added back later
+                    case "tall_pot":
+                    case "tall_pot_nether":
+                    case "tall_pot_spawner":
+                    case "tall_pot_pryamid": //"pryamid"...
+                    case "rupee_pot":
+                    case "diamond_pot":
+                    case "iron_pot":
+                    case "gold_pot":
+                        mapping.ignore(); break;
                 }
             }
         });
@@ -94,7 +104,6 @@ public final class RegistryRemapper
                     case "fire_sponge": mapping.remap(ModItems.MAGIC_SPONGE); break;
 
                     case "rupee_shard": mapping.remap(ModItems.RUPEE); break;
-                    case "heart": mapping.ignore(); break;
                     case "electricity": mapping.remap(ModItems.CHARGED_SUNSTONE); break;
                     case "light": mapping.remap(ModItems.ENDER_STAR); break;
                     case "dark": mapping.remap(ModItems.BLESTEM_ROD); break;
@@ -103,6 +112,18 @@ public final class RegistryRemapper
                     case "sap": mapping.remap(ModItems.SAP_BALL); break;
                     case "blood": mapping.remap(ModItems.BLOOD_BALL); break;
                     case "undying_bauble": mapping.remap(Items.TOTEM_OF_UNDYING); break;
+
+                    //removed
+                    case "heart":
+                    case "tall_pot":
+                    case "tall_pot_nether":
+                    case "tall_pot_spawner":
+                    case "tall_pot_pryamid":
+                    case "rupee_pot":
+                    case "diamond_pot":
+                    case "iron_pot":
+                    case "gold_pot":
+                        mapping.ignore();
                 }
             }
         });

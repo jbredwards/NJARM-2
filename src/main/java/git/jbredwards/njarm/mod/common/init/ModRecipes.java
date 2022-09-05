@@ -93,6 +93,7 @@ public final class ModRecipes
         registerCrafting(registry, shaped(1, ModItems.BAGUETTE, "###", "###", '#', "cropWheat"));
         registerCrafting(registry, shaped(3, ModItems.BLESTEM_ARROW, "IRI", "RAR", "ISI", 'I', "ingotMagicalAlloy", 'R', ModItems.BLESTEM_ROD, 'A', Items.ARROW, 'S', "enderStar"));
         registerCrafting(registry, shaped(4, ModItems.BLACKSTONE_BRICKS, "##", "##", '#', ModItems.POLISHED_BLACKSTONE));
+        registerCrafting(registry, shaped(1, ModItems.BLUE_ICE, "###", "###", "###", '#', Blocks.PACKED_ICE));
         registerCrafting(registry, shaped(1, ModItems.BONUS_HEART, "BRB", "BTB", "BSB", 'B', "bloodball", 'R', ModItems.GOLD_HEART_RADISH, 'T', Items.TOTEM_OF_UNDYING, 'S', "enderStar"));
         registerCrafting(registry, shaped(1, ModItems.CACTUS_AXE, "##", "#S", " S", '#', "blockCactus", 'S', "stickWood"));
         registerCrafting(registry, shaped(1, ModItems.CACTUS_HOE, "##", " S", " S", '#', "blockCactus", 'S', "stickWood"));
@@ -157,6 +158,7 @@ public final class ModRecipes
         registerCrafting(registry, shaped(1, ModItems.OBSIDIAN_PICKAXE, "###", " S ", " S ", '#', "ingotObsidianAlloy", 'S', "stickWood"));
         registerCrafting(registry, shaped(1, ModItems.OBSIDIAN_SHOVEL, "#", "S", "S", '#', "ingotObsidianAlloy", 'S', "stickWood"));
         registerCrafting(registry, shaped(1, ModItems.OBSIDIAN_SWORD, "#", "#", "S", '#', "ingotObsidianAlloy", 'S', "stickWood"));
+        registerCrafting(registry, shaped(1, Blocks.PACKED_ICE, "###", "###", "###", '#', Blocks.ICE));
         registerCrafting(registry, shaped(1, ModItems.PLATINUM_AXE, "##", "#S", " S", '#', "ingotPlatinum", 'S', "stickWood"));
         registerCrafting(registry, shaped(1, ModItems.PLATINUM_BLOCK, "###", "###", "###", '#', "ingotPlatinum"));
         registerCrafting(registry, shaped(1, ModItems.PLATINUM_BOOTS, "# #", "# #", '#', "ingotPlatinum"));

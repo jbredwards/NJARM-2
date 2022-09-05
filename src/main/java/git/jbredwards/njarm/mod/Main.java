@@ -4,7 +4,8 @@ import com.cleanroommc.assetmover.AssetMoverAPI;
 import com.google.common.collect.ImmutableMap;
 import com.google.gson.Gson;
 import git.jbredwards.fluidlogged_api.api.util.FluidloggedUtils;
-import git.jbredwards.njarm.mod.client.audio.UnderwaterMusicTicker;
+import git.jbredwards.njarm.mod.client.audio.MusicConditions;
+import git.jbredwards.njarm.mod.client.audio.MusicConditionTicker;
 import git.jbredwards.njarm.mod.client.entity.EntityRendererHandler;
 import git.jbredwards.njarm.mod.client.particle.ParticleFactoryColorize;
 import git.jbredwards.njarm.mod.common.block.util.IEmissiveBlock;
@@ -172,8 +173,9 @@ public final class Main
         //backport the 1.13+ underwater music functionality
         @Override
         protected void postInit() {
+            MusicConditions.registerConditions();
             ObfuscationReflectionHelper.setPrivateValue(Minecraft.class, Minecraft.getMinecraft(),
-                    new UnderwaterMusicTicker(), "field_147126_aw");
+                    new MusicConditionTicker(), "field_147126_aw");
 
             //handle common-side stuff
             super.postInit();
