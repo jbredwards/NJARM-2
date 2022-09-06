@@ -43,6 +43,7 @@ import javax.annotation.Nonnull;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.util.Objects;
 
 import static git.jbredwards.njarm.mod.Constants.*;
 
@@ -93,6 +94,8 @@ public final class Main
             GameRegistry.registerWorldGenerator(new DesertMobSpawnerGenerator(), 4);
             GameRegistry.registerWorldGenerator(new EndLakeGenerator(), 1);
             GameRegistry.registerWorldGenerator(new EndForestGenerator(), 5);
+            GameRegistry.registerWorldGenerator(new MyceliumGrassGenerator(), 5);
+            GameRegistry.registerWorldGenerator(new NetherGrassGenerator(), 5);
             GameRegistry.registerWorldGenerator(new NetherMobSpawnerGenerator(), 4);
             GameRegistry.registerWorldGenerator(new LavaMagmaGenerator(), 10);
             GameRegistry.registerWorldGenerator(new OreGenerator(), 3);
@@ -135,7 +138,9 @@ public final class Main
         @Override
         protected void construct() throws IOException {
             LOGGER.info("Attempting to gather the vanilla assets required by this mod, this may take a while if it's your first load...");
-            final String[][] assets = new Gson().fromJson(IOUtils.toString(Loader.class.getResourceAsStream("/assets/assetmover.jsonc"), Charset.defaultCharset()), String[][].class);
+            final String[][] assets = new Gson().fromJson(IOUtils.toString(Objects.requireNonNull(
+                    Loader.class.getResourceAsStream("/assets/assetmover.jsonc")), Charset.defaultCharset()), String[][].class);
+
             final ProgressManager.ProgressBar progressBar = ProgressManager.push("AssetMover", assets.length);
             for(String[] asset : assets) { //display progress, otherwise it looks like the game froze
                 progressBar.step(asset[2].replaceFirst(String.format("assets/%s/", MODID), ""));

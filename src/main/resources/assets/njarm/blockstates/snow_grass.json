@@ -1,0 +1,72 @@
+{
+    "forge_marker":1,
+    "defaults":{
+        "model":"njarm:multi-layer",
+        "transform":"forge:default-block",
+        "textures":{"cross":"njarm:blocks/snow_grass"}
+    },
+    "variants":{
+        "normal":[{}],
+        "inventory":[{
+            "model":"njarm:snow_grass"
+        }],
+        "layers=1":[{
+            "custom":{
+                "base":"njarm:snow_grass#snow_height2",
+                "Solid":"njarm:snow_grass#snow_height2",
+                "Mipped Cutout":"njarm:snow_grass#cross"
+            }
+        }],
+        "layers=2":[{
+            "custom":{
+                "base":"njarm:snow_grass#snow_height4",
+                "Solid":"njarm:snow_grass#snow_height4",
+                "Mipped Cutout":"njarm:snow_grass#cross"
+            }
+        }],
+        "layers=3":[{
+            "custom":{
+                "base":"njarm:snow_grass#snow_height6",
+                "Solid":"njarm:snow_grass#snow_height6",
+                "Mipped Cutout":"njarm:snow_grass#cross"
+            }
+        }],
+        "layers=4":[{
+            "custom":{
+                "base":"njarm:snow_grass#snow_height8",
+                "Solid":"njarm:snow_grass#snow_height8",
+                "Mipped Cutout":"njarm:snow_grass#cross"
+            }
+        }],
+        "layers=5":[{
+            "custom":{
+                "base":"njarm:snow_grass#snow_height10",
+                "Solid":"njarm:snow_grass#snow_height10",
+                "Mipped Cutout":"njarm:snow_grass#cross"
+            }
+        }],
+        "layers=6":[{
+            "custom":{
+                "base":"njarm:snow_grass#snow_height12",
+                "Solid":"njarm:snow_grass#snow_height12",
+                "Mipped Cutout":"njarm:snow_grass#cross"
+            }
+        }],
+        "layers=7":[{
+            "custom":{
+                "base":"njarm:snow_grass#snow_height14",
+                "Solid":"njarm:snow_grass#snow_height14",
+                "Mipped Cutout":"njarm:snow_grass#cross"
+            }
+        }],
+        "layers=8":[{"model":"snow"}],
+        "snow_height2":[{"model":"snow_height2"}],
+        "snow_height4":[{"model":"snow_height4"}],
+        "snow_height6":[{"model":"snow_height6"}],
+        "snow_height8":[{"model":"snow_height8"}],
+        "snow_height10":[{"model":"snow_height10"}],
+        "snow_height12":[{"model":"snow_height12"}],
+        "snow_height14":[{"model":"snow_height14"}],
+        "cross":[{"model":"cross"}]
+    }
+}

@@ -33,6 +33,8 @@ public final class RupeeConfig implements IConfig
                     ConfigHandler.itemCfg.rupeeCfg.seedWeight));
             ModBlocks.ICE_GRASS.seeds.add(new BlockSmallGrass.SeedEntry(ModItems.RUPEE,
                     ConfigHandler.itemCfg.rupeeCfg.seedWeight));
+            ModBlocks.NETHER_GRASS.seeds.add(new BlockSmallGrass.SeedEntry(ModItems.RUPEE,
+                    ConfigHandler.itemCfg.rupeeCfg.seedWeight));
         }
     }
 

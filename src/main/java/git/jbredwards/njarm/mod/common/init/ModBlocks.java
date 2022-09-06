@@ -96,8 +96,11 @@ public final class ModBlocks
     @Nonnull public static final BlockTreeLog ENDER_LOG_CURSED = register("ender_log_cursed", new BlockTreeLog(MapColor.PURPLE), Blocks.LOG, block -> block.setLightLevel(0.5f));
     @Nonnull public static final BlockTreeLeaves ENDER_LEAVES_CURSED = register("ender_leaves_cursed", new BlockTreeLeaves(MapColor.MAGENTA, () -> ModItems.MAGIC_DUST), Blocks.LEAVES, block -> {block.setLightLevel(0.5f); block.disableFancyLeaves();});
     @Nonnull public static final BlockPackedIce BLUE_ICE = register("blue_ice", new BlockPackedIce(), Blocks.PACKED_ICE, block -> block.setDefaultSlipperiness(0.989f));
-
+    @Nonnull public static final BlockSmallGrass MYCELIUM_GRASS = register("mycelium_grass", new BlockSmallGrass(), Blocks.TALLGRASS, block -> block.setUseNormalSeeds().canSustainBush = state -> state.getBlock() == Blocks.MYCELIUM);
+    @Nonnull public static final BlockSmallGrass NETHER_GRASS = register("nether_grass", new BlockSmallGrass(Material.VINE, MapColor.NETHERRACK), Blocks.TALLGRASS, block -> ((BlockSmallGrass)block.setDefaultSeed(() -> Items.NETHER_WART).setSoundType(ModSounds.NETHERRACK)).canSustainBush = state -> state.getBlock() == Blocks.NETHERRACK);
     @Nonnull public static final BlockBlueFire BLUE_FIRE = register("blue_fire", new BlockBlueFire(), Blocks.FIRE);
+    @Nonnull public static final BlockSnowGrass SNOW_GRASS = register("snow_grass", new BlockSnowGrass(), Blocks.SNOW_LAYER);
+
     @Nonnull public static final BlockBubbleColumn BUBBLE_COLUMN = register("bubble_column", new BlockBubbleColumn(BUBBLE_COLUMN_MATERIAL), Blocks.WATER);
 
     //registry

@@ -144,6 +144,7 @@ public final class MultiLayerModel implements IModel
         @Override
         public boolean isBuiltInRenderer() { return get().isBuiltInRenderer(); }
 
+        @Nonnull
         @Override
         public TextureAtlasSprite getParticleTexture() { return get().getParticleTexture(); }
 

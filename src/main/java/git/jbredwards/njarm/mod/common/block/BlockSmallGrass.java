@@ -11,11 +11,13 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.WeightedRandom;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.IShearable;
 
 import javax.annotation.Nonnull;
@@ -23,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 
 /**
  *
@@ -34,18 +37,28 @@ public class BlockSmallGrass extends BlockBush implements IShearable
     @Nonnull
     protected static final AxisAlignedBB AABB = new AxisAlignedBB(0.1, 0, 0.1, 0.9, 0.8, 0.9);
 
-    @Nonnull
-    public final List<SeedEntry> seeds = new ArrayList<>();
+    @Nonnull public final List<SeedEntry> seeds = new ArrayList<>();
+    @Nonnull public Supplier<Item> defaultSeed = () -> Items.AIR;
+    public boolean useNormalSeeds = false;
 
     @Nonnull
     public Predicate<IBlockState> canSustainBush = state ->
             state.getBlock() == Blocks.GRASS || state.getBlock() == Blocks.DIRT || state.getBlock() == Blocks.FARMLAND;
 
-    public BlockSmallGrass() { super(); }
-    public BlockSmallGrass(@Nonnull Material materialIn) { super(materialIn); }
-    public BlockSmallGrass(@Nonnull Material materialIn, @Nonnull MapColor mapColorIn) {
-        super(materialIn, mapColorIn);
-        seeds.add(new SeedEntry(Items.AIR, 10));
+    public BlockSmallGrass() { this(Material.VINE); }
+    public BlockSmallGrass(@Nonnull Material materialIn) { this(materialIn, materialIn.getMaterialMapColor()); }
+    public BlockSmallGrass(@Nonnull Material materialIn, @Nonnull MapColor mapColorIn) { super(materialIn, mapColorIn); }
+
+    @Nonnull
+    public BlockSmallGrass setUseNormalSeeds() {
+        useNormalSeeds = true;
+        return this;
+    }
+
+    @Nonnull
+    public BlockSmallGrass setDefaultSeed(@Nonnull Supplier<Item> seed) {
+        defaultSeed = seed;
+        return this;
     }
 
     @Override
@@ -66,10 +79,17 @@ public class BlockSmallGrass extends BlockBush implements IShearable
         return AABB;
     }
 
-    @Nonnull
     @Override
-    public Item getItemDropped(@Nonnull IBlockState state, @Nonnull Random rand, int fortune) {
-        return rand.nextInt(8) == 0 ? WeightedRandom.getRandomItem(rand, seeds).item : Items.AIR;
+    public void getDrops(@Nonnull NonNullList<ItemStack> drops, @Nonnull IBlockAccess world, @Nonnull BlockPos pos, @Nonnull IBlockState state, int fortune) {
+        if(RANDOM.nextInt(8) == 0) {
+            final ItemStack stack = useNormalSeeds
+                    ? ForgeHooks.getGrassSeed(RANDOM, fortune)
+                    : new ItemStack(WeightedRandom.getRandomItem(RANDOM, ImmutableList.<SeedEntry>builder()
+                    .addAll(seeds).add(new SeedEntry(defaultSeed.get(), 10)).build()).item);
+
+            if(!stack.isEmpty())
+                drops.add(stack);
+        }
     }
 
     @Override

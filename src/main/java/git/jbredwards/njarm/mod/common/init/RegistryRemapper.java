@@ -45,6 +45,7 @@ public final class RegistryRemapper
                     case "sunstone_ore": mapping.remap(Blocks.QUARTZ_ORE); break;
                     case "nether_brick": mapping.remap(ModBlocks.CRACKED_NETHER_BRICK); break;
                     case "fire_sponge": mapping.remap(ModBlocks.MAGIC_SPONGE); break;
+                    case "snowy_grass_block": mapping.remap(Blocks.GRASS); break;
                     //pots are being rethought, might be added back later
                     case "tall_pot":
                     case "tall_pot_nether":
