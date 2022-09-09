@@ -19,6 +19,16 @@ public final class PluginBlockSnow implements IASMPlugin
     @Override
     public boolean transformClass(@Nonnull ClassNode classNode, boolean obfuscated) {
         classNode.interfaces.add("git/jbredwards/njarm/mod/common/block/util/IHasRunningEffects");
+        //add IHasWorldState functionality
+        classNode.interfaces.add("git/jbredwards/njarm/mod/common/block/util/IHasWorldState");
+        addMethod(classNode, "getStateForWorld", "(Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/state/IBlockState;)Lnet/minecraft/block/state/IBlockState;",
+            "getSnowStateForWorld", "(Lnet/minecraft/block/BlockSnow;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/state/IBlockState;)Lnet/minecraft/block/state/IBlockState;", generator -> {
+                generator.visitVarInsn(ALOAD, 0);
+                generator.visitVarInsn(ALOAD, 1);
+                generator.visitVarInsn(ALOAD, 2);
+                generator.visitVarInsn(ALOAD, 3);
+            }
+        );
         //Add IFancyFallingBlock functionality
         classNode.interfaces.add("git/jbredwards/njarm/mod/common/block/util/gravity/IFancyFallingBlock");
         addMethod(classNode, "getHeightForFallingBlock", "(Lnet/minecraft/block/state/IBlockState;)F", null, null, generator -> {
@@ -83,12 +93,20 @@ public final class PluginBlockSnow implements IASMPlugin
             instructions.insertBefore(insn, new MethodInsnNode(INVOKESPECIAL, "net/minecraft/block/BlockFalling", obfuscated ? "func_189540_a" : "neighborChanged", "(Lnet/minecraft/block/state/IBlockState;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/Block;Lnet/minecraft/util/math/BlockPos;)V", false));
             return true;
         }
-        //don't destroy snow layer if it can fall
-        else if(index == 2 && insn.getOpcode() == ICONST_0) {
-            instructions.insert(insn, genMethodNode("net/minecraft/block/BlockFalling", obfuscated ? "func_185759_i" : "canFallThrough", "(Lnet/minecraft/block/state/IBlockState;)Z"));
-            instructions.insert(insn, new VarInsnNode(ALOAD, 3));
-            instructions.remove(insn);
-            return true;
+        else if(index == 2) {
+            //snow layers can be placed on other snow layer instances
+            if(insn.getOpcode() == ALOAD && ((VarInsnNode)insn).var == 0) {
+                ((JumpInsnNode)insn.getNext()).setOpcode(IFEQ);
+                instructions.insert(insn, new TypeInsnNode(INSTANCEOF, "net/minecraft/block/BlockSnow"));
+                instructions.remove(insn);
+            }
+            //don't destroy snow layer if it can fall
+            else if(insn.getOpcode() == ICONST_0) {
+                instructions.insert(insn, genMethodNode("net/minecraft/block/BlockFalling", obfuscated ? "func_185759_i" : "canFallThrough", "(Lnet/minecraft/block/state/IBlockState;)Z"));
+                instructions.insert(insn, new VarInsnNode(ALOAD, 3));
+                instructions.remove(insn);
+                return true;
+            }
         }
 
         return false;

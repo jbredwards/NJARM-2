@@ -105,7 +105,7 @@ public final class ModItems
     @Nonnull public static final Item CRUMBLING_BEDROCK = register("crumbling_bedrock", new Item());
     @Nonnull public static final Item SUNSTONE = register("sunstone", new Item());
     @Nonnull public static final ItemFood BAKED_APPLE = register("baked_apple", new ItemFood(8, 4.8f, false));
-    @Nonnull public static final ItemFood CARAMEL_APPLE = register("caramel_apple", new ItemFood(4, 4.4f, false), item -> item.setPotionEffect(new PotionEffect(MobEffects.SPEED, 400, 1), 1).setAlwaysEdible());
+    @Nonnull public static final ItemFoodLeftovers CARAMEL_APPLE = register("caramel_apple", new ItemFoodLeftovers(4, 4.4f, false), item -> item.setPotionEffect(new PotionEffect(MobEffects.SPEED, 400, 1), 1).setAlwaysEdible().setContainerItem(Items.STICK));
     @Nonnull public static final ItemFood SUGAR_BREAD = register("sugar_bread", new ItemFood(5, 8, false), item -> item.setPotionEffect(new PotionEffect(MobEffects.SPEED, 400, 1), 1).setAlwaysEdible());
     @Nonnull public static final ItemFood BAGUETTE = register("baguette", new ItemFood(10, 12, false));
     @Nonnull public static final ItemFood SUGAR_BAGUETTE = register("sugar_baguette", new ItemFood(10, 14, false), item -> item.setPotionEffect(new PotionEffect(MobEffects.SPEED, 400, 1), 1).setAlwaysEdible());

@@ -95,6 +95,10 @@ public class BlockSmallGrass extends BlockBush implements IShearable
     @Override
     public int quantityDroppedWithBonus(int fortune, @Nonnull Random random) { return  1 + random.nextInt(fortune * 2 + 1); }
 
+    @Nonnull
+    @Override
+    public EnumOffsetType getOffsetType() { return EnumOffsetType.XYZ; }
+
     @Override
     public void dropBlockAsItemWithChance(@Nonnull World worldIn, @Nonnull BlockPos pos, @Nonnull IBlockState state, float chance, int fortune) {
         super.dropBlockAsItemWithChance(worldIn, pos, state, chance, fortune);

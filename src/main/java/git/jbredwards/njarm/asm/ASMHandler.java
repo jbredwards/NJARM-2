@@ -52,9 +52,12 @@ public final class ASMHandler implements IFMLLoadingPlugin
                 .put("net.minecraft.block.BlockBasePressurePlate", new PluginIHasRunningEffects()) //Fix running effects for pressure plates
                 .put("net.minecraft.block.BlockCauldron", new PluginBlockCauldron()) //Allows cauldrons to have transparent water
                 .put("net.minecraft.block.BlockCarpet", new PluginIHasRunningEffects()) //Fix running effects for carpets
+                .put("net.minecraft.block.BlockDirt", new PluginBlockGrass()) //Use snowy state for any snow block instance
                 .put("net.minecraft.block.BlockFalling", new PluginBlockFalling()) //Allow falling blocks to fall through modded blocks
                 .put("net.minecraft.block.BlockFire", new PluginBlockFire()) //Turn fire into blue fire if it's on soul sand
+                .put("net.minecraft.block.BlockGrass", new PluginBlockGrass()) //Use snowy state for any snow block instance
                 .put("net.minecraft.block.BlockLilyPad", new PluginIHasRunningEffects()) //Fix running effects for lily pads
+                .put("net.minecraft.block.BlockMycelium", new PluginBlockGrass()) //Use snowy state for any snow block instance
                 .put("net.minecraft.block.BlockRailBase", new PluginIHasRunningEffects()) //Fix running effects for rails
                 .put("net.minecraft.block.BlockRedstoneDiode", new PluginIHasRunningEffects()) //Fix running effects for repeaters & comparators
                 .put("net.minecraft.block.BlockSkull", new PluginBlockSkull()) //Use soul soil instead of soul sand for withers
@@ -70,11 +73,12 @@ public final class ASMHandler implements IFMLLoadingPlugin
                 .put("net.minecraft.entity.Entity", new PluginEntity()) //Fix MC-1691
                 .put("net.minecraft.entity.EntityLivingBase", new PluginEntityLivingBase()) //Fix MC-1691 & fix fire damage sound
                 .put("net.minecraft.item.Item", new PluginItem()) //Overrides the totem of undying item
+                .put("net.minecraft.item.ItemSnow", new PluginItemSnow()) //Fix snow layer placement check for snow layers & snow grass
                 .put("net.minecraft.tileentity.TileEntityBeacon", new PluginTileEntityBeacon()) //Backport the vanilla 1.13+ beacon sounds
                 .put("net.minecraft.world.biome.BiomeColorHelper", new PluginBiomeColorHelper()) //Add 1.13+ biome color blend slider functionality
                 .put("net.minecraft.world.gen.feature.WorldGenLakes", new PluginWorldGenLakes()) //Add magma surrounding lava lakes
                 .put("net.minecraft.world.gen.structure.StructureComponent", new PluginStructureComponent()) //Generate cracked nether bricks with nether fortresses
-                .put("net.minecraft.world.World", new PluginWorld()) //Implement IHasWorldState functionality & fix snow layer placement
+                .put("net.minecraft.world.World", new PluginWorld()) //Implement IHasWorldState functionality
                 .build();
 
         @Nonnull

@@ -26,6 +26,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeColorHelper;
 import net.minecraftforge.client.MinecraftForgeClient;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.common.*;
@@ -99,6 +100,8 @@ public final class Main
             GameRegistry.registerWorldGenerator(new NetherMobSpawnerGenerator(), 4);
             GameRegistry.registerWorldGenerator(new LavaMagmaGenerator(), 10);
             GameRegistry.registerWorldGenerator(new OreGenerator(), 3);
+            //event based world generators
+            MinecraftForge.TERRAIN_GEN_BUS.register(SnowGenerator.class);
         }
 
         protected void init() {

@@ -27,7 +27,7 @@ public class DesertMobSpawnerGenerator implements IWorldGenerator
 {
     @Override
     public void generate(@Nonnull Random random, int chunkX, int chunkZ, @Nonnull World world, @Nonnull IChunkGenerator chunkGenerator, @Nonnull IChunkProvider chunkProvider) {
-        if(random.nextFloat() < 0.01f) {
+        if(random.nextInt(500) == 0) {
             BlockPos origin =  new BlockPos((chunkX << 4) + random.nextInt(16) + 8, 0, (chunkZ << 4) + random.nextInt(16) + 8);
             final Biome biome = world.getBiomeForCoordsBody(origin);
             if(biome == Biomes.DESERT || biome == Biomes.DESERT_HILLS || biome == Biomes.MUTATED_DESERT) {

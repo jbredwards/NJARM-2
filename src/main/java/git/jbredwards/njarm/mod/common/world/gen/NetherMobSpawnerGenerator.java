@@ -36,8 +36,8 @@ public class NetherMobSpawnerGenerator implements IWorldGenerator
     @Override
     public void generate(@Nonnull Random random, int chunkX, int chunkZ, @Nonnull World world, @Nonnull IChunkGenerator chunkGenerator, @Nonnull IChunkProvider chunkProvider) {
         if(world.provider.getDimension() == -1) {
-            for(int i = 0; i < 16; i++) {
-                final BlockPos origin =  new BlockPos((chunkX << 4) + random.nextInt(16) + 8, MathHelper.getInt(random, 32, 100), (chunkZ << 4) + random.nextInt(16) + 8);
+            for(int i = 0; i < 64; i++) {
+                final BlockPos origin =  new BlockPos((chunkX << 4) + random.nextInt(16) + 8, MathHelper.getInt(random, 32 + i, 36 + i), (chunkZ << 4) + random.nextInt(16) + 8);
                 final int radiusX = MathHelper.getInt(random, 3, 4);
                 final int radiusZ = MathHelper.getInt(random, 3, 4);
                 int holes = 0;
@@ -56,7 +56,7 @@ public class NetherMobSpawnerGenerator implements IWorldGenerator
                     }
                 }
 
-                //make sure that at least one 1x2x1 hole exists where the a player can enter the dungeon
+                //make sure that at least one 1x2x1 hole exists where the player can enter the dungeon
                 if(holes > 0) new WorldGenMonsterSpawner(
                         Blocks.NETHER_BRICK.getDefaultState(), ModBlocks.CRACKED_NETHER_BRICK.getDefaultState(), radiusX, radiusZ,
                         LootTableList.CHESTS_NETHER_BRIDGE, rand -> MOBS[rand.nextInt(MOBS.length)]).generate(world, random, origin);

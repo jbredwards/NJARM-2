@@ -1,6 +1,7 @@
 package git.jbredwards.njarm.asm.plugins;
 
 import com.google.common.base.Predicate;
+import git.jbredwards.njarm.mod.common.block.BlockSnowGrass;
 import git.jbredwards.njarm.mod.common.block.BlockUndyingTotem;
 import git.jbredwards.njarm.mod.common.block.util.gravity.ICanFallThrough;
 import git.jbredwards.njarm.mod.common.block.util.gravity.IFancyFallingBlock;
@@ -27,7 +28,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.AbstractHorse;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -195,6 +195,12 @@ public final class ASMHooks
         return false;
     }
 
+    //PluginBlockGrass
+    @Nonnull
+    public static Boolean fixGrassSnowyState(boolean old, @Nonnull Block block) {
+        return block instanceof BlockSnow || block instanceof BlockSnowBlock;
+    }
+
     //PluginBlockSkull
     @SuppressWarnings("Guava")
     @Nonnull
@@ -204,7 +210,15 @@ public final class ASMHooks
 
     //PluginBlockSnow
     public static boolean fallOnto(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState fallingState, @Nonnull IBlockState replacedState) {
-        if(!(replacedState.getBlock() instanceof BlockSnow) || (replacedState.getBlock() instanceof ICanFallThrough
+        //special case where snow layers can fall on grass to create snow grass
+        if(replacedState.getBlock() == Blocks.TALLGRASS && replacedState.getValue(BlockTallGrass.TYPE) == BlockTallGrass.EnumType.GRASS) {
+            fallingState = ModBlocks.SNOW_GRASS.getDefaultState().withProperty(BlockSnow.LAYERS, fallingState.getValue(BlockSnow.LAYERS));
+            if(world.mayPlace(fallingState.getBlock(), pos, true, EnumFacing.UP, null)) world.setBlockState(pos, fallingState);
+            return true;
+        }
+
+        //snow layers can only fall onto other snow layers
+        else if(!(replacedState.getBlock() instanceof BlockSnow) || (replacedState.getBlock() instanceof ICanFallThrough
                 && !((ICanFallThrough)replacedState.getBlock()).canFallThrough(replacedState))) return false;
 
         final int combinedLevel = replacedState.getValue(BlockSnow.LAYERS) + fallingState.getValue(BlockSnow.LAYERS);
@@ -216,6 +230,26 @@ public final class ASMHooks
         }
 
         return true;
+    }
+
+    //PluginBlockSnow
+    @Nonnull
+    public static IBlockState getSnowStateForWorld(@Nonnull BlockSnow block, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
+        //let snow be placed on grass (in a way that should work with most mods, hence why the RightClickBlock event isn't being used)
+        if(block == Blocks.SNOW_LAYER) {
+            final IBlockState old = world.getBlockState(pos);
+            if(old.getBlock() == Blocks.TALLGRASS && old.getValue(BlockTallGrass.TYPE) == BlockTallGrass.EnumType.GRASS)
+                return ModBlocks.SNOW_GRASS.getDefaultState().withProperty(BlockSnow.LAYERS, state.getValue(BlockSnow.LAYERS));
+        }
+
+        //don't remove the grass part when placed onto a vanilla snow layer
+        else if(block instanceof BlockSnowGrass) {
+            final IBlockState old = world.getBlockState(pos);
+            if(old.getBlock() == Blocks.SNOW_LAYER)
+                return block.getDefaultState().withProperty(BlockSnow.LAYERS, state.getValue(BlockSnow.LAYERS));
+        }
+
+        return state;
     }
 
     //PluginBlockStoneSlab
@@ -294,6 +328,20 @@ public final class ASMHooks
             BlueFireUtils.renderBlueFireInFirstPerson();
 
         return ret;
+    }
+
+    //PluginItemSnow
+    @Nonnull
+    public static Block fixItemSnowCheck(@Nonnull IBlockState state, @Nonnull Block block) {
+        if(block == Blocks.SNOW_LAYER && state.getBlock() instanceof BlockSnowGrass) return block;
+        else if(block instanceof BlockSnowGrass && state.getBlock() == Blocks.SNOW_LAYER) return block;
+        else return state.getBlock();
+    }
+
+    //PluginItemSnow
+    @Nonnull
+    public static IBlockState fixItemSnowPlacement(@Nonnull Block block, @Nonnull IBlockState state) {
+        return block instanceof BlockSnowGrass ? block.getDefaultState() : state;
     }
 
     //PluginRender

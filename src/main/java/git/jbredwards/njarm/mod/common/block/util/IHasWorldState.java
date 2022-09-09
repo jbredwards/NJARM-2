@@ -7,7 +7,7 @@ import net.minecraft.world.World;
 import javax.annotation.Nonnull;
 
 /**
- * called by {@link World#setBlockState(BlockPos, IBlockState, int)} to update update the input state
+ * called by {@link World#setBlockState(BlockPos, IBlockState, int)} to update the input state
  * to what it should be, for example this is used by fire to become blue fire
  * @author jbred
  *
