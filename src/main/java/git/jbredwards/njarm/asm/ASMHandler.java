@@ -64,6 +64,7 @@ public final class ASMHandler implements IFMLLoadingPlugin
                 .put("net.minecraft.block.BlockSnow", new PluginBlockSnow()) //Snow layers have gravity
                 .put("net.minecraft.block.BlockStoneSlab", new PluginBlockStoneSlab()) //Nether brick slabs have the same nether brick sound as vanilla 1.16+
                 .put("net.minecraft.block.BlockTrapDoor", new PluginIHasRunningEffects()) //Fix running effects for trapdoors
+                .put("net.minecraft.entity.effect.EntityLightningBolt", new PluginEntityLightningBolt()) //Lightning entities only create fire if they're added to the world
                 .put("net.minecraft.entity.item.EntityFallingBlock", new PluginEntityFallingBlock()) //Implement IFancyFallingBlock functionality
                 .put("net.minecraft.entity.item.EntityItem", new PluginEntityItem()) //ResistantItemsConfig implementation
                 .put("net.minecraft.entity.monster.EntityMob", new PluginEntityMob()) //When a mob attacks with a blue fire weapon, the target is lit on blue fire

@@ -28,6 +28,14 @@ public enum ParticleProviders implements IParticleProvider
             return new ParticleBlueFlame(world, x, y, z, xSpeed, ySpeed, zSpeed);
         }
     }),
+    ELECTRIC_SPARK(new IParticleProvider() {
+        @Nonnull
+        @SideOnly(Side.CLIENT)
+        @Override
+        public Particle getParticle(@Nonnull World world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, int... args) {
+            return new ParticleElectricSpark(world, x, y, z, xSpeed, ySpeed, zSpeed);
+        }
+    }),
     GLOW_SQUID_AURA(new IParticleProvider() {
         @Nonnull
         @SideOnly(Side.CLIENT)

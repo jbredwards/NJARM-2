@@ -100,6 +100,9 @@ public final class ModBlocks
     @Nonnull public static final BlockSmallGrass NETHER_GRASS = register("nether_grass", new BlockSmallGrass(Material.VINE, MapColor.NETHERRACK), Blocks.TALLGRASS, block -> ((BlockSmallGrass)block.setDefaultSeed(() -> Items.NETHER_WART).setSoundType(ModSounds.NETHERRACK)).canSustainBush = state -> state.getBlock() == Blocks.NETHERRACK);
     @Nonnull public static final BlockBlueFire BLUE_FIRE = register("blue_fire", new BlockBlueFire(), Blocks.FIRE);
     @Nonnull public static final BlockSnowGrass SNOW_GRASS = register("snow_grass", new BlockSnowGrass(), Blocks.SNOW_LAYER);
+    @Nonnull public static final BlockDriedKelp DRIED_KELP_BLOCK = register("dried_kelp_block", new BlockDriedKelp(Material.GRASS, MapColor.BLACK_STAINED_HARDENED_CLAY), Blocks.HAY_BLOCK);
+    @Nonnull public static final BlockOre ICE_STONE = register("ice_stone", new BlockOre(Material.ROCK), Blocks.STONE, block -> block.setItemDropped(() -> Item.getItemFromBlock(Blocks.COBBLESTONE)).setDefaultSlipperiness(0.98f));
+    @Nonnull public static final BlockLightningRod LIGHTNING_ROD = register("lightning_rod", new BlockLightningRod(Material.IRON, MapColor.GRAY), NETHERITE_BLOCK);
 
     @Nonnull public static final BlockBubbleColumn BUBBLE_COLUMN = register("bubble_column", new BlockBubbleColumn(BUBBLE_COLUMN_MATERIAL), Blocks.WATER);
 

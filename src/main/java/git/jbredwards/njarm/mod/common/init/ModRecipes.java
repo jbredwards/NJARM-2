@@ -49,6 +49,7 @@ public final class ModRecipes
         registerCrafting(registry, shapeless(9, Items.BEETROOT_SEEDS, new ItemStack(ModItems.FOOD_CRATE, 1, 5)));
         registerCrafting(registry, shapeless(1, ModItems.CARAMEL_APPLE, Items.APPLE, Items.SUGAR, Items.STICK));
         registerCrafting(registry, shapeless(9, Items.CARROT, new ItemStack(ModItems.FOOD_CRATE, 1, 1)));
+        registerCrafting(registry, shapeless(9, ModItems.DRIED_KELP, ModItems.DRIED_KELP_BLOCK));
         registerCrafting(registry, shapeless(4, ModItems.ENDER_PLANKS, Ingredient.fromItems(ModItems.ENDER_LOG, ModItems.ENDER_LOG_CURSED)));
         registerCrafting(registry, shapeless(9, 0, Items.FISH, new ItemStack(ModItems.FOOD_CRATE, 1, 9)));
         registerCrafting(registry, shapeless(9, 1, Items.FISH, new ItemStack(ModItems.FOOD_CRATE, 1, 10)));
@@ -112,6 +113,7 @@ public final class ModRecipes
         registerCrafting(registry, shaped(1, ModItems.DIMENSIONAL_MAGIC_MIRROR, "DID", "IMI", "DID", 'D', "dustMagicNJARM", 'I', "ingotMagicalAlloy", 'M', ModItems.MAGIC_MIRROR));
         registerCrafting(registry, shaped(1, ModItems.DIMENSIONAL_MAGIC_MIRROR, "IDI", "DMD", "IDI", 'D', "dustMagicNJARM", 'I', "ingotMagicalAlloy", 'M', ModItems.MAGIC_MIRROR));
         registerCrafting(registry, shaped(1, ModItems.DUMMY, "B", "C", "A", 'B', Blocks.HAY_BLOCK, 'C', Items.LEATHER_CHESTPLATE, 'A', Items.ARMOR_STAND));
+        registerCrafting(registry, shaped(1, ModItems.DRIED_KELP_BLOCK, "###", "###", "###", '#', ModItems.DRIED_KELP));
         registerCrafting(registry, shaped(1, Items.EMERALD, "###", "###", "###", '#', ModItems.RUPEE));
         registerCrafting(registry, shaped(1, ModItems.FEATHER_BOOTS, "# #", "# #", '#', "feather"));
         registerCrafting(registry, shaped(1, 0, ModItems.FOOD_CRATE, "###", "###", "###", '#', Items.WHEAT_SEEDS));
@@ -129,6 +131,7 @@ public final class ModRecipes
         registerCrafting(registry, shaped(1, 12, ModItems.FOOD_CRATE, "###", "###", "###", '#', new ItemStack(Items.FISH, 1, 3)));
         registerCrafting(registry, shaped(1, ModItems.GOLD_HEART_RADISH, "GGG", "GRG", "GGG", 'G', "blockGold", 'R', ModItems.HEART_RADISH));
         registerCrafting(registry, shaped(1, Blocks.ICE, "###", "###", "###", '#', Ingredient.fromItems(ModItems.ICE_GRASS, ModItems.ICE_MUSHROOM)));
+        registerCrafting(registry, shaped(1, ModItems.LIGHTNING_ROD, "S", "#", "#", 'S', "gemSunstone", '#', "ingotNetherite"));
         registerCrafting(registry, shaped(1, ModItems.MAGIC_BLOCK, "###", "###", "###", '#', "ingotMagicalAlloy"));
         registerCrafting(registry, shaped(1, ModItems.MAGIC_INGOT, "###", "###", "###", '#', "nuggetMagicalAlloy"));
         registerCrafting(registry, shaped(2, ModItems.MAGIC_MIRROR, "MPM", "PDP", "MPM", 'M', "dustMagicNJARM", 'P', "ingotPlatinum", 'D', "dustMica"));
@@ -254,7 +257,8 @@ public final class ModRecipes
     @SubscribeEvent
     public static void registerFurnaceFuels(@Nonnull FurnaceFuelBurnTimeEvent event) {
         final @Nullable Item item = event.getItemStack().getItem();
-        if(item == ModItems.SUNSTONE) event.setBurnTime(6400 * 200);
+        if(item == ModItems.DRIED_KELP_BLOCK) event.setBurnTime(20 * 200);
+        else if(item == ModItems.SUNSTONE) event.setBurnTime(6400 * 200);
     }
 
     static void registerBrewing() {

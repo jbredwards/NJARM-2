@@ -1,0 +1,20 @@
+{
+    "forge_marker":1,
+    "defaults":{
+        "model":"njarm:lightning_rod",
+        "textures":{
+            "0":"njarm:blocks/lightning_rod"
+        }
+    },
+    "variants":{
+        "powered=false":[{}],
+        "powered=true":[{}],
+        "inventory":[{
+            "transform":"forge:default-item",
+            "model":"builtin/generated",
+            "textures":{
+                "layer0":"njarm:items/lightning_rod"
+            }
+        }]
+    }
+}

@@ -35,6 +35,7 @@ public final class ConfigHandler
             new ChainConfig(true),
             new FoodCrateConfig(new String[] {"{Type:\"poisonous_potato\",Effects:[{Id:19,Duration:65,Ambient:1b}]}", "{Type:\"golden_apple\",Effects:[{Id:10,Duration:65,Ambient:1b}]}", "{Type:\"golden_carrot\",Effects:[{Id:16,Duration:65,Ambient:1b}]}"}, false),
             new FragileIceConfig(400),
+            new LightningRodConfig(16),
             new MagicOreConfig(true, true, 1, true),
             new NetherCoreConfig(true, 17, 900, 40, 60, false, new String[] {"minecraft:zombie_pigman"}),
             new SoulSoilConfig(true),

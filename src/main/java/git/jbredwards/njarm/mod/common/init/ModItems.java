@@ -94,6 +94,9 @@ public final class ModItems
     @Nonnull public static final ItemBlock MYCELIUM_GRASS = register("mycelium_grass", new ItemBlock(ModBlocks.MYCELIUM_GRASS));
     @Nonnull public static final ItemBlock NETHER_GRASS = register("nether_grass", new ItemBlock(ModBlocks.NETHER_GRASS));
     @Nonnull public static final ItemSnow SNOW_GRASS = register("snow_grass", new ItemSnow(ModBlocks.SNOW_GRASS));
+    @Nonnull public static final ItemBlock DRIED_KELP_BLOCK = register("dried_kelp_block", new ItemBlock(ModBlocks.DRIED_KELP_BLOCK));
+    @Nonnull public static final ItemBlock ICE_STONE = register("ice_stone", new ItemBlock(ModBlocks.ICE_STONE));
+    @Nonnull public static final ItemBlock LIGHTNING_ROD = register("lightning_rod", new ItemBlock(ModBlocks.LIGHTNING_ROD));
 
     //items
     @Nonnull public static final Item RUBY = register("ruby", new Item());

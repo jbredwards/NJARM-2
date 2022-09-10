@@ -26,6 +26,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.AbstractHorse;
 import net.minecraft.init.Blocks;
@@ -42,6 +43,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeColorHelper;
@@ -282,6 +284,29 @@ public final class ASMHooks
         else if(source.isFireDamage()) return ResistantItemsConfig.FIRE.contains(stack.getItem());
         else if(source.isExplosion()) return ResistantItemsConfig.EXPLODE.contains(stack.getItem());
         else return false;
+    }
+
+    //PluginEntityLightningBolt
+    public static void fixLightningFire(@Nonnull EntityLightningBolt bolt, @Nonnull Random rand, boolean isEffect) {
+        if(!isEffect && !bolt.world.isRemote
+                && (bolt.world.getDifficulty() == EnumDifficulty.NORMAL
+                || bolt.world.getDifficulty() == EnumDifficulty.HARD)
+                && bolt.world.getGameRules().getBoolean("doFireTick")
+                && bolt.world.isAreaLoaded(new BlockPos(bolt), 10)) {
+            final BlockPos pos = new BlockPos(bolt);
+            if(bolt.world.getBlockState(pos).getMaterial() == Material.AIR && Blocks.FIRE.canPlaceBlockAt(bolt.world, pos))
+                bolt.world.setBlockState(pos, Blocks.FIRE.getDefaultState());
+
+            for(int i = 0; i < 4; i++) {
+                final BlockPos offset = pos.add(
+                        MathHelper.getInt(rand, -1, 1),
+                        MathHelper.getInt(rand, -1, 1),
+                        MathHelper.getInt(rand, -1, 1));
+
+                if(bolt.world.getBlockState(offset).getMaterial() == Material.AIR && Blocks.FIRE.canPlaceBlockAt(bolt.world, offset))
+                    bolt.world.setBlockState(offset, Blocks.FIRE.getDefaultState());
+            }
+        }
     }
 
     //PluginEntityLivingBase

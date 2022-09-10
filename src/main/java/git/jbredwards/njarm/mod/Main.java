@@ -142,7 +142,8 @@ public final class Main
         protected void construct() throws IOException {
             LOGGER.info("Attempting to gather the vanilla assets required by this mod, this may take a while if it's your first load...");
             final String[][] assets = new Gson().fromJson(IOUtils.toString(Objects.requireNonNull(
-                    Loader.class.getResourceAsStream("/assets/assetmover.jsonc")), Charset.defaultCharset()), String[][].class);
+                    Loader.class.getResourceAsStream("/assets/assetmover_keys.jsonc")),
+                    Charset.defaultCharset()), String[][].class);
 
             final ProgressManager.ProgressBar progressBar = ProgressManager.push("AssetMover", assets.length);
             for(String[] asset : assets) { //display progress, otherwise it looks like the game froze

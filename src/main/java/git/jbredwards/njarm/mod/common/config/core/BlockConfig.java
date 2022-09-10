@@ -32,6 +32,9 @@ public final class BlockConfig implements IConfig
     @Config.LangKey("config.njarm.core.block.fragileIce")
     @Nonnull public final FragileIceConfig fragileIceCfg;
 
+    @Config.LangKey("config.njarm.core.block.lightningRod")
+    @Nonnull public final LightningRodConfig lightningRodCfg;
+
     @Config.LangKey("config.njarm.core.block.magicOre")
     @Nonnull public final MagicOreConfig magicOreCfg;
 
@@ -60,12 +63,13 @@ public final class BlockConfig implements IConfig
     public void onUpdate() { CONFIGS.forEach(IConfig::onUpdate); }
 
     //needed for gson
-    public BlockConfig(@Nonnull BlueFireConfig blueFireCfg, @Nonnull BubbleColumnConfig bubbleColumnCfg, @Nonnull ChainConfig chainCfg, @Nonnull FoodCrateConfig foodCrateCfg, @Nonnull FragileIceConfig fragileIceCfg, @Nonnull MagicOreConfig magicOreCfg, @Nonnull NetherCoreConfig netherCoreCfg, @Nonnull SoulSoilConfig soulSoilCfg, @Nonnull TotemOfUndyingConfig totemOfUndyingCfg) {
+    public BlockConfig(@Nonnull BlueFireConfig blueFireCfg, @Nonnull BubbleColumnConfig bubbleColumnCfg, @Nonnull ChainConfig chainCfg, @Nonnull FoodCrateConfig foodCrateCfg, @Nonnull FragileIceConfig fragileIceCfg, @Nonnull LightningRodConfig lightningRodCfg, @Nonnull MagicOreConfig magicOreCfg, @Nonnull NetherCoreConfig netherCoreCfg, @Nonnull SoulSoilConfig soulSoilCfg, @Nonnull TotemOfUndyingConfig totemOfUndyingCfg) {
         this.blueFireCfg = register(blueFireCfg);
         this.bubbleColumnCfg = register(bubbleColumnCfg);
         this.chainCfg = register(chainCfg);
         this.foodCrateCfg = register(foodCrateCfg);
         this.fragileIceCfg = register(fragileIceCfg);
+        this.lightningRodCfg = register(lightningRodCfg);
         this.magicOreCfg = register(magicOreCfg);
         this.netherCoreCfg = register(netherCoreCfg);
         this.soulSoilCfg = register(soulSoilCfg);

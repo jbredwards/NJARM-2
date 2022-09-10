@@ -1,0 +1,20 @@
+{
+    "forge_marker":1,
+    "defaults":{
+        "model":"cube_bottom_top",
+        "textures":{
+            "bottom":"njarm:blocks/dried_kelp_bottom",
+            "side":"njarm:blocks/dried_kelp_side",
+            "top":"njarm:blocks/dried_kelp_top"
+        }
+    },
+    "variants":{
+        "facing=up":[{}],
+        "facing=down":[{"x":180}],
+        "facing=east":[{"x":90,"y":90}],
+        "facing=south":[{"x":90,"y":180}],
+        "facing=west":[{"x":90,"y":270}],
+        "facing=north":[{"x":90}],
+        "inventory":[{}]
+    }
+}

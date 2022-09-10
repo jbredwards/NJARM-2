@@ -30,11 +30,9 @@ public final class ClientEventHandler
 {
     @Nonnull
     @SideOnly(Side.CLIENT)
-    public static final SpriteStorage BLUE_FLAME = new SpriteStorage(() -> "njarm:particles/blue_flame");
-
-    @Nonnull
-    @SideOnly(Side.CLIENT)
-    public static final SpriteStorage GLOW_SQUID_AURA = new SpriteStorage(() -> "njarm:particles/glow_squid_aura");
+    public static final SpriteStorage
+            BLUE_FLAME = new SpriteStorage(() -> "njarm:particles/blue_flame"),
+            GLOW = new SpriteStorage(() -> "njarm:particles/glow");
 
     @SubscribeEvent
     public static void registerTextures(@Nonnull TextureStitchEvent.Pre event) {
@@ -47,7 +45,7 @@ public final class ClientEventHandler
             event.getMap().registerSprite(new ResourceLocation(Constants.MODID, "blocks/water_still"));
             event.getMap().registerSprite(new ResourceLocation(Constants.MODID, "misc/underwater"));
             event.getMap().registerSprite(new ResourceLocation(Constants.MODID, "particles/blue_flame"));
-            event.getMap().registerSprite(new ResourceLocation(Constants.MODID, "particles/glow_squid_aura"));
+            event.getMap().registerSprite(new ResourceLocation(Constants.MODID, "particles/glow"));
         }
     }
 
