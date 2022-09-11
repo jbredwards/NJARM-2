@@ -46,6 +46,7 @@ public final class RegistryRemapper
                     case "nether_brick": mapping.remap(ModBlocks.CRACKED_NETHER_BRICK); break;
                     case "fire_sponge": mapping.remap(ModBlocks.MAGIC_SPONGE); break;
                     case "snowy_grass_block": mapping.remap(Blocks.GRASS); break;
+                    case "glowing_stone": mapping.remap(ModBlocks.LAVA_STONE); break;
                     //pots are being rethought, might be added back later
                     case "tall_pot":
                     case "tall_pot_nether":
@@ -103,6 +104,7 @@ public final class RegistryRemapper
                     case "sunstone_ore": mapping.remap(Item.getItemFromBlock(Blocks.QUARTZ_ORE)); break;
                     case "nether_brick": mapping.remap(ModItems.CRACKED_NETHER_BRICK); break;
                     case "fire_sponge": mapping.remap(ModItems.MAGIC_SPONGE); break;
+                    case "glowing_stone": mapping.remap(ModItems.LAVA_STONE); break;
 
                     case "rupee_shard": mapping.remap(ModItems.RUPEE); break;
                     case "electricity": mapping.remap(ModItems.CHARGED_SUNSTONE); break;

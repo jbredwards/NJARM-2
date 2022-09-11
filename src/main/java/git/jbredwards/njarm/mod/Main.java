@@ -6,6 +6,7 @@ import com.google.gson.Gson;
 import git.jbredwards.fluidlogged_api.api.util.FluidloggedUtils;
 import git.jbredwards.njarm.mod.client.audio.MusicConditions;
 import git.jbredwards.njarm.mod.client.audio.MusicConditionTicker;
+import git.jbredwards.njarm.mod.client.block.color.SnowLeavesColor;
 import git.jbredwards.njarm.mod.client.entity.EntityRendererHandler;
 import git.jbredwards.njarm.mod.client.particle.ParticleFactoryColorize;
 import git.jbredwards.njarm.mod.common.block.util.IEmissiveBlock;
@@ -15,10 +16,14 @@ import git.jbredwards.njarm.mod.common.init.ModSounds;
 import git.jbredwards.njarm.mod.common.message.*;
 import git.jbredwards.njarm.mod.common.world.gen.*;
 import net.darkhax.bookshelf.util.RenderUtils;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.*;
+import net.minecraft.client.renderer.color.BlockColors;
+import net.minecraft.client.renderer.color.IBlockColor;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.MobEffects;
 import net.minecraft.util.EnumParticleTypes;
@@ -36,14 +41,17 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.registries.IRegistryDelegate;
 import org.apache.commons.io.IOUtils;
 
 import javax.annotation.Nonnull;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.util.Map;
 import java.util.Objects;
 
 import static git.jbredwards.njarm.mod.Constants.*;
@@ -179,12 +187,21 @@ public final class Main
             super.init();
         }
 
-        //backport the 1.13+ underwater music functionality
         @Override
         protected void postInit() {
+            //backport the 1.13+ underwater music functionality
             MusicConditions.registerConditions();
             ObfuscationReflectionHelper.setPrivateValue(Minecraft.class, Minecraft.getMinecraft(),
                     new MusicConditionTicker(), "field_147126_aw");
+
+            //add snow color tree leaves
+            final Map<IRegistryDelegate<Block>, IBlockColor> blockColorMap = ObfuscationReflectionHelper.getPrivateValue(BlockColors.class, Minecraft.getMinecraft().getBlockColors(), "blockColorMap");
+            ForgeRegistries.BLOCKS.forEach(block -> {
+                if(block instanceof BlockLeaves) {
+                    Minecraft.getMinecraft().getBlockColors().registerBlockColorHandler(
+                            new SnowLeavesColor(blockColorMap.get(block.delegate)), block);
+                }
+            });
 
             //handle common-side stuff
             super.postInit();

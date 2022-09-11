@@ -11,6 +11,7 @@ import net.minecraftforge.common.util.Constants;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -54,5 +55,13 @@ public final class NBTUtils
             dest.removeAll(gatherBiomesFromNBT(nbt.getCompoundTag("ExcludeBiomes")));
 
         return dest;
+    }
+
+    public static void gatherBiomesFromData(@Nonnull Collection<Biome> biomes, @Nonnull String[] biomeData) {
+        final Set<Biome> allBiomes = new HashSet<>();
+        for(String data : biomeData) allBiomes.addAll(gatherBiomesFromNBT(getTagFromString(data)));
+
+        biomes.clear();
+        biomes.addAll(allBiomes);
     }
 }

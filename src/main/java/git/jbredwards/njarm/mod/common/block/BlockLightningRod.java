@@ -1,5 +1,6 @@
 package git.jbredwards.njarm.mod.common.block;
 
+import git.jbredwards.fluidlogged_api.api.block.IFluidloggable;
 import git.jbredwards.njarm.mod.Constants;
 import git.jbredwards.njarm.mod.client.particle.util.ParticleProviders;
 import git.jbredwards.njarm.mod.common.config.block.LightningRodConfig;
@@ -36,7 +37,7 @@ import java.util.Random;
  *
  */
 @Mod.EventBusSubscriber(modid = Constants.MODID)
-public class BlockLightningRod extends Block
+public class BlockLightningRod extends Block implements IFluidloggable
 {
     @Nonnull protected static final AxisAlignedBB AABB = AABBUtils.of(6, 0, 6, 10, 16, 10);
 

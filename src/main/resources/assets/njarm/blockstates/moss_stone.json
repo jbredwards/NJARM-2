@@ -1,0 +1,13 @@
+{
+    "forge_marker":1,
+    "defaults":{
+        "model":"njarm:block_tintindex1",
+        "textures":{
+            "all":"njarm:blocks/moss_block"
+        }
+    },
+    "variants":{
+        "normal":[{}],
+        "inventory":[{}]
+    }
+}

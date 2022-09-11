@@ -103,6 +103,9 @@ public final class ModBlocks
     @Nonnull public static final BlockDriedKelp DRIED_KELP_BLOCK = register("dried_kelp_block", new BlockDriedKelp(Material.GRASS, MapColor.BLACK_STAINED_HARDENED_CLAY), Blocks.HAY_BLOCK);
     @Nonnull public static final BlockOre ICE_STONE = register("ice_stone", new BlockOre(Material.ROCK), Blocks.STONE, block -> block.setItemDropped(() -> Item.getItemFromBlock(Blocks.COBBLESTONE)).setDefaultSlipperiness(0.98f));
     @Nonnull public static final BlockLightningRod LIGHTNING_ROD = register("lightning_rod", new BlockLightningRod(Material.IRON, MapColor.GRAY), NETHERITE_BLOCK);
+    @Nonnull public static final BlockOre MOSS_STONE = register("moss_stone", new BlockOre(Material.ROCK, MapColor.GRASS), Blocks.STONE, block -> block.setItemDropped(() -> Item.getItemFromBlock(Blocks.COBBLESTONE)));
+    @Nonnull public static final BlockDragonEgg RED_DRAGON_EGG = register("red_dragon_egg", new BlockDragonEgg(), Blocks.DRAGON_EGG);
+    @Nonnull public static final BlockOre LAVA_STONE = register("lava_stone", new BlockOre(Material.ROCK), Blocks.STONE, block -> block.setItemDropped(() -> Item.getItemFromBlock(Blocks.COBBLESTONE)));
 
     @Nonnull public static final BlockBubbleColumn BUBBLE_COLUMN = register("bubble_column", new BlockBubbleColumn(BUBBLE_COLUMN_MATERIAL), Blocks.WATER);
 

@@ -1,4 +1,4 @@
-package git.jbredwards.njarm.mod.client.model;
+package git.jbredwards.njarm.mod.client.block.model;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;

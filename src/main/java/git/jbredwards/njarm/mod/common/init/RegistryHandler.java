@@ -1,7 +1,7 @@
 package git.jbredwards.njarm.mod.common.init;
 
 import git.jbredwards.njarm.mod.Constants;
-import git.jbredwards.njarm.mod.client.model.MultiLayerModel;
+import git.jbredwards.njarm.mod.client.block.model.MultiLayerModel;
 import git.jbredwards.njarm.mod.common.tileentity.*;
 import net.darkhax.bookshelf.item.ICustomModel;
 import net.minecraft.block.Block;

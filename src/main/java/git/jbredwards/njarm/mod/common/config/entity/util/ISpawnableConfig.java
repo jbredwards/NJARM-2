@@ -33,7 +33,7 @@ public interface ISpawnableConfig extends IConfig
             final NBTTagCompound nbt = NBTUtils.getTagFromString(data);
             final Set<Biome> biomeSet = NBTUtils.gatherBiomesFromNBT(nbt);
 
-            spawnData.add(new Spawn(NBTUtils.getTagFromString(data), biomeSet));
+            spawnData.add(new Spawn(nbt, biomeSet));
             allBiomes.addAll(biomeSet);
         }
 

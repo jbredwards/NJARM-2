@@ -17,6 +17,12 @@ public final class WorldConfig implements IConfig
     @Nonnull
     private final NonNullList<IConfig> CONFIGS = NonNullList.create();
 
+    @Config.LangKey("config.njarm.core.world.desertSpawner")
+    @Nonnull public final DesertSpawnerConfig desertSpawnerCfg;
+
+    @Config.LangKey("config.njarm.core.world.netherSpawner")
+    @Nonnull public final NetherSpawnerConfig netherSpawnerCfg;
+
     @Config.LangKey("config.njarm.core.world.oreGen")
     @Nonnull public final OreConfig oreCfg;
 
@@ -36,7 +42,9 @@ public final class WorldConfig implements IConfig
     public void onUpdate() { CONFIGS.forEach(IConfig::onUpdate); }
 
     //needed for gson
-    public WorldConfig(@Nonnull OreConfig oreCfg) {
+    public WorldConfig(@Nonnull DesertSpawnerConfig desertSpawnerCfg, @Nonnull NetherSpawnerConfig netherSpawnerCfg, @Nonnull OreConfig oreCfg) {
+        this.desertSpawnerCfg = register(desertSpawnerCfg);
+        this.netherSpawnerCfg = register(netherSpawnerCfg);
         this.oreCfg = register(oreCfg);
     }
 }

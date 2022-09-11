@@ -8,9 +8,7 @@ import net.minecraftforge.common.config.Config;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  *
@@ -31,14 +29,7 @@ public final class GlowSquidConfig implements ISpawnableConfig
     @Nonnull public static final List<Biome> OVERRIDE_BIOMES = new ArrayList<>();
 
     @Override
-    public void onUpdate() {
-        OVERRIDE_BIOMES.clear();
-        final Set<Biome> allBiomes = new HashSet<>();
-        for(String data : overrideBiomes) allBiomes.addAll(
-                NBTUtils.gatherBiomesFromNBT(NBTUtils.getTagFromString(data)));
-
-        OVERRIDE_BIOMES.addAll(allBiomes);
-    }
+    public void onUpdate() { NBTUtils.gatherBiomesFromData(OVERRIDE_BIOMES, overrideBiomes); }
 
     //needed for gson
     public GlowSquidConfig(@Nonnull String[] spawnData, @Nonnull String[] overrideBiomes) {

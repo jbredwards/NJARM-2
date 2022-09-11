@@ -54,9 +54,8 @@ public final class ClientEventHandler
         //vanilla blocks
         event.getBlockColors().registerBlockColorHandler(withIndex(ColorHandlers.BLOCK_WATER), Blocks.CAULDRON);
         //modded blocks
-        event.getBlockColors().registerBlockColorHandler(ColorHandlers.BLOCK_GRASS, ModBlocks.MOSS);
-        event.getBlockColors().registerBlockColorHandler(withIndex(ColorHandlers.BLOCK_GRASS), ModBlocks.OVERGROWN_DIRT);
-        event.getBlockColors().registerBlockColorHandler(withIndex(ColorHandlers.BLOCK_GRASS), ModBlocks.OVERGROWN_STONE);
+        event.getBlockColors().registerBlockColorHandler(ColorHandlers.BLOCK_GRASS,
+                ModBlocks.MOSS, ModBlocks.OVERGROWN_DIRT, ModBlocks.OVERGROWN_STONE, ModBlocks.MOSS_STONE);
     }
 
     @SubscribeEvent
@@ -64,7 +63,7 @@ public final class ClientEventHandler
         //modded items
         event.getItemColors().registerItemColorHandler((stack, tintIndex)
                 -> ColorizerGrass.getGrassColor(0.5, 1),
-                ModItems.MOSS);
+                ModItems.MOSS, ModItems.MOSS_STONE);
         event.getItemColors().registerItemColorHandler((stack, tintIndex)
                 -> (tintIndex == 1 ? ModItems.CROWN.getColor(stack) : -1),
                 ModItems.CROWN);

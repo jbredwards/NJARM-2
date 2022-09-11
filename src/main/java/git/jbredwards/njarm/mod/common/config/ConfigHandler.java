@@ -207,7 +207,7 @@ public final class ConfigHandler
             new ResistantItemsConfig(
                     new String[] {"njarm:ash_pile", "soul_sand", "njarm:soul_soil"},
                     new String[] {"njarm:charged_sunstone", "njarm:sunstone"},
-                    new String[] {"njarm:ancient_debris", "njarm:charged_sunstone", "njarm:netherite_axe", "njarm:netherite_block", "njarm:netherite_boots", "njarm:netherite_chestplate", "njarm:netherite_helmet", "njarm:netherite_hoe", "njarm:netherite_ingot", "njarm:netherite_leggings", "njarm:netherite_nugget", "njarm:netherite_pickaxe", "njarm:netherite_shovel", "njarm:netherite_sword", "njarm:netherite_scrap", "njarm:sapphire", "njarm:sapphire_block", "njarm:sapphire_ore", "njarm:sunstone"},
+                    new String[] {"njarm:ancient_debris", "njarm:charged_sunstone", "njarm:netherite_axe", "njarm:netherite_block", "njarm:netherite_boots", "njarm:netherite_chestplate", "njarm:netherite_helmet", "njarm:netherite_hoe", "njarm:netherite_ingot", "njarm:netherite_leggings", "njarm:netherite_nugget", "njarm:netherite_pickaxe", "njarm:netherite_shovel", "njarm:netherite_sword", "njarm:netherite_scrap", "njarm:sapphire", "njarm:sapphire_axe", "njarm:sapphire_block", "njarm:sapphire_boots", "njarm:sapphire_bow", "njarm:sapphire_chestplate", "njarm:sapphire_helmet", "njarm:sapphire_hoe", "njarm:sapphire_leggings", "njarm:sapphire_ore", "njarm:sapphire_pickaxe", "njarm:sapphire_shovel", "njarm:sapphire_sword", "njarm:sunstone"},
                     new String[] {"njarm:bedrock_axe", "njarm:bedrock_boots", "njarm:bedrock_chestplate", "njarm:bedrock_helmet", "njarm:bedrock_hoe", "njarm:bedrock_leggings", "njarm:bedrock_pickaxe", "njarm:bedrock_shovel", "njarm:bedrock_sword", "njarm:crumbling_bedrock"}
             ),
             new RupeeConfig(true, 1),
@@ -215,6 +215,18 @@ public final class ConfigHandler
 
     @Config.LangKey("config.njarm.cfg.world")
     @Nonnull public static final WorldConfig worldCfg = register(new WorldConfig(
+            new DesertSpawnerConfig(0.002f, new String[] {
+                    "{Biomes:[desert]}",
+                    "{Biomes:[desert_hills]}",
+                    "{Biomes:[mutated_desert]}"
+            }),
+            new NetherSpawnerConfig(64, new String[] {
+                    "njarm:fire_skeleton",
+                    "njarm:soul_skeleton",
+                    "njarm:blood",
+                    "njarm:blood",
+                    "magma_cube"
+            }),
             new OreConfig(new String[] {
                     "{Ore:{Name:\"njarm:ruby_ore\"},Stone:{Name:stone},MinY:0,MaxY:16,ClumpSize:8,PerChunk:1}",
                     "{Ore:{Name:\"njarm:quartz_ore\"},Stone:{Name:stone},MinY:0,MaxY:256,ClumpSize:14,PerChunk:8}",

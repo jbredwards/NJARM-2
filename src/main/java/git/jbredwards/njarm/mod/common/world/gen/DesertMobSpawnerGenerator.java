@@ -1,13 +1,12 @@
 package git.jbredwards.njarm.mod.common.world.gen;
 
+import git.jbredwards.njarm.mod.common.config.world.DesertSpawnerConfig;
 import git.jbredwards.njarm.mod.common.world.gen.feature.WorldGenMonsterSpawner;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.IChunkGenerator;
 import net.minecraft.world.storage.loot.LootTableList;
@@ -27,10 +26,9 @@ public class DesertMobSpawnerGenerator implements IWorldGenerator
 {
     @Override
     public void generate(@Nonnull Random random, int chunkX, int chunkZ, @Nonnull World world, @Nonnull IChunkGenerator chunkGenerator, @Nonnull IChunkProvider chunkProvider) {
-        if(random.nextInt(500) == 0) {
+        if(random.nextFloat() < DesertSpawnerConfig.chance()) {
             BlockPos origin =  new BlockPos((chunkX << 4) + random.nextInt(16) + 8, 0, (chunkZ << 4) + random.nextInt(16) + 8);
-            final Biome biome = world.getBiomeForCoordsBody(origin);
-            if(biome == Biomes.DESERT || biome == Biomes.DESERT_HILLS || biome == Biomes.MUTATED_DESERT) {
+            if(DesertSpawnerConfig.BIOMES.contains(world.getBiomeForCoordsBody(origin))) {
                 origin = origin.up(world.getTopSolidOrLiquidBlock(origin).down(MathHelper.getInt(random, 6, 7)).getY());
                 final int radiusX = MathHelper.getInt(random, 3, 4);
                 final int radiusZ = MathHelper.getInt(random, 3, 4);
